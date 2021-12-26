@@ -5,6 +5,7 @@ import Right from './right/Right'
 import section1 from '../assets/images/main-1.png'
 import section2 from '../assets/images/section2.png'
 import section3 from '../assets/images/section3.png'
+import Footer from './footer/Footer'
 
 const Home = () => {
     return (
@@ -62,7 +63,7 @@ const Home = () => {
                 </div>
             </div>
             <footer>
-                
+                <Footer />
             </footer>
         </>
     )
