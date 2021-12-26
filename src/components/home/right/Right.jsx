@@ -1,6 +1,6 @@
 import React from 'react'
 import classes from './Right.module.css'
-import banner from '../../assets/images/undraw_creativity_re_8grt 1.png'
+import banner from '../../../assets/images/undraw_creativity_re_8grt 1.png'
 
 const Right = () => {
     return (
