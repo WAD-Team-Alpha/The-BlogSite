@@ -2,11 +2,11 @@ import React from 'react'
 import classes from './Left.module.css'
 import MenuIcon from '@mui/icons-material/Menu';
 
-const Left = () => {
+const Left = (props) => {
     return (
         <>
             <div className={classes.header}>
-                <button type="button" className={"btn btn-primary shadow-none " + classes.menubutton}>
+                <button type="button" className={"btn btn-primary shadow-none " + classes.menubutton} onClick={props.nav}>
                     <MenuIcon sx={{ color: '#333333', fontSize: '2em' }} />
                 </button>
             </div>

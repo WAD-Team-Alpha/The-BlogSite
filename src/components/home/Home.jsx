@@ -7,13 +7,13 @@ import section2 from '../../assets/images/section2.png'
 import section3 from '../../assets/images/section3.png'
 import Footer from '../footer/Footer'
 
-const Home = () => {
+const Home = (props) => {
     return (
         <>
             <div className={`container-fluid`}>
                 <div className="row">
                     <div className={`col-md-7 ${classes.left}`}>
-                        <Left />
+                        <Left nav={props.nav} />
                     </div>
                     <div className={`col-md-5 ${classes.right}`}>
                         <Right />
