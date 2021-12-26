@@ -1,6 +1,5 @@
 import React from 'react'
 import classes from './GenreCard.module.css'
-import genreData from '../../helpers/genreData.json'
 
 const GenreCard = (props) => {
     return (

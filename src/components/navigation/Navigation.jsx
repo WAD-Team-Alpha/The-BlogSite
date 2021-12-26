@@ -2,7 +2,7 @@ import { Category, Close, Search, TrendingUp } from '@mui/icons-material'
 import React from 'react'
 import GenreCard from './genrecards/GenreCard'
 import classes from './Navigation.module.css'
-import genreData from '../helpers/genreData.json'
+import genreData from '../../helpers/genreData.json'
 import Trending from './trending/Trending'
 
 const Navigation = (props) => {
