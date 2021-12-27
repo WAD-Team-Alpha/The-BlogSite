@@ -1,0 +1,19 @@
+.trendcard {
+    width: 200px;
+    margin: 1em 0;
+    border: none;
+}
+
+.trendcard img {
+    height: 10em;
+    opacity: 0.4;
+}
+
+.trendcard p {
+    color: white;
+}
+
+.title {
+    color: white;
+    font-weight: 900;
+}

@@ -1,0 +1,33 @@
+.trendcard {
+    width: 200px;
+    margin: 1em 0;
+    border: 5px solid rgb(17, 37, 104);;
+   
+}
+
+.trendcard img {
+    height:120px;
+    width:120px;
+    border-radius: 500px;
+    margin-left: 20%;
+    margin-top: 20px;
+}
+.trendcard p{
+    margin-left: 58px;
+}
+.trendcard a {
+    background-color: rgb(11, 21, 104);
+    text-decoration: none;
+    text-align: center;
+    color:white;
+    padding: 6px;
+    padding-left: 16px;
+    padding-right: 16px;
+    margin-left: 45px;
+    border-radius: 20px;
+}
+
+.title {
+    color: white;
+    font-weight: 900;
+}
