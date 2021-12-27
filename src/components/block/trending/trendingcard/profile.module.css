@@ -1,7 +1,7 @@
 .trendcard {
     width: 200px;
     margin: 1em 0;
-    border: 5px solid rgb(17, 37, 104);;
+    border: 5px solid #05386b;
    
 }
 
@@ -16,7 +16,7 @@
     margin-left: 58px;
 }
 .trendcard a {
-    background-color: rgb(11, 21, 104);
+    background-color: #05386b;
     text-decoration: none;
     text-align: center;
     color:white;

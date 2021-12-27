@@ -34,7 +34,7 @@ const Block = () => {
                                         <li><img src="https://img.icons8.com/ios-filled/24/000000/facebook-like.png" /><a href="#">Like 100</a></li>
                                         <li><img src="https://img.icons8.com/ios-glyphs/20/000000/speaker-notes.png" /><a href="#">Comment 999</a></li>
                                         <li><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" /><a href='#'>Veiw post</a></li>
-                                        <li><a>Posted by Surya on 27/12/2021</a></li>
+                                        <li><a>Posted by <a href="#" style={{color: "#379683"}}>Surya</a> on 27/12/2021</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -59,7 +59,11 @@ const Block = () => {
                                     <h5 class="card-title fw-bold fs-4">Q: What is the question about ? it should be written here ?</h5>
                                     <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
 
-
+                                    <ul className={`${classes.question}`}>
+                                        
+                                        <li style={{ marginRight:"10px"}}><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" /><a href='#'>Veiw post</a></li>
+                                        <li><a className={`${classes.post}`}>Posted by <a  href="#" style={{color: "#379683"}} >Surya</a> on 27/12/2021</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
