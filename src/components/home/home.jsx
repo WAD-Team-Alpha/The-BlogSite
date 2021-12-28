@@ -95,19 +95,19 @@ const Home = () => {
                             </div>
 
                         </div>
-                        <hr style={{ color: '#379683', padding: "1px" }} />
-                        <div className={`row  ${classes.fellow}`}>
+                        <hr style={{ color: '#379683', padding: "1px" , marginRight:"20px"}} />
+                        <div className={`  ${classes.fellow}`}>
 
                             <div className={`${classes.head}`}>
                                 <p className={`fw-bold fs-8 `} style={{ color: 'black' }}>People you may know</p>
                             </div>
 
                             <div className={`row  ${classes.bottom}`}>
-                                <div className={`col-md-5 fw-bold ${classes.person} ${classes.person1}`}>
+                                <div className={`fw-bold ${classes.person} ${classes.person1}`}>
                                     <img src="https://picsum.photos/50" alt="img" />
                                     <a href='#'>Surya</a>
                                 </div>
-                                <div className={`col-md-5 fw-bold ${classes.person}`}>
+                                <div className={` fw-bold ${classes.person}`}>
                                     <img src="https://picsum.photos/50" alt="img" />
                                     <a href='#'>Surya</a>
                                 </div>
@@ -115,11 +115,11 @@ const Home = () => {
 
                             </div>
                             <div className={`row  ${classes.bottom}`}>
-                                <div className={`col-md-5 fw-bold ${classes.person} ${classes.person2}`}>
+                                <div className={`fw-bold ${classes.person} ${classes.person2}`}>
                                     <img src="https://picsum.photos/50" alt="img" />
                                     <a href='#'>Surya</a>
                                 </div>
-                                <div className={`col-md-5 fw-bold ${classes.person}`}>
+                                <div className={`fw-bold ${classes.person}`}>
                                     <img src="https://picsum.photos/50" alt="img" />
                                     <a href='#'>Surya</a>
                                 </div>
