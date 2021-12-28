@@ -8,9 +8,9 @@ const Routing = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route element={<Layout />}>
+                <Route element={<Layout />}/>
                     {/* All the child routes should go in here */}
-                </Route>
+                
             </Routes>
         </Router>
     )
