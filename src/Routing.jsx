@@ -9,11 +9,11 @@ const Routing = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route element={<Layout />}>
+                <Route element={<Layout />}/>
                    <Route path="/profile" element={<NewProfile/>}/> 
 
                     {/* All the child routes should go in here */}
-                </Route>
+                
             </Routes>
         </Router>
     )
