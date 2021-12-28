@@ -8,7 +8,7 @@ import TrendingCard from './trendingcard/TrendingCard';
 
 const LeftArrow = (props) => {
     const { className, onClick } = props
-    return props.currentSlide != 0 ? (
+    return props.currentSlide !== 0 ? (
         <div className={className + " " + classes.arrow + " " + classes.left} onClick={onClick} >
             <KeyboardArrowLeft style={{ color: '#5CDB95', fontSize: '3rem' }} />
         </div>
@@ -17,7 +17,7 @@ const LeftArrow = (props) => {
 
 const RightArrow = (props) => {
     const { className, onClick } = props
-    return props.currentSlide != 6 ? (
+    return props.currentSlide !== 6 ? (
         <div className={className + " " + classes.arrow + " " + classes.right} onClick={onClick} >
             <KeyboardArrowRight style={{ color: '#5CDB95', fontSize: '3rem' }} />
         </div>
