@@ -1,0 +1,107 @@
+.col-7{
+    height:100vh;
+    margin-right: 5em;
+}
+  
+.profilecard{
+    height:50%;
+    width:27%;
+   
+    
+}
+
+.maincontainer{
+    padding-top: 2em;
+    padding-left: 2.5em;
+    padding-right: 0.3em;
+    overflow: hidden;
+    width:400px;
+    /* padding-bottom: 6em; */
+
+}
+
+.containerMd{
+    height: 580px;
+    background-color: #05386B;
+    padding-top: 1em;
+    border-radius: 0.3em;
+    width:360px
+}
+
+
+.uname{
+    padding-right: 15.5em;
+    color: black;
+    font-size: 24px;
+
+}
+
+
+.followercount{
+    font-size: 24px;
+    color: black;
+    margin-left: 1.2em;
+}
+
+.followingcount{
+    font-size: 24px;
+    color: black;
+    margin-left: 1.5em;
+}
+
+.mainfollowers,.mainfollowing{
+    color: grey;
+    cursor: pointer;
+    
+
+}
+
+.editbutton{
+    width: 10px;
+}
+
+.genres,.email,.bio{
+    margin-left: 1em;
+    margin-top: 0.5em;
+    color: black;
+    font-size: medium;
+}
+
+.hr{
+    margin-left: 1.5em;
+    width:300px
+}
+
+.followbtn{
+    margin-top: 4em;
+    margin-left: 1em;
+    width:400px;
+    border-radius: 0.5em;
+    background-color: #8ee4af;
+}
+
+.analyticsContainer{
+    margin-right: 10em;
+    height: 300px;
+    margin-top: 1em;
+    background-color: antiquewhite;
+}
+
+.custombtn{
+    margin-left: 1em;
+    margin-top: 3em;
+   
+}
+
+.middleContainer{
+    padding-top: 2em;
+}
+
+.containerMain{
+    padding-bottom: 1em;
+}
+
+.postbtndiv{
+    margin-left: 36.5em;
+   
+}
