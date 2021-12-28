@@ -12,7 +12,7 @@ const Layout = (props) => {
         <>
             {!nav && <Header nav={navHandler} />}
             {nav && <Navigation nav={navHandler} />}
-            {<Outlet />}
+            {!nav && <Outlet />}
         </>
     );
 }
