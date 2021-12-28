@@ -39,7 +39,7 @@ const Carousel = (props) => {
     return (
         <Slider {...settings}>
             {props.data.map(value => {
-                return <Card key={value} className={"trendcard"} link={value.link} title={value.title} content={value.content} />
+                return <Card key={value} className={props.className} link={value.link} title={value.title} content={value.content} theme={props.theme} />
             })}
         </Slider>
     )

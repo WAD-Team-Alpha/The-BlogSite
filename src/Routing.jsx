@@ -14,7 +14,10 @@ const Routing = () => {
                    <Route path="/profile" element={<NewProfile/>}/> 
 
                     {/* All the child routes should go in here */}
+                   
                     <Route path="/home" element={<Home />} />
+                    
+                   
                 </Route>
             </Routes>
         </Router>
