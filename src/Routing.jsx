@@ -5,6 +5,7 @@ import Layout from './Layout';
 import NewProfile from './components/NewProfile/newProfile';
 import Home from './components/home/home';
 
+
 const Routing = () => {
     return (
         <Router>
@@ -12,6 +13,8 @@ const Routing = () => {
                 <Route path="/" element={<Main />} />
                 <Route element={<Layout />}>
                    <Route path="/profile" element={<NewProfile/>}/> 
+                  
+                   
 
                     {/* All the child routes should go in here */}
                    
