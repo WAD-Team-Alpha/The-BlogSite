@@ -3,7 +3,8 @@ import React from 'react'
 import GenreCard from './genrecards/GenreCard'
 import classes from './Navigation.module.css'
 import genreData from '../../helpers/genreData.json'
-import Trending from './trending/Trending'
+import Carousel from './trending/carousel/Carousel'
+import trendingData from '../../helpers/trendingData.json'
 
 const Navigation = (props) => {
     return (
@@ -33,7 +34,7 @@ const Navigation = (props) => {
             <div className={"container " + classes.trending}>
                 <h2><TrendingUp fontSize='1.5em' /> Trending</h2>
                 <div className="">
-                    <Trending />
+                    <Carousel data={trendingData} />
                 </div>
             </div>
         </nav>

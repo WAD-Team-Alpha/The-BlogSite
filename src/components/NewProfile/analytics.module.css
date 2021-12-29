@@ -1,0 +1,43 @@
+.pie{
+    background-color:white;
+    margin-top:6em; 
+    margin-right:1em;
+
+}
+
+.analytics{
+    background-color:#333333;
+    margin-right: 0.3em;
+    height:30px;
+    padding-top: 0.2em;
+    width:330px
+    
+}
+
+.anname{
+    color: white;
+    font-size: medium;
+    padding-left:2em;
+    
+}
+
+.aninfo{
+    background-color:#8ee4af;
+    margin-right:0.3em;
+    height:330px;
+    padding-top: 1em;
+    width:330px
+}
+
+.matter{
+    font-size: medium;
+    margin-left: 2em;
+    
+}
+
+.pieimg{
+    margin-top: 1em;
+    width:330px;
+    height:200px
+}
+

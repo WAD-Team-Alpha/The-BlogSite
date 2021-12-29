@@ -1,20 +1,30 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from './components/main/Main'
 import Postdetails from './components/post_details/leftp/PostDetail';
 import QuesDetail from './components/Ques_details/QuesDetail'
-import Layout from './Layout';
+import ProfileLayout from './layouts/ProfileLayout';
+import Profile from './components/NewProfile/newProfile';
+import Home from './components/home/home';
+import HomeLayout from './layouts/HomeLayout';
+
 
 const Routing = () => {
     return (
         <Router>
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route element={<Layout />}>
-                    {/* All the child routes should go in here */}
-                    <Route path="/post-details" element={<Postdetails />} />
-                    <Route path="/ques-details" element={<QuesDetail />} />
 
+                <Route path="/post-detail" element={<Postdetails/>} />
+
+                <Route path="/ques-detail" element={<QuesDetail/>} />
+
+                <Route element={<ProfileLayout />}>
+                    <Route path="/profile" element={<Profile />} />
+                </Route>
+
+                <Route element={<HomeLayout />}>
+                    <Route path="/home" element={<Home />} />
                 </Route>
 
             </Routes>

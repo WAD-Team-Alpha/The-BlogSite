@@ -1,0 +1,17 @@
+.like{
+    position: absolute;
+    bottom:0px;
+ }
+ .like li{
+    
+    display: inline;
+    margin-right:35px;
+    font-size: smaller;
+ }
+ .like li img{
+     margin-right: 5px;
+ }
+ .like li a{
+     text-decoration: none;
+     color: black;
+ }

@@ -3,12 +3,12 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material'
-import classes from './Trending.module.css'
-import TrendingCard from './trendingcard/TrendingCard';
+import classes from './Carousel.module.css'
+import Card from '../card/Card';
 
 const LeftArrow = (props) => {
     const { className, onClick } = props
-    return props.currentSlide != 0 ? (
+    return props.currentSlide !== 0 ? (
         <div className={className + " " + classes.arrow + " " + classes.left} onClick={onClick} >
             <KeyboardArrowLeft style={{ color: '#5CDB95', fontSize: '3rem' }} />
         </div>
@@ -17,14 +17,14 @@ const LeftArrow = (props) => {
 
 const RightArrow = (props) => {
     const { className, onClick } = props
-    return props.currentSlide != 6 ? (
+    return props.currentSlide !== 6 ? (
         <div className={className + " " + classes.arrow + " " + classes.right} onClick={onClick} >
             <KeyboardArrowRight style={{ color: '#5CDB95', fontSize: '3rem' }} />
         </div>
     ) : <div></div>
 }
 
-const Trending = () => {
+const Carousel = (props) => {
     let settings = {
         prevArrow: <LeftArrow />,
         nextArrow: <RightArrow />,
@@ -36,14 +36,13 @@ const Trending = () => {
         dots: false,
         initialSlide: 0,
     };
-    const genreData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     return (
         <Slider {...settings}>
-            {genreData.map(genre => {
-                return <TrendingCard key={genre} />
+            {props.data.map(value => {
+                return <Card key={value} className={props.className} link={value.link} title={value.title} content={value.content} theme={props.theme} />
             })}
         </Slider>
     )
 }
 
-export default Trending
+export default Carousel
