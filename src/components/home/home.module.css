@@ -61,7 +61,8 @@
 }
 .bottom{
     margin-top: 20px;
-    margin-left: 8px;
+    margin-left: 25px;
+
 }
 .fellow{
    
@@ -74,6 +75,7 @@
     height: 390px;
     width: 300px;
     margin-left: 20px;
+    
 
 }
 .head{
@@ -121,11 +123,13 @@
     
 }
 .order{
-    margin-left: 15px;
+   
     margin-bottom: 50px;
+   
    
 }
 .fix{
     position: sticky;
     top:0px;
+    
 }
