@@ -6,6 +6,7 @@ import Profile from './components/NewProfile/newProfile';
 import Home from './components/home/home';
 import HomeLayout from './layouts/HomeLayout';
 
+
 const Routing = () => {
     return (
         <Router>

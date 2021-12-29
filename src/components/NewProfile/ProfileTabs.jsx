@@ -1,38 +1,39 @@
 import { useState } from "react";
 import classes from "./newprofile.module.css";
 import { Tabs, Tab } from "react-bootstrap";
+import Postcard from "./Postcard";
+import Questionscard from "./Questionscard";
 
 
 const ProfileTabs = () => {
   const [tab, setTab] = useState("posts");
 
   return (
+   
     <div className={classes.container}>
       <div className={classes.profileTabs}>
-        
-        <Tabs 
+    
+        <Tabs className={classes.navtabs }
           id="profiletab"
           activeKey={tab}
           onSelect={(k) => setTab(k)}
-          className="mb-3"
+          
          
         >
        
             
-          <Tab eventKey="posts" title="Posts"  >
-            <div className={classes.postbtndiv}>
-              <button className="btn btn-primary">Create Post</button>
-            </div>
+          <Tab eventKey="posts" title="Posts" >
+            <Postcard/>
           </Tab>
           <Tab eventKey="questions" title="Questions">
-            <div className={classes.postbtndiv}>
-              <button className="btn btn-primary">Add a question</button>
-            </div>
+            <Questionscard/>
           </Tab>
           
         </Tabs>
+      
         </div>
       </div>
+      
    
   );
 };
