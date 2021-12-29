@@ -1,0 +1,45 @@
+.containerMD {
+    height: 222px;
+    width: 343px;
+    background-color: #05386b;
+    /* top: 86px; */
+    margin-top: 2em;
+    padding-top: 2em;
+}
+
+.containerSD {
+    /* margin-top: 1em; */
+    padding: 1em;
+}
+
+.containerLD {
+    height: 450px;
+    width: 343px;
+    /* background-color: #05386b; */
+    /* top: 86px; */
+    /* margin-top: 2em;
+    padding-top: 1.5em; */
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+}
+
+.containerSecond {
+    height: 10px;
+    width: 343px;
+    background-color: #5cdb95;
+    /* top: 86px; */
+    /* padding-top: 2em; */
+}
+
+.containerThird {
+    border: 1px solid black;
+    height: 64px;
+    margin-bottom: 0.5em;
+}
+
+.Mcon {
+    height: 40px;
+    background-color: #05386b;
+    border-top-left-radius: 0.3em;
+    border-top-right-radius: 0.3em;
+}
