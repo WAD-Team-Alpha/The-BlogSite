@@ -2,6 +2,8 @@
     padding: 0.5em;
     background-color: #333333;
     display: flex;
+    position:fixed;
+    z-index: 1;
 }
 
 .menuicon {

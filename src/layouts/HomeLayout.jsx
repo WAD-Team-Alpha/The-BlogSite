@@ -10,7 +10,7 @@ const HomeLayout = () => {
     }
     return (
         <div>
-            {!nav && <Header nav={navHandler} />}
+            {!nav && <Header nav={navHandler}   />}
             {nav && <Navigation nav={navHandler} />}
             <div className="left"></div>
             <div className="middle">
