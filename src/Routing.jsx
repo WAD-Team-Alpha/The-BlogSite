@@ -1,9 +1,10 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Main from './components/main/Main'
-import Layout from './Layout';
-import NewProfile from './components/NewProfile/newProfile';
+import ProfileLayout from './layouts/ProfileLayout';
+import Profile from './components/NewProfile/newProfile';
 import Home from './components/home/home';
+import HomeLayout from './layouts/HomeLayout';
 
 
 const Routing = () => {
@@ -11,17 +12,15 @@ const Routing = () => {
         <Router>
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route element={<Layout />}>
-                   <Route path="/profile" element={<NewProfile/>}/> 
-                  
-                   
 
-                    {/* All the child routes should go in here */}
-                   
-                    <Route path="/home" element={<Home />} />
-                    
-                   
+                <Route element={<ProfileLayout />}>
+                    <Route path="/profile" element={<Profile />} />
                 </Route>
+
+                <Route element={<HomeLayout />}>
+                    <Route path="/home" element={<Home />} />
+                </Route>
+
             </Routes>
         </Router>
     )
