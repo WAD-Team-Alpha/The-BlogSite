@@ -5,18 +5,19 @@
   
 .profilecard{
     height:50%;
-    width:27%;
+    width:26%;
    
     
 }
 
 .maincontainer{
-    padding-top: 2em;
-    padding-left: 2.5em;
+    padding-top: 2.5em;
+    padding-left: 2em;
     padding-right: 0.3em;
     overflow: hidden;
     width:400px;
-    /* padding-bottom: 6em; */
+    padding-bottom: 1em;
+    margin-top: 4em;
 
 }
 
@@ -69,7 +70,7 @@
 
 .hr{
     margin-left: 1.5em;
-    width:300px
+    width:290px
 }
 
 .followbtn{
@@ -88,13 +89,15 @@
 }
 
 .custombtn{
-    margin-left: 1em;
+    margin-left: 0.5em;
     margin-top: 3em;
-   
 }
+
 
 .middleContainer{
     padding-top: 2em;
+    margin-top: 4em;
+    
 }
 
 .containerMain{
@@ -102,6 +105,22 @@
 }
 
 .postbtndiv{
-    margin-left: 36.5em;
-   
+    margin-left: 32em;
+   margin-top: 1em;
+   width:100px
+}
+
+.navtabs :hover{
+   background-color: #8ee4af;
+   color: #05386B;
+}
+
+
+.tabstyle{
+    border-color: red;
+}
+
+.quesbtndiv{
+    margin-left: 34em;
+   margin-top: 1em;
 }

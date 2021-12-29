@@ -3,6 +3,10 @@ import classes from "./newprofile.module.css";
 import { Tabs, Tab } from "react-bootstrap";
 import AddPost from "./addPost/AddPost";
 import AddQuestion from "./addPost/AddQuestion";
+import Postcard from "./Postcard";
+import Questionscard from "./Questionscard";
+
+
 const ProfileTabs = () => {
   const [tab, setTab] = useState("posts");
   const [addPost, setAddPost] = useState(false);
@@ -14,6 +18,7 @@ const ProfileTabs = () => {
     setAddQuestion((state) => !state);
   };
   return (
+   
     <div className={classes.container}>
       <div className={classes.profileTabs}>
         <Tabs
@@ -46,9 +51,13 @@ const ProfileTabs = () => {
             {addQuestion && <AddQuestion />}
           </Tab>
         </Tabs>
+      
+        </div>
       </div>
-    </div>
+      
+   
   );
+};
 };
 
 export default ProfileTabs;
