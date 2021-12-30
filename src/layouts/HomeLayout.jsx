@@ -4,7 +4,7 @@ import classes from './Layout.module.css'
 import Navigation from '../components/navigation/Navigation'
 import Left from '../components/home/left'
 import Right from '../components/home/right'
-import Middle from '../components/home/middle/middle'
+import {Outlet} from 'react-router-dom'
 const HomeLayout = () => {
     const [nav, setNav] = useState(false);
     const navHandler = () => {
@@ -21,7 +21,7 @@ const HomeLayout = () => {
                            <Left/>
                         </div>
                         <div className={"col-md-7 " + classes.middlepane}>
-                           <Middle/>
+                           {<Outlet />}
                         </div>
                         <div className={"col-md-3 " + classes.rightpane}>
                            <Right/>
