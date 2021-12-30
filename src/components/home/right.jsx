@@ -2,7 +2,7 @@ import React from 'react'
 import classes from './right.module.css'
 const Right = () => {
     return (
-        <div className={`col-md-3  ${classes.right}`}>
+        <div>
             <div className={`${classes.fix}`}>
                 <div className={`row ${classes.order}`} >
                     <div className="col-md-6">

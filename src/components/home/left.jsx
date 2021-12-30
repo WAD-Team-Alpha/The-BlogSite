@@ -3,7 +3,7 @@ import classes from './left.module.css'
 const Left = () => {
     return (
         
-        <div className={`col-md-2 ${classes.left}`}>
+        <div>
             <div className={`${classes.vl}`}></div>
         <ul className={`${classes.list}`}>
             <li className={`${classes.color}`}> <a href='#'>Posts</a></li>

@@ -9,7 +9,7 @@ import recommendedData from '../../../helpers/recommendedData.json'
 const Middle = () => {
     return (
 
-        <div className={`col-md-7 ${classes.middle}`}>
+        <div>
             <ProductCard />
             <Question />
 

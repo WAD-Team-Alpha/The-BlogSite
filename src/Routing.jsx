@@ -21,9 +21,10 @@ const Routing = () => {
                 <Route path="/post-detail" element={<Postdetails/>} />
                 <Route path="/ques-detail" element={<QuesDetail/>} />
                 
-                <Route element={<HomeLayout />}>
-                    <Route path="/home" element={<Home />} />
-                </Route>
+                <Route path="/home" element={<HomeLayout />}/>
+                    {/* <Route path="/home" element={<Home />} /> */}
+                    
+               
 
                 <Route element={<ProfileLayout />}>
                     <Route path="/profile" element={<Profile />} />
