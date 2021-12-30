@@ -1,0 +1,116 @@
+[
+    {
+        "type": "post",
+        "banner": "https://picsum.photos/200",
+        "title": "Card title",
+        "description": "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        "likes": 100,
+        "comments": 999,
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "question",
+        "votes": 999,
+        "answers": 999,
+        "question": "What is the question about ? it should be written here ?",
+        "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "question",
+        "votes": 999,
+        "answers": 999,
+        "question": "What is the question about ? it should be written here ?",
+        "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "post",
+        "banner": "https://picsum.photos/200",
+        "title": "Card title",
+        "description": "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        "likes": 100,
+        "comments": 999,
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "post",
+        "banner": "https://picsum.photos/200",
+        "title": "Card title",
+        "description": "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        "likes": 100,
+        "comments": 999,
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "question",
+        "votes": 999,
+        "answers": 999,
+        "question": "What is the question about ? it should be written here ?",
+        "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "post",
+        "banner": "https://picsum.photos/200",
+        "title": "Card title",
+        "description": "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        "likes": 100,
+        "comments": 999,
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "question",
+        "votes": 999,
+        "answers": 999,
+        "question": "What is the question about ? it should be written here ?",
+        "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "question",
+        "votes": 999,
+        "answers": 999,
+        "question": "What is the question about ? it should be written here ?",
+        "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "post",
+        "banner": "https://picsum.photos/200",
+        "title": "Card title",
+        "description": "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        "likes": 100,
+        "comments": 999,
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "post",
+        "banner": "https://picsum.photos/200",
+        "title": "Card title",
+        "description": "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
+        "likes": 100,
+        "comments": 999,
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    },
+    {
+        "type": "question",
+        "votes": 999,
+        "answers": 999,
+        "question": "What is the question about ? it should be written here ?",
+        "details": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+        "author": "Surya",
+        "publishedDate": "27/12/2021"
+    }
+]
