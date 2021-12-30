@@ -8,6 +8,8 @@ import Profile from './components/NewProfile/newProfile';
 import Home from './components/home/home';
 import HomeLayout from './layouts/HomeLayout';
 import Authentication from './components/auth/Authentication';
+import PostLayout from './layouts/PostLayout'
+import QuestionLayout from './layouts/QuestionLayout'
 
 
 const Routing = () => {
@@ -18,14 +20,21 @@ const Routing = () => {
                 <Route path='/auth' element={<Authentication />} />
                 <Route path="/post-detail" element={<Postdetails/>} />
                 <Route path="/ques-detail" element={<QuesDetail/>} />
+                
+                <Route element={<HomeLayout />}>
+                    <Route path="/home" element={<Home />} />
+                </Route>
 
                 <Route element={<ProfileLayout />}>
                     <Route path="/profile" element={<Profile />} />
                 </Route>
 
-                <Route element={<HomeLayout />}>
-                    <Route path="/home" element={<Home />} />
+                <Route element={<PostLayout />}>
                 </Route>
+
+                <Route element={<QuestionLayout />}>
+                </Route>
+                
             </Routes>
         </Router>
     )
