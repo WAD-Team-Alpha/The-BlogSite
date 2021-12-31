@@ -1,3 +1,3 @@
 # Deployment
 
-Deployment is in progress for this branch
+Website deployed at https://the-blogsite.netlify.app/
