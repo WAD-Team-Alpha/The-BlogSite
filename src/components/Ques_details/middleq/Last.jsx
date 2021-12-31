@@ -35,13 +35,12 @@ const Last = () => {
               </div>
               <div
                 class="col-6"
-                style={{ paddingTop: "0.5em", paddingLeft: "1.5em" }}
+                style={{ paddingLeft: "1.5em" }}
               >
-                <b> {user} </b>
-                <br />
-                Answerd on 10/08/2021
+                <div className={classes.answersection}><b><b> {user} </b></b></div>
+                <div className={classes.answertime}> Answerd on 10/08/2021 </div>
               </div>
-              <div class="col-4" style={{ paddingLeft: "4em" }}>
+              <div class="col-4" style={{ paddingLeft: "4em", textAlign:"right" }}>
                 <button class="btn shadow-none">
                   <b>Mark as correct answer</b>
                 </button>
@@ -97,6 +96,9 @@ const Last = () => {
                   size="small"
                 />
                 <Button variant="contained">Submit</Button>
+                <br />
+                <br />
+                
               </div>
             </div>
           </div>

@@ -1,17 +1,38 @@
-.anscon{
+.anscon {
     border: 1px solid black;
     margin-left: 0.5em;
     margin-top: 1em;
     padding-bottom: 0.5em;
-   
 }
 
-.likeicon{
+.likeicon {
     padding-top: 1em;
-    margin-left: 1.5em ;
+    margin-left: 1.5em;
 }
 
-.timeicon{
+.timeicon {
     padding-left: 13em;
     margin-top: 1em;
+}
+
+.answersection {
+    /* font-family: Roboto; */
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding-top: 1em;
+}
+
+.answertime {
+    /* font-family: Roboto; */
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 14px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding-top: 0.5em;
 }
