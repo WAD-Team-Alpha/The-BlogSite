@@ -8,7 +8,7 @@ const RecentActivityPage = () => {
         <>
             {recentActivityData.map((recent) => recent.type === "post" ?
                 <PostCard
-                    key={recent}
+                    key={recent} 
                     banner={recent.banner}
                     title={recent.title}
                     description={recent.description}
