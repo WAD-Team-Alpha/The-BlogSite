@@ -8,6 +8,7 @@ import Profile from './components/NewProfile/newProfile';
 import Home from './components/home/home';
 import HomeLayout from './layouts/HomeLayout';
 import Authentication from './components/auth/Authentication';
+import Editform from './components/NewProfile/EditForm/Editform';
 
 
 const Routing = () => {
@@ -18,6 +19,8 @@ const Routing = () => {
                 <Route path='/auth' element={<Authentication />} />
                 <Route path="/post-detail" element={<Postdetails/>} />
                 <Route path="/ques-detail" element={<QuesDetail/>} />
+              
+                
 
                 <Route element={<ProfileLayout />}>
                     <Route path="/profile" element={<Profile />} />

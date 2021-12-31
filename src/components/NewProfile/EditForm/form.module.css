@@ -1,0 +1,22 @@
+.formcontainer{
+    height: 580px;
+    background-color: #05386B;
+    padding-top: 1em;
+    border-radius: 0.3em;
+    width:360px;
+    margin-top: 3em;
+    /* margin-left: 1.3em; */
+   
+}
+
+.formmain{
+    padding-left: 1em;
+    padding-top: 0.5em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 500px;
+}
+
+.update{
+    color: black;
+}

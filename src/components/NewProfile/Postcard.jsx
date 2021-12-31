@@ -4,18 +4,29 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import AddPost from "./addPost/AddPost";
 
 const Postcard = () => {
 
     const titles=["title1", "title2", "title3", "t4", "t5"]
+    const [addPost, setAddPost] = useState(false);
+    const [addQuestion, setAddQuestion] = useState(false);
+    const addPostHandler = () => {
+    setAddPost((state) => !state);
+    };
   return (
     
     <div>
+       {!addPost && (
       <div className={classes.cardcontainer}>
+     
         <div className={classes.postscreate}>
-          <button class="btn btn-info">
+         
+          <button class="btn btn-info" onClick={addPostHandler}>
             <i class="bi bi-plus-circle"></i> Create
           </button>
+         
         </div>
         <Grid container spacing={2}   direction="row"
                 justify="flex-start"
@@ -46,7 +57,10 @@ const Postcard = () => {
         
         ))}
         </Grid>
+       
       </div>
+        )}
+         {addPost && <AddPost/>}
     </div>
     
   );
