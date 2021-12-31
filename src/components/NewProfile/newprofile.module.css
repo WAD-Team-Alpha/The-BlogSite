@@ -25,6 +25,9 @@
     height: 580px;
     background-color: #05386B;
     padding-top: 1em;
+    padding-bottom: 0.3em;
+    padding-right: 0.3em;
+    padding-left: 0.3em;
     border-radius: 0.3em;
     width:360px
 }
@@ -72,6 +75,8 @@
     margin-left: 1.5em;
     width:290px
 }
+
+
 
 .followbtn{
     margin-top: 4em;

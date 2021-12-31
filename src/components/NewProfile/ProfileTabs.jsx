@@ -28,14 +28,15 @@ const ProfileTabs = () => {
           className="mb-3"
         >
           <Tab eventKey="posts" title="Posts">
-            {!addPost && (
+            {/* {!addPost && (
               <div className={classes.postbtndiv}>
                 <button onClick={addPostHandler} className="btn btn-primary">
                   Create Post
                 </button>
               </div>
             )}
-            {addPost && <AddPost />}
+            {addPost && <AddPost />} */}
+            <Postcard/>
           </Tab>
           <Tab eventKey="questions" title="Questions">
             {!addQuestion && (
