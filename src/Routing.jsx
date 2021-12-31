@@ -37,10 +37,10 @@ const Routing = () => {
                     <Route path="/profile" element={<Profile />} />
                 </Route>
 
-                <Route element={<PostLayout />}>
+                <Route path="/post-details" element={<PostLayout />}>
                 </Route>
 
-                <Route element={<QuestionLayout />}>
+                <Route path="/ques-details" element={<QuestionLayout />}>
                 </Route>
 
             </Routes>

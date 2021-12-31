@@ -3,6 +3,10 @@ import Header from '../components/header/Header'
 import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
 import Navigation from '../components/navigation/Navigation'
+// import Rightp from '../components/post_details/leftp/rightp/rightp'
+import Rightq from '../components/Ques_details/rightq/rightq'
+import Leftp from '../components/post_details/leftp/leftp/leftp'
+import Middlep from '../components/post_details/leftp/middlep/middlep'
 
 const PostLayout = () => {
     const [nav, setNav] = useState(false);
@@ -17,13 +21,13 @@ const PostLayout = () => {
                 <div className={"container-fluid " + classes.content}>
                     <div className="row">
                         <div className={"col-md-2 " + classes.leftpane}>
-                            {/* Left panel goes here */}
+                            <Leftp/>
                         </div>
                         <div className={"col-md-7 " + classes.middlepane}>
-                            {/* Middle panel goes here */}
+                            <Middlep/>
                         </div>
                         <div className={"col-md-3 " + classes.rightpane}>
-                            {/* Right panel goes here */}
+                            <Rightq/>
                         </div>
                     </div>
                 </div>

@@ -6,12 +6,12 @@ import india2 from "../../../../assets/images/india2.jpg"
 import { TextField } from "@mui/material";
 import Button from '@mui/material/Button';
 import { Box } from "@mui/material";
-
+import classes from "./middlep.module.css"
 
 const Middlep = (props) => {
   return (
     <>
-        <div style={{borderLeft:"2px solid green", borderRight:"2px solid green", borderTop:"2px solid green", borderSpacing: "15px"}}>
+        <div >
             <div style={{ padding: "1em" }}>
                 <img src={banner_logo} alt="prathyush" width="800px" height="248px" />
             </div>
@@ -20,9 +20,11 @@ const Middlep = (props) => {
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-1">
-                                <Avatar />
+                                <div>
+                                    <Avatar />
+                                </div>
                             </div>
-                            <div class="col-11">
+                            <div class="col-3">
                                 Surya Teja Tangirala 
                                 <br />
                                 Posted on 09/10/2021
@@ -87,8 +89,8 @@ const Middlep = (props) => {
                                             <Avatar />
                                         </div>
                                         <div class="col-11">
-                                            <Box height="71px" width="715px" border="solid black">
-                                                <h4> I commented here, so please ignore this and go to next comment</h4>
+                                            <Box height="71px" width="715px" style={{border: "2px solid #c4c4c4"}}>
+                                                <div className={classes.commentsp}> I commented here, so please ignore this and go to next comment</div>
                                             </Box>
                                         </div>
                                     </div>
@@ -101,8 +103,8 @@ const Middlep = (props) => {
                                             <Avatar />
                                         </div>
                                         <div class="col-11">
-                                            <Box height="71px" width="715px" border="solid black">
-                                                <h4> I commented here, so please ignore this and go to next comment</h4>
+                                            <Box height="71px" width="715px" style={{border: "2px solid #c4c4c4"}}>
+                                                <div className={classes.commentsp}> I commented here, so please ignore this and go to next comment</div>
                                             </Box>
                                         </div>
                                     </div>
@@ -115,8 +117,8 @@ const Middlep = (props) => {
                                             <Avatar />
                                         </div>
                                         <div class="col-11">
-                                            <Box height="71px" width="715px" border="solid black">
-                                                <h4> I commented here, so please ignore this and go to next comment</h4>
+                                            <Box height="71px" width="715px" style={{border: "2px solid #c4c4c4"}}>
+                                                <div className={classes.commentsp}> I commented here, so please ignore this and go to next comment</div>
                                             </Box>
                                         </div>
                                     </div>

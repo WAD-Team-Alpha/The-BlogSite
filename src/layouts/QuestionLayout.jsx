@@ -3,6 +3,9 @@ import Header from '../components/header/Header'
 import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
 import Navigation from '../components/navigation/Navigation'
+import Leftq from '../components/Ques_details/leftq/leftq'
+import Rightq from '../components/Ques_details/rightq/rightq'
+import Middleq from '../components/Ques_details/middleq/middleq'
 
 const QuestionLayout = () => {
     const [nav, setNav] = useState(false);
@@ -17,13 +20,13 @@ const QuestionLayout = () => {
                 <div className={"container-fluid " + classes.content}>
                     <div className="row">
                         <div className={"col-md-2 " + classes.leftpane}>
-                            {/* Left panel goes here */}
+                            <Leftq/>
                         </div>
                         <div className={"col-md-7 " + classes.middlepane}>
-                            {/* Middle panel goes here */}
+                            <Middleq/>
                         </div>
                         <div className={"col-md-3 " + classes.rightpane}>
-                            {/* Right panel goes here */}
+                            <Rightq/>
                         </div>
                     </div>
                 </div>

@@ -5,6 +5,7 @@ import classes from './rightp.module.css'
 //import { ClassNames } from '@emotion/react';
 import { Avatar } from '@mui/material';
 import { Link } from '@mui/material';
+import Button from '@mui/material/Button';
 
 
 const Rightp = (props) => {
@@ -14,7 +15,7 @@ const Rightp = (props) => {
         <div >
                 <div className={classes.containerMD}>
                     <Container>
-                        <Box sx={{bgcolor:"white", height:"150px", borderRadius:"0.3em"}}>
+                        <Box sx={{bgcolor:"white", height:"158px", borderRadius:"0.3em"}}>
                             <div className="container-fluid">
                                 <div className="row justify-content-end">
                                     <div class="col-2" >
@@ -24,18 +25,18 @@ const Rightp = (props) => {
                                 </div>
                                 <div class="row justify-content-start">
                                 
-                                    <div class="col-3" style={{marginRight:"1.5em"}}>
+                                    <div class="col-1" style={{marginRight:"4em"}}>
                                     <Avatar
-                                        sx={{ width: "85px", height: "85px"}}
+                                        sx={{ width: "74px", height: "73px"}}
                                     
                                     />
                                     </div>
-                                    <div class="col-7">
-                                    <span className={classes.uname}>Username</span>
+                                    <div class="col-8">
+                                    <span className={classes.uname}><b>Surya Teja Tangirala</b></span>
                                     
                                         
                                     <div class="row justify-content-center">
-                                        <div class="col-7">
+                                        <div class="col-6">
                                             <span className={classes.mainfollowers}>
                                                 <Link underline="none">Followers</Link>
                                             </span>
