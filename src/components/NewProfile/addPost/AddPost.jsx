@@ -24,13 +24,17 @@ const AddPost = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title, description);
+    console.log(title, description, image);
     console.log("InputFields", inputFields);
   };
   const handleChangeInput = (id, event) => {
     const newInputFields = inputFields.map((i) => {
       if (id === i.id) {
-        i["value"] = event.target.value;
+        if (event.target.type === "text") {
+          i["value"] = event.target.value;
+        } else {
+          i["value"] = "https://source.unsplash.com/1600x900";
+        }
       }
       return i;
     });
@@ -39,6 +43,7 @@ const AddPost = () => {
   };
   const [inputType, setInputType] = useState("");
   const [title, setTitle] = useState("");
+  const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const classValue = "form-group " + classes.formInput;
   const container = "container " + classes.container;
@@ -50,17 +55,24 @@ const AddPost = () => {
           <h2 className={classes.title}>Add Post</h2>
           <div className="form-row">
             <div className={classValue}>
-              <label for="bannerImage">Add banner Image</label>
+              <label style={{ fontWeight: "bold" }} for="bannerImage">
+                Add banner Image
+              </label>
               <br />
               <input
                 type="file"
                 className="form-control-file"
                 id="bannerImage"
+                onChange={(event) => {
+                  setImage("https://source.unsplash.com/1600x900");
+                }}
               />
             </div>
 
             <div className={classValue}>
-              <label for="title">Title</label>
+              <label style={{ fontWeight: "bold" }} for="title">
+                Title
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -74,7 +86,9 @@ const AddPost = () => {
               />
             </div>
             <div className={classValue}>
-              <label for="parah1">Description</label>
+              <label style={{ fontWeight: "bold" }} for="parah1">
+                Description
+              </label>
               <textarea
                 className="form-control"
                 value={description}
@@ -89,7 +103,9 @@ const AddPost = () => {
               if (inputField.type === "image") {
                 return (
                   <div key={inputField.id} className={classValue}>
-                    <label for="bannerImage">Add Image</label>
+                    <label style={{ fontWeight: "bold" }} for="bannerImage">
+                      Add Image
+                    </label>
                     <br />
                     <input type="file" className="form-control-file" />
                     <button
@@ -106,7 +122,9 @@ const AddPost = () => {
               }
               return (
                 <div key={inputField.id} className={classValue}>
-                  <label for="parah1">Description</label>
+                  <label style={{ fontWeight: "bold" }} for="parah1">
+                    Description
+                  </label>
                   <textarea
                     className="form-control"
                     placeholder="Add Description Here..."
@@ -129,29 +147,33 @@ const AddPost = () => {
               );
             })}
             <div className={classValue}>
-              <div className="form-group">
-                <div className={classes.dropdown}>
-                  <select
-                    className="custom-select"
-                    onChange={(e) => {
-                      setInputType(e.target.value);
-                    }}
-                    required
+              <div class="form-row">
+                <div className="form-group col-md-6">
+                  <div className={classes.dropdown}>
+                    <select
+                      className="custom-select"
+                      onChange={(e) => {
+                        setInputType(e.target.value);
+                      }}
+                      required
+                    >
+                      <option value="">Select type of Input</option>
+                      <option value="1">Image</option>
+                      <option value="2">Description</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="form-group col-md-6">
+                  <button
+                    type="button"
+                    onClick={addButtonHandler}
+                    className="btn btn-success"
                   >
-                    <option value="">Select type of Input</option>
-                    <option value="1">Image</option>
-                    <option value="2">Description</option>
-                  </select>
+                    Add
+                  </button>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={addButtonHandler}
-                className="btn btn-success"
-              >
-                Add
-              </button>
               <br />
               <br />
               <button type="submit" className="btn btn-primary">

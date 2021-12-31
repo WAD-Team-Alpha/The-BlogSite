@@ -1,19 +1,17 @@
 import React from 'react'
-import classes from './left.module.css' 
+import { NavLink } from 'react-router-dom';
+import classes from './left.module.css'
 const Left = () => {
+    const classname = (navData) => navData.isActive ? `fw-bold fs-8 ${classes.active}` : `fw-bold fs-8`
     return (
-        
-        <div className={`col-md-2 ${classes.left}`}>
-            <div className={`${classes.vl}`}></div>
-        <ul className={`${classes.list}`}>
-            <li className={`${classes.color}`}> <a href='#'>Posts</a></li>
-            <li><a href='#' className={`fw-bold fs-8 `} style={{ color: 'black' }}>Forums</a></li>
-            <li><a href='#' className={`fw-bold fs-8 `} style={{ color: 'black' }}>Recent Activity</a></li>
-            <li> <a href='#' className={`fw-bold fs-8 `} style={{ color: 'black' }}>Saved for Later</a></li>
-        </ul>
-    </div>
- 
-       
+        <div>
+            <ul className={`${classes.list}`}>
+                <li><NavLink to={"/post"} className={classname}>Posts</NavLink></li>
+                <li><NavLink to={"/question"} className={classname}>Forums</NavLink></li>
+                <li><NavLink to={"/recents"} className={classname}>Recent Activity</NavLink></li>
+                <li><NavLink to={"/saved"} className={classname}>Saved for Later</NavLink></li>
+            </ul>
+        </div>
     );
 }
 

@@ -1,0 +1,24 @@
+.content {
+    margin-top: 4.3em;
+}
+.leftpane {
+    position: sticky;
+    top: 4.3em;
+    height: calc(100vh - 4.3em);
+    border-right: 2px solid green;
+}
+
+/* .middlepane {
+} */
+
+.rightpane {
+    position: sticky;
+    top: 4.3em;
+    height: calc(100vh - 4.3em);
+    border-left: 2px solid green;
+}
+
+.footer {
+    padding: 0;
+    z-index: 1;
+}

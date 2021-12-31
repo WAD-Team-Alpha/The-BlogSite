@@ -1,23 +1,35 @@
 import React, { useState } from 'react'
-import { Outlet } from 'react-router-dom'
 import Header from '../components/header/Header'
+import classes from './Layout.module.css'
 import Navigation from '../components/navigation/Navigation'
-
+import Left from '../components/home/left'
+import Right from '../components/home/right'
+import {Outlet} from 'react-router-dom'
 const HomeLayout = () => {
     const [nav, setNav] = useState(false);
     const navHandler = () => {
         nav ? setNav(false) : setNav(true)
     }
     return (
-        <div>
-            {!nav && <Header nav={navHandler}   />}
+        <>
+            {!nav && <Header nav={navHandler} />}
             {nav && <Navigation nav={navHandler} />}
-            <div className="left"></div>
-            <div className="middle">
-                {!nav && <Outlet />}
-            </div>
-            <div className="right"></div>
-        </div>
+            {!nav && <>
+                <div className={"container-fluid " + classes.content}>
+                    <div className="row">
+                        <div className={"col-md-2 " + classes.leftpane}>
+                           <Left/>
+                        </div>
+                        <div className={"col-md-7 " + classes.middlepane}>
+                           {<Outlet />}
+                        </div>
+                        <div className={"col-md-3 " + classes.rightpane}>
+                           <Right/>
+                        </div>
+                    </div>
+                </div>
+            </>}
+        </>
     )
 }
 

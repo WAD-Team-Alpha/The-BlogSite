@@ -5,10 +5,14 @@ import Postdetails from './components/post_details/leftp/PostDetail';
 import QuesDetail from './components/Ques_details/QuesDetail'
 import ProfileLayout from './layouts/ProfileLayout';
 import Profile from './components/NewProfile/newProfile';
-import Home from './components/home/home';
 import HomeLayout from './layouts/HomeLayout';
 import Authentication from './components/auth/Authentication';
-import Editform from './components/NewProfile/EditForm/Editform';
+import PostLayout from './layouts/PostLayout'
+import QuestionLayout from './layouts/QuestionLayout'
+import PostPage from './components/home/pages/PostPage';
+import QuestionPage from './components/home/pages/QuestionPage';
+import RecentActivityPage from './components/home/pages/RecentActivityPage';
+import SavedForLaterPage from './components/home/pages/SavedForLaterPage';
 
 
 const Routing = () => {
@@ -17,18 +21,28 @@ const Routing = () => {
             <Routes>
                 <Route path="/" element={<Main />} />
                 <Route path='/auth' element={<Authentication />} />
-                <Route path="/post-detail" element={<Postdetails/>} />
-                <Route path="/ques-detail" element={<QuesDetail/>} />
-              
-                
+                <Route path="/post-detail" element={<Postdetails />} />
+                <Route path="/ques-detail" element={<QuesDetail />} />
+
+                <Route element={<HomeLayout />}>
+                    <Route path="/post" element={<PostPage />} />
+                    <Route path="/question" element={<QuestionPage />} />
+                    <Route path="/recents" element={<RecentActivityPage />} />
+                    <Route path="/saved" element={<SavedForLaterPage />} />
+                </Route>
+
+
 
                 <Route element={<ProfileLayout />}>
                     <Route path="/profile" element={<Profile />} />
                 </Route>
 
-                <Route element={<HomeLayout />}>
-                    <Route path="/home" element={<Home />} />
+                <Route element={<PostLayout />}>
                 </Route>
+
+                <Route element={<QuestionLayout />}>
+                </Route>
+
             </Routes>
         </Router>
     )
