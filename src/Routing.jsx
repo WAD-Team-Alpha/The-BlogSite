@@ -11,7 +11,7 @@ import PostLayout from './layouts/PostLayout'
 import QuestionLayout from './layouts/QuestionLayout'
 import PostPage from './components/home/pages/PostPage';
 import QuestionPage from './components/home/pages/QuestionPage';
-import RecentActivityPage from './components/home/pages/RecentactivityPage';
+import RecentActivityPage from './components/home/pages/RecentActivityPage';
 import SavedForLaterPage from './components/home/pages/SavedForLaterPage';
 import PostForm from './components/postform/PostForm';
 import QuestionForm from './components/postform/QuestionForm';
