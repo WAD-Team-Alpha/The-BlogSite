@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import classes from './PostForm.module.css'
+import classes from './Form.module.css'
 import AddIcon from '@mui/icons-material/Add';
 import PostModal from './PostModal';
 import ImageInputBox from './ImageInputBox/ImageInputBox';
 import TextInputBox from './TextInputBox/TextInputBox';
 import { v4 as uuidv4 } from "uuid";
+import { Link } from 'react-router-dom';
 
 const PostForm = () => {
     const [inputList, setInputList] = useState([])
@@ -62,42 +63,36 @@ const PostForm = () => {
     }
 
     return (
-        <div>
-            <div className={"container-fluid " + classes.postform}>
-                <div className="row " >
-                    <div className="col-md-2"></div>
-                    <div className="col-md-8">
-                        <form className={"container " + classes.form} onSubmit={onSubmitHandler}>
-                            <br />
-                            <ImageInputBox height={'30vh'} isAdded={false} onChange={bannerHandler} inputname={"Add banner image"} />
-                            <br />
-                            <TextInputBox inputname={"Title"} isAdded={false} onChange={titleHandler} />
-                            <br />
-                            <TextInputBox inputname={"Summary"} height={'100px'} isAdded={false} onChange={summaryHandler} />
-                            <br />
-                            {inputList.map((input, index) => {
-                                return (
-                                    input.type === "text" ?
-                                        <>
-                                            <TextInputBox key={input.id} id={input.id} inputname={`Content cell ${index + 1}`} isAdded={true} onChange={inputChangeHandler} onDelete={deleteInputHandler} />
-                                            <br />
-                                        </> :
-                                        <>
-                                            <ImageInputBox key={input.id} id={input.id} height={'20vh'} inputname={`Add image ${index + 1}`} isAdded={true} onChange={inputChangeHandler} onDelete={deleteInputHandler} />
-                                            <br />
-                                        </>
-                                )
-                            })}
-                            <button className='btn btn-primary' type='submit' style={{ marginBottom: '1em' }}>Publish post</button>
-                        </form>
-                        <button className={'btn btn-primary ' + classes.floatingbutton} data-bs-toggle="modal" data-bs-target="#exampleModal">
-                            <AddIcon />
-                        </button>
-                        <PostModal handler={addInputHandler} />
-                    </div>
-                    <div className="col-md-2"></div>
-                </div>
-            </div>
+        <div className={"col-md-8 " + classes.form}>
+            <form className={"container"} onSubmit={onSubmitHandler}>
+                <br />
+                <h1><b>Step 1: </b> Create the post</h1>
+                <br />
+                <ImageInputBox height={'30vh'} isAdded={false} onChange={bannerHandler} inputname={"Add banner image"} />
+                <br />
+                <TextInputBox inputname={"Title"} isAdded={false} onChange={titleHandler} />
+                <br />
+                <TextInputBox inputname={"Summary"} height={'100px'} isAdded={false} onChange={summaryHandler} />
+                <br />
+                {inputList.map((input, index) => {
+                    return (
+                        input.type === "text" ?
+                            <>
+                                <TextInputBox key={input.id} id={input.id} inputname={`Content cell ${index + 1}`} isAdded={true} onChange={inputChangeHandler} onDelete={deleteInputHandler} />
+                                <br />
+                            </> :
+                            <>
+                                <ImageInputBox key={input.id} id={input.id} height={'20vh'} inputname={`Add image ${index + 1}`} isAdded={true} onChange={inputChangeHandler} onDelete={deleteInputHandler} />
+                                <br />
+                            </>
+                    )
+                })}
+                <Link to={"/create"} className='btn btn-primary' type='submit' style={{ marginBottom: '1em' }}>Next</Link>
+            </form>
+            <button className={'btn btn-primary ' + classes.floatingbutton} data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <AddIcon />
+            </button>
+            <PostModal handler={addInputHandler} />
         </div>
     )
 }

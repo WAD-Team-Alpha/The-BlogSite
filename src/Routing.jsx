@@ -11,8 +11,11 @@ import PostLayout from './layouts/PostLayout'
 import QuestionLayout from './layouts/QuestionLayout'
 import PostPage from './components/home/pages/PostPage';
 import QuestionPage from './components/home/pages/QuestionPage';
-import RecentActivityPage from './components/home/pages/RecentactivityPage';
+import RecentActivityPage from './components/home/pages/RecentActivityPage';
 import SavedForLaterPage from './components/home/pages/SavedForLaterPage';
+import PostForm from './components/postform/PostForm';
+import QuestionForm from './components/postform/QuestionForm';
+import FormLayout from './components/postform/FormLayout';
 
 
 const Routing = () => {
@@ -31,7 +34,10 @@ const Routing = () => {
                     <Route path="/saved" element={<SavedForLaterPage />} />
                 </Route>
 
-
+                <Route element={<FormLayout />}>
+                    <Route path="/createpost" element={<PostForm />} />
+                    <Route path="/createquestion" element={<QuestionForm />} />
+                </Route>
 
                 <Route element={<ProfileLayout />}>
                     <Route path="/profile" element={<Profile />} />
