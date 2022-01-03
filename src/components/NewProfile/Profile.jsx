@@ -5,22 +5,78 @@ import { Link } from "@mui/material";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import Editform from "./EditForm/Editform";
+import { useDispatch, useSelector } from 'react-redux';
+import { follow, remove } from "../../store/counterReducer";
+import { profileActions } from "../../store/profile";
+
+
+
 
 const Profile = () => {
   
-  const [firstname, setFirstname] = useState("Username");
-  const [lastname, setLastname] = useState("");
+ 
+
+  const userInfo = useSelector((state)=>state.profile)
   const [addform,setAddform]=useState(false)
-  const [email, setEmail] = useState("example@gmail.com");
-  const [genre, setGenre] = useState([]);
-  const [bio,setBio] = useState("your bio...");
+  const dispatch = useDispatch();
+  const [followStatus,setfollowStatus] = useState("Follow");
+  const followCount = useSelector((state)=> state.counter.followers)
+
+  console.log(followCount)
+  const followingCount = useSelector((state) => state.counter.following)
+
+  const userDetails = {
+    firstName : userInfo.firstName,
+    lastName : userInfo.lastName,
+    email : userInfo.email,
+    bio : userInfo.bio,
+    genres : userInfo.genres
+
+  }
+  
+  const editHandler = (
+    firstName,
+    lastName,
+    email,
+    bio,
+    genres
+  ) => {
+    console.log(
+      firstName,
+      lastName,
+      email,
+      bio,
+      genres
+    );
+    dispatch(
+      profileActions.update({
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        bio: bio,
+        genres: genres
+      })
+    );
+  };
+
+  
 
   const formHandler=(e)=>{
    setAddform((state)=> !state)
   }
 
-   console.log(genre)
+   
   
+  const followbuttonHandler=()=>{
+    if(followStatus === "Follow"){
+      setfollowStatus("Following")
+      return dispatch(follow())
+    }
+    else {
+      setfollowStatus("Follow")
+      return dispatch(remove())
+    }
+  }
  
   return (
     <div className={classes.maincontainer}>
@@ -53,7 +109,7 @@ const Profile = () => {
                 </div>
                 <div class="col-7">
                   <span className={classes.uname}>
-                    <b>{firstname}</b>
+                    <b>{userDetails.firstName}</b>
                   </span>
                   <div class="row justify-content-center">
                     <div class="col-7">
@@ -74,10 +130,10 @@ const Profile = () => {
                   </div>
                   <div class="row justify-content-end">
                     <div class="col">
-                      <span className={classes.followercount}><b>0</b></span>
+                      <span className={classes.followercount}><b>{followCount}</b></span>
                     </div>
                     <div class="col">
-                      <span className={classes.followingcount}><b>0</b></span>
+                      <span className={classes.followingcount}><b>{followingCount}</b></span>
                     </div>
                   </div>
                 </div>
@@ -88,45 +144,50 @@ const Profile = () => {
           <Box
             sx={{ bgcolor: "white", height: "360px", borderRadius: "0.3em" }}
           >
-            <div class="row">
-              <span className={classes.genres}>
+           <div class="row" style={{marginTop:"0.2em"}}>
+           <span className={classes.genres}>
                 <b>Intrested Geners</b>
               </span>
               <hr className={classes.hr} />
              
-              <div class="col" style={{ marginLeft: "1.2em" }}>
-                
-                {genre.map((gen)=>(
+              <div class="col" style={{ marginLeft: "1.2em"}}>
+                <div style={{ height:"50px"}}>
+                {userDetails.genres.map((gen)=>(
                   
                 <Chip style={{marginBottom:"0.5em", marginRight:"0.3em"}} label={gen}/>  
                 
                ))}
                </div>
+               </div>
               
-              <span className={classes.email}>
+           </div>
+           <div class="row" style={{marginTop:"1em", height:"70px"}}>
+           <span className={classes.email}>
                 <b>Email</b>
               </span>
               <hr className={classes.hr} />
               <div class="col" style={{ marginLeft: "1.2em" }}>
-                {email}
+                {userDetails.email}
               </div>
-              <br />
+              <br />   
+           </div>
+           
+              <div class="row" style={{marginTop:"0.4em", height:"95px"}}>
               <span className={classes.bio}>
-                <b><psan className={classes.bioinfo}>Bio</psan></b>
-              </span>
-              <hr className={classes.hr} />
-              <div
-                class="col"
-              
-              >
-                <div style={{ marginLeft: "1.2em", overflowY: "scroll", width:"248px" ,height:"95px",overflowX:"hidden"}}>
-                {bio}
-                </div>
+                    <b>Bio</b>
+                  </span>
+                  <hr className={classes.hr}/>
+                  <div class="row" style={{ marginLeft: "1.2em", overflowY: "scroll",overflowX:"hidden", height:"60px", width:"280px"}}>
+                  {userDetails.bio}
+                  
+               
+               
               </div>
 
               <br />
-            </div>
-            <div class="col">
+              </div>
+           <div class="row" style={{ marginTop:"1.5em", height:"60px"}}>
+           <div class="col">
               <div className={classes.custombtn}>
                 <button
                   type="submit"
@@ -135,20 +196,21 @@ const Profile = () => {
                     backgroundColor: "#8ee4af",
                     color: "black",
                     width: "290px",
-                    marginBottom:"1em"
-                   
-                   }}
+                    marginBottom:"1em",
+                  }}
+                  onClick={followbuttonHandler}
                 >
                   <span style={{ paddingRight: "1em"}}>
-                    <b>Follow</b>
+                    <b>{followStatus}</b>
                   </span>
                 </button>
               </div>
-            </div>
+            </div>   
+           </div>
           </Box>
         </Container>
          )}
-         {addform && <Editform setAddform={setAddform} email={email} setEmail={setEmail} genre={genre} setGenre={setGenre} bio={bio} setBio={setBio} firstname={firstname} setFirstname={setFirstname} lastname={lastname} setLastname={setLastname} />}
+         {addform && <Editform setAddform={setAddform} editHandler={editHandler} userDetails={userDetails} />}
         <br />
       </div>
      

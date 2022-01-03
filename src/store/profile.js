@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialProfileState = {
-  firstName: "",
+  firstName: "Username",
   lastName: "",
   email: "",
-  university: "",
-  degree: "",
-  graduationYear: "",
-  location: "",
   bio: "",
+  genres: []
 };
 
 const profileSlice = createSlice({
@@ -20,11 +17,8 @@ const profileSlice = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.email = action.payload.email;
-      state.university = action.payload.university;
-      state.degree = action.payload.degree;
-      state.graduationYear = action.payload.degree;
-      state.location = action.payload.location;
       state.bio = action.payload.bio;
+      state.genres = action.payload.genres;
     },
   },
 });
