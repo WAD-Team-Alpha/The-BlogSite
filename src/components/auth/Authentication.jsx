@@ -1,21 +1,19 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import AuthContext from '../../store/auth-context'
 import classes from './Authentication.module.css'
 import Signin from './signin/Signin'
 import Signup from './signup/Signup'
 const Authentication = () => {
-    const [display, setDisplay] = useState(true)
-    const displayHandler = (event) => {
-        event.preventDefault()
-        setDisplay(!display)
-    }
+    const ctx = useContext(AuthContext)
+    console.log(ctx.status)
     return (
         <div className="container-fluid">
             <div className="row">
-                <div className={"col-md-6 align-items-center d-flex " + classes.signin }>
-                    <Signin display={display} onSignup={displayHandler} />
+                <div className={"col-md-6 align-items-center d-flex " + classes.signin}>
+                    <Signin display={ctx.status} onSignup={ctx.updateStatus} />
                 </div>
-                <div className={"col-md-6 align-items-center d-flex " + classes.signup }>
-                    <Signup display={!display} onSignin={displayHandler} />
+                <div className={"col-md-6 align-items-center d-flex " + classes.signup}>
+                    <Signup display={!ctx.status} onSignin={ctx.updateStatus} />
                 </div>
             </div>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react'
 import classes from './Left.module.css'
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 const Left = (props) => {
     return (
@@ -17,7 +18,7 @@ const Left = (props) => {
                 <p>
                     Creativity doesn't wait for that perfect moment. Publish your passions, your own way.
                 </p>
-                <button className={'btn btn-primary shadow-none ' + classes.postbutton}>Publish your first post</button>
+                <Link to='forms/post' className={'btn btn-primary shadow-none ' + classes.postbutton}>Publish your first post</Link>
             </div>
         </>
     )

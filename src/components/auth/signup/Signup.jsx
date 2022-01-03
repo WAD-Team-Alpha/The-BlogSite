@@ -1,13 +1,13 @@
-import { RemoveRedEyeRounded, Visibility, VisibilityOff } from '@mui/icons-material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import React, { useState } from 'react'
 import classes from './Signup.module.css'
 import signinimg from '../../../assets/images/Signin.png'
 import { useReducer } from 'react'
 import { signupAction } from "../../../store/auth-actions";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 // import { authActions } from "./store/auth";
 const signupReducer = (state, action) => {
-    
+
     if (action.type === "EMAIL") {
         return {
             ...state,
@@ -19,7 +19,7 @@ const signupReducer = (state, action) => {
     }
     if (action.type === "PASSWORD") {
         const passValid = action.payload.trim().length > 6 && /[a-z]/.test(action.payload.trim()) && /[A-Z]/.test(action.payload.trim()) &&
-                        /[0-9]/.test(action.payload.trim()) && /[^a-zA-Z0-9]/.test(action.payload.trim())
+            /[0-9]/.test(action.payload.trim()) && /[^a-zA-Z0-9]/.test(action.payload.trim())
         const formValid = !state.firstNameIsEmpty && !state.lastNameIsEmpty && state.emailIsValid && passValid && action.payload === state.confirmPassword
         return {
             ...state,
@@ -151,7 +151,10 @@ const Signup = (props) => {
                             <button type="submit" className={"btn btn-primary shadow-none"} disabled={!state.formIsValid}>Signup</button>
                         </div>
                         <span>
-                            Already have an account? <a href="#" className="link-primary" onClick={props.onSignin}>Signin</a> here
+                            Already have an account? <a href="w" className="link-primary" onClick={(event) => {
+                                event.preventDefault();
+                                props.onSignin(true)
+                            }}>Signin</a> here
                         </span>
                     </div>
                 </form>

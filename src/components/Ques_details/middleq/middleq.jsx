@@ -3,30 +3,31 @@ import * as React from 'react'
 import classes from './middleq.module.css'
 import Middle from './Middle'
 import Last from './Last'
+import questionData from '../../../helpers/questionData.json'
 
 const Middleq = (props) => {
-
+    const data = questionData.find((query) => query.id === parseInt(props.questionID))
     return (
         <div class="container-fluid" >
             <div class="row" style={{height:"150px"}}>
                 <div class="col">
                    <div className={classes.middleheader}>
-                   <h3><b>Here we place our title very neatly and with bold and big sized font. Title is the key for any post in our website ?</b></h3>
+                   <h3><b>{data.question}</b></h3>
                    </div>
                    <div class="row" style={{paddingTop:"0.5em"}}>
                         <div class="col-3">
                             <div className={classes.subhead}>
-                               <b>Asked</b>  10/08/2021
+                               <b>Asked</b>  {data.publishedDate}
                             </div>
                         </div>
                         <div class="col-3">
                             <div className={classes.subhead}>
-                                <b>Status</b>  Active
+                                <b>Status</b>  {data.status}
                             </div>
                         </div>
                         <div class="col-3">
                             <div className={classes.subhead}>
-                                <b>Views</b>  999
+                                <b>Views</b>  {data.views}
                             </div>
                         </div>
                         <div class="col-3">
@@ -40,7 +41,7 @@ const Middleq = (props) => {
             <hr/>
             <div class="row" style={{ height:"360px"}}>
                 <div class="col">
-                   <Middle/>
+                   <Middle details={data.details} image={data.image}/>
                 </div>
             </div>
             <hr/>
