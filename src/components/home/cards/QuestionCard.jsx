@@ -1,8 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import classes from './QuestionCard.module.css'
 const QuestionCard = (props) => {
     return (
-
         <div class="card mb-6" >
             <div class="row g-0">
                 <div className="col-md-2 mt-6">
@@ -23,9 +23,8 @@ const QuestionCard = (props) => {
                         <p class="card-text">{props.details}</p>
 
                         <ul className={`${classes.question}`}>
-
-                            <li style={{ marginRight: "10px" }}><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" /><a href='#'>Veiw post</a></li>
-                            <li><a className={`fw-bold ${classes.post}`}>Posted by <a href="#" style={{ color: "#05386b" }} >{props.author}</a> on {props.publishedDate}</a></li>
+                            <li style={{ marginRight: "10px" }}><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" alt='o' /><Link to={`/forum-threads/${props.id}`}>View post</Link></li>
+                            <li><a className={`fw-bold ${classes.post}`} href='w'>Posted by <a href="w" style={{ color: "#05386b" }} >{props.author}</a> on {props.publishedDate}</a></li>
                         </ul>
                     </div>
                 </div>

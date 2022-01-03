@@ -9,18 +9,9 @@ import IconButton from "@mui/material/IconButton";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  links: {
-    textDecoration: "none",
-    display: "flex",
-    fontSize: "1.4em",
-  },
-});
+import { Link } from "react-router-dom";
 
 const Account = () => {
-  const style = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -71,7 +62,9 @@ const Account = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem sx={{ fontSize: "0.9em" }}>
-            <Avatar /><Typography sx={{padding: "0.2em", color: "#3d3d3d"}}>Profile</Typography>
+          <Link to={"/profile"} style={{ textDecoration: 'none', display: "flex", fontSize: '1.4em' }}>
+            <Avatar /><Typography sx={{ padding: "0.2em", color: "#3d3d3d" }}>Profile</Typography>
+          </Link>
         </MenuItem>
         <Divider />
         <MenuItem sx={{ fontSize: "0.9em" }}>

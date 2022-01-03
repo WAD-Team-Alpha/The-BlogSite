@@ -5,7 +5,8 @@ import postData from '../../../helpers/postData.json'
 const PostPage = () => {
      return <>
           {postData.map((post) => <PostCard
-               key={post}
+               key={post.id}
+               id={post.id}
                banner={post.banner}
                title={post.title}
                description={post.description}
