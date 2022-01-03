@@ -3,8 +3,11 @@ import React, { useState } from 'react'
 import classes from './Signup.module.css'
 import signinimg from '../../../assets/images/Signin.png'
 import { useReducer } from 'react'
-
+import { signupAction } from "../../../store/auth-actions";
+import { useDispatch} from "react-redux";
+// import { authActions } from "./store/auth";
 const signupReducer = (state, action) => {
+    
     if (action.type === "EMAIL") {
         return {
             ...state,
@@ -69,6 +72,7 @@ const signupReducer = (state, action) => {
 }
 
 const Signup = (props) => {
+    const dispatchAction = useDispatch();
     const initState = {
         firstname: "",
         lastname: "",
@@ -104,6 +108,7 @@ const Signup = (props) => {
                     password: state.password
                 }
             )
+            dispatchAction(signupAction(state.email, state.password, state.firstname, state.lastname));
             dispatch({ type: "clear" })
         } else {
             console.log("Some error occured")
