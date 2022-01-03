@@ -7,6 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+// import { useDispatch,useSelector } from 'react-redux';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -37,8 +38,11 @@ function getStyles(name, genreName, theme) {
 }
 
 export default function MultipleSelectChip(props) {
+  // const dispatch=useDispatch();
+  // const genres = useSelector((state)=>state.counter.genres)
+
   const theme = useTheme();
-//   const [genreName, setGenreName] = React.useState([]);
+  // const [genreName, setGenreName] = React.useState([]);
 
   const handleChange = (event) => {
     const {
@@ -61,7 +65,7 @@ export default function MultipleSelectChip(props) {
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          value={props.genre}
+          defaultValue={props.genre}
           onChange={handleChange}
           input={<OutlinedInput id="select-multiple-chip" label="Intrested Genre" />}
           renderValue={(selected) => (
