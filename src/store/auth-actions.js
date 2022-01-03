@@ -30,6 +30,7 @@ export const signinAction = (email, password) => {
     try {
       const authData = await fetchData();
       dispatch(authActions.login(authData));
+      console.log("Success", authData);
     } catch (error) {
       console.log("error");
     }
@@ -78,7 +79,7 @@ export const signupAction = (email, password, firstname, lastName) => {
         location: "",
         bio: "",
       }));
-      console.log("Success");
+      console.log("Success", authData);
     } catch (error) {
       console.log("auth error");
     }
