@@ -2,21 +2,28 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import classes from "./form.module.css";
 import InputTag from './InputTag'
-
-
+import { useDispatch, useSelector } from "react-redux";
 
 
 const Editform = (props) => {
  
+  const [firstName, setFirstName] = useState(props.userDetails.firstName);
+  const [lastName, setLastName] = useState(props.userDetails.lastName);
+  const [email, setEmail] = useState(props.userDetails.email);
+  const [bio, setBio] = useState(props.userDetails.bio);
+  const [genre, setGenre] = useState(props.userDetails.genres)
 
- 
-
-  
-    const formsubmitHandler=(e)=>{
+  const formsubmitHandler=(e)=>{
        e.preventDefault();
        props.setAddform((state)=> !state);
-
-    }
+       props.editHandler(
+        firstName,
+        lastName,
+        email,
+        bio,
+        genre
+      );
+  }
     
  
   return (
@@ -43,8 +50,8 @@ const Editform = (props) => {
                   class="form-control"
                   id="userfname"
                   placeholder="Enter your first name"
-                  value={props.firstname}
-                  onChange={(e) => props.setFirstname(e.target.value)}
+                  defaultValue={props.userDetails.firstname}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
             </div>
@@ -57,8 +64,8 @@ const Editform = (props) => {
                   class="form-control"
                   id="userlname"
                   placeholder="Enter your Last name"
-                  value={props.lastname}
-                  onChange={(e) => props.setLastname(e.target.value)}
+                  defaultValue={props.userDetails.lastname}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
             </div>
@@ -71,8 +78,8 @@ const Editform = (props) => {
                   class="form-control"
                   id="useremail"
                   placeholder="Enter your email"
-                  value={props.email}
-                  onChange={(e) => props.setEmail(e.target.value)}
+                  defaultValue={props.userDetails.email}
+                  onChange={(e) => setEmail(e.target.value)}
                   onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                 />
               </div>
@@ -81,7 +88,7 @@ const Editform = (props) => {
           
             <div class="form-group-row">
               <div class="col-11">
-              <InputTag genre={props.genre} setGenre={props.setGenre}/>
+              <InputTag genre={props.userDetails.genres} setGenre={setGenre}/>
               </div>
             </div>
            
@@ -89,7 +96,7 @@ const Editform = (props) => {
             <div class="form-group-row">
               <div class="col-11">
                 <label for="userbio">Enter bio</label>
-                <textarea class="form-control" id="userbio" rows="3" value={props.bio} onChange={(e)=> props.setBio(e.target.value)}></textarea>
+                <textarea class="form-control" id="userbio" rows="3" defaultValue={props.userDetails.bio} onChange={(e)=> setBio(e.target.value)}></textarea>
               </div>
             </div>
             <br />
