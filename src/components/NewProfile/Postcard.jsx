@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import AddPost from "./addPost/AddPost";
+import { Link } from "react-router-dom";
 
 const Postcard = () => {
 
@@ -23,9 +24,9 @@ const Postcard = () => {
      
         <div className={classes.postscreate}>
          
-          <button class="btn btn-info" onClick={addPostHandler}>
+          <Link class="btn btn-info" to={"/forms/post"}>
             <i class="bi bi-plus-circle"></i> Create
-          </button>
+          </Link>
          
         </div>
         <Grid container spacing={2}   direction="row"

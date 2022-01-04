@@ -1,4 +1,4 @@
-import { RemoveRedEyeRounded, Visibility, VisibilityOff } from '@mui/icons-material'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import React, { useReducer, useState } from 'react'
 import classes from './Signin.module.css'
 import signupimg from '../../../assets/images/Signup.png'
@@ -70,7 +70,10 @@ const Signin = (props) => {
                     {state.passwordIsValid === false && <span style={{ fontSize: '0.8em', color: 'red' }}>Password should be minimum 6 charachters and it should contain atleast 1 uppercase, 1 lowercase, 1 number and 1 special charachter</span>} <br />
                     <button type="submit" className="btn btn-primary shadow-none"  disabled={!state.formIsValid}>Signin</button> <br /> <br />
                     <span>
-                        New to the application? <a href="#" className="link-primary" onClick={props.onSignup}>Signup</a> here
+                        New to the application? <a href="w" className="link-primary" onClick={(event) => {
+                            event.preventDefault();
+                            props.onSignup(false)
+                        }}>Signup</a> here
                     </span>
                 </form>
             </div>}
@@ -80,6 +83,3 @@ const Signin = (props) => {
 }
 
 export default Signin
-
-{/* <Carousel data={trendingData} theme={"bg-dark"} className={"trendcard"} /> */}
-{/* <Route path='/auth' element={<Authentication />} /> */}

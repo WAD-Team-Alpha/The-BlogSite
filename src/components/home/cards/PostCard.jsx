@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import classes from './PostCard.module.css'
 const PostCard = (props) => {
     return (
@@ -15,10 +16,10 @@ const PostCard = (props) => {
                     </div>
                     <div  >
                         <ul className={`${classes.like}`}>
-                            <li><img src="https://img.icons8.com/ios-filled/24/000000/facebook-like.png" /><a href="#">Like {props.likes}</a></li>
-                            <li><img src="https://img.icons8.com/ios-glyphs/20/000000/speaker-notes.png" /><a href="#">Comment {props.comments}</a></li>
-                            <li><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" /><a href='#'>View post</a></li>
-                            <li><a className="fw-bold">Posted by <a href="#" style={{ color: "#05386b" }}>{props.author}</a> on {props.publishedDate}</a></li>
+                            <li><img src="https://img.icons8.com/ios-filled/24/000000/facebook-like.png" alt='hi' /><a href="w">Like {props.likes}</a></li>
+                            <li><img src="https://img.icons8.com/ios-glyphs/20/000000/speaker-notes.png" alt='hi'/><a href="w">Comment {props.comments}</a></li>
+                            <li><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png"alt='hi' /><Link to={`/posts/${props.id}`}>View post</Link></li>
+                            <li><a href='w' className="fw-bold">Posted by <a href="w" style={{ color: "#05386b" }}>{props.author}</a> on {props.publishedDate}</a></li>
                         </ul>
                     </div>
                 </div>

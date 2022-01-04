@@ -5,6 +5,7 @@ import AddPost from "./addPost/AddPost";
 import AddQuestion from "./addPost/AddQuestion";
 import Postcard from "./Postcard";
 import Questionscard from "./Questionscard";
+import { Link } from "react-router-dom";
 
 
 const ProfileTabs = () => {
@@ -41,12 +42,12 @@ const ProfileTabs = () => {
           <Tab eventKey="questions" title="Questions">
             {!addQuestion && (
               <div className={classes.postbtndiv}>
-                <button
-                  onClick={addQuestionHandler}
+                <Link
                   className="btn btn-primary"
+                  to={"/forms/question"}
                 >
                   Add a question
-                </button>
+                </Link>
               </div>
             )}
             {addQuestion && <AddQuestion />}
