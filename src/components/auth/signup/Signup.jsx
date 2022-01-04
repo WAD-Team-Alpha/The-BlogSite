@@ -5,6 +5,7 @@ import signinimg from '../../../assets/images/Signin.png'
 import { useReducer } from 'react'
 import { signupAction } from "../../../store/auth-actions";
 import { useDispatch } from "react-redux";
+import { useNavigate } from 'react-router-dom'
 // import { authActions } from "./store/auth";
 const signupReducer = (state, action) => {
 
@@ -72,6 +73,7 @@ const signupReducer = (state, action) => {
 }
 
 const Signup = (props) => {
+    const navigate = useNavigate();
     const dispatchAction = useDispatch();
     const initState = {
         firstname: "",
@@ -108,7 +110,13 @@ const Signup = (props) => {
                     password: state.password
                 }
             )
-            dispatchAction(signupAction(state.email, state.password, state.firstname, state.lastname));
+            dispatchAction(signupAction(state.email, state.password, state.firstname, state.lastname)).then((res)=>{
+                if (res === "success") {
+                    
+                    navigate("/home/post", {replace: true})
+
+                }
+            });
             dispatch({ type: "clear" })
         } else {
             console.log("Some error occured")
