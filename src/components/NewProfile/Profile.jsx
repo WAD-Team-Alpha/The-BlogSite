@@ -6,9 +6,9 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import Editform from "./EditForm/Editform";
 import { useDispatch, useSelector } from 'react-redux';
-import { follow, remove } from "../../store/counterReducer";
 import { profileActions } from "../../store/profile";
-
+import Members from "./Members/Members";
+import { follow, remove } from "../../store/counterReducer";
 
 
 
@@ -18,12 +18,13 @@ const Profile = () => {
 
   const userInfo = useSelector((state)=>state.profile)
   const [addform,setAddform]=useState(false)
+  const [memtab,setmemTab] = useState(false)
   const dispatch = useDispatch();
   const [followStatus,setfollowStatus] = useState("Follow");
-  const followCount = useSelector((state)=> state.counter.followers)
+  const followCount = useSelector((state)=> state.counter.followerslist.length)
 
-  console.log(followCount)
-  const followingCount = useSelector((state) => state.counter.following)
+  // console.log(followCount)
+  const followingCount = useSelector((state) => state.counter.followinglist.length)
 
   const userDetails = {
     firstName : userInfo.firstName,
@@ -31,7 +32,6 @@ const Profile = () => {
     email : userInfo.email,
     bio : userInfo.bio,
     genres : userInfo.genres
-
   }
   
   const editHandler = (
@@ -65,6 +65,10 @@ const Profile = () => {
    setAddform((state)=> !state)
   }
 
+  const linkHandler=(e)=>{
+    setmemTab((state)=> !state)
+   }
+
    
   
   const followbuttonHandler=()=>{
@@ -82,7 +86,7 @@ const Profile = () => {
     <div className={classes.maincontainer}>
       
       <div className={classes.containerMd}>
-      {!addform && (
+      {(!addform && !memtab) && (
         <Container>
           <Box
             sx={{ bgcolor: "white", height: "148px", borderRadius: "0.3em" }}
@@ -113,14 +117,14 @@ const Profile = () => {
                   </span>
                   <div class="row justify-content-center">
                     <div class="col-7">
-                      <Link underline="none">
+                      <Link underline="none" onClick={linkHandler}>
                         <span className={classes.mainfollowers}>
                           <b>Followers</b>
                         </span>
                       </Link>
                     </div>
                     <div class="col-5">
-                      <Link underline="none">
+                      <Link underline="none" onClick={linkHandler}>
                         {" "}
                         <span className={classes.mainfollowing}>
                           <b>Following</b>
@@ -210,7 +214,8 @@ const Profile = () => {
           </Box>
         </Container>
          )}
-         {addform && <Editform setAddform={setAddform} editHandler={editHandler} userDetails={userDetails} />}
+         {(addform && <Editform setAddform={setAddform} editHandler={editHandler} userDetails={userDetails} />)} 
+         {(memtab && <Members setmemTab={setmemTab}  /> )}
         <br />
       </div>
      
