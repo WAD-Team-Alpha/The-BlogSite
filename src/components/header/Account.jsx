@@ -10,8 +10,12 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
+import { useNavigate } from "react-router-dom";
 const Account = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -20,6 +24,10 @@ const Account = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const logoutHandler = () => {
+    dispatch(authActions.logout())
+    navigate("/", {replace: true})
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -73,7 +81,7 @@ const Account = () => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem sx={{ fontSize: "0.9em" }}>
+        <MenuItem onClick={logoutHandler} sx={{ fontSize: "0.9em" }}>
           <ListItemIcon>
             <Logout fontSize="medium" />
           </ListItemIcon>

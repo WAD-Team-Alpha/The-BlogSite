@@ -31,6 +31,7 @@ export const signinAction = (email, password) => {
       const authData = await fetchData();
       dispatch(authActions.login(authData));
       console.log("Success", authData);
+      return "success";
     } catch (error) {
       console.log("error");
     }
@@ -80,6 +81,7 @@ export const signupAction = (email, password, firstname, lastName) => {
         bio: "",
       }));
       console.log("Success", authData);
+      return "success";
     } catch (error) {
       console.log("auth error");
     }

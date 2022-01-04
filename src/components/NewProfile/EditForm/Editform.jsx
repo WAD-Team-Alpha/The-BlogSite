@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import classes from "./form.module.css";
 import InputTag from './InputTag'
-import { useDispatch, useSelector } from "react-redux";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const Editform = (props) => {
@@ -24,6 +24,10 @@ const Editform = (props) => {
         genre
       );
   }
+
+  const closeForm=()=>{
+    props.setAddform((state)=> !state);
+  }
     
  
   return (
@@ -41,6 +45,9 @@ const Editform = (props) => {
         
         <form  onSubmit={formsubmitHandler}>
             <div className={classes.formmain}>
+              <button class="btn shadow-none" onClick={closeForm} style={{marginLeft:"16em"}}>
+              <CloseIcon/>
+              </button>
             <span><h5>Enter your details</h5></span>
             <div class="form-group-row">
               <div class="col-11">
