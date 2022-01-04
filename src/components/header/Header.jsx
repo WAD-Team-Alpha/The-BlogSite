@@ -21,6 +21,12 @@ const Header = (props) => {
                 </Link>
             </div>
             <div className={classes.seperator}></div>
+            <Link to="/home/post" style={{
+                margin: 'auto 0',
+                textDecoration: 'none',
+                color: 'white',
+                fontWeight: '600',
+            }}>Dashboard</Link>
             <Account />
         </div>
     )

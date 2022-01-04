@@ -1,11 +1,12 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import React, { useReducer, useState } from "react";
+import React, { useContext, useReducer, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "./Signin.module.css";
 import signupimg from "../../../assets/images/Signup.png";
 import { useDispatch } from "react-redux";
 import { signinAction } from "../../../store/auth-actions";
+import AuthContext from "../../../store/auth-context";
 const signinReducer = (state, action) => {
   if (action.type === "EMAIL_ON_CHANGE") {
     return {
@@ -44,6 +45,7 @@ const signinReducer = (state, action) => {
 };
 
 const Signin = (props) => {
+  const ctx = useContext(AuthContext)
   const navigate = useNavigate();
   const isAuth = useSelector((state) => state.auth);
   const dispatchAction = useDispatch();
@@ -72,8 +74,11 @@ const Signin = (props) => {
         email: state.email,
         password: state.password,
       });
+
+      ctx.updateSubmitted(true)
       dispatchAction(signinAction(state.email, state.password)).then((res) => {
         if (res === "success") {
+          ctx.updateSubmitted(false)
           navigate("/home/post", { replace: true });
         }
       });

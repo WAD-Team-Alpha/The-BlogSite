@@ -15,6 +15,7 @@ import PostForm from './components/postform/PostForm';
 import QuestionForm from './components/postform/QuestionForm';
 import FormLayout from './components/postform/FormLayout';
 import { AuthContextProvider as ACP } from './store/auth-context';
+import PageNotFound from './layouts/PageNotFound';
 
 
 const Routing = () => {
@@ -37,14 +38,14 @@ const Routing = () => {
                     <Route path="question" element={<QuestionForm />} />
                 </Route>
 
-                <Route element={<ProfileLayout />}>
-                    <Route path="/profile" element={<Profile />} />
-                </Route>
-
                 <Route path="/posts/:postID" element={<PostLayout />} />
 
                 <Route path="/forum-threads/:threadID" element={<QuestionLayout />} />
 
+                <Route element={<ProfileLayout />}>
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="*" element={<PageNotFound />} />
+                </Route>
             </Routes>
         </Router>
     )
