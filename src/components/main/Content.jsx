@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import classes from './Content.module.css'
 import Left from './left/Left'
 import Right from './right/Right'
@@ -6,8 +6,30 @@ import section1 from '../../assets/images/main-1.png'
 import section2 from '../../assets/images/section2.png'
 import section3 from '../../assets/images/section3.png'
 import Footer from '../footer/Footer'
+import { motion, useAnimation } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
 
 const Content = (props) => {
+    const { ref, inView } = useInView();
+    const animation = useAnimation();
+
+    useEffect(() => {
+        if (inView) {
+            animation.start({
+                x: 0,
+                transition: {
+                    type: 'spring',
+                    duration: 1,
+                    bounce: 0.3,
+                }
+            })
+        }
+        if (!inView) {
+            animation.start({ x: '-100vw' });
+        }
+        console.log("use effect hook, inView = ", inView)
+    }, [inView, animation])
+
     return (
         <>
             <div className={`container-fluid`}>
@@ -20,7 +42,14 @@ const Content = (props) => {
                     </div>
                 </div>
             </div>
-            <div className={`container-fluid ${classes.section1}`}>
+            <motion.div
+                ref={ref}
+                className={`container-fluid ${classes.section1}`}
+                // initial={{ x: '100vw' }}
+                // animate={{ x: 0 }}
+                // transition={{ type: 'spring', duration: 2, bounce: 0.4 }}
+                animate={animation}
+            >
                 <div className="row">
                     <div className="col-md-3">
                         <img src={section1} alt="qna" />
@@ -31,7 +60,7 @@ const Content = (props) => {
                         <p>Search various answered questions and share your thoughts on others questions as well.</p>
                     </div>
                 </div>
-            </div>
+            </motion.div>
             <div className={`container-fluid ${classes.section2}`}>
                 <div className="row">
                     <div className={"col-md-6 " + classes.content}>
