@@ -3,6 +3,7 @@
 body {
     font-family: 'Quicksand', sans-serif;
     overflow: overlay;
+    overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
