@@ -1,11 +1,12 @@
 import { Visibility, VisibilityOff } from '@mui/icons-material'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import classes from './Signup.module.css'
 import signinimg from '../../../assets/images/Signin.png'
 import { useReducer } from 'react'
 import { signupAction } from "../../../store/auth-actions";
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom'
+import AuthContext from '../../../store/auth-context'
 // import { authActions } from "./store/auth";
 const signupReducer = (state, action) => {
 
@@ -73,6 +74,7 @@ const signupReducer = (state, action) => {
 }
 
 const Signup = (props) => {
+    const ctx = useContext(AuthContext)
     const navigate = useNavigate();
     const dispatchAction = useDispatch();
     const initState = {
@@ -110,9 +112,10 @@ const Signup = (props) => {
                     password: state.password
                 }
             )
+            ctx.updateSubmitted(true)
             dispatchAction(signupAction(state.email, state.password, state.firstname, state.lastname)).then((res)=>{
                 if (res === "success") {
-                    
+                    ctx.updateSubmitted(false)
                     navigate("/home/post", {replace: true})
 
                 }

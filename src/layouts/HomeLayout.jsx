@@ -5,12 +5,16 @@ import Navigation from '../components/navigation/Navigation'
 import Left from '../components/home/left'
 import Right from '../components/home/right'
 import {Outlet} from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import RestrictedAccess from './RestrictedAccess'
 const HomeLayout = () => {
     const [nav, setNav] = useState(false);
     const navHandler = () => {
         nav ? setNav(false) : setNav(true)
     }
+    const authStatus = useSelector((state) => state.auth);
     return (
+        authStatus.isAuthenticated ?
         <>
             {!nav && <Header nav={navHandler} />}
             {nav && <Navigation nav={navHandler} />}
@@ -29,7 +33,7 @@ const HomeLayout = () => {
                     </div>
                 </div>
             </>}
-        </>
+        </> : <RestrictedAccess />
     )
 }
 

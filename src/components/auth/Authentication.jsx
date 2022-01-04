@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import AuthContext from '../../store/auth-context'
 import classes from './Authentication.module.css'
+import LoadingSpinner from './LoadingSpinner'
 import Signin from './signin/Signin'
 import Signup from './signup/Signup'
 const Authentication = () => {
     const ctx = useContext(AuthContext)
-    console.log(ctx.status)
     return (
         <div className="container-fluid">
             <div className="row">
@@ -15,6 +15,7 @@ const Authentication = () => {
                 <div className={"col-md-6 align-items-center d-flex " + classes.signup}>
                     <Signup display={!ctx.status} onSignin={ctx.updateStatus} />
                 </div>
+                {ctx.submitted && <LoadingSpinner />}
             </div>
         </div>
     )
