@@ -5,7 +5,11 @@ const initialProfileState = {
   lastName: "",
   email: "",
   bio: "",
-  genres: []
+  genres: [],
+  postIds: [],
+  questionIds: [],
+  followersList:[],
+  followingList:[],
 };
 
 const profileSlice = createSlice({
@@ -19,6 +23,10 @@ const profileSlice = createSlice({
       state.email = action.payload.email;
       state.bio = action.payload.bio;
       state.genres = action.payload.genres;
+      state.postIds = action.payload.postIds;
+      state.questionIds = action.payload.questionIds;
+      state.followersList = action.payload.followersList;
+      state.followingList = action.payload.followingList;
     },
   },
 });
