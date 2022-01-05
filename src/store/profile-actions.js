@@ -1,5 +1,4 @@
 import { profileActions } from "./profile";
-import { useSelector } from "react-redux";
 export const sendProfileData = (about,localId) => {
   return async (dispatch) => {
     console.log("sending");
@@ -46,7 +45,18 @@ export const fetchProfileData = (localId) => {
 
     try {
       const profileData = await fetchData();
-      dispatch(profileActions.update(profileData));
+      var data  = {
+        firstName:profileData.firstName,
+        lastName:profileData.lastName,
+        email:profileData.email,
+        followersList:profileData.followersList === undefined? [] : profileData.followersList,
+        followingList:profileData.followingList === undefined? [] : profileData.followingList,
+        postIds: profileData.postIds === undefined ? [] : profileData.postIds,
+        questionIds: profileData.questionIds === undefined ? [] : profileData.questionIds,
+        bio: profileData.bio,
+        genres: profileData.genres === undefined ? [] : profileData.genres,
+      }
+      dispatch(profileActions.update(data));
     } catch (error) {
       console.log("error");
     }

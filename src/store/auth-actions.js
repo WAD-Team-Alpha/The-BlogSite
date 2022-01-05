@@ -74,11 +74,12 @@ export const signupAction = (email, password, firstname, lastName) => {
         firstName: firstname,
         lastName: lastName,
         email: email,
-        university: "",
-        degree: "",
-        graduationYear: "",
-        location: "",
         bio: "",
+        genres: [],
+        postIds: [],
+        questionIds: [],
+        followersList:[],
+        followingList:[],
       }));
       console.log("Success", authData);
       return "success";

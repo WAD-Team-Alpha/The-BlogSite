@@ -2,7 +2,7 @@ import Routing from "./Routing";
 import { authActions } from "./store/auth";
 import { useEffect,useRef } from "react";
 import { useDispatch, useSelector} from "react-redux";
-import { sendProfileData} from "./store/profile-actions";
+import { sendProfileData, fetchProfileData} from "./store/profile-actions";
 function App() {
   const firstUpdate = useRef(true);
   const isAuth = useSelector((state) => state.auth);
@@ -26,7 +26,16 @@ function App() {
     console.log("send data is triggered");
     console.log(aboutData);
     dispatch(sendProfileData(aboutData,isAuth.localId))
-  },[aboutData,isAuth])
+  },[aboutData])
+  useEffect(()=>{
+    console.log(isAuth);
+    if (!isAuth.isAuthenticated) {
+      return;
+    }
+    console.log("send data is triggered");
+    console.log(aboutData);
+    dispatch(fetchProfileData(isAuth.localId))
+  },[isAuth])
   return (
     <div className="App">
       <Routing />
