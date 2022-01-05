@@ -1,0 +1,38 @@
+.postmodal{
+    border: 1px solid black;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.questionmodal{
+    border: 1px solid black;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.postimg{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.questimg{
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.posttext{
+    position: absolute;
+    right: 67%;
+    top: 35%;
+    font-size: 30px;
+    color: black;
+  
+}
+
+.questext{
+    position: absolute;
+    right: 12%;
+    top: 35%;
+    font-size: 30px;
+    color: black;
+}

@@ -6,7 +6,7 @@ const ProfileAnalytics=()=>{
     return <div>
          
             <div className={classes.pie} >
-                <img className={classes.pieimg} src="https://cms.qz.com/wp-content/uploads/2018/04/pie-chart_colorcorrected.jpeg?quality=75&strip=all&w=900&h=900&crop=1" alt="#"/>
+                 <span className={classes.analysistext}><b>No Analysis recorded</b></span>
             </div>
            
             <div className={classes.analytics} >
@@ -15,7 +15,15 @@ const ProfileAnalytics=()=>{
             
             
             <div className={classes.aninfo}>
-                <span className={classes.matter}>To be included</span> 
+                <span className={classes.matter}>
+                    <ul >
+                        <li style={{paddingBottom: "1em"}}><b>Views</b>: 999</li>
+                        <li style={{paddingBottom: "1em"}}><b>Likes</b>: 999</li>
+                        <li style={{paddingBottom: "1em"}}><b>Shares</b>: 999</li>
+                        <li style={{paddingBottom: "1em"}}><b>Comments</b>: 999</li>
+                    </ul>
+
+                </span> 
             </div>
             
         

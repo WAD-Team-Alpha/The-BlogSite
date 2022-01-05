@@ -1,55 +1,74 @@
-import { Grid } from "@mui/material";
-import classes from "./postcard.module.css";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import classes from "./question.module.css";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Link } from "@mui/material";
 
-const Questionscard = () => {
+const Questionscard=()=>{
 
-    const ques=["ques1", "ques2", "ques3", "q4", "q5"]
-  return (
-    
-    <div>
-      <div className={classes.cardcontainer}>
-        <div className={classes.quescreate}>
-          <button class="btn btn-info">
-            <i class="bi bi-plus-circle"></i> Add
-          </button>
+  const ques=["Question1","Question2","Question3","Question4"]
+    return <div>
+     
+        <div class="container-fluid" style={{border:"1px solid black", width:"700px", height:"520px", overflowY:"scroll"}}>
+            {ques.map((question)=> (
+            <div class="row" style={{border:"1px solid black", width:"675px", marginTop:"1em", marginBottom:"1em"}}>
+                <div class="col-2">
+                   <div class="row">
+                      <div class="col" style={{paddingBottom:"1em"}}>
+                        <div className={classes.votenum}>
+                          <span style={{fontSize:"24px"}}><b>999</b></span>
+                        </div>
+                        <div>
+                          <span className={classes.votes}>Votes</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col" style={{paddingBottom:"1em" }}>
+                        <div className={classes.answernum}>
+                          <span style={{fontSize:"24px"}}><b>999</b></span>
+                          <div className={classes.answers}>
+                            Answers
+                          </div>
+                      </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="col-10">
+                   <div class="row">
+                      <div class="col">
+                        <div className={classes.questitle}>
+                          <b> {question}</b>
+                        </div>
+                      </div>  
+                   </div>
+                   <div class="row">
+                      <div class="col">
+                        <div className={classes.quesinfo}>
+                          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                        </div>
+                      </div>  
+                   </div>
+                   <div class="row">
+                      <div class="col">
+                         <div className={classes.quesfooter}>
+                           <div class="row">
+                            <div class="col-5">
+                             <Link underline="none" color="black"> <VisibilityIcon/> {" "} View Question</Link>
+                            </div>
+                            <div class="col-7">
+                              <div className={classes.postedname}>
+                                  Asked by Surya on 10/08/2021
+                              </div>
+                            </div>
+                            </div>
+                         </div>
+                      </div>  
+                   </div>
+                </div>
+            </div>
+            ))}
         </div>
-        <Grid container spacing={2}   direction="row"
-                justify="flex-start"
-                alignItems="flex-start">
-        {ques.map((questions)=> (
-        <div className={classes.cards}>
-           
-          <Card sx={{ maxWidth: 400 }}>
-            <CardMedia
-              component="img"
-              alt="green iguana"
-              height="140"
-              image="https://www.practiceportuguese.com/wp-content/uploads/2020/06/asking-questions-800x534.jpg"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-               {questions}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{marginLeft:"7em", marginTop:"1em"}}>
-                Published on 20-08-2021
-              </Typography>
-            </CardContent>
-            
-          </Card>
-         
-          <br/>
-        </div>
-        
-        ))}
-        </Grid>
-      </div>
     </div>
     
-  );
-};
+}
 
-export default Questionscard;
+export default Questionscard

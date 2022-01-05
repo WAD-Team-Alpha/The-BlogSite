@@ -27,8 +27,9 @@ const ProfileTabs = () => {
           activeKey={tab}
           onSelect={(k) => setTab(k)}
           className="mb-3"
+          style={{borderColor:"black"}}
         >
-          <Tab eventKey="posts" title="Posts">
+          <Tab eventKey="posts" title="Posts" >
             {/* {!addPost && (
               <div className={classes.postbtndiv}>
                 <button onClick={addPostHandler} className="btn btn-primary">
@@ -40,7 +41,7 @@ const ProfileTabs = () => {
             <Postcard/>
           </Tab>
           <Tab eventKey="questions" title="Questions">
-            {!addQuestion && (
+            {/* {!addQuestion && (
               <div className={classes.postbtndiv}>
                 <Link
                   className="btn btn-primary"
@@ -49,12 +50,15 @@ const ProfileTabs = () => {
                   Add a question
                 </Link>
               </div>
-            )}
-            {addQuestion && <AddQuestion />}
+            )} */}
+            {/* {addQuestion && <AddQuestion />} */}
+            <Questionscard/>
           </Tab>
+         
         </Tabs>
-      
+        
         </div>
+       
       </div>
       
    
