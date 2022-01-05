@@ -5,10 +5,11 @@ import classes from './Navigation.module.css'
 import genreData from '../../helpers/genreData.json'
 import Carousel from './trending/carousel/Carousel'
 import trendingData from '../../helpers/trendingData.json'
+import { motion } from 'framer-motion'
 
 const Navigation = (props) => {
     return (
-        <nav>
+        <motion.nav initial={{x: '-100vw', opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.7}}>
             <button className={'btn shadow-none ' + classes.nav} onClick={props.nav}>
                 <Close />
             </button>
@@ -37,7 +38,7 @@ const Navigation = (props) => {
                     <Carousel data={trendingData} theme={"bg-dark"} className={"trendcard"} />
                 </div>
             </div>
-        </nav>
+        </motion.nav>
     )
 }
 
