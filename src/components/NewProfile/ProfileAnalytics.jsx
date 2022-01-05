@@ -1,6 +1,9 @@
+import Visibility from "@mui/icons-material/Visibility"
 import { Container } from "@mui/material"
 import { Box } from "@mui/system"
 import classes from './analytics.module.css'
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import CommentIcon from '@mui/icons-material/Comment';
 
 const ProfileAnalytics=()=>{
     return <div>
@@ -15,15 +18,70 @@ const ProfileAnalytics=()=>{
             
             
             <div className={classes.aninfo}>
-                <span className={classes.matter}>
-                    <ul >
-                        <li style={{paddingBottom: "1em"}}><b>Views</b>: 999</li>
-                        <li style={{paddingBottom: "1em"}}><b>Likes</b>: 999</li>
-                        <li style={{paddingBottom: "1em"}}><b>Shares</b>: 999</li>
-                        <li style={{paddingBottom: "1em"}}><b>Comments</b>: 999</li>
-                    </ul>
+            <div class="row">
+                    <div class="col">
+                       <div className={classes.views}>
+                            <div class="row">
+                                <div class="col-1">
+                                    <Visibility/>
+                                </div>
+                                <div class="col-3">
+                                    <b>Views{" "}</b>
+                                </div>
+                                <div class="col-1">
+                                    <b>:</b>
+                                </div>
+                                <div class="col-7">
+                                   <b> 999 </b>
+                                </div>
+                            </div>
 
-                </span> 
+                       </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                       <div className={classes.views}>
+                            <div class="row">
+                                <div class="col-1">
+                                <ThumbUpOffAltIcon/>
+                                </div>
+                                <div class="col-3">
+                                    <b>Likes{" "}</b>
+                                </div>
+                                <div class="col-1">
+                                    <b>:</b>
+                                </div>
+                                <div class="col-7">
+                                    <b>999</b>
+                                </div>
+                            </div>
+
+                       </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                       <div className={classes.views}>
+                            <div class="row">
+                                <div class="col-1">
+                                    <CommentIcon/> 
+                                </div>
+                                <div class="col-4">
+                                    <b>Comments{" "}:</b>
+                                </div>
+                                <div class="col-7">
+                                    <b>999</b>
+                                </div>
+                            </div>
+
+                       </div>
+                    </div>
+                </div>
+                <div >
+                    <img className={classes.belowimage} src="https://www.socialbakers.com/website/storage/2020/01/OG-BLOG_data.jpg" alt="analyticimage"/>
+                </div>
+            
             </div>
             
         

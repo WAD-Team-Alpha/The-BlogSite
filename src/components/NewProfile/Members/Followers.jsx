@@ -1,12 +1,13 @@
 import { Avatar, Link } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { removefollower } from "../../../store/counterReducer";
+import { profileActions } from "../../../store/profile";
 
 const Followers = (props) => {
-  const followerslist = useSelector((state) => state.counter.followerslist);
+  const followerslist = useSelector((state) => state.profile.followerslist);
+  console.log(followerslist)
   const dispatch = useDispatch();
   const removeHandler = (index) => {
-    dispatch(removefollower(index));
+    dispatch(profileActions.removefollower(index));
     console.log(followerslist);
   };
 

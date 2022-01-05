@@ -8,7 +8,7 @@ import Editform from "./EditForm/Editform";
 import { useDispatch, useSelector } from 'react-redux';
 import { profileActions } from "../../store/profile";
 import Members from "./Members/Members";
-import { follow, remove } from "../../store/counterReducer";
+
 
 
 
@@ -21,18 +21,24 @@ const Profile = () => {
   const [memtab,setmemTab] = useState(false)
   const dispatch = useDispatch();
   const [followStatus,setfollowStatus] = useState("Follow");
-  const followCount = useSelector((state)=> state.counter.followerslist.length)
-
-  // console.log(followCount)
-  const followingCount = useSelector((state) => state.counter.followinglist.length)
-
+  
   const userDetails = {
     firstName : userInfo.firstName,
     lastName : userInfo.lastName,
     email : userInfo.email,
     bio : userInfo.bio,
-    genres : userInfo.genres
+    genres : userInfo.genres,
+    followinglist : userInfo.followinglist,
+    followerslist : userInfo.followerslist
   }
+
+  console.log(userDetails.followerslist)
+
+  const followCount = userDetails.followerslist.length
+  console.log(followCount)
+
+  const followingCount = userDetails.followinglist.length
+  console.log(followingCount)
   
   const editHandler = (
     firstName,
@@ -74,11 +80,11 @@ const Profile = () => {
   const followbuttonHandler=()=>{
     if(followStatus === "Follow"){
       setfollowStatus("Following")
-      return dispatch(follow())
+      return dispatch(profileActions.follow())
     }
     else {
       setfollowStatus("Follow")
-      return dispatch(remove())
+      return dispatch(profileActions.remove())
     }
   }
  
@@ -87,9 +93,9 @@ const Profile = () => {
       
       <div className={classes.containerMd}>
       {(!addform && !memtab) && (
-        <Container>
+        <Container style={{paddingLeft:"1em", paddingRight:"1em"}}>
           <Box
-            sx={{ bgcolor: "white", height: "140px", borderRadius: "0.3em" }}
+            sx={{ bgcolor: "white", height: "140px",  borderRadius: "0.3em" }}
           >
             <div className="container-fluid">
               <div className="row justify-content-end">
@@ -150,7 +156,7 @@ const Profile = () => {
           <Box sx={{ height: "15px", backgroundColor: "#05386B" }}></Box>
       
           <Box
-            sx={{ bgcolor: "white", height: "375px", borderRadius: "0.3em" }}
+            sx={{ bgcolor: "white", height: "385px", borderRadius: "0.3em" }}
           >
            <div class="row" style={{marginTop:"0.2em"}}>
            <span className={classes.genres}>
@@ -194,7 +200,7 @@ const Profile = () => {
 
               <br />
               </div>
-           <div class="row" style={{ marginTop:"2em", height:"60px"}}>
+           <div class="row" style={{ marginTop:"2.5em", height:"60px"}}>
            <div class="col">
                   <div>
                     <button className={classes.customfollowbtn} onClick={followbuttonHandler}><b>{followStatus}</b></button>
