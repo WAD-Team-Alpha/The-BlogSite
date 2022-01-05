@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Main from './components/main/Main'
 import ProfileLayout from './layouts/ProfileLayout';
 import Profile from './components/NewProfile/newProfile';
@@ -14,17 +14,18 @@ import SavedForLaterPage from './components/home/pages/SavedForLaterPage';
 import PostForm from './components/postform/PostForm';
 import QuestionForm from './components/postform/QuestionForm';
 import FormLayout from './components/postform/FormLayout';
-import { AuthContextProvider as ACP } from './store/auth-context';
 import PageNotFound from './layouts/PageNotFound';
+import { AnimatePresence } from 'framer-motion';
 
 
 const Routing = () => {
+    const location = useLocation()
     return (
-        <Router>
-            <Routes>
-                <Route path="/" element={<ACP><Main /></ACP>} />
+        <AnimatePresence exitBeforeEnter>
+            <Routes location={location} key={location.key}>
+                <Route path="/" element={<Main />} />
 
-                <Route path='/auth' element={<ACP><Authentication /></ACP>} />
+                <Route path='/auth' element={<Authentication />} />
 
                 <Route path="/home/*" element={<HomeLayout />}>
                     <Route path="post" element={<PostPage />} />
@@ -47,7 +48,7 @@ const Routing = () => {
                     <Route path="*" element={<PageNotFound />} />
                 </Route>
             </Routes>
-        </Router>
+        </AnimatePresence>
     )
 }
 

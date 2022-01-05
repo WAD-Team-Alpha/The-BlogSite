@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import classes from './Content.module.css'
 import Left from './left/Left'
 import Right from './right/Right'
@@ -10,12 +10,21 @@ import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
 const Content = (props) => {
-    const { ref, inView } = useInView();
-    const animation = useAnimation();
+    const [ref1, inView1] = useInView({ triggerOnce: true });
+    const animation1 = useAnimation();
+
+    const [ref2, inView2] = useInView({ triggerOnce: true });
+    const animation2 = useAnimation();
+
+    const [ref3, inView3] = useInView({ triggerOnce: true });
+    const animation3 = useAnimation();
+
+    const [ref4, inView4] = useInView({ triggerOnce: true });
+    const animation4 = useAnimation();
 
     useEffect(() => {
-        if (inView) {
-            animation.start({
+        if (inView1) {
+            animation1.start({
                 x: 0,
                 transition: {
                     type: 'spring',
@@ -24,12 +33,60 @@ const Content = (props) => {
                 }
             })
         }
-        if (!inView) {
-            animation.start({ x: '-100vw' });
+        if (!inView1) {
+            animation1.start({ x: '-100vw' });
         }
-        console.log("use effect hook, inView = ", inView)
-    }, [inView, animation])
-
+        console.log("animation value ", inView1)
+    }, [inView1, animation1])
+    useEffect(() => {
+        if (inView2) {
+            animation2.start({
+                x: 0,
+                transition: {
+                    type: 'spring',
+                    duration: 1,
+                    bounce: 0.3,
+                }
+            })
+        }
+        if (!inView2) {
+            animation2.start({ x: '100vw' });
+        }
+        console.log("animation value ", inView2)
+    }, [inView2, animation2])
+    useEffect(() => {
+        if (inView3) {
+            animation3.start({
+                x: 0,
+                transition: {
+                    type: 'spring',
+                    duration: 1,
+                    bounce: 0.3,
+                }
+            })
+        }
+        if (!inView3) {
+            animation3.start({ x: '-100vw' });
+        }
+        console.log("animation value ", inView3)
+    }, [inView3, animation3])
+    useEffect(() => {
+        if (inView4) {
+            animation4.start({
+                y: 0,
+                opacity: 1,
+                transition: {
+                    type: 'spring',
+                    duration: 1,
+                    bounce: 0.3,
+                }
+            })
+        }
+        if (!inView4) {
+            animation4.start({ y: '20vh', opacity: 0 });
+        }
+        console.log("animation value ", inView4)
+    }, [inView4, animation4])
     return (
         <>
             <div className={`container-fluid`}>
@@ -43,12 +100,9 @@ const Content = (props) => {
                 </div>
             </div>
             <motion.div
-                ref={ref}
                 className={`container-fluid ${classes.section1}`}
-                // initial={{ x: '100vw' }}
-                // animate={{ x: 0 }}
-                // transition={{ type: 'spring', duration: 2, bounce: 0.4 }}
-                animate={animation}
+                ref={ref1}
+                animate={animation1}
             >
                 <div className="row">
                     <div className="col-md-3">
@@ -61,7 +115,11 @@ const Content = (props) => {
                     </div>
                 </div>
             </motion.div>
-            <div className={`container-fluid ${classes.section2}`}>
+            <motion.div
+                className={`container-fluid ${classes.section2}`}
+                ref={ref2}
+                animate={animation2}
+            >
                 <div className="row">
                     <div className={"col-md-6 " + classes.content}>
                         <h1>Post what's on your mind</h1>
@@ -75,8 +133,12 @@ const Content = (props) => {
                         <img src={section2} alt="qna" />
                     </div>
                 </div>
-            </div>
-            <div className={`container-fluid ${classes.section3}`}>
+            </motion.div>
+            <motion.div
+                className={`container-fluid ${classes.section3}`}
+                ref={ref3}
+                animate={animation3}
+            >
                 <div className="row">
                     <div className="col-md-3">
                         <img src={section3} alt="qna" />
@@ -90,10 +152,13 @@ const Content = (props) => {
                         </p>
                     </div>
                 </div>
-            </div>
-            <footer>
+            </motion.div>
+            <motion.footer
+                ref={ref4}
+                animate={animation4}
+            >
                 <Footer />
-            </footer>
+            </motion.footer>
         </>
     )
 }
