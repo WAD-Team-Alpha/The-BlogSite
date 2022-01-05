@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import classes from "./form.module.css";
 import InputTag from './InputTag'
-import { useDispatch, useSelector } from "react-redux";
+import CloseIcon from '@mui/icons-material/Close';
 
 
 const Editform = (props) => {
@@ -24,6 +24,10 @@ const Editform = (props) => {
         genre
       );
   }
+
+  const closeForm=()=>{
+    props.setAddform((state)=> !state);
+  }
     
  
   return (
@@ -31,17 +35,23 @@ const Editform = (props) => {
          
       <Box
         sx={{
-          height: "540px",
+          height: "545px",
           backgroundColor: "white",
           width: "330px",
-          paddingTop: "1em",
-          marginLeft: "1em",
+          paddingTop: "0.3em",
+          marginLeft: "0.7em",
+          borderRadius:"0.3em"
         }}
       >
         
         <form  onSubmit={formsubmitHandler}>
             <div className={classes.formmain}>
-            <span><h5>Enter your details</h5></span>
+              <button class="btn shadow-none" onClick={closeForm} style={{marginLeft:"16em"}}>
+              <CloseIcon/>
+              </button>
+              <div style={{marginBottom:"1em"}}>
+            <span style={{fontSize:"24px"}}><b>Enter your details</b></span>
+            </div>
             <div class="form-group-row">
               <div class="col-11">
                 <label for="userfname">First name</label>
@@ -101,7 +111,7 @@ const Editform = (props) => {
             </div>
             <br />
            
-            <button class="btn btn-success" style={{backgroundColor:"#8ee4af"}} ><span className={classes.update}>Update</span></button>
+            <button className={classes.customupdatebtn}><span className={classes.update}>Update</span></button>
            
             
             

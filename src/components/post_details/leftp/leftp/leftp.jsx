@@ -6,6 +6,7 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useState } from 'react'
 
 
+import postData from '../../../../helpers/postData.json'
 
 
 
@@ -55,6 +56,8 @@ const Leftp = (props) => {
         
     }
 
+    const data = postData.find(post => post.id === parseInt(props.postID))
+    console.log(data)
     return(
         <>
             <div style={{paddingTop:"3em"}}>
@@ -62,18 +65,18 @@ const Leftp = (props) => {
                     <ThumbUpIcon/> {likestatus}
                 </button>
                
-                <span style={{paddingLeft:"7em"}}>{like}</span>
+                <span style={{paddingLeft:"7em"}}>{data.likes}</span>
                 <br/><br/>
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} >
                     <CommentIcon/> Comment
                 </button>
-                <span style={{paddingLeft:"7em"}}>999</span>
+                <span style={{paddingLeft:"7em"}}>{data.comments}</span>
                 <br/><br/>
 
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} on onClick={bookmarkHandler}>
                     <BookmarkIcon/> {bookmarkstatus}
                 </button>
-                <span style={{paddingLeft:"7em"}}>999</span>
+                <span style={{paddingLeft:"7em"}}>{data.bookmarks}</span>
                 <br/><br/>
                 
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} onClick={shareHandler}>

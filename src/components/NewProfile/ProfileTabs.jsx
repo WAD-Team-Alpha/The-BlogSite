@@ -5,6 +5,7 @@ import AddPost from "./addPost/AddPost";
 import AddQuestion from "./addPost/AddQuestion";
 import Postcard from "./Postcard";
 import Questionscard from "./Questionscard";
+import { Link } from "react-router-dom";
 
 
 const ProfileTabs = () => {
@@ -26,8 +27,9 @@ const ProfileTabs = () => {
           activeKey={tab}
           onSelect={(k) => setTab(k)}
           className="mb-3"
+          style={{borderColor:"black"}}
         >
-          <Tab eventKey="posts" title="Posts">
+          <Tab eventKey="posts" title="Posts" >
             {/* {!addPost && (
               <div className={classes.postbtndiv}>
                 <button onClick={addPostHandler} className="btn btn-primary">
@@ -39,21 +41,24 @@ const ProfileTabs = () => {
             <Postcard/>
           </Tab>
           <Tab eventKey="questions" title="Questions">
-            {!addQuestion && (
+            {/* {!addQuestion && (
               <div className={classes.postbtndiv}>
-                <button
-                  onClick={addQuestionHandler}
+                <Link
                   className="btn btn-primary"
+                  to={"/forms/question"}
                 >
                   Add a question
-                </button>
+                </Link>
               </div>
-            )}
-            {addQuestion && <AddQuestion />}
+            )} */}
+            {/* {addQuestion && <AddQuestion />} */}
+            <Questionscard/>
           </Tab>
+         
         </Tabs>
-      
+        
         </div>
+       
       </div>
       
    

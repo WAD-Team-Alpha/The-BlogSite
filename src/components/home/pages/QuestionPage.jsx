@@ -6,7 +6,8 @@ const QuestionPage = () => {
      return (
           <>
                {questionData.map((query) => <QuestionCard
-                    key={query}
+                    key={query.id}
+                    id={query.id}
                     votes={query.votes}
                     answers={query.answers}
                     question={query.question}

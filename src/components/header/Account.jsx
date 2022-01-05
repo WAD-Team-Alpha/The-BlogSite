@@ -9,18 +9,13 @@ import IconButton from "@mui/material/IconButton";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  links: {
-    textDecoration: "none",
-    display: "flex",
-    fontSize: "1.4em",
-  },
-});
-
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
+import { useNavigate } from "react-router-dom";
 const Account = () => {
-  const style = useStyles();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -29,6 +24,10 @@ const Account = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const logoutHandler = () => {
+    dispatch(authActions.logout())
+    navigate("/", {replace: true})
+  }
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -71,7 +70,9 @@ const Account = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem sx={{ fontSize: "0.9em" }}>
-            <Avatar /><Typography sx={{padding: "0.2em", color: "#3d3d3d"}}>Profile</Typography>
+          <Link to={"/profile"} style={{ textDecoration: 'none', display: "flex", fontSize: '1.4em' }}>
+            <Avatar /><Typography sx={{ padding: "0.2em", color: "#3d3d3d" }}>Profile</Typography>
+          </Link>
         </MenuItem>
         <Divider />
         <MenuItem sx={{ fontSize: "0.9em" }}>
@@ -80,7 +81,7 @@ const Account = () => {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem sx={{ fontSize: "0.9em" }}>
+        <MenuItem onClick={logoutHandler} sx={{ fontSize: "0.9em" }}>
           <ListItemIcon>
             <Logout fontSize="medium" />
           </ListItemIcon>

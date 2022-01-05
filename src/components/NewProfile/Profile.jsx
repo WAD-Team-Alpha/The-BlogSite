@@ -6,8 +6,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import Editform from "./EditForm/Editform";
 import { useDispatch, useSelector } from 'react-redux';
-import { follow, remove } from "../../store/counterReducer";
 import { profileActions } from "../../store/profile";
+import Members from "./Members/Members";
 
 
 
@@ -18,21 +18,27 @@ const Profile = () => {
 
   const userInfo = useSelector((state)=>state.profile)
   const [addform,setAddform]=useState(false)
+  const [memtab,setmemTab] = useState(false)
   const dispatch = useDispatch();
   const [followStatus,setfollowStatus] = useState("Follow");
-  const followCount = useSelector((state)=> state.counter.followers)
-
-  console.log(followCount)
-  const followingCount = useSelector((state) => state.counter.following)
-
+  
   const userDetails = {
     firstName : userInfo.firstName,
     lastName : userInfo.lastName,
     email : userInfo.email,
     bio : userInfo.bio,
-    genres : userInfo.genres
-
+    genres : userInfo.genres,
+    followinglist : userInfo.followinglist,
+    followerslist : userInfo.followerslist
   }
+
+  console.log(userDetails.followerslist)
+
+  const followCount = userDetails.followerslist.length
+  console.log(followCount)
+
+  const followingCount = userDetails.followinglist.length
+  console.log(followingCount)
   
   const editHandler = (
     firstName,
@@ -65,16 +71,20 @@ const Profile = () => {
    setAddform((state)=> !state)
   }
 
+  const linkHandler=(e)=>{
+    setmemTab((state)=> !state)
+   }
+
    
   
   const followbuttonHandler=()=>{
     if(followStatus === "Follow"){
       setfollowStatus("Following")
-      return dispatch(follow())
+      return dispatch(profileActions.follow())
     }
     else {
       setfollowStatus("Follow")
-      return dispatch(remove())
+      return dispatch(profileActions.remove())
     }
   }
  
@@ -82,45 +92,47 @@ const Profile = () => {
     <div className={classes.maincontainer}>
       
       <div className={classes.containerMd}>
-      {!addform && (
-        <Container>
+      {(!addform && !memtab) && (
+        <Container style={{paddingLeft:"1em", paddingRight:"1em"}}>
           <Box
-            sx={{ bgcolor: "white", height: "148px", borderRadius: "0.3em" }}
+            sx={{ bgcolor: "white", height: "140px",  borderRadius: "0.3em" }}
           >
             <div className="container-fluid">
               <div className="row justify-content-end">
-                <div class="col-2">
-              
-                  <button
-                    type="submit"
-                    class="btn shadow-none"
-                    style={{ marginTop: "0.2em" }}
+                <div class="col-2" >
+                <div  style={{ marginTop: "0.5em",marginLeft:"0.2em", cursor:"pointer"}}>
+                  <Link
+                    underline="none"
+                    color="black"
+                   
                     onClick={formHandler}
                   >
                     <i class="bi bi-pencil-fill"></i>
-                  </button>
-                  
+                  </Link>
+                  </div>
                   
                 </div>
               </div>
               <div class="row justify-content-start">
-                <div class="col-3" style={{ marginRight: "1.5em" }}>
+                <div class="col-3" style={{ marginRight: "2em" }}>
                   <Avatar sx={{ width: "85px", height: "85px" }} />
                 </div>
+
                 <div class="col-7">
                   <span className={classes.uname}>
                     <b>{userDetails.firstName}</b>
                   </span>
+                 
                   <div class="row justify-content-center">
                     <div class="col-7">
-                      <Link underline="none">
+                      <Link underline="none" onClick={linkHandler}>
                         <span className={classes.mainfollowers}>
                           <b>Followers</b>
                         </span>
                       </Link>
                     </div>
                     <div class="col-5">
-                      <Link underline="none">
+                      <Link underline="none" onClick={linkHandler}>
                         {" "}
                         <span className={classes.mainfollowing}>
                           <b>Following</b>
@@ -137,12 +149,14 @@ const Profile = () => {
                     </div>
                   </div>
                 </div>
+               
               </div>
             </div>
           </Box>
-          <Box sx={{ height: "30px", backgroundColor: "#05386B" }}></Box>
+          <Box sx={{ height: "15px", backgroundColor: "#05386B" }}></Box>
+      
           <Box
-            sx={{ bgcolor: "white", height: "360px", borderRadius: "0.3em" }}
+            sx={{ bgcolor: "white", height: "385px", borderRadius: "0.3em" }}
           >
            <div class="row" style={{marginTop:"0.2em"}}>
            <span className={classes.genres}>
@@ -150,11 +164,11 @@ const Profile = () => {
               </span>
               <hr className={classes.hr} />
              
-              <div class="col" style={{ marginLeft: "1.2em"}}>
-                <div style={{ height:"50px"}}>
+              <div class="col" style={{ marginLeft: "1.2em", height:"60px"}}>
+                <div >
                 {userDetails.genres.map((gen)=>(
                   
-                <Chip style={{marginBottom:"0.5em", marginRight:"0.3em"}} label={gen}/>  
+                <Chip style={{marginBottom:"0.5em", marginRight:"0.3em", backgroundColor:"#8ee4af", color:"#05386b"}} label={gen}/>  
                 
                ))}
                </div>
@@ -186,31 +200,19 @@ const Profile = () => {
 
               <br />
               </div>
-           <div class="row" style={{ marginTop:"1.5em", height:"60px"}}>
+           <div class="row" style={{ marginTop:"2.5em", height:"60px"}}>
            <div class="col">
-              <div className={classes.custombtn}>
-                <button
-                  type="submit"
-                  className="btn btn-success"
-                  style={{
-                    backgroundColor: "#8ee4af",
-                    color: "black",
-                    width: "290px",
-                    marginBottom:"1em",
-                  }}
-                  onClick={followbuttonHandler}
-                >
-                  <span style={{ paddingRight: "1em"}}>
-                    <b>{followStatus}</b>
-                  </span>
-                </button>
-              </div>
+                  <div>
+                    <button className={classes.customfollowbtn} onClick={followbuttonHandler}><b>{followStatus}</b></button>
+                  </div>
             </div>   
            </div>
           </Box>
+          
         </Container>
          )}
-         {addform && <Editform setAddform={setAddform} editHandler={editHandler} userDetails={userDetails} />}
+         {(addform && <Editform setAddform={setAddform} editHandler={editHandler} userDetails={userDetails} />)} 
+         {(memtab && <Members setmemTab={setmemTab}  /> )}
         <br />
       </div>
      

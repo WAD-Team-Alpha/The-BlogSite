@@ -1,10 +1,12 @@
 import React from 'react'
 import classes from './Left.module.css'
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Left = (props) => {
     return (
-        <>
+        <motion.div initial={{x: '-100vw'}} animate={{x: 0}} transition={{ type: 'spring', duration: 2, bounce: 0.4}}>
             <div className={classes.header}>
                 <button type="button" className={"btn btn-primary shadow-none " + classes.menubutton} onClick={props.nav}>
                     <MenuIcon sx={{ color: '#333333', fontSize: '2em' }} />
@@ -17,9 +19,9 @@ const Left = (props) => {
                 <p>
                     Creativity doesn't wait for that perfect moment. Publish your passions, your own way.
                 </p>
-                <button className={'btn btn-primary shadow-none ' + classes.postbutton}>Publish your first post</button>
+                <Link to='forms/post' className={'btn btn-primary shadow-none ' + classes.postbutton}>Publish your first post</Link>
             </div>
-        </>
+        </motion.div>
     )
 }
 

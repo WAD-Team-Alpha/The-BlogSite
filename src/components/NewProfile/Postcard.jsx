@@ -6,6 +6,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { useState } from "react";
 import AddPost from "./addPost/AddPost";
+import { Link } from "react-router-dom";
 
 const Postcard = () => {
 
@@ -22,10 +23,6 @@ const Postcard = () => {
       <div className={classes.cardcontainer}>
      
         <div className={classes.postscreate}>
-         
-          <button class="btn btn-info" onClick={addPostHandler}>
-            <i class="bi bi-plus-circle"></i> Create
-          </button>
          
         </div>
         <Grid container spacing={2}   direction="row"
@@ -45,7 +42,7 @@ const Postcard = () => {
               <Typography gutterBottom variant="h5" component="div">
                {titlename}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{marginLeft:"7em", marginTop:"1em"}}>
+              <Typography variant="body2" color="text.secondary" sx={{marginLeft:"8.3em"}}>
                 Published on 20-08-2021
               </Typography>
             </CardContent>

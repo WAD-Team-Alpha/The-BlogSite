@@ -1,24 +1,46 @@
 import React, { useState } from 'react'
 import classes from './Authentication.module.css'
+import LoadingSpinner from './LoadingSpinner'
 import Signin from './signin/Signin'
 import Signup from './signup/Signup'
+import { useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
 const Authentication = () => {
-    const [display, setDisplay] = useState(true)
-    const displayHandler = (event) => {
-        event.preventDefault()
-        setDisplay(!display)
-    }
+    const location = useLocation();
+    const query = new URLSearchParams(location.search);
+    const [submitted, setSubmitted] = useState(false)
+    const mainVarient = query.get('main') === 'true' ? {
+        hidden: {
+            opacity: 0,
+            x: '100vw'
+        },
+        visible: {
+            x: 0,
+            opacity: 1,
+            transition: {
+                duration: 0.5,
+                ease: 'easeInOut'
+            },
+        },
+        exit: {
+            x: '100vw',
+            transition: {
+                ease: 'easeInOut'
+            },
+        }
+    } : {}
     return (
-        <div className="container-fluid">
+        <motion.div variants={mainVarient} initial='hidden' animate='visible' exit='exit' className="container-fluid" >
             <div className="row">
-                <div className={"col-md-6 align-items-center d-flex " + classes.signin }>
-                    <Signin display={display} onSignup={displayHandler} />
+                <div className={"col-md-6 align-items-center d-flex " + classes.signin}>
+                    <Signin display={query.get('code') === 'signin'} onSubmit={setSubmitted} />
                 </div>
-                <div className={"col-md-6 align-items-center d-flex " + classes.signup }>
-                    <Signup display={!display} onSignin={displayHandler} />
+                <div className={"col-md-6 align-items-center d-flex " + classes.signup}>
+                    <Signup display={query.get('code') === 'signup'} onSubmit={setSubmitted} />
                 </div>
+                {submitted && <LoadingSpinner />}
             </div>
-        </div>
+        </motion.div >
     )
 }
 
