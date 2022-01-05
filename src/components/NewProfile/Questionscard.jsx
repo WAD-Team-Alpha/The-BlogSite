@@ -9,7 +9,7 @@ const Questionscard=()=>{
      
         <div class="container-fluid" style={{border:"1px solid black", width:"700px", height:"520px", overflowY:"scroll"}}>
             {ques.map((question)=> (
-            <div class="row" style={{border:"1px solid black", width:"675px", marginTop:"1em", marginBottom:"1em"}}>
+            <div class="row" style={{border:"1px solid #c4c4c4", width:"675px", marginTop:"1em", marginBottom:"1em"}}>
                 <div class="col-2">
                    <div class="row">
                       <div class="col" style={{paddingBottom:"1em"}}>

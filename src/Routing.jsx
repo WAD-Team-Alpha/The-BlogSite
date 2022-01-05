@@ -22,7 +22,8 @@ const Routing = () => {
     const location = useLocation()
     return (
         <AnimatePresence exitBeforeEnter>
-            <Routes location={location} key={location.key}>
+            {console.log(location.key)}
+            <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Main />} />
 
                 <Route path='/auth' element={<Authentication />} />

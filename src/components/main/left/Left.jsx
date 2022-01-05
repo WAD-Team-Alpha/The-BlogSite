@@ -3,8 +3,11 @@ import classes from './Left.module.css'
 import MenuIcon from '@mui/icons-material/Menu';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import {useSelector} from 'react-redux'
 
 const Left = (props) => {
+    const authStatus = useSelector((state) => state.auth)
+    const path = authStatus.isAuthenticated ? 'forms/post' : '/auth?code=signin&main=true'
     return (
         <motion.div initial={{x: '-100vw'}} animate={{x: 0}} transition={{ type: 'spring', duration: 2, bounce: 0.4}}>
             <div className={classes.header}>
@@ -19,7 +22,7 @@ const Left = (props) => {
                 <p>
                     Creativity doesn't wait for that perfect moment. Publish your passions, your own way.
                 </p>
-                <Link to='forms/post' className={'btn btn-primary shadow-none ' + classes.postbutton}>Publish your first post</Link>
+                <Link to={path} className={'btn btn-primary shadow-none ' + classes.postbutton}>Publish your first post</Link>
             </div>
         </motion.div>
     )
