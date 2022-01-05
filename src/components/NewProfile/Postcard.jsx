@@ -24,10 +24,6 @@ const Postcard = () => {
      
         <div className={classes.postscreate}>
          
-          <Link class="btn btn-info" to={"/forms/post"}>
-            <i class="bi bi-plus-circle"></i> Create
-          </Link>
-         
         </div>
         <Grid container spacing={2}   direction="row"
                 justify="flex-start"
@@ -46,7 +42,7 @@ const Postcard = () => {
               <Typography gutterBottom variant="h5" component="div">
                {titlename}
               </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{marginLeft:"7em", marginTop:"1em"}}>
+              <Typography variant="body2" color="text.secondary" sx={{marginLeft:"8.3em"}}>
                 Published on 20-08-2021
               </Typography>
             </CardContent>
