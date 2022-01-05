@@ -1,12 +1,12 @@
-export const sendPostData = (postData,postId) => {
+export const sendQuestionData = (questionData,questionId) => {
   return async (dispatch) => {
     console.log("sending");
     console.log("send data action is triggered");
     const sendRequest = async () => {
-      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${postId}.json`;
+      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions/${questionId}.json`;
       const response = await fetch(url, {
         method: "PUT",
-        body: JSON.stringify(postData),
+        body: JSON.stringify(questionData),
       });
 
       if (!response.ok) {
@@ -23,3 +23,5 @@ export const sendPostData = (postData,postId) => {
     }
   };
 };
+
+

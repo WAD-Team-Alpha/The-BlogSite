@@ -5,9 +5,7 @@ import PostModal from "./PostModal";
 import ImageInputBox from "./ImageInputBox/ImageInputBox";
 import TextInputBox from "./TextInputBox/TextInputBox";
 import { v4 as uuidv4 } from "uuid";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { postFormActions } from "../../store/postForm";
 import { profileActions } from "../../store/profile";
 import { useSelector } from "react-redux";
 import { sendPostData } from "../../store/post-actions";
@@ -71,9 +69,6 @@ const PostForm = () => {
     const publishedDate = today.toLocaleDateString("en-US");
     event.preventDefault();
     console.log({ banner, title, summary }, inputList);
-    dispatch(
-      postFormActions.add({ postId, uid, publishedDate, title,banner, summary,inputList})
-    );
     const postData = {
         postId: postId,
         likes: 0,
