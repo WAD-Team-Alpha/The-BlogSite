@@ -7,6 +7,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+
+
 // import { useDispatch,useSelector } from 'react-redux';
 
 const ITEM_HEIGHT = 48;
@@ -57,6 +59,7 @@ export default function MultipleSelectChip(props) {
    
   };
 
+ 
   return (
     <div>
       <FormControl sx={{width: 280 }}>
@@ -67,11 +70,12 @@ export default function MultipleSelectChip(props) {
           multiple
           defaultValue={props.genre}
           onChange={handleChange}
+         
           input={<OutlinedInput id="select-multiple-chip" label="Intrested Genre" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value} label={value}  style={{backgroundColor:"#8ee4af", color:"#05386b"}}/>
               ))}
             </Box>
           )}
