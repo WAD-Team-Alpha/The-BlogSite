@@ -23,7 +23,7 @@ function Home() {
       },
     }
   }
-
+  console.log(nav)
   return (
     <motion.div
       variants={mainVarient}

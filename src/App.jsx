@@ -1,13 +1,12 @@
 import Routing from "./Routing";
 import { authActions } from "./store/auth";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendProfileData, fetchProfileData } from "./store/profile-actions";
 import { BrowserRouter } from "react-router-dom";
-import { fetchPostsData } from "./store/post-actions";
+import { fetchPostsData, fetchTrendingPosts } from "./store/post-actions";
 import { fetchQuestionsData } from "./store/question-actions";
 function App() {
-  const firstUpdate = useRef(true);
   const isAuth = useSelector((state) => state.auth);
   const aboutData = useSelector((state) => state.profile);
   const dispatch = useDispatch();
@@ -31,6 +30,9 @@ function App() {
     dispatch(sendProfileData(aboutData,isAuth.localId))
 
   },[aboutData])
+  useEffect(() => {
+    dispatch(fetchTrendingPosts())
+  },[])
   useEffect(()=>{
     console.log(isAuth);
     if (!isAuth.isAuthenticated) {
