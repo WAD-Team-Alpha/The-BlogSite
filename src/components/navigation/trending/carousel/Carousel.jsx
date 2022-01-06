@@ -30,7 +30,7 @@ const Carousel = (props) => {
         nextArrow: <RightArrow />,
         infinite: false,
         arrows: true,
-        slidesToShow: 4,
+        slidesToShow: props.slidesToShow,
         slidesToScroll: 1,
         speed: 100,
         dots: false,

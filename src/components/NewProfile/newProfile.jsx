@@ -12,10 +12,9 @@ const NewProfile=()=> {
         <div className="container-fluid">
        <div className="row" > 
     
-      <div className="col-3" style={{width:"26%"}}><Profile/></div>
+      <div className="col-3"><Profile/></div>
       
-      <div class="col-6"  ><ProfileMiddle/></div>
-      <div className="col-2"><ProfileAnalytics/></div>
+      <div class="col-9"><ProfileMiddle/></div>
     </div>
     </div>
     

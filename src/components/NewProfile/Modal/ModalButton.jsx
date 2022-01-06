@@ -2,6 +2,7 @@ import { Modal } from "react-bootstrap";
 import { useState } from "react";
 import { Link } from "@mui/material";
 import ModalBody from "./ModalBody";
+import { Edit } from "@mui/icons-material";
 
 const ModalButton=()=>{
     const [show, setShow] = useState(false);
@@ -12,8 +13,8 @@ const ModalButton=()=>{
     return (
       <>
        
-            <Link class="btn btn-info"  onClick={handleShow}>
-                    <i class="bi bi-plus-circle"></i> Create
+            <Link class="btn btn-primary d-flex" onClick={handleShow} style={{width: '6.5em', fontWeight: '600', backgroundColor: '#5cdb95', color: '#05386b'}}>
+                    <Edit sx={{mr: '0.2em'}} /> Create
             </Link> 
       
   

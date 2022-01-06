@@ -2,12 +2,14 @@
     height:100vh;
     margin-right: 5em;
 }
+
+.mytab {
+    border-color: #b1b1b1;
+}
   
 .profilecard{
     height:50%;
     width:26%;
-   
-    
 }
 
 .maincontainer{

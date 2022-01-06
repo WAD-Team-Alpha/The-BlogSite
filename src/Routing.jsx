@@ -2,7 +2,6 @@ import React from 'react'
 import { Route, Routes, useLocation } from "react-router-dom";
 import Main from './components/main/Main'
 import ProfileLayout from './layouts/ProfileLayout';
-import Profile from './components/NewProfile/newProfile';
 import HomeLayout from './layouts/HomeLayout';
 import Authentication from './components/auth/Authentication';
 import PostLayout from './layouts/PostLayout'
@@ -16,6 +15,7 @@ import QuestionForm from './components/postform/QuestionForm';
 import FormLayout from './components/postform/FormLayout';
 import PageNotFound from './layouts/PageNotFound';
 import { AnimatePresence } from 'framer-motion';
+import ProfileMiddle from './components/NewProfile/ProfileMiddle';
 
 
 const Routing = () => {
@@ -45,9 +45,9 @@ const Routing = () => {
                 <Route path="/forum-threads/:threadID" element={<QuestionLayout />} />
 
                 <Route element={<ProfileLayout />}>
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="*" element={<PageNotFound />} />
+                    <Route path="/profile" element={<ProfileMiddle />} />
                 </Route>
+                <Route path="*" element={<PageNotFound />} />
             </Routes>
         </AnimatePresence>
     )
