@@ -30,6 +30,8 @@ const QuestionForm = () => {
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const questionId = uuidv4();
+    var today = new Date();
+    const publishedDate = today.toLocaleDateString("en-US");
     console.log({ question, description, image });
     dispatch(
       sendQuestionData(
@@ -38,6 +40,7 @@ const QuestionForm = () => {
           description,
           imageUrl: image,
           questionId,
+          publishedDate,
           userId: auth.localId,
           comments: [],
           likes: 0,
