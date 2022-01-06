@@ -1,9 +1,16 @@
 import classes from "./question.module.css";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from "@mui/material";
+import { useSelector } from "react-redux";
+import { fetchQuestionsData } from "../../store/question-actions";
 
 const Questionscard = () => {
 
+  const quesdata = useSelector((state)=> state.questions)
+  console.log(quesdata)
+  const quesid = useSelector((state)=> state.profile.questionIds)
+  console.log(quesid)
+  
   const ques = ["Question1", "Question2", "Question3", "Question4"]
   return <div>
 
@@ -14,7 +21,7 @@ const Questionscard = () => {
       borderBottom: '1px solid #b1b1b1',
       backgroundColor: '#edf5e1',
     }}>
-      {ques.map((question) => (
+      {quesdata.map((question) => (
         <div class="row" style={{ border: "1px solid #c4c4c4", width: "675px", marginTop: "1em", marginBottom: "1em", backgroundColor: 'white' }}>
           <div class="col-2">
             <div class="row">
@@ -42,14 +49,14 @@ const Questionscard = () => {
             <div class="row">
               <div class="col">
                 <div className={classes.questitle}>
-                  <b> {question}</b>
+                  <b> {question.question}</b>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col">
                 <div className={classes.quesinfo}>
-                  Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+                 {question.description}
                 </div>
               </div>
             </div>
