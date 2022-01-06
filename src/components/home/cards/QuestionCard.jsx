@@ -1,7 +1,25 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom';
 import classes from './QuestionCard.module.css'
+import { useDispatch } from 'react-redux';
+import { fetchQuestionData } from '../../../store/question-actions';
+import { useNavigate } from 'react-router-dom';
 const QuestionCard = (props) => {
+    const navigate = useNavigate();
+    const [submit, setSubmit] = useState(false);
+    const dispatch = useDispatch();
+    const getDataHandler = (event) => {
+        event.preventDefault();
+        setSubmit(true);
+        dispatch(fetchQuestionData(props.id)).then((result) => {
+            if (result === 'success') {
+                setSubmit(false);
+                console.log(submit);
+                console.log("above navigate");
+                navigate(`/forum-threads/${props.id}`);
+            }
+        });
+    }
     return (
         <div className="card shadow mb-3 mt-3" >
             <div class="row g-0">
@@ -23,7 +41,7 @@ const QuestionCard = (props) => {
                         <p class="card-text">{props.details}</p>
 
                         <ul className={`${classes.question}`}>
-                            <li style={{ marginRight: "10px" }}><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" alt='o' /><Link to={`/forum-threads/${props.id}`}>View post</Link></li>
+                            <li style={{ marginRight: "10px" }}><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" alt='o' /><Link onClick={getDataHandler} to={`/forum-threads/${props.id}`}>View post</Link></li>
                             <li><a className={`fw-bold ${classes.post}`} href='w'>Posted by <a href="w" style={{ color: "#05386b" }} >{props.author}</a> on {props.publishedDate}</a></li>
                         </ul>
                     </div>
