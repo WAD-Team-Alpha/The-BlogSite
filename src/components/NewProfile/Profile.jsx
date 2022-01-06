@@ -35,6 +35,7 @@ const Profile = () => {
     followersList : userInfo.followersList,
     postIds : userInfo.postIds,
     questionIds : userInfo.questionIds,
+    
   }
   console.log(userInfo)
   console.log(userDetails.postIds)
@@ -130,9 +131,9 @@ const Profile = () => {
                   </div>
 
                   <div class="col-7">
-                    <span className={classes.uname}>
+                    <div style={{fontSize:"18px", width:"200px"}}>
                       <b>{userDetails.firstName} {" "} {userDetails.lastName}</b>
-                    </span>
+                    </div>
 
                     <div class="row justify-content-center">
                       <div class="col-7">
