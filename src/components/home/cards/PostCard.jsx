@@ -10,17 +10,11 @@ const PostCard = (props) => {
     const dispatch = useDispatch();
     const getDataHandler = (event) => {
         event.preventDefault();
-        setSubmit(true);
-        dispatch(fetchPostData(props.id)).then((result) => {
-            if (result === 'success') {
-                setSubmit(false);
-                console.log("above navigate");
-                navigate(`/posts/${props.id}`);
-            }
-        });
+        navigate(`/posts/${props.id}`);
+        
     }
     return (
-        <div className="card mb-3  mt-3" >
+        <div className="card mb-3  mt-3 shadow" >
             <div className="row g-0">
                 <div className="col-md-3">
                     <img src={props.banner} className="img-fluid rounded-start" alt="..." />

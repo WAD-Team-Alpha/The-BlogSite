@@ -35,7 +35,7 @@ const Navigation = (props) => {
             <div className={"container " + classes.trending}>
                 <h2><TrendingUp fontSize='1.5em' /> Trending</h2>
                 <div className="">
-                    <Carousel data={trendingData} theme={"bg-dark"} className={"trendcard"} />
+                    <Carousel data={trendingData} theme={"bg-dark"} className={"trendcard"} slidesToShow={4} />
                 </div>
             </div>
         </motion.nav>

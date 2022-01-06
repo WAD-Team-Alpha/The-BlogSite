@@ -2,6 +2,7 @@
     padding: 0.5em;
     background-color: #333333;
     display: flex;
+    align-items: center;
     position:fixed;
     z-index: 1;
     top: 0;
@@ -34,9 +35,4 @@
 
 .seperator {
     flex-grow: 1;
-}
-
-.content {
-    margin-top: 0.5em;
-    padding: 0;
 }

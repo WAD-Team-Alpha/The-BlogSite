@@ -1,4 +1,5 @@
 import React from 'react'
+import PeopleYouMayKnow from './PeopleYouMayKnow';
 import classes from './right.module.css'
 const Right = () => {
     return (
@@ -52,11 +53,11 @@ const Right = () => {
                     </div>
 
                     <div className={`row  ${classes.bottom}`}>
-                        <div className={`fw-bold ${classes.person} ${classes.person1}`}>
+                        <div className={`fw-bold ${classes.person} ${classes.person1} shadow`}>
                             <img src="https://picsum.photos/50" alt="img" />
                             <a href='#'>Surya</a>
                         </div>
-                        <div className={` fw-bold ${classes.person}`}>
+                        <div className={` fw-bold ${classes.person} shadow`}>
                             <img src="https://picsum.photos/50" alt="img" />
                             <a href='#'>Surya</a>
                         </div>
@@ -64,11 +65,11 @@ const Right = () => {
 
                     </div>
                     <div className={`row  ${classes.bottom}`}>
-                        <div className={`fw-bold ${classes.person} ${classes.person2}`}>
+                        <div className={`fw-bold ${classes.person} ${classes.person2} shadow`}>
                             <img src="https://picsum.photos/50" alt="img" />
                             <a href='#'>Surya</a>
                         </div>
-                        <div className={`fw-bold ${classes.person}`}>
+                        <div className={`fw-bold ${classes.person} shadow`}>
                             <img src="https://picsum.photos/50" alt="img" />
                             <a href='#'>Surya</a>
                         </div>
@@ -76,7 +77,8 @@ const Right = () => {
 
                     </div>
                     <div className={`${classes.view}`}>
-                        <a href='#' className={`fw-bold fs-8  ${classes.a}`} >View more</a>
+                        <button className={'btn btn-primary ' + classes.a} data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">View more</button>
+                        <PeopleYouMayKnow />
                     </div>
 
 

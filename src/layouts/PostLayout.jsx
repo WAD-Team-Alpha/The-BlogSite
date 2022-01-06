@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Header from '../components/header/Header'
 import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
@@ -9,9 +9,14 @@ import Leftp from '../components/post_details/leftp/leftp/leftp'
 import Middlep from '../components/post_details/leftp/middlep/middlep'
 import { useParams } from 'react-router-dom'
 import {motion} from 'framer-motion'
-
+import { useDispatch } from 'react-redux'
+import { fetchPostData } from '../store/post-actions'
+import { fetchOtherProfileData } from '../store/profile-actions'
 const PostLayout = () => {
+    const dispatch = useDispatch();
     const [nav, setNav] = useState(false);
+    const [data, setData] = useState({});
+    
     const navHandler = () => {
         nav ? setNav(false) : setNav(true)
     }
@@ -36,6 +41,17 @@ const PostLayout = () => {
             },
         }
     }
+    
+    useEffect(() => {
+        dispatch(fetchPostData(params.postID)).then((result) => {
+            if (result !== null) {
+                dispatch(fetchOtherProfileData(result.uid)).then((data)=>{
+                    console.log(data);
+                    setData(data)
+                });
+            }
+        });
+    }, []);
     return (
         <>
             {!nav && <Header nav={navHandler} />}
@@ -44,13 +60,13 @@ const PostLayout = () => {
                 <div className={"container-fluid " + classes.content}>
                     <div className="row">
                         <div className={"col-md-2 shadow-lg " + classes.leftpane}>
-                            <Leftp postID={params.postID} />
+                            <Leftp postID={params.postID} profileData={data}/>
                         </div>
                         <div className={"col-md-7 shadow-lg " + classes.middlepane}>
-                            <Middlep postID={params.postID} />
+                            <Middlep postID={params.postID} profileData={data}/>
                         </div>
                         <div className={"col-md-3 shadow-lg " + classes.rightpane}>
-                            <Rightq postID={params.postID} />
+                            <Rightq postID={params.postID} profileData={data}/>
                         </div>
                     </div>
                 </div>
@@ -60,6 +76,7 @@ const PostLayout = () => {
             </motion.div>}
         </>
     )
+    
 }
 
 export default PostLayout

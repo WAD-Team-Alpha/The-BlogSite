@@ -5,6 +5,7 @@ import Middlep from './middlep/middlep';
 import Footer from '../../footer/Footer'
 
 const Postdetails = (props) => {
+    console.log("this is running");
 
     return(
         <>

@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import Header from '../components/header/Header'
 import Navigation from '../components/navigation/Navigation';
+import Profile from '../components/NewProfile/Profile';
+import ProfileAnalytics from '../components/NewProfile/ProfileAnalytics';
 import RestrictedAccess from './RestrictedAccess';
 
 const Layout = (props) => {
@@ -37,9 +39,12 @@ const Layout = (props) => {
             <>
                 {!nav && <Header nav={navHandler} />}
                 {nav && <Navigation nav={navHandler} />}
-                <motion.div variants={mainVarient} initial='hidden' animate='visible' exit='exit'>
-                    {!nav && <Outlet />}
-                </motion.div>
+                {!nav && <motion.div variants={mainVarient} initial='hidden' animate='visible' exit='exit' className='container-fluid'>
+                    <div className="row">
+                        <div className="col-md-3"><Profile /></div>
+                        <div className="col-md-9"><Outlet /></div>
+                    </div>
+                </motion.div>}
             </> : <RestrictedAccess />
     );
 }
