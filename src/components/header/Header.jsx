@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import classes from './Header.module.css'
 import logo from '../../assets/images/logo.jpg'
 import Account from './Account'
+import ModalButton from '../NewProfile/Modal/ModalButton'
 
 const Header = (props) => {
     const navigate = useNavigate()
@@ -21,12 +22,7 @@ const Header = (props) => {
                 </Link>
             </div>
             <div className={classes.seperator}></div>
-            <Link to="/home/post" style={{
-                margin: 'auto 0',
-                textDecoration: 'none',
-                color: 'white',
-                fontWeight: '600',
-            }}>Dashboard</Link>
+            <ModalButton />
             <Account />
         </div>
     )

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import classes from './PostCard.module.css'
 const PostCard = (props) => {
     return (
-        <div className="card mb-3  mt-3" >
+        <div className="card mb-3  mt-3 shadow" >
             <div className="row g-0">
                 <div className="col-md-3">
                     <img src={props.banner} className="img-fluid rounded-start" alt="..." />

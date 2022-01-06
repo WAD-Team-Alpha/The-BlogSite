@@ -1,11 +1,9 @@
 .postmodal{
-    border: 1px solid black;
     max-height: 100%;
     max-width: 100%;
 }
 
 .questionmodal{
-    border: 1px solid black;
     max-height: 100%;
     max-width: 100%;
 }
@@ -26,7 +24,15 @@
     top: 35%;
     font-size: 30px;
     color: black;
-  
+    text-decoration: none;
+}
+
+.questext b, .posttext b {
+    color: black;
+}
+
+.questext a, .posttext a {
+    text-decoration: none;
 }
 
 .questext{
