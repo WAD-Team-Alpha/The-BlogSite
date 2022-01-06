@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { sendProfileData, fetchProfileData } from "./store/profile-actions";
 import { BrowserRouter } from "react-router-dom";
+import { fetchPostsData } from "./store/post-actions";
 function App() {
   const firstUpdate = useRef(true);
   const isAuth = useSelector((state) => state.auth);
@@ -27,6 +28,7 @@ function App() {
     console.log("send data is triggered");
     console.log(aboutData);
     dispatch(sendProfileData(aboutData,isAuth.localId))
+
   },[aboutData])
   useEffect(()=>{
     console.log(isAuth);
@@ -35,7 +37,10 @@ function App() {
     }
     console.log("send data is triggered");
     console.log(aboutData);
-    dispatch(fetchProfileData(isAuth.localId))
+    dispatch(fetchProfileData(isAuth.localId)).then((res)=>{if(res!==null){
+      res.map(id=>{console.log("this line is excecuted");(dispatch(fetchPostsData(id)))})
+    }})
+  
   },[isAuth])
   return (
     <div className="App">

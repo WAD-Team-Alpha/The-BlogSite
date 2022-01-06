@@ -8,6 +8,7 @@ import Editform from "./EditForm/Editform";
 import { useDispatch, useSelector } from 'react-redux';
 import { profileActions } from "../../store/profile";
 import Members from "./Members/Members";
+import { fetchPostsData } from "../../store/post-actions";
 
 
 
@@ -22,6 +23,8 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [followStatus,setfollowStatus] = useState("Follow");
   
+
+
   const userDetails = {
     firstName : userInfo.firstName,
     lastName : userInfo.lastName,

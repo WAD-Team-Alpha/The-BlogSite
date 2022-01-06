@@ -58,8 +58,10 @@ export const fetchProfileData = (localId) => {
       }
       console.log("testing data : ", data)
       dispatch(profileActions.update(data));
+      return data.postIds
     } catch (error) {
       console.log("error");
+      return "false"
     }
   };
 };
