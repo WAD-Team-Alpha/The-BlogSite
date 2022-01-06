@@ -38,7 +38,7 @@ const QuestionForm = () => {
         {
           question,
           description,
-          imageUrl: image,
+          imageUrl: "https://picsum.photos/200",
           questionId,
           publishedDate,
           userId: auth.localId,

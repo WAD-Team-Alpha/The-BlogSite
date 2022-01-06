@@ -69,18 +69,27 @@ const PostForm = () => {
     var today = new Date();
     const publishedDate = today.toLocaleDateString("en-US");
     event.preventDefault();
-    console.log({ banner, title, summary }, inputList);
+    const finalData = inputList.map((input) => {
+      if (input.type === "text") {
+        input.value = input.value;
+      }
+      else{
+        input.value = "https://picsum.photos/200";
+      }
+      return input;
+    });
+    console.log({ banner, title, summary }, finalData);
     const postData = {
-      postId: postId,
-      likes: 0,
-      uid: uid,
-      publishedDate: publishedDate,
-      bookmarks: 0,
-      postTitle: title,
-      imageUrl: banner,
-      postSummary: summary,
-      postData: inputList,
-      comments: []
+        postId: postId,
+        likes: 0,
+        uid: uid,
+        publishedDate: publishedDate,
+        bookmarks:0,
+        postTitle: title,
+        imageUrl: "https://picsum.photos/200",
+        postSummary:summary,
+        postData: finalData,
+        comments:[]
     }
     dispatch(sendPostData(postData, postId));
     var postIds = [...about.postIds, postId]

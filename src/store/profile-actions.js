@@ -65,3 +65,41 @@ export const fetchProfileData = (localId) => {
     }
   };
 };
+
+export const fetchOtherProfileData = (localId) => {
+  return async (dispatch) => {
+    console.log("fetch data action is triggered");
+    const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/users/${localId}.json`;
+    const fetchData = async () => {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error("Could not fetch data!");
+      }
+
+      const data = await response.json();
+
+      return data;
+    };
+
+    try {
+      const profileData = await fetchData();
+      var data  = {
+        firstName:profileData.firstName,
+        lastName:profileData.lastName,
+        email:profileData.email,
+        followersList:profileData.followersList === undefined? [] : profileData.followersList,
+        followingList:profileData.followingList === undefined? [] : profileData.followingList,
+        postIds: profileData.postIds === undefined ? [] : profileData.postIds,
+        questionIds: profileData.questionIds === undefined ? [] : profileData.questionIds,
+        bio: profileData.bio,
+        genres: profileData.genres === undefined ? [] : profileData.genres,
+      }
+      console.log("testing data : ", data)
+      return data;
+    } catch (error) {
+      console.log("error");
+      return "failed"
+    }
+  };
+};

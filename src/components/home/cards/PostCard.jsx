@@ -10,14 +10,8 @@ const PostCard = (props) => {
     const dispatch = useDispatch();
     const getDataHandler = (event) => {
         event.preventDefault();
-        setSubmit(true);
-        dispatch(fetchPostData(props.id)).then((result) => {
-            if (result === 'success') {
-                setSubmit(false);
-                console.log("above navigate");
-                navigate(`/posts/${props.id}`);
-            }
-        });
+        navigate(`/posts/${props.id}`);
+        
     }
     return (
         <div className="card mb-3  mt-3 shadow" >
