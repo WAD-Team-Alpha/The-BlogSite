@@ -56,6 +56,7 @@ export const fetchProfileData = (localId) => {
         bio: profileData.bio,
         genres: profileData.genres === undefined ? [] : profileData.genres,
       }
+      console.log("testing data : ", data)
       dispatch(profileActions.update(data));
     } catch (error) {
       console.log("error");

@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../../../store/profile";
 
 const Followers = (props) => {
-  const followerslist = useSelector((state) => state.profile.followerslist);
+  const followInfo = useSelector((state) => state.profile);
+  const followerslist = followInfo.followersList;
   console.log(followerslist)
   const dispatch = useDispatch();
   const removeHandler = (index) => {
