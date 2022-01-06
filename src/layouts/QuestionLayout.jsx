@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
+import { useDispatch } from 'react-redux';
 import Header from '../components/header/Header'
 import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
@@ -8,9 +9,12 @@ import Rightq from '../components/Ques_details/rightq/rightq'
 import Middleq from '../components/Ques_details/middleq/middleq'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-
+import {fetchQuestionData} from "../store/question-actions"
+import { fetchOtherProfileData } from '../store/profile-actions'
 const QuestionLayout = () => {
+    const dispatch = useDispatch();
     const [nav, setNav] = useState(false);
+    const [data, setData] = useState({});
     const navHandler = () => {
         nav ? setNav(false) : setNav(true)
     }
@@ -35,6 +39,17 @@ const QuestionLayout = () => {
             },
         }
     }
+    useEffect(() => {
+        dispatch(fetchQuestionData(params.threadID)).then((result) => {
+            console.log(result);
+            if (result !== null) {
+                dispatch(fetchOtherProfileData(result.userId)).then((data)=>{
+                    console.log(data);
+                    setData(data)
+                });
+            }
+        });
+    }, []);
     return (
         <>
             {!nav && <Header nav={navHandler} />}
