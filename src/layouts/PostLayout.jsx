@@ -4,7 +4,7 @@ import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
 import Navigation from '../components/navigation/Navigation'
 // import Rightp from '../components/post_details/leftp/rightp/rightp'
-import Rightq from '../components/Ques_details/rightq/rightq'
+import Rightp from '../components/post_details/leftp/rightp/rightp'
 import Leftp from '../components/post_details/leftp/leftp/leftp'
 import Middlep from '../components/post_details/leftp/middlep/middlep'
 import { useParams } from 'react-router-dom'
@@ -66,7 +66,7 @@ const PostLayout = () => {
                             <Middlep postID={params.postID} profileData={data}/>
                         </div>
                         <div className={"col-md-3 shadow-lg " + classes.rightpane}>
-                            <Rightq postID={params.postID} profileData={data}/>
+                            <Rightp postID={params.postID} profileData={data}/>
                         </div>
                     </div>
                 </div>
