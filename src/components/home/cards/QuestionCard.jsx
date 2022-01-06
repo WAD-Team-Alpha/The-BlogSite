@@ -10,15 +10,7 @@ const QuestionCard = (props) => {
     const dispatch = useDispatch();
     const getDataHandler = (event) => {
         event.preventDefault();
-        setSubmit(true);
-        dispatch(fetchQuestionData(props.id)).then((result) => {
-            if (result === 'success') {
-                setSubmit(false);
-                console.log(submit);
-                console.log("above navigate");
-                navigate(`/forum-threads/${props.id}`);
-            }
-        });
+        navigate(`/forum-threads/${props.id}`);
     }
     return (
         <div className="card shadow mb-3 mt-3" >

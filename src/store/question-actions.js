@@ -37,14 +37,14 @@ export const fetchQuestionData = ( questionId ) => {
       const fetchData = async () => {
 
           const response = await fetch( url );
-
+          console.log(response);
           if ( ! response.ok )
           {
 
               throw new Error( "Could not fetch data!" );
 
           }
-          console.log(response);
+         
           const data = await response.json();
 
           return data;
@@ -61,7 +61,7 @@ export const fetchQuestionData = ( questionId ) => {
               comments : questionData.comments === undefined ? [] : questionData.comments,
           }
           dispatch( questionActions.add( data ) );
-          return "success";
+          return data;
 
       } catch ( error )
       {
