@@ -32,35 +32,35 @@ const Rightp = (props) => {
                                     />
                                     </div>
                                     <div class="col-8">
-                                    <span className={classes.uname}><b>Surya Teja Tangirala</b></span>
+                                    <span className={classes.uname}> <b>Surya Teja Tangirala</b></span>
                                     
                                         
                                     <div class="row justify-content-center">
                                         <div class="col-6">
-                                            <span className={classes.mainfollowers}>
-                                                <Link underline="none">Followers</Link>
+                                            <span >
+                                                <Link underline="none"> <div className={classes.mainfollowers}>Followers</div></Link>
                                             </span>
                                         </div>
-                                        <div class="col-5">
-                                            <span className={classes.mainfollowing}>
-                                                <Link underline="none">Following</Link>
+                                        <div class="col-6">
+                                            <span>
+                                                <Link underline="none"><div className={classes.mainfollowers}>Following</div></Link>
                                             </span>
                                         </div>
                                     </div>
                                     <div class="row justify-content-end">
-                                        <div class="col">
-                                            <span className={classes.followercount}>0</span>
+                                        <div class="col-8">
+                                            <span className={classes.followercount} > <b>0</b></span>
                                         </div>
-                                        <div class="col">
-                                            <span className={classes.followingcount}>0</span>
+                                        <div class="col-4">
+                                            <span className={classes.followingcount}> <b>0</b></span>
                                         </div>
                                     </div>
                                     <div class="row justify-content-start">
                                         <div class="col-6">
-                                            <span><button>Inspect</button></span>
+                                            <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#05386B", textTransform:"none"}}>Inspect</Button></span>
                                         </div>
-                                        <div class="col-6">
-                                            <span><button>Follow</button></span>
+                                        <div class="col-6" >
+                                            <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#5cdb95", color:"black", textTransform:"none"}}>Follow</Button></span>
                                         </div>
                                     </div>
                                     </div>
@@ -81,8 +81,8 @@ const Rightp = (props) => {
 
                     </div>
                     {num.map((i)=>(
-                        <><div className={classes.containerThird}>
-                            Just displaying the titles is enough here, but please make sure to show the question mark?
+                        <><div className={classes.containerThird} >
+                            <div className={classes.recomendedtext}>Just displaying the titles is enough here, but please make sure to show the question mark? </div>
                         </div></>
                     ))}
                 </div>
