@@ -8,9 +8,11 @@ import Button from '@mui/material/Button';
 import { Box } from "@mui/material";
 import classes from "./middlep.module.css"
 import postData from '../../../../helpers/postData.json'
-
+import { useSelector }from "react-redux";
 const Middlep = (props) => {
+    
     const data = postData.find(post => post.id === parseInt(props.postID))
+    const postdata = useSelector(state => state.post)
     return (
         <>
             <div >
