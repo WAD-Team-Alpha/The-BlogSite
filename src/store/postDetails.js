@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import postData from "../helpers/postData.json"
 
 const initialpoststate = {
     banner: "https://picsum.photos/200",
@@ -14,7 +15,9 @@ const postdetails = createSlice({
     name: "postdetails",
     initialState: initialpoststate,
     reducers: {
-        update(state, action) {
+
+
+        fetch(state, action) {
 
         },
     },
