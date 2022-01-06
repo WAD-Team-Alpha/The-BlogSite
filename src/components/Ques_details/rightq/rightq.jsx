@@ -6,11 +6,20 @@ import classes from './rightq.module.css'
 import { Avatar } from '@mui/material';
 import { Link } from '@mui/material';
 import Button from '@mui/material/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchOtherProfileData } from '../../../store/profile-actions';
 
 
 
 const Rightq = (props) => {
     const num=[1,2,3,4]
+    const dispatch = useDispatch()
+    const userInfo = useSelector((state)=> state.question)
+    console.log(userInfo.userId)
+
+    
+    
+
 
     return(
         <div >
@@ -33,7 +42,7 @@ const Rightq = (props) => {
                                     />
                                     </div>
                                     <div class="col-8">
-                                    <span className={classes.uname}> <b>Surya Teja Tangirala</b></span>
+                                    <span className={classes.uname}> <b></b></span>
                                     
                                         
                                     <div class="row justify-content-center">

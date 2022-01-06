@@ -3,24 +3,28 @@ import { Avatar, Grid } from "@mui/material";
 import classes from "./last.module.css";
 import TimerIcon from "@mui/icons-material/Timer";
 import { TextField, Button } from "@mui/material";
+import { useSelector } from "react-redux";
 
 const Last = () => {
-  const users = [
-    "Mahaboob",
-    "Surya",
-    "Sekhar",
-    "Satyam",
-    "Prathyush",
-    "user1",
-    "user2",
-  ];
+  
+  const commentsdata = useSelector((state)=> state.question)
+  console.log(commentsdata)
+  // const users = [
+  //   "Mahaboob",
+  //   "Surya",
+  //   "Sekhar",
+  //   "Satyam",
+  //   "Prathyush",
+  //   "user1",
+  //   "user2",
+  // ];
   return (
     <div className={classes.answers}>
       <span style={{ fontSize: "30px" }}>
         <b>Answers</b>
       </span>
       <div>
-        {users.map((user) => (
+        {commentsdata.comments.map((comment) => (
           <div className={classes.anscon}>
             <div class="row">
               <div
@@ -37,7 +41,7 @@ const Last = () => {
                 class="col-6"
                 style={{ paddingLeft: "1.5em" }}
               >
-                <div className={classes.answersection}><b><b> {user} </b></b></div>
+                <div className={classes.answersection}><b><b> User </b></b></div>
                 <div className={classes.answertime}> Answerd on 10/08/2021 </div>
               </div>
               <div class="col-4" style={{ paddingLeft: "4em", textAlign:"right" }}>
