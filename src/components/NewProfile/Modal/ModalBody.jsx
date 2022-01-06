@@ -1,5 +1,5 @@
 import classes from "./modal.module.css";
-import { Link } from "@mui/material";
+import {Link} from 'react-router-dom'
 
 
 const ModalBody=()=>{
@@ -8,14 +8,14 @@ const ModalBody=()=>{
             <div class="col-6">
                 <div className={classes.postmodal}>
                     <img src="https://previews.123rf.com/images/scis65/scis651504/scis65150400029/38942772-yellow-post-it-with-tape-on-a-white-background.jpg" alt="post" className={classes.postimg}/>
-                    <span className={classes.posttext}><Link underline="none" color="black" href={"/forms/post"}><b>Posts</b></Link></span>
+                    <span className={classes.posttext}><Link to="/forms/post"><b>Posts</b></Link></span>
                 </div>
             </div>
             <div class="col-6">
               
                <div className={classes.questionmodal}>
                     <img src="https://previews.123rf.com/images/scis65/scis651504/scis65150400029/38942772-yellow-post-it-with-tape-on-a-white-background.jpg" alt="question" className={classes.questimg}/>
-                   <span className={classes.questext}><Link underline="none" color="black" href={"/forms/question"}> <b>Questions</b></Link></span> 
+                   <span className={classes.questext}><Link to="/forms/question"> <b>Questions</b></Link></span> 
                </div>
             </div>
         </div>

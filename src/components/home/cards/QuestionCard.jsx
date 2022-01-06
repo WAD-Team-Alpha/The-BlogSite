@@ -21,7 +21,7 @@ const QuestionCard = (props) => {
         });
     }
     return (
-        <div class="card mb-6" >
+        <div className="card shadow mb-3 mt-3" >
             <div class="row g-0">
                 <div className="col-md-2 mt-6">
                     <div className={`${classes.votes}`}>

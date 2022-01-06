@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { profileActions } from "../../store/profile";
 import { useSelector } from "react-redux";
 import { sendPostData } from "../../store/post-actions";
+
 const PostForm = () => {
   const auth = useSelector((state) => state.auth);
   const about = useSelector((state) => state.profile);
@@ -90,10 +91,10 @@ const PostForm = () => {
         postData: finalData,
         comments:[]
     }
-    dispatch(sendPostData(postData,postId));
-    var postIds = [...about.postIds,postId]
+    dispatch(sendPostData(postData, postId));
+    var postIds = [...about.postIds, postId]
     dispatch(
-        profileActions.update({...about,postIds:postIds})
+      profileActions.update({ ...about, postIds: postIds })
     );
   };
 
@@ -101,9 +102,20 @@ const PostForm = () => {
     <div className={"col-md-8 " + classes.form}>
       <form className={"container"} onSubmit={onSubmitHandler}>
         <br />
-        <h1>
-          <b>Step 1: </b> Create the post
-        </h1>
+        <div className="d-flex align-items-center justify-content-between">
+          <h1>
+            <b>Step 1: </b> Create the post
+          </h1>
+          <select class="form-select" aria-label="Default select example" style={{ width: '10em', backgroundColor: '#05386b', color: 'white', fontWeight: '600' }} required>
+            <option selected disabled>Select genre</option>
+            <option value="tech">Technology</option>
+            <option value="gadgets">Gadgets</option>
+            <option value="coding">Coding</option>
+            <option value="traveling">Traveling</option>
+            <option value="movies">Movies</option>
+            <option value="gaming">Gaming</option>
+          </select>
+        </div>
         <br />
         <ImageInputBox
           height={"30vh"}
@@ -154,7 +166,7 @@ const PostForm = () => {
           );
         })}
         <button
-          
+
           className="btn btn-primary"
           type="submit"
           style={{ marginBottom: "1em" }}

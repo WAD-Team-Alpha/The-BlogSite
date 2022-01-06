@@ -3,6 +3,8 @@ import { useState } from "react";
 import classes from "./form.module.css";
 import InputTag from './InputTag'
 import CloseIcon from '@mui/icons-material/Close';
+import { motion } from "framer-motion";
+import { Opacity } from "@mui/icons-material";
 
 
 const Editform = (props) => {
@@ -31,8 +33,7 @@ const Editform = (props) => {
     
  
   return (
-    <div>
-         
+    <motion.div initial={{x: '-50vw', opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 1.5, delay: 0.1, type: 'spring'}}>
       <Box
         sx={{
           height: "545px",
@@ -121,7 +122,7 @@ const Editform = (props) => {
       </Box>
       
     
-    </div>
+    </motion.div>
   );
 };
 
