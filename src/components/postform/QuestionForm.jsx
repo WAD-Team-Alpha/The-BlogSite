@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
 import { profileActions } from "../../store/profile";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../auth/LoadingSpinner";
 const QuestionForm = () => {
   const auth = useSelector((state) => state.auth);
   const about = useSelector((state) => state.profile);
@@ -14,6 +16,8 @@ const QuestionForm = () => {
   const [question, setQuestion] = useState();
   const [description, setDescription] = useState();
   const [image, setImage] = useState();
+  const [submit, setSubmit] = useState(false);
+  const navigate = useNavigate()
 
   const imageHandler = (value) => {
     setImage(value);
@@ -33,6 +37,7 @@ const QuestionForm = () => {
     var today = new Date();
     const publishedDate = today.toLocaleDateString("en-US");
     console.log({ question, description, image });
+    setSubmit(true)
     dispatch(
       sendQuestionData(
         {
@@ -47,13 +52,16 @@ const QuestionForm = () => {
         },
         questionId
       )
-    );
-    const questionIds = [...about.questionIds, questionId]
-    dispatch(profileActions.update({ ...about, questionIds: questionIds }));
+    ).then((result) => {
+      const questionIds = [...about.questionIds, questionId]
+      dispatch(profileActions.update({ ...about, questionIds: questionIds }));
+      setSubmit(false)
+      navigate("/profile", {replace: true})
+    });
   };
 
   return (
-    <>
+    submit ? <LoadingSpinner/> : <>
       <div className={"container-fluid " + classes.questionform}>
         <div className="row ">
           <div className="col-md-2"></div>
