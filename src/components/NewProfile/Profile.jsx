@@ -8,6 +8,7 @@ import Editform from "./EditForm/Editform";
 import { useDispatch, useSelector } from 'react-redux';
 import { profileActions } from "../../store/profile";
 import Members from "./Members/Members";
+import { fetchPostsData } from "../../store/post-actions";
 
 
 
@@ -22,22 +23,27 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [followStatus,setfollowStatus] = useState("Follow");
   
+
+
   const userDetails = {
     firstName : userInfo.firstName,
     lastName : userInfo.lastName,
     email : userInfo.email,
     bio : userInfo.bio,
     genres : userInfo.genres,
-    followinglist : userInfo.followinglist,
-    followerslist : userInfo.followerslist
+    followingList : userInfo.followingList,
+    followersList : userInfo.followersList,
+    postIds : userInfo.postIds,
+    questionIds : userInfo.questionIds,
   }
+  console.log(userInfo)
+  console.log(userDetails.postIds)
+  console.log(userDetails.followersList)
 
-  console.log(userDetails.followerslist)
+  const followCount = userDetails.followersList.length;
+  // console.log(followCount)
 
-  const followCount = userDetails.followerslist.length
-  console.log(followCount)
-
-  const followingCount = userDetails.followinglist.length
+  const followingCount = userDetails.followingList.length;
   console.log(followingCount)
   
   const editHandler = (
@@ -45,14 +51,15 @@ const Profile = () => {
     lastName,
     email,
     bio,
-    genres
+    genres,
   ) => {
     console.log(
       firstName,
       lastName,
       email,
       bio,
-      genres
+      genres,
+      
     );
     dispatch(
       profileActions.update({
@@ -60,7 +67,11 @@ const Profile = () => {
         lastName: lastName,
         email: email,
         bio: bio,
-        genres: genres
+        genres: genres,
+        followersList : userDetails.followersList,
+        followingList : userDetails.followingList,
+        postIds : userDetails.postIds,
+        questionIds : userDetails.questionIds
       })
     );
   };

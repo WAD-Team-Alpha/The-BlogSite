@@ -4,7 +4,7 @@ import { profileActions } from "../../../store/profile";
 
 
 const Following = () => {
-  const followinglist = useSelector((state) => state.profile.followinglist);
+  const followinglist = useSelector((state) => state.profile.followingList);
   const dispatch = useDispatch();
   console.log(followinglist);
 
@@ -17,7 +17,7 @@ const Following = () => {
     <div>
       <div class="container-fluid">
         <h4 style={{ paddingBottom: "0.5em" }}>
-          Followers: {followinglist.length}{" "}
+          Following: {followinglist.length}{" "}
         </h4>
         {followinglist.map((user) => (
           <div class="row" style={{ paddingBottom: "0.5em" }}>

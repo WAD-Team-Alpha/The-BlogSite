@@ -1,4 +1,5 @@
 import { postActions } from "./post";
+import { postsActions } from "./posts";
 export const sendPostData = ( postData, postId ) => {
 
     return async ( dispatch ) => {
@@ -78,6 +79,55 @@ export const fetchPostData = ( postId ) => {
 
             }
             dispatch( postActions.add( data ) );
+            return "success";
+
+        } catch ( error )
+        {
+
+            console.log( "error" );
+            return "failed"
+
+        }
+
+    };
+
+};
+
+export const fetchPostsData = ( postId ) => {
+
+    return async ( dispatch ) => {
+        
+        console.log( "fetch data action is triggered" );
+        const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${ postId }.json`;
+        const fetchData = async () => {
+
+            const response = await fetch( url );
+
+            if ( ! response.ok )
+            {
+
+                throw new Error( "Could not fetch data!" );
+
+            }
+            // console.log(response);
+            const data = await response.json();
+
+            return data;
+
+        };
+
+        try
+        {
+
+            const postData = await fetchData();
+            var data = {
+
+                ... postData,
+                comments : postData.comments === undefined ? [] : postData.comments,
+                postData : postData.postData === undefined ? [] : postData.postData
+
+            }
+            dispatch( postsActions.addPost( data ) );
             return "success";
 
         } catch ( error )
