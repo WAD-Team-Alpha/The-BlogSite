@@ -35,7 +35,7 @@ const Middleq = (props) => {
                                 <b>Views</b>  {questiondata.likes}
                             </div>
                         </div> */}
-                        <div class="col-3">
+                        <div class="col-6">
                             <div style={{textAlign:"right"}}>
                                 <button class="btn btn-primary" className={classes.button1}><div>Close thread</div></button>
                             </div>
