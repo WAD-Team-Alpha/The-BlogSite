@@ -22,7 +22,7 @@ const PostCard = (props) => {
     useEffect(() => {
         dispatch(fetchOtherProfileData(props.userId)).then((result)=>{
            
-            setUserName(result.firstName + " " + result.lastName)
+            setUserName(result.firstName)
         })
         }, [])
     return (

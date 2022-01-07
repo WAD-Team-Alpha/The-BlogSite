@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { profileActions } from "../../store/profile";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
+import { questionsActions } from "../../store/questions";
 const QuestionForm = () => {
   const auth = useSelector((state) => state.auth);
   const about = useSelector((state) => state.profile);
@@ -17,7 +18,7 @@ const QuestionForm = () => {
   const [description, setDescription] = useState();
   const [image, setImage] = useState();
   const [submit, setSubmit] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const imageHandler = (value) => {
     setImage(value);
@@ -37,7 +38,7 @@ const QuestionForm = () => {
     var today = new Date();
     const publishedDate = today.toLocaleDateString("en-US");
     console.log({ question, description, image });
-    setSubmit(true)
+    setSubmit(true);
     dispatch(
       sendQuestionData(
         {
@@ -55,15 +56,29 @@ const QuestionForm = () => {
         questionId
       )
     ).then((result) => {
-      const questionIds = [...about.questionIds, questionId]
+      const questionIds = [...about.questionIds, questionId];
       dispatch(profileActions.update({ ...about, questionIds: questionIds }));
-      setSubmit(false)
-      navigate("/profile", {replace: true})
+      setSubmit(false);
+      dispatch(
+        questionsActions.addQuestion({
+          question,
+          description,
+          imageUrl: "https://picsum.photos/200",
+          questionId,
+          publishedDate,
+          userId: auth.localId,
+          comments: [],
+          likes: 0,
+        })
+      );
+      navigate("/profile", { replace: true });
     });
   };
 
-  return (
-    submit ? <LoadingSpinner/> : <>
+  return submit ? (
+    <LoadingSpinner />
+  ) : (
+    <>
       <div className={"container-fluid " + classes.questionform}>
         <div className="row ">
           <div className="col-md-2"></div>

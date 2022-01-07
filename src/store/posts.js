@@ -19,6 +19,7 @@ const postsSlice = createSlice({
             likes : action.payload.likes,
             bookmarks : action.payload.bookmarks,
             comments : action.payload.comments,
+            genre : action.payload.genre
         });
         console.log(state);
         console.log(action.payload.postId);
