@@ -10,7 +10,7 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import Logout from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 const Account = () => {
@@ -28,6 +28,7 @@ const Account = () => {
     dispatch(authActions.logout())
     navigate("/", { replace: true })
   }
+  const authData = useSelector(state => state.auth)
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -70,7 +71,7 @@ const Account = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem sx={{ fontSize: "0.9em" }}>
-          <Link to={"/profile"} style={{ textDecoration: 'none', display: "flex", fontSize: '1.4em' }}>
+          <Link to={`/profile/${authData.localId}`} style={{ textDecoration: 'none', display: "flex", fontSize: '1.4em' }}>
             <Avatar /><Typography sx={{ padding: "0.2em", color: "#3d3d3d" }}>Profile</Typography>
           </Link>
         </MenuItem>

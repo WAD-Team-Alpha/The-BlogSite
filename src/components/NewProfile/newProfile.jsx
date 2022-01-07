@@ -2,6 +2,7 @@ import Profile from "./Profile.jsx";
 import ProfileMiddle from "./ProfileMiddle.jsx";
 import ProfileAnalytics from "./ProfileAnalytics.jsx";
 import classes from "./newprofile.module.css"
+import { useParams } from "react-router-dom";
 
 
 
