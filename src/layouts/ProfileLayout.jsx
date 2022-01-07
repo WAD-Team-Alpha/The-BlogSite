@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useParams } from 'react-router-dom';
 import Header from '../components/header/Header'
 import Navigation from '../components/navigation/Navigation';
 import Profile from '../components/NewProfile/Profile';
@@ -14,6 +14,13 @@ const Layout = (props) => {
         nav ? setNav(false) : setNav(true)
     }
     const authStatus = useSelector((state) => state.auth);
+    const params = useParams()
+
+    // This is the uid extracted from the url via routing
+    console.log("The uid that is extracted from the URL via routing ", params.uid)
+
+    // This is the uid of the current user
+    console.log("The uid of the current user ", authStatus.localId)
     const mainVarient = {
         hidden: {
             opacity: 0,

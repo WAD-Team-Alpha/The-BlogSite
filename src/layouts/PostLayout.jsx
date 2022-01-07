@@ -1,20 +1,19 @@
-import React, { useState,useEffect,useRef } from 'react'
+import React, { useState,useEffect } from 'react'
 import Header from '../components/header/Header'
 import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
 import Navigation from '../components/navigation/Navigation'
-// import Rightp from '../components/post_details/leftp/rightp/rightp'
 import Rightp from '../components/post_details/leftp/rightp/rightp'
 import Leftp from '../components/post_details/leftp/leftp/leftp'
 import Middlep from '../components/post_details/leftp/middlep/middlep'
 import { useParams } from 'react-router-dom'
 import {motion} from 'framer-motion'
-import { useDispatch,useSelector } from 'react-redux'
-import { fetchPostData, sendPostData } from '../store/post-actions'
+import { useDispatch } from 'react-redux'
+import { fetchPostData } from '../store/post-actions'
 import { fetchOtherProfileData } from '../store/profile-actions'
+import {profileActions} from '../store/profile'
 const PostLayout = () => {
     const dispatch = useDispatch();
-    const postData = useSelector((state) => state.post);
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
     
@@ -42,8 +41,8 @@ const PostLayout = () => {
             },
         }
     }
-    
     useEffect(() => {
+        dispatch(profileActions.updateRecentActivity({id: params.postID, type: 'post'}))
         dispatch(fetchPostData(params.postID)).then((result) => {
             if (result !== null) {
                 dispatch(fetchOtherProfileData(result.uid)).then((data)=>{

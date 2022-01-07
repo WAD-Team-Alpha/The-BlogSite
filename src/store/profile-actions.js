@@ -1,5 +1,5 @@
 import { profileActions } from "./profile";
-export const sendProfileData = (about,localId) => {
+export const sendProfileData = (about, localId) => {
   return async (dispatch) => {
     console.log("sending");
     console.log("send data action is triggered");
@@ -45,20 +45,22 @@ export const fetchProfileData = (localId) => {
 
     try {
       const profileData = await fetchData();
-      var data  = {
-        firstName:profileData.firstName,
-        lastName:profileData.lastName,
-        email:profileData.email,
-        followersList:profileData.followersList === undefined? [] : profileData.followersList,
-        followingList:profileData.followingList === undefined? [] : profileData.followingList,
+      var data = {
+        firstName: profileData.firstName,
+        lastName: profileData.lastName,
+        email: profileData.email,
+        followersList: profileData.followersList === undefined ? [] : profileData.followersList,
+        followingList: profileData.followingList === undefined ? [] : profileData.followingList,
         postIds: profileData.postIds === undefined ? [] : profileData.postIds,
         questionIds: profileData.questionIds === undefined ? [] : profileData.questionIds,
         bio: profileData.bio,
         genres: profileData.genres === undefined ? [] : profileData.genres,
+        recentActivity: profileData.recentActivity === undefined ? [] : profileData.recentActivity,
+        savedContent: profileData.savedContent === undefined ? [] : profileData.savedContent
       }
       console.log("testing data : ", data)
       dispatch(profileActions.update(data));
-      return {questionIds: data.questionIds, postIds: data.postIds}
+      return { questionIds: data.questionIds, postIds: data.postIds }
     } catch (error) {
       console.log("error");
       return "false"
@@ -84,12 +86,12 @@ export const fetchOtherProfileData = (localId) => {
 
     try {
       const profileData = await fetchData();
-      var data  = {
-        firstName:profileData.firstName,
-        lastName:profileData.lastName,
-        email:profileData.email,
-        followersList:profileData.followersList === undefined? [] : profileData.followersList,
-        followingList:profileData.followingList === undefined? [] : profileData.followingList,
+      var data = {
+        firstName: profileData.firstName,
+        lastName: profileData.lastName,
+        email: profileData.email,
+        followersList: profileData.followersList === undefined ? [] : profileData.followersList,
+        followingList: profileData.followingList === undefined ? [] : profileData.followingList,
         postIds: profileData.postIds === undefined ? [] : profileData.postIds,
         questionIds: profileData.questionIds === undefined ? [] : profileData.questionIds,
         bio: profileData.bio,
@@ -100,6 +102,35 @@ export const fetchOtherProfileData = (localId) => {
     } catch (error) {
       console.log("error");
       return "failed"
+    }
+  };
+};
+
+export const updateRecentActivity = (data, localId) => {
+  return async (dispatch) => {
+    console.log("sending ra");
+    console.log(data)
+    console.log("send recent activity action is triggered");
+    const sendRequest = async () => {
+      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/users/${localId}.json`;
+      const response = await fetch(url, {
+        method: "PUT",
+        body: JSON.stringify(data),  
+      });
+
+      if (!response.ok) {
+        throw new Error("Sending data failed.");
+      }
+    };
+
+    try {
+      await sendRequest();
+      console.log(" recent activity Success");
+      return "success"
+    } catch (error) {
+      console.log(error);
+      console.log("send recent activity error");
+      return "failure"
     }
   };
 };
