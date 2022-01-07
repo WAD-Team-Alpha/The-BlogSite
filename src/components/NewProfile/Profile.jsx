@@ -6,7 +6,8 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import Editform from "./EditForm/Editform";
 import { useDispatch, useSelector } from 'react-redux';
-import { profileActions } from "../../store/profile";
+
+
 import Members from "./Members/Members";
 import { follow, remove } from "../../store/counterReducer";
 
