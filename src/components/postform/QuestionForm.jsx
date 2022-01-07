@@ -49,6 +49,8 @@ const QuestionForm = () => {
           userId: auth.localId,
           comments: [],
           likes: 0,
+          bookmarks : 0,
+          status : "active"
         },
         questionId
       )

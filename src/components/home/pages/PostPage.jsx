@@ -59,6 +59,7 @@ const PostPage = () => {
                // comments={post.comments}
                author="Surya"
                publishedDate={post.publishedDate}
+               userId = {post.uid}
           />)}
      </motion.div>
 }

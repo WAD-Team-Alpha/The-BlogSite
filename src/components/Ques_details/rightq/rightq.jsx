@@ -14,8 +14,9 @@ import { fetchOtherProfileData } from '../../../store/profile-actions';
 const Rightq = (props) => {
     const num=[1,2,3,4]
     const dispatch = useDispatch()
-    const userInfo = useSelector((state)=> state.question)
-    console.log(userInfo.userId)
+   
+    const userDetails = props.profileData
+    console.log(userDetails)
 
     
     
@@ -59,10 +60,10 @@ const Rightq = (props) => {
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-8">
-                                            <span className={classes.followercount} > <b>0</b></span>
+                                            <span className={classes.followercount} > <b>{userDetails.followercount}</b></span>
                                         </div>
                                         <div class="col-4">
-                                            <span className={classes.followingcount}> <b>0</b></span>
+                                            <span className={classes.followingcount}> <b>{userDetails.followingcount}</b></span>
                                         </div>
                                     </div>
                                     <div class="row justify-content-start">
