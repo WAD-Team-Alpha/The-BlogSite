@@ -76,7 +76,8 @@ export const fetchPostData = ( postId ) => {
 
                 ... postData,
                 comments : postData.comments === undefined ? [] : postData.comments,
-                postData : postData.postData === undefined ? [] : postData.postData
+                postData : postData.postData === undefined ? [] : postData.postData,
+                genre : postData.genre === undefined ? "tech" : postData.genre
 
             }
             dispatch( postActions.add( data ) );
@@ -125,7 +126,8 @@ export const fetchPostsData = ( postId ) => {
 
                 ... postData,
                 comments : postData.comments === undefined ? [] : postData.comments,
-                postData : postData.postData === undefined ? [] : postData.postData
+                postData : postData.postData === undefined ? [] : postData.postData,
+                genre : postData.genre === undefined ? "tech" : postData.genre,
 
             }
             dispatch( postsActions.addPost( data ) );

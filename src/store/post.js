@@ -11,10 +11,12 @@ const initialpostState = {
   postSummary: "",
   postData: [],
   comments: [],
+  genre: "",
+
 };
 
 const postSlice = createSlice({
-  name: "postmData",
+  name: "postData",
   initialState: initialpostState,
   reducers: {
     add(state, action) {
@@ -29,6 +31,7 @@ const postSlice = createSlice({
       state.likes = action.payload.likes;
       state.bookmarks = action.payload.bookmarks;
       state.comments = action.payload.comments;
+      state.genre = action.payload.genre;
       console.log("post updated in store");
     },
   },
