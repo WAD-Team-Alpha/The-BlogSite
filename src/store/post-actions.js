@@ -1,10 +1,11 @@
 import { postActions } from "./post";
 import { postsActions } from "./posts";
+import { trendingActions } from "./trending";
 export const sendPostData = ( postData, postId ) => {
 
     return async ( dispatch ) => {
 
-        console.log( "sending" );
+        console.log( postData, postId );
         console.log( "send data action is triggered" );
         const sendRequest = async () => {
 
@@ -12,7 +13,7 @@ export const sendPostData = ( postData, postId ) => {
             const response = await fetch( url,
             {
 
-                method: "PUT",
+                method: "put",
                 body: JSON.stringify( postData )
 
             } );
@@ -28,15 +29,16 @@ export const sendPostData = ( postData, postId ) => {
 
         try
         {
-
             await sendRequest();
             console.log( "Success" );
+            return "success"
 
         } catch ( error )
         {
 
             console.log( error );
             console.log( "send post error" );
+            return "failure"
 
         }
 
@@ -47,7 +49,6 @@ export const sendPostData = ( postData, postId ) => {
 export const fetchPostData = ( postId ) => {
 
     return async ( dispatch ) => {
-        postId = "1525768a-3c49-4169-8b69-98bbdaf6a287";
         console.log( "fetch data action is triggered" );
         const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${ postId }.json`;
         const fetchData = async () => {
@@ -140,4 +141,33 @@ export const fetchPostsData = ( postId ) => {
 
     };
 
+};
+
+
+export const fetchTrendingPosts = () => {
+    return async ( dispatch ) => {
+        console.log( "fetch data action is triggered" );
+        const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts.json`;
+        const fetchData = async () => {
+            const response = await fetch( url );
+            if (!response.ok) {
+                throw new Error( "Could not fetch data!" );
+            }
+            console.log(response);
+            const data = await response.json();
+            return data;
+        };
+        try {
+            const postData = await fetchData();
+            const data = []
+            for(var key in postData) {
+                data.push(postData[key])
+            }
+            dispatch(trendingActions.addPosts(data));
+            return "success";
+        } catch ( error ) {
+            console.log(error);
+            return "failed"
+        }
+    };
 };

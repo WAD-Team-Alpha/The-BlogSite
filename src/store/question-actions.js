@@ -19,9 +19,11 @@ export const sendQuestionData = (questionData,questionId) => {
     try {
       await sendRequest();
       console.log("Success");
+      return "success"
     } catch (error) {
       console.log(error);
       console.log("send post error");
+      return "failure"
     }
   };
 };

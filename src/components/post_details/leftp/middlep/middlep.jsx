@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import banner_logo from "../../../../assets/images/banner_logo.png";
 import { Avatar } from "@mui/material";
 import india1 from "../../../../assets/images/india1.png";
@@ -8,11 +9,39 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import classes from "./middlep.module.css";
 import postData from "../../../../helpers/postData.json";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { postActions } from "../../../../store/post";
+import { sendPostData } from "../../../../store/post-actions";
 const Middlep = (props) => {
+  const dispatch = useDispatch();
   const data = postData.find((post) => post.id === parseInt(props.postID));
   const postdata = useSelector((state) => state.post);
+  const authdata = useSelector((state) => state.auth);
+  const userData = useSelector((state) => state.profile);
+  const [comment, setComment] = useState("");
   const profileData = props.profileData;
+  const [comments, setComments] = useState(postdata.comments);
+  const addCommentHandler = (event) => {
+    event.preventDefault();
+    console.log();
+    if (comment === "") {
+      return;
+    }
+    const newComments = [
+      ...postdata.comments,
+      { userId: authdata.localId, name: userData.firstName, text: comment },
+    ];
+    dispatch(postActions.add({ ...postdata, comments: newComments }));
+    setComments((state) => {
+      return [
+        ...state,
+        { userId: authdata.localId, name: userData.firstName, text: comment },
+      ];
+    });
+    dispatch(sendPostData({ ...postdata, comments: newComments }, postdata.postId)).then((res) => {
+      console.log("printing response", res);
+    });
+  };
   return (
     <>
       <div>
@@ -34,7 +63,7 @@ const Middlep = (props) => {
                   </div>
                 </div>
                 <div class="col-3">
-                  {profileData.firstName+" "+profileData.lastName}
+                  {profileData.firstName + " " + profileData.lastName}
                   <br />
                   Posted on {postdata.publishedDate}
                   <br /> <br />
@@ -44,7 +73,7 @@ const Middlep = (props) => {
                     <h3
                       style={{ size: "25px", font: "Roboto", width: "754px" }}
                     >
-                      <b>{data.title}</b>
+                      <b>{postdata.postTitle}</b>
                     </h3>
                   </b>
                   <hr />
@@ -75,27 +104,33 @@ const Middlep = (props) => {
                   <h2>
                     <b>Comments</b>
                   </h2>
-
-                  <div class="container-fluid">
-                    <div class="row">
-                      <div class="col-1">
-                        <Avatar />
-                      </div>
-                      <div class="col-11">
-                        {/* <p>Hi</p> */}
-                        <TextField
-                          fullWidth
-                          helperText=" "
-                          id="description_posts"
-                          label="Comment publicly as Surya Teja"
-                          multiline
-                          rows={3}
-                          size="small"
-                        />
-                        <Button variant="contained">Submit</Button>
+                  <form onSubmit={addCommentHandler}>
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-1">
+                          <Avatar />
+                        </div>
+                        <div class="col-11">
+                          {/* <p>Hi</p> */}
+                          <TextField
+                            fullWidth
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            helperText=" "
+                            id="description_posts"
+                            label={`Comment publicly as ${profileData.firstName}`}
+                            multiline
+                            rows={3}
+                            size="small"
+                          />
+                          <Button type="submit" variant="contained">
+                            Submit
+                          </Button>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  </form>
+
                   <br />
                   <br />
                   {postdata.comments.map((val) => (
@@ -112,7 +147,7 @@ const Middlep = (props) => {
                               style={{ border: "2px solid #c4c4c4" }}
                             >
                               <div className={classes.commentsp}>
-                                {val}
+                                {val.text}
                               </div>
                             </Box>
                           </div>

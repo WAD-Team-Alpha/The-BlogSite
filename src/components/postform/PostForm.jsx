@@ -9,6 +9,8 @@ import { useDispatch } from "react-redux";
 import { profileActions } from "../../store/profile";
 import { useSelector } from "react-redux";
 import { sendPostData } from "../../store/post-actions";
+import { useNavigate } from "react-router-dom";
+import LoadingSpinner from "../auth/LoadingSpinner";
 
 const PostForm = () => {
   const auth = useSelector((state) => state.auth);
@@ -18,6 +20,8 @@ const PostForm = () => {
   const [banner, setBanner] = useState();
   const [title, setTitle] = useState();
   const [summary, setSummary] = useState();
+  const [submit, setSubmit] = useState(false);
+  const navigate = useNavigate();
 
   const bannerHandler = (value) => {
     setBanner(value);
@@ -73,116 +77,123 @@ const PostForm = () => {
       if (input.type === "text") {
         input.value = input.value;
       }
-      else{
+      else {
         input.value = "https://picsum.photos/200";
       }
       return input;
     });
     console.log({ banner, title, summary }, finalData);
     const postData = {
-        postId: postId,
-        likes: 0,
-        uid: uid,
-        publishedDate: publishedDate,
-        bookmarks:0,
-        postTitle: title,
-        imageUrl: "https://picsum.photos/200",
-        postSummary:summary,
-        postData: finalData,
-        comments:[]
+      postId: postId,
+      likes: 0,
+      uid: uid,
+      publishedDate: publishedDate,
+      bookmarks: 0,
+      postTitle: title,
+      imageUrl: "https://picsum.photos/200",
+      postSummary: summary,
+      postData: finalData,
+      comments: []
     }
-    dispatch(sendPostData(postData, postId));
-    var postIds = [...about.postIds, postId]
-    dispatch(
-      profileActions.update({ ...about, postIds: postIds })
-    );
+    setSubmit(true)
+    dispatch(sendPostData(postData, postId)).then((result) => {
+      if (result === "success") {
+        var postIds = [...about.postIds, postId]
+        dispatch(
+          profileActions.update({ ...about, postIds: postIds })
+        );
+        setSubmit(false)
+        navigate("/profile", { replace: true })
+      }
+    });
   };
 
   return (
-    <div className={"col-md-8 " + classes.form}>
-      <form className={"container"} onSubmit={onSubmitHandler}>
-        <br />
-        <div className="d-flex align-items-center justify-content-between">
-          <h1>
-            <b>Step 1: </b> Create the post
-          </h1>
-          <select class="form-select" aria-label="Default select example" style={{ width: '10em', backgroundColor: '#05386b', color: 'white', fontWeight: '600' }} required>
-            <option selected disabled>Select genre</option>
-            <option value="tech">Technology</option>
-            <option value="gadgets">Gadgets</option>
-            <option value="coding">Coding</option>
-            <option value="traveling">Traveling</option>
-            <option value="movies">Movies</option>
-            <option value="gaming">Gaming</option>
-          </select>
-        </div>
-        <br />
-        <ImageInputBox
-          height={"30vh"}
-          isAdded={false}
-          onChange={bannerHandler}
-          inputname={"Add banner image"}
-        />
-        <br />
-        <TextInputBox
-          inputname={"Title"}
-          isAdded={false}
-          onChange={titleHandler}
-        />
-        <br />
-        <TextInputBox
-          inputname={"Summary"}
-          height={"100px"}
-          isAdded={false}
-          onChange={summaryHandler}
-        />
-        <br />
-        {inputList.map((input, index) => {
-          return input.type === "text" ? (
-            <>
-              <TextInputBox
-                key={input.id}
-                id={input.id}
-                inputname={`Content cell ${index + 1}`}
-                isAdded={true}
-                onChange={inputChangeHandler}
-                onDelete={deleteInputHandler}
-              />
-              <br />
-            </>
-          ) : (
-            <>
-              <ImageInputBox
-                key={input.id}
-                id={input.id}
-                height={"20vh"}
-                inputname={`Add image ${index + 1}`}
-                isAdded={true}
-                onChange={inputChangeHandler}
-                onDelete={deleteInputHandler}
-              />
-              <br />
-            </>
-          );
-        })}
-        <button
+    submit ? <LoadingSpinner /> :
+      <div className={"col-md-8 " + classes.form}>
+        <form className={"container"} onSubmit={onSubmitHandler}>
+          <br />
+          <div className="d-flex align-items-center justify-content-between">
+            <h1>
+              <b>Step 1: </b> Create the post
+            </h1>
+            <select class="form-select" aria-label="Default select example" style={{ width: '10em', backgroundColor: '#05386b', color: 'white', fontWeight: '600' }} required>
+              <option selected disabled>Select genre</option>
+              <option value="tech">Technology</option>
+              <option value="gadgets">Gadgets</option>
+              <option value="coding">Coding</option>
+              <option value="traveling">Traveling</option>
+              <option value="movies">Movies</option>
+              <option value="gaming">Gaming</option>
+            </select>
+          </div>
+          <br />
+          <ImageInputBox
+            height={"30vh"}
+            isAdded={false}
+            onChange={bannerHandler}
+            inputname={"Add banner image"}
+          />
+          <br />
+          <TextInputBox
+            inputname={"Title"}
+            isAdded={false}
+            onChange={titleHandler}
+          />
+          <br />
+          <TextInputBox
+            inputname={"Summary"}
+            height={"100px"}
+            isAdded={false}
+            onChange={summaryHandler}
+          />
+          <br />
+          {inputList.map((input, index) => {
+            return input.type === "text" ? (
+              <>
+                <TextInputBox
+                  key={input.id}
+                  id={input.id}
+                  inputname={`Content cell ${index + 1}`}
+                  isAdded={true}
+                  onChange={inputChangeHandler}
+                  onDelete={deleteInputHandler}
+                />
+                <br />
+              </>
+            ) : (
+              <>
+                <ImageInputBox
+                  key={input.id}
+                  id={input.id}
+                  height={"20vh"}
+                  inputname={`Add image ${index + 1}`}
+                  isAdded={true}
+                  onChange={inputChangeHandler}
+                  onDelete={deleteInputHandler}
+                />
+                <br />
+              </>
+            );
+          })}
+          <button
 
-          className="btn btn-primary"
-          type="submit"
-          style={{ marginBottom: "1em" }}
+            className="btn btn-primary"
+            type="submit"
+            style={{ marginBottom: "1em" }}
+          >
+            Submit
+          </button>
+        </form>
+        <button
+          className={"btn btn-primary " + classes.floatingbutton}
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
         >
-          Submit
+          <AddIcon />
         </button>
-      </form>
-      <button
-        className={"btn btn-primary " + classes.floatingbutton}
-        data-bs-toggle="modal"
-        data-bs-target="#exampleModal"
-      >
-        <AddIcon />
-      </button>
-      <PostModal handler={addInputHandler} />
-    </div>
+        <PostModal handler={addInputHandler} />
+      </div>
   );
 };
 
