@@ -47,11 +47,13 @@ const PostLayout = () => {
             if (result !== null) {
                 dispatch(fetchOtherProfileData(result.uid)).then((data)=>{
                     console.log(data);
-                    setData(data)
+                    console.log(data.followersList.length);
+                    setData({...data,followercount: data.followersList.length,followingcount: data.followingList.length})
                 });
             }
         });
     }, []);
+
     return (
         <>
             {!nav && <Header nav={navHandler} />}
@@ -66,7 +68,7 @@ const PostLayout = () => {
                             <Middlep postID={params.postID} profileData={data}/>
                         </div>
                         <div className={"col-md-3 shadow-lg " + classes.rightpane}>
-                            <Rightp postID={params.postID} profileData={data}/>
+                            <Rightp postID={params.postID} profileData={data} />
                         </div>
                     </div>
                 </div>

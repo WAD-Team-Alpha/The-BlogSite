@@ -12,8 +12,10 @@ const Rightp = (props) => {
     const num=[1,2,3,4]
     const profileData = props.profileData;
     console.log(profileData);
-    const followercount = profileData.followersList.length;
-    const followingcount = profileData.followingList.length;
+    // var followercount = 0;
+    // var followingcount = 0;
+    
+    
     return(
         <div >
                 <div className={classes.containerMD}>
@@ -52,10 +54,10 @@ const Rightp = (props) => {
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-8">
-                                            <span className={classes.followercount} > <b>{followercount}</b></span>
+                                            <span className={classes.followercount} > <b>{profileData.followercount}</b></span>
                                         </div>
                                         <div class="col-4">
-                                            <span className={classes.followingcount}> <b>{followingcount}</b></span>
+                                            <span className={classes.followingcount}> <b>{profileData.followingcount}</b></span>
                                         </div>
                                     </div>
                                     <div class="row justify-content-start">
