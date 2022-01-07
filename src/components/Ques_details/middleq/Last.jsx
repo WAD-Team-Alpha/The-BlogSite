@@ -1,12 +1,14 @@
-import ThumbUp from "@mui/icons-material/ThumbUp";
-import { Avatar, Grid } from "@mui/material";
+//import ThumbUp from "@mui/icons-material/ThumbUp";
+import { Avatar } from "@mui/material";
 import classes from "./last.module.css";
-import TimerIcon from "@mui/icons-material/Timer";
+//import TimerIcon from "@mui/icons-material/Timer";
 import { TextField, Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { questionActions } from "../../../store/question";
 import { sendQuestionData } from "../../../store/question-actions";
+//import DoneSharpIcon from '@mui/icons-material/DoneSharp';
+import CommentsSection from "./commentsSection";
 
 const Last = (props) => {
   const dispatch = useDispatch()
@@ -39,6 +41,19 @@ const Last = (props) => {
       console.log("printing response", res);
     });
   };
+
+  // const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
+  // const [correctionicon,setCorrectionIcon] = useState(<TimerIcon />)
+
+  // const correctionHandler = (props) => {
+  //       if (correctionstatus==="Mark as correct") {
+  //           setcorrectionstatus("Marked")
+  //           setCorrectionIcon(<DoneSharpIcon style={{color:"green"}}/>)
+  //       } else {
+  //           setcorrectionstatus("Mark as correct")
+  //           setCorrectionIcon(<TimerIcon/>)
+  //       }
+  // }
  
   return (
     <div className={classes.answers}>
@@ -47,50 +62,8 @@ const Last = (props) => {
       </span>
       <div>
         {commentsdata.comments.map((comment) => (
-          <div className={classes.anscon}>
-            <div class="row">
-              <div
-                class="col-2"
-                style={{
-                  paddingLeft: "2em",
-                  paddingTop: "0.5em",
-                  width: "80px",
-                }}
-              >
-                <Avatar sx={{ width: "60px", height: "60px" }} />
-              </div>
-              <div
-                class="col-6"
-                style={{ paddingLeft: "1.5em" }}
-              >
-                <div className={classes.answersection}><b>{profileData.firstName}</b></div>
-                <div className={classes.answertime}> Answerd on {commentsdata.publishedDate} </div>
-              </div>
-              <div class="col-4" style={{ paddingLeft: "4em", textAlign:"right" }}>
-                <button class="btn shadow-none">
-                  <b>Mark as correct answer</b>
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div
-                class="col"
-                style={{ paddingLeft: "2em", paddingTop: "1em" }}
-              >
-                <span>
-                  {" "}
-                 {comment.text}
-                </span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-4">
-                <div className={classes.timeicon}>
-                  <TimerIcon />
-                </div>
-              </div>
-            </div>
-          </div>
+          // coming soon
+          <CommentsSection profileData={profileData}  commentsdata={commentsdata}/>
         ))}
         <div>
           <br />
