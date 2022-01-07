@@ -5,11 +5,14 @@
     background-color: #edf5e1;
     height: 535px;
     overflow-y: scroll;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
 
 .postscreate{
     padding-left: 36em;
     padding-top: 1em;
+    
 }
 
 
@@ -25,3 +28,4 @@
     padding-left: 37em;
     padding-top: 1em ;
 }
+
