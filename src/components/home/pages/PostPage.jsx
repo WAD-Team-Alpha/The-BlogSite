@@ -50,8 +50,8 @@ const PostPage = () => {
           exit='exit'
      >
           {result.map((post) => <PostCard
-               key={post.id}
-               id={post.id}
+               key={post.postId}
+               id={post.postId}
                banner={post.imageUrl}
                title={post.postTitle}
                description={post.postSummary}

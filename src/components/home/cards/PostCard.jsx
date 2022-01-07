@@ -10,6 +10,7 @@ const PostCard = (props) => {
     const dispatch = useDispatch();
     const getDataHandler = (event) => {
         event.preventDefault();
+        console.log(props.id);
         navigate(`/posts/${props.id}`);
         
     }

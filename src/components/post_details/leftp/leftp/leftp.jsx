@@ -7,35 +7,44 @@ import { useState } from 'react'
 
 
 import postData from '../../../../helpers/postData.json'
-import { useSelector } from "react-redux";
+import { useSelector ,useDispatch} from "react-redux";
+import { sendPostData } from '../../../../store/post-actions';
 
 
 const Leftp = (props) => {
     const postdata = useSelector((state) => state.post);
-
-    const intialLikecount = 0
-    const [like,setLike] = useState(0); 
+    const dispatch = useDispatch();
+    
+    const [like,setLike] = useState(postdata.likes); 
+    const [bookmark,setBookmark] = useState(postdata.bookmarks); 
     const [likestatus,setLikestatus] = useState("like"); 
+    const [bookmarkstatus,setBookmarkstatus] = useState("bookmark"); 
 
     const likeHandler = () =>{
-        
+        var likes = like;
         if (likestatus==="like") {
             setLikestatus("liked")
-            setLike(intialLikecount + 1)
+            setLike((val)=>val+1)
+            likes = like + 1;
         } else {
             setLikestatus("like")
-            setLike(intialLikecount )
+            setLike((val)=>val-1)
+            likes = like - 1;
         }
+        dispatch(sendPostData({...postdata,likes: likes},postdata.postId));
     }
-
-    const [bookmarkstatus, setbookmarkstatus] = useState("Bookmark");
     const bookmarkHandler = () => {
-        
-        if (bookmarkstatus==="Bookmark") {
-            setbookmarkstatus("Bookmarked")
+        var bookmarks = postdata.bookmarks
+        if (bookmarkstatus==="bookmark") {
+            setBookmarkstatus("bookmarked")
+            setBookmark((val)=>val+1)
+            bookmarks = bookmark + 1;
         } else {
-            setbookmarkstatus("Bookmark")
+            setBookmarkstatus("bookmark");
+            setBookmark((val)=>val-1);
+            bookmarks = bookmark -1 ;
         }
+        dispatch(sendPostData({...postdata,bookmarks},postdata.postId));
     }
 
     const intialsharecount = 0
@@ -66,7 +75,7 @@ const Leftp = (props) => {
                     <ThumbUpIcon/> {likestatus}
                 </button>
                
-                <span style={{paddingLeft:"7em"}}>{postdata.likes}</span>
+                <span style={{paddingLeft:"7em"}}>{like}</span>
                 <br/><br/>
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} >
                     <CommentIcon/> Comment
@@ -77,7 +86,7 @@ const Leftp = (props) => {
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} on onClick={bookmarkHandler}>
                     <BookmarkIcon/> {bookmarkstatus}
                 </button>
-                <span style={{paddingLeft:"7em"}}>{postdata.bookmarks}</span>
+                <span style={{paddingLeft:"7em"}}>{bookmark}</span>
                 <br/><br/>
                 
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} onClick={shareHandler}>

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect,useRef } from 'react'
 import Header from '../components/header/Header'
 import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
@@ -9,11 +9,12 @@ import Leftp from '../components/post_details/leftp/leftp/leftp'
 import Middlep from '../components/post_details/leftp/middlep/middlep'
 import { useParams } from 'react-router-dom'
 import {motion} from 'framer-motion'
-import { useDispatch } from 'react-redux'
-import { fetchPostData } from '../store/post-actions'
+import { useDispatch,useSelector } from 'react-redux'
+import { fetchPostData, sendPostData } from '../store/post-actions'
 import { fetchOtherProfileData } from '../store/profile-actions'
 const PostLayout = () => {
     const dispatch = useDispatch();
+    const postData = useSelector((state) => state.post);
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
     
@@ -47,11 +48,14 @@ const PostLayout = () => {
             if (result !== null) {
                 dispatch(fetchOtherProfileData(result.uid)).then((data)=>{
                     console.log(data);
-                    setData(data)
+                    console.log(data.followersList.length);
+                    setData({...data,followercount: data.followersList.length,followingcount: data.followingList.length})
                 });
             }
         });
     }, []);
+    
+
     return (
         <>
             {!nav && <Header nav={navHandler} />}
@@ -66,7 +70,7 @@ const PostLayout = () => {
                             <Middlep postID={params.postID} profileData={data}/>
                         </div>
                         <div className={"col-md-3 shadow-lg " + classes.rightpane}>
-                            <Rightp postID={params.postID} profileData={data}/>
+                            <Rightp postID={params.postID} profileData={data} />
                         </div>
                     </div>
                 </div>
