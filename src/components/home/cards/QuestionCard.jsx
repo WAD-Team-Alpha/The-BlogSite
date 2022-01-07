@@ -21,6 +21,16 @@ const QuestionCard = (props) => {
             setUserName(result.firstName)
         })
         }, [])
+        const str=props.details;
+        const len=str.length;
+        
+        let dec;
+        let result = str.substring(0,270);
+        if( len<270){ 
+        dec= <p className="card-text">{props.details}</p>}
+        else{
+          dec=<p className="card-text">{result}....</p>  
+        }
     return (
         <div className="card shadow mb-3 mt-3" >
             <div class="row g-0">
@@ -39,7 +49,7 @@ const QuestionCard = (props) => {
                 <div class="col-md-10">
                     <div class="card-body">
                         <h5 class="card-title fw-bold fs-4">{props.question}</h5>
-                        <p class="card-text">{props.details}</p>
+                        <p class="card-text">{dec}</p>
 
                         <ul className={`${classes.question}`}>
                             <li style={{ marginRight: "10px" }}><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" alt='o' /><Link onClick={getDataHandler} to={`/forum-threads/${props.id}`}>View post</Link></li>

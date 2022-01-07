@@ -56,10 +56,10 @@ const QuestionPage = () => {
                {result.map((query) => <QuestionCard
                     key={query.questionId}
                     id={query.questionId}
-                    // votes={query.votes}
+                    votes={query.bookmarks}
                     answers={query.answers}
                     question={query.question}
-                    details={query.details}
+                    details={query.description}
                     userId = {query.userId}
                     publishedDate={query.publishedDate}
                />)}
