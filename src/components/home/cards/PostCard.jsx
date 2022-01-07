@@ -25,6 +25,17 @@ const PostCard = (props) => {
             setUserName(result.firstName)
         })
         }, [])
+        const str=props.description;
+       const len=str.length;
+       
+       let dec;
+       let result = str.substring(0,150);
+       if( len<150){ 
+       dec= <p className="card-text">{props.description}</p>}
+       else{
+         dec=<p className="card-text">{result}....</p>  
+       }
+       
     return (
         <div  className={`card mb-3  mt-3 ${classes.shadow}`} >
             <div className="row g-0">
@@ -34,7 +45,7 @@ const PostCard = (props) => {
                 <div className="col-md-9">
                     <div className="card-body">
                         <h5 className="card-title fw-bold fs-1 ">{props.title}</h5>
-                        <p className="card-text">{props.description}</p>
+                         {dec}
                         <p className="card-text"><small className="text-muted">Last updated 3 mins ago</small></p>
                     </div>
                     <div  >
