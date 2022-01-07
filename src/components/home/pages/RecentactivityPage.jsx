@@ -48,42 +48,40 @@ const RecentActivityPage = () => {
     }, [])
 
     return (
-        status ? <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh'}}>
-          <CircularProgress sx={{color: '#5cdb95'}} />
-     </div>
-          : <motion.div
-            variants={mainVarient}
-            initial='hidden'
-            animate='visible'
-            exit='exit'
-        >
-            {recents.map((recent, index) => {
-                return (
-                    recent.type === "post" ? index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
-                        <PostCard
-                            key={index}
-                            banner={recent.data.imageUrl}
-                            title={recent.data.postTitle}
-                            description={recent.data.postSummary}
-                            likes={recent.data.likes}
-                            // comments={recent.data.comments}
-                            author={"Surya"}
-                            publishedDate={recent.data.publishedDate}
-                        /> : index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
-                        // <QuestionCard
-                        //     key={recent}
-                        //     votes={recent.votes}
-                        //     answers={recent.answers}
-                        //     question={recent.question}
-                        //     details={recent.details}
-                        //     author={recent.author}
-                        //     publishedDate={recent.publishedDate}
-                        // />
-                        <div></div>
-                )
-            }
-            )}
-        </motion.div>
+        status ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
+            <CircularProgress sx={{ color: '#5cdb95' }} />
+        </div>
+            : <motion.div
+                variants={mainVarient}
+                initial='hidden'
+                animate='visible'
+                exit='exit'
+            >
+                {recents.map((recent, index) => {
+                    return (
+                        recent.type === "post" ? index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
+                            <PostCard
+                                key={index}
+                                banner={recent.data.imageUrl}
+                                title={recent.data.postTitle}
+                                description={recent.data.postSummary}
+                                likes={recent.data.likes}
+                                author={"Surya"}
+                                publishedDate={recent.data.publishedDate}
+                            /> : index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
+                            <QuestionCard
+                                key={recent.data.questionId}
+                                id={recent.data.questionId}
+                                answers={recent.data.answers}
+                                question={recent.data.question}
+                                details={recent.data.details}
+                                userId={recent.data.userId}
+                                publishedDate={recent.data.publishedDate}
+                            />
+                    )
+                }
+                )}
+            </motion.div>
     );
 }
 export default RecentActivityPage;
