@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialProfileState = {
   firstName: "Username",
@@ -11,7 +11,8 @@ const initialProfileState = {
   postIds: [],
   questionIds: [],
   recentActivity: [],
-  savedContent: []
+  savedContent: [],
+  likedContent: []
 };
 
 const profileSlice = createSlice({
@@ -31,6 +32,7 @@ const profileSlice = createSlice({
       state.followingList = action.payload.followingList;
       state.recentActivity = action.payload.recentActivity;
       state.savedContent = action.payload.savedContent;
+      state.likedContent = action.payload.likedContent;
     },
 
 
@@ -49,7 +51,7 @@ const profileSlice = createSlice({
 
     updateRecentActivity(state, action) {
       var temp
-      if(state.recentActivity.filter((obj) => obj.id === action.payload.id) !== []) {
+      if (state.recentActivity.filter((obj) => obj.id === action.payload.id) !== []) {
         temp = state.recentActivity.filter((obj) => obj.id !== action.payload.id)
         temp = [action.payload].concat(temp)
         return {
@@ -72,6 +74,34 @@ const profileSlice = createSlice({
           ...state,
           recentActivity: temp
         }
+      }
+    },
+
+    addBookmark(state, action) {
+      return {
+        ...state,
+        savedContent: [...state.savedContent, action.payload]
+      }
+    },
+
+    removeBookmark(state, action) {
+      return {
+        ...state,
+        savedContent: state.savedContent.filter(obj => obj.id !== action.payload.id)
+      }
+    },
+
+    addLikedContent(state, action) {
+      return {
+        ...state,
+        likedContent: [...state.likedContent, action.payload]
+      }
+    },
+
+    removeLikedContent(state, action) {
+      return {
+        ...state,
+        likedContent: state.likedContent.filter(id => id !== action.payload)
       }
     }
   },

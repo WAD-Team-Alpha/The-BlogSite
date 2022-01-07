@@ -4,17 +4,18 @@ import ShareIcon from '@mui/icons-material/Share';
 import CommentIcon from '@mui/icons-material/Comment';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useState } from 'react'
-
-
-import postData from '../../../../helpers/postData.json'
 import { useSelector ,useDispatch} from "react-redux";
 import { sendPostData } from '../../../../store/post-actions';
 
 import ThumbUpOffAlt from '@mui/icons-material/ThumbUpOffAlt';
 import BookmarkAdded from '@mui/icons-material/BookmarkAdded';
+import { profileActions } from '../../../../store/profile';
+import { sendProfileData } from '../../../../store/profile-actions';
 
 const Leftp = (props) => {
     const postdata = useSelector((state) => state.post);
+    const profiledata = useSelector((state) => state.profile);
+    const authdata = useSelector(state => state.auth)
     const dispatch = useDispatch();
     
     const [like,setLike] = useState(postdata.likes); 
@@ -30,14 +31,16 @@ const Leftp = (props) => {
             setLikestatus("liked")
             setLike((val)=>val+1)
             likes = like + 1;
+            dispatch(profileActions.addLikedContent(postdata.postId))
             setLikeIcon(<ThumbUpIcon/>)
         } else {
             setLikestatus("like")
             setLike((val)=>val-1)
             likes = like - 1;
+            dispatch(profileActions.removeLikedContent(postdata.postId))
             setLikeIcon(<ThumbUpOffAlt/>)
-
         }
+        dispatch(sendProfileData(profiledata, authdata.localId))
         dispatch(sendPostData({...postdata,likes: likes},postdata.postId));
     }
     const bookmarkHandler = () => {
@@ -46,11 +49,13 @@ const Leftp = (props) => {
             setBookmarkstatus("bookmarked")
             setBookmark((val)=>val+1)
             bookmarks = bookmark + 1;
+            dispatch(profileActions.addBookmark({type: 'post', id: postdata.postId}))
             setBookmarkIcon(<BookmarkAdded/>)
         } else {
             setBookmarkstatus("bookmark");
             setBookmark((val)=>val-1);
             bookmarks = bookmark -1 ;
+            dispatch(profileActions.removeBookmark({type: 'post', id: postdata.postId}))
             setBookmarkIcon(<BookmarkIcon/>)
         }
         dispatch(sendPostData({...postdata,bookmarks},postdata.postId));
@@ -71,9 +76,6 @@ const Leftp = (props) => {
         }
     }
 
-   
-
-    const data = postData.find(post => post.id === parseInt(props.postID))
     console.log(postdata)
     return(
         <>
