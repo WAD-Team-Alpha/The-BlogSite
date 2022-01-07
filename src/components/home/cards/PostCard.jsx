@@ -4,6 +4,9 @@ import classes from './PostCard.module.css'
 import { useDispatch } from 'react-redux';
 import { fetchPostData } from '../../../store/post-actions';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { fetchOtherProfileData } from '../../../store/profile-actions';
+
 const PostCard = (props) => {
     const navigate = useNavigate();
     const [submit, setSubmit] = useState(false);
@@ -14,6 +17,14 @@ const PostCard = (props) => {
         navigate(`/posts/${props.id}`);
         
     }
+
+    const [userName, setUserName] = useState("")
+    useEffect(() => {
+        dispatch(fetchOtherProfileData(props.userId)).then((result)=>{
+           
+            setUserName(result.firstName)
+        })
+        }, [])
     return (
         <div  className={`card mb-3  mt-3 ${classes.shadow}`} >
             <div className="row g-0">
@@ -31,7 +42,7 @@ const PostCard = (props) => {
                             <li><img src="https://img.icons8.com/ios-filled/24/000000/facebook-like.png" alt='hi' /><a href="w">Like {props.likes}</a></li>
                             <li><img src="https://img.icons8.com/ios-glyphs/20/000000/speaker-notes.png" alt='hi'/><a href="w">Comment {props.comments}</a></li>
                             <li><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png"alt='hi' /><Link onClick={getDataHandler} to={`/posts/${props.id}`}>View post</Link></li>
-                            <li><a href='w' className="fw-bold">Posted by <a href="w" style={{ color: "#05386b" }}>{props.author}</a> on {props.publishedDate}</a></li>
+                            <li><a href='w' className="fw-bold">Posted by <a href="w" style={{ color: "#05386b" }}>{userName}</a> on {props.publishedDate}</a></li>
                         </ul>
                     </div>
                 </div>

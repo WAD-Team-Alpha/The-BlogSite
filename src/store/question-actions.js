@@ -2,6 +2,7 @@ import { questionActions } from "./question";
 import { questionsActions } from "./questions";
 export const sendQuestionData = (questionData,questionId) => {
   return async (dispatch) => {
+    console.log(questionData, questionId)
     console.log("sending");
     console.log("send data action is triggered");
     const sendRequest = async () => {
@@ -31,7 +32,7 @@ export const sendQuestionData = (questionData,questionId) => {
 export const fetchQuestionData = ( questionId ) => {
 
   return async ( dispatch ) => {
-      questionId = "7b3869d4-f17b-4fcb-bf82-eeee9d7e7d7f";
+      
       console.log( "fetch data action is triggered" );
       const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions/${ questionId }.json`;
       const fetchData = async () => {
@@ -59,9 +60,14 @@ export const fetchQuestionData = ( questionId ) => {
 
               ... questionData,
               comments : questionData.comments === undefined ? [] : questionData.comments,
+              bookmarks : questionData.bookmarks === undefined ? 0 : questionData.bookmarks,
+              status : questionData.status === undefined ? "active" : questionData.status,
+
           }
           dispatch( questionActions.add( data ) );
+          console.log(data)
           return data;
+          
 
       } catch ( error )
       {

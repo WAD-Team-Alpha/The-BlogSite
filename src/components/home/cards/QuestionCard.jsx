@@ -1,9 +1,10 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 import classes from './QuestionCard.module.css'
 import { useDispatch } from 'react-redux';
 import { fetchQuestionData } from '../../../store/question-actions';
 import { useNavigate } from 'react-router-dom';
+import { fetchOtherProfileData } from '../../../store/profile-actions';
 const QuestionCard = (props) => {
     const navigate = useNavigate();
     const [submit, setSubmit] = useState(false);
@@ -12,6 +13,14 @@ const QuestionCard = (props) => {
         event.preventDefault();
         navigate(`/forum-threads/${props.id}`);
     }
+    
+    const [userName, setUserName] = useState("")
+    useEffect(() => {
+        dispatch(fetchOtherProfileData(props.userId)).then((result)=>{
+           
+            setUserName(result.firstName)
+        })
+        }, [])
     return (
         <div className="card shadow mb-3 mt-3" >
             <div class="row g-0">
@@ -34,7 +43,7 @@ const QuestionCard = (props) => {
 
                         <ul className={`${classes.question}`}>
                             <li style={{ marginRight: "10px" }}><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" alt='o' /><Link onClick={getDataHandler} to={`/forum-threads/${props.id}`}>View post</Link></li>
-                            <li><a className={`fw-bold ${classes.post}`} href='w'>Posted by <a href="w" style={{ color: "#05386b" }} >{props.author}</a> on {props.publishedDate}</a></li>
+                            <li><a className={`fw-bold ${classes.post}`} href='w'>Posted by <a href="w" style={{ color: "#05386b" }} >{userName}</a> on {props.publishedDate}</a></li>
                         </ul>
                     </div>
                 </div>

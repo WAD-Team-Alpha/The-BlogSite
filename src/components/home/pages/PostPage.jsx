@@ -75,9 +75,8 @@ const PostPage = () => {
                     title={post.postTitle}
                     description={post.postSummary}
                     likes={post.likes}
-                    // comments={post.comments}
-                    author="Surya"
                     publishedDate={post.publishedDate}
+                    userId = {post.uid}
                />)}
                <Stack spacing={2}>
                     <Pagination
