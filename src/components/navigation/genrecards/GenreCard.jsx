@@ -1,9 +1,14 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import classes from './GenreCard.module.css'
 
 const GenreCard = (props) => {
+    const navigate = useNavigate()
     return (
-        <div className={"card bg-dark text-white shadow " + classes.gcard}>
+        <div className={"card bg-dark text-white shadow " + classes.gcard} onClick={(event) => {
+            event.preventDefault()
+            navigate(`/searchresults?genre=${props.title.toLowerCase()}`)
+        }} style={{cursor: 'pointer'}}>
             <img src={props.link} className="card-img" alt="..." />
             <div className={"card-img-overlay " + classes.genre}>
                 <h5 className="card-title">{props.title}</h5>
