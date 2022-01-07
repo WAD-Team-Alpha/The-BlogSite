@@ -1,10 +1,10 @@
 import React from 'react'
 import PostCard from '../cards/PostCard'
-import postData from '../../../helpers/postData.json'
 import { motion } from 'framer-motion'
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useState, useEffect } from 'react'
+import { CircularProgress } from '@mui/material';
 
 const PostPage = () => {
      const mainVarient = {
@@ -28,7 +28,7 @@ const PostPage = () => {
           }
      }
      const [limit, setLimit] = useState(0)
-
+     const [status, setStatus] = useState(false)
      const pageinationHandler = (e, value) => {
           console.log(value)
           setLimit((value - 1) * 10)
@@ -37,43 +37,57 @@ const PostPage = () => {
      const [data, setTitle] = useState("");
      useEffect(() => {
           const fetchData = async () => {
-               const res = await fetch('https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts.json');
-               const data = await res.json();
-               setTitle(data);
+               try {
+                    const res = await fetch('https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts.json');
+                    const data = await res.json();
+                    return data
+               } catch (error) {
+                    console.log(error)
+                    return "failed"
+               }
           }
-          fetchData()
+          setStatus(true)
+          fetchData().then((result) => {
+               if (result !== 'failed') {
+                    setStatus(false)
+                    setTitle(result)
+               }
+          })
      }, [])
      var result = [];
      for (var i in data)
           result.push(data[i]);
      console.log(result);
 
-     return <motion.div
-          variants={mainVarient}
-          initial='hidden'
-          animate='visible'
-          exit='exit'
-     >
-          {result.slice(limit, limit + 10).map((post) => <PostCard
-               key={post.postId}
-               id={post.postId}
-               banner={post.imageUrl}
-               title={post.postTitle}
-               description={post.postSummary}
-               likes={post.likes}
-               // comments={post.comments}
-               author="Surya"
-               publishedDate={post.publishedDate}
-          />)}
-          <Stack spacing={2}>
-               <Pagination
-                    sx={{ margin: '1em auto', backgroundColor: '#5cdb95', padding: '0.5em', color: 'white', borderRadius: '0.5em' }}
-                    count={Math.ceil(postData.length / 10)}
-                    variant="outlined"
-                    shape="rounded"
-                    onChange={pageinationHandler}
-               />
-          </Stack>
-     </motion.div>
+     return status ? <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh'}}>
+          <CircularProgress sx={{color: '#5cdb95'}} />
+     </div>
+          : <motion.div
+               variants={mainVarient}
+               initial='hidden'
+               animate='visible'
+               exit='exit'
+          >
+               {result.slice(limit, limit + 10).map((post) => <PostCard
+                    key={post.postId}
+                    id={post.postId}
+                    banner={post.imageUrl}
+                    title={post.postTitle}
+                    description={post.postSummary}
+                    likes={post.likes}
+                    // comments={post.comments}
+                    author="Surya"
+                    publishedDate={post.publishedDate}
+               />)}
+               <Stack spacing={2}>
+                    <Pagination
+                         sx={{ margin: '1em auto', backgroundColor: '#5cdb95', padding: '0.5em', color: 'white', borderRadius: '0.5em' }}
+                         count={Math.ceil(result.length / 10)}
+                         variant="outlined"
+                         shape="rounded"
+                         onChange={pageinationHandler}
+                    />
+               </Stack>
+          </motion.div>
 }
 export default PostPage;
