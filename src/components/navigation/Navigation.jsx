@@ -1,10 +1,9 @@
 import { Category, Close, Search, TrendingUp } from '@mui/icons-material'
-import React from 'react'
+import React, { useState } from 'react'
 import GenreCard from './genrecards/GenreCard'
 import classes from './Navigation.module.css'
 import genreData from '../../helpers/genreData.json'
 import Carousel from './trending/carousel/Carousel'
-import trendingData from '../../helpers/trendingData.json'
 import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -13,6 +12,10 @@ const Navigation = (props) => {
     const trendData = useSelector(state => state.trending)
     console.log(trendData)
     const navigate = useNavigate()
+    const [search, setSearch] = useState()
+    const genreHandler = (event) => {
+        setSearch(event.target.value)
+    }
     return (
         <motion.nav initial={{x: '-100vw', opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.7}}>
             <button className={'btn shadow-none ' + classes.nav} onClick={props.nav}>
@@ -23,10 +26,10 @@ const Navigation = (props) => {
                     <div className="col-md-12">
                         <div className={classes.search}>
                             <Search className={classes['fa-search']} />
-                            <input type="text" className="form-control" placeholder="Search here !" />
+                            <input type="text" className="form-control" placeholder="Search here !" onChange={genreHandler} />
                             <button className="btn btn-primary shadow-none" onClick={(event) => {
                                 event.preventDefault()
-                                navigate('/searchresults')
+                                navigate(`/searchresults?query=${search.split(" ").join("-").toLowerCase()}`)
                             }}>Search</button>
                         </div>
                     </div>

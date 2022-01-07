@@ -16,7 +16,8 @@ import FormLayout from './components/postform/FormLayout';
 import PageNotFound from './layouts/PageNotFound';
 import { AnimatePresence } from 'framer-motion';
 import ProfileMiddle from './components/NewProfile/ProfileMiddle';
-import SearchResults from './layouts/SearchResults';
+import SearchResultsLayout from './layouts/SearchResultsLayout';
+import Results from './components/search/Results';
 
 
 const Routing = () => {
@@ -26,7 +27,9 @@ const Routing = () => {
             {console.log(location.key)}
             <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Main />} />
-                <Route path="/searchresults" element={<SearchResults />} />
+                <Route element={<SearchResultsLayout />} >
+                    <Route path="/searchresults" element={<Results />} />
+                </Route>
                 <Route path='/auth' element={<Authentication />} />
 
                 <Route path="/home/*" element={<HomeLayout />}>

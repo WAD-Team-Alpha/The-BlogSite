@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PostCard from '../cards/PostCard'
 import postData from '../../../helpers/postData.json'
 import { motion } from 'framer-motion'
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 
 const PostPage = () => {
      const mainVarient = {
@@ -24,6 +26,13 @@ const PostPage = () => {
                },
           }
      }
+     const [limit, setLimit] = useState(0)
+
+     const pageinationHandler = (e, value) => {
+          console.log(value)
+          setLimit((value - 1) * 10)
+          window.scroll(0, 0)
+     }
 
      return <motion.div
           variants={mainVarient}
@@ -31,7 +40,7 @@ const PostPage = () => {
           animate='visible'
           exit='exit'
      >
-          {postData.map((post) => <PostCard
+          {postData.slice(limit, limit + 10).map((post) => <PostCard
                key={post.id}
                id={post.id}
                banner={post.banner}
@@ -42,6 +51,15 @@ const PostPage = () => {
                author={post.author}
                publishedDate={post.publishedDate}
           />)}
+          <Stack spacing={2}>
+               <Pagination
+                    sx={{ margin: '1em auto', backgroundColor: '#5cdb95', padding: '0.5em', color: 'white', borderRadius: '0.5em' }}
+                    count={Math.ceil(postData.length / 10)}
+                    variant="outlined"
+                    shape="rounded"
+                    onChange={pageinationHandler}
+               />
+          </Stack>
      </motion.div>
 }
 export default PostPage;
