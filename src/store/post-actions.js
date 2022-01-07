@@ -49,7 +49,6 @@ export const sendPostData = ( postData, postId ) => {
 export const fetchPostData = ( postId ) => {
 
     return async ( dispatch ) => {
-        postId = "cad0b025-9bef-4693-bd78-b69c49d42795";
         console.log( "fetch data action is triggered" );
         const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${ postId }.json`;
         const fetchData = async () => {

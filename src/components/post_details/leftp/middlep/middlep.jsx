@@ -73,7 +73,7 @@ const Middlep = (props) => {
                     <h3
                       style={{ size: "25px", font: "Roboto", width: "754px" }}
                     >
-                      <b>{data.title}</b>
+                      <b>{postdata.postTitle}</b>
                     </h3>
                   </b>
                   <hr />
@@ -133,7 +133,7 @@ const Middlep = (props) => {
 
                   <br />
                   <br />
-                  {comments.map((val) => (
+                  {postdata.comments.map((val) => (
                     <div>
                       <div class="container-fluid">
                         <div class="row">
