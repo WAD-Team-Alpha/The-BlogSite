@@ -3,24 +3,50 @@ import { Avatar, Grid } from "@mui/material";
 import classes from "./last.module.css";
 import TimerIcon from "@mui/icons-material/Timer";
 import { TextField, Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { questionActions } from "../../../store/question";
+import { sendQuestionData } from "../../../store/question-actions";
 
-const Last = () => {
-  const users = [
-    "Mahaboob",
-    "Surya",
-    "Sekhar",
-    "Satyam",
-    "Prathyush",
-    "user1",
-    "user2",
-  ];
+const Last = (props) => {
+  const dispatch = useDispatch()
+  const authdata = useSelector((state) => state.auth);
+  const userData = useSelector((state) => state.profile);
+  const [comment, setComment] = useState("");
+  const profileData = props.profileData;
+  const commentsdata = useSelector((state)=>state.question)
+  const [comments, setComments] = useState(commentsdata.comments);
+  console.log(profileData)
+  const addCommentHandler = (event) => {
+    
+    event.preventDefault();
+    console.log("this is comment handler");
+    if (comment === "") {
+      return;
+    }
+    const newComments = [
+      ...commentsdata.comments,
+      { userId: authdata.localId, name: userData.firstName, text: comment },
+    ];
+    dispatch(questionActions.add({ ...commentsdata, comments: newComments }));
+    setComments((state) => {
+      return [
+        ...state,
+        { userId: authdata.localId, name: userData.firstName, text: comment },
+      ];
+    });
+    dispatch(sendQuestionData({ ...commentsdata, comments: newComments }, commentsdata.questionId)).then((res) => {
+      console.log("printing response", res);
+    });
+  };
+ 
   return (
     <div className={classes.answers}>
       <span style={{ fontSize: "30px" }}>
         <b>Answers</b>
       </span>
       <div>
-        {users.map((user) => (
+        {commentsdata.comments.map((comment) => (
           <div className={classes.anscon}>
             <div class="row">
               <div
@@ -37,8 +63,8 @@ const Last = () => {
                 class="col-6"
                 style={{ paddingLeft: "1.5em" }}
               >
-                <div className={classes.answersection}><b><b> {user} </b></b></div>
-                <div className={classes.answertime}> Answerd on 10/08/2021 </div>
+                <div className={classes.answersection}><b>{profileData.firstName}</b></div>
+                <div className={classes.answertime}> Answerd on {commentsdata.publishedDate} </div>
               </div>
               <div class="col-4" style={{ paddingLeft: "4em", textAlign:"right" }}>
                 <button class="btn shadow-none">
@@ -53,22 +79,11 @@ const Last = () => {
               >
                 <span>
                   {" "}
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque
-                  ipsa quae ab illo inventore veritatis et quasi architecto
-                  beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-                  quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                  consequuntur magni dolores eos qui ratione voluptatem sequi
-                  nesciunt. Neque porro quisq.
+                 {comment.text}
                 </span>
               </div>
             </div>
             <div class="row">
-              <div class="col-8">
-                <div className={classes.likeicon}>
-                  <ThumbUp /> 999
-                </div>
-              </div>
               <div class="col-4">
                 <div className={classes.timeicon}>
                   <TimerIcon />
@@ -79,6 +94,7 @@ const Last = () => {
         ))}
         <div>
           <br />
+          <form onSubmit={addCommentHandler}>
           <div class="container-fluid">
             <div class="row">
               <div class="col-1">
@@ -91,18 +107,21 @@ const Last = () => {
                   helperText=" "
                   id="ques_answer"
                   label="Add an answer"
+                  onChange={(e) => setComment(e.target.value)}
                   multiline
                   rows={3}
                   size="small"
                 />
-                <Button variant="contained">Submit</Button>
+                <Button variant="contained" type="submit" >Submit</Button>
                 <br />
                 <br />
                 
               </div>
             </div>
           </div>
+          </form>
         </div>
+        
       </div>
     </div>
   );

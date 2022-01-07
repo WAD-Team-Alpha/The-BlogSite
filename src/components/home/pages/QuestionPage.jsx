@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import React from 'react'
 import questionData from '../../../helpers/questionData.json'
 import QuestionCard from '../cards/QuestionCard';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const QuestionPage = () => {
      const mainVarient = {
@@ -24,6 +26,25 @@ const QuestionPage = () => {
                },
           }
      }
+     const [data, setTitle] = useState("");
+    
+     useEffect(() => {
+     const fetchData = async()=>{
+     const res = await fetch('https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions.json');
+     const data = await res.json();
+     setTitle(data);
+     }
+     fetchData()
+
+     }, [])
+
+     var result = [];
+
+     for(var i in data)
+     result.push( data [i]);
+
+     console.log(result);
+
 
      return (
           <motion.div
@@ -32,14 +53,14 @@ const QuestionPage = () => {
                animate='visible'
                exit='exit'
           >
-               {questionData.map((query) => <QuestionCard
-                    key={query.id}
-                    id={query.id}
-                    votes={query.votes}
+               {result.map((query) => <QuestionCard
+                    key={query.questionId}
+                    id={query.questionId}
+                    // votes={query.votes}
                     answers={query.answers}
                     question={query.question}
                     details={query.details}
-                    author={query.author}
+                    userId = {query.userId}
                     publishedDate={query.publishedDate}
                />)}
           </motion.div>

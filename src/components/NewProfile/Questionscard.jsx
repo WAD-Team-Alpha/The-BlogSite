@@ -3,6 +3,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from "@mui/material";
 import { useSelector } from "react-redux";
 import { fetchQuestionsData } from "../../store/question-actions";
+import questions from "../../store/questions";
 
 const Questionscard = () => {
 
@@ -27,17 +28,17 @@ const Questionscard = () => {
             <div class="row">
               <div class="col" style={{ paddingBottom: "1em" }}>
                 <div className={classes.votenum}>
-                  <span style={{ fontSize: "24px" }}><b>999</b></span>
+                  <span style={{ fontSize: "24px" }}><b>{question.likes}</b></span>
                 </div>
                 <div>
-                  <span className={classes.votes}>Votes</span>
+                  <span className={classes.votes}>Likes</span>
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col" style={{ paddingBottom: "1em" }}>
                 <div className={classes.answernum}>
-                  <span style={{ fontSize: "24px" }}><b>999</b></span>
+                  <span style={{ fontSize: "24px" }}><b>{question.comments.length}</b></span>
                   <div className={classes.answers}>
                     Answers
                   </div>
@@ -69,7 +70,7 @@ const Questionscard = () => {
                     </div>
                     <div class="col-7">
                       <div className={classes.postedname}>
-                        Asked by Surya on 10/08/2021
+                        Asked on {question.publishedDate}
                       </div>
                     </div>
                   </div>

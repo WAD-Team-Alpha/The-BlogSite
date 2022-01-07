@@ -22,6 +22,7 @@
 .questitle{
     padding-top: 0.7em;
     font-size: 20px;
+    
 }
 
 .quesfooter{
@@ -30,4 +31,9 @@
 
 .postedname{
     margin-left: 4.7em;
+}
+
+.quesinfo{
+    height: 80px;
+    padding-top: 0.3em;
 }
