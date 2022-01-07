@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import PostCard from '../cards/PostCard';
 import QuestionCard from '../cards/QuestionCard';
 import recentActivityData from '../../../helpers/recentActivityData.json'
@@ -7,6 +7,8 @@ import Carousel from '../../navigation/trending/carousel/Carousel'
 import recommendedData from '../../../helpers/recommendedData.json'
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRecentActivity } from '../../../store/profile-actions';
+import { fetchActivity } from '../../../store/activity-actions';
+import { CircularProgress } from '@mui/material';
 
 const RecentActivityPage = () => {
     const mainVarient = {
@@ -34,39 +36,50 @@ const RecentActivityPage = () => {
     const profileData = useSelector(state => state.profile)
     const authData = useSelector(state => state.auth)
     console.log(profileData.recentActivity)
+    const [status, setStatus] = useState(false)
+    const [recents, setRecents] = useState([])
     useEffect(() => {
         dispatch(updateRecentActivity(profileData, authData.localId))
+        setStatus(true)
+        fetchActivity(profileData.recentActivity).then((result) => {
+            setRecents(result)
+            setStatus(false)
+        })
     }, [])
 
     return (
-        <motion.div
+        status ? <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh'}}>
+          <CircularProgress sx={{color: '#5cdb95'}} />
+     </div>
+          : <motion.div
             variants={mainVarient}
             initial='hidden'
             animate='visible'
             exit='exit'
         >
-            {recentActivityData.map((recent, index) => {
+            {recents.map((recent, index) => {
                 return (
                     recent.type === "post" ? index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
                         <PostCard
                             key={index}
-                            banner={recent.banner}
-                            title={recent.title}
-                            description={recent.description}
-                            likes={recent.likes}
-                            comments={recent.comments}
-                            author={recent.author}
-                            publishedDate={recent.publishedDate}
+                            banner={recent.data.imageUrl}
+                            title={recent.data.postTitle}
+                            description={recent.data.postSummary}
+                            likes={recent.data.likes}
+                            // comments={recent.data.comments}
+                            author={"Surya"}
+                            publishedDate={recent.data.publishedDate}
                         /> : index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
-                        <QuestionCard
-                            key={recent}
-                            votes={recent.votes}
-                            answers={recent.answers}
-                            question={recent.question}
-                            details={recent.details}
-                            author={recent.author}
-                            publishedDate={recent.publishedDate}
-                        />
+                        // <QuestionCard
+                        //     key={recent}
+                        //     votes={recent.votes}
+                        //     answers={recent.answers}
+                        //     question={recent.question}
+                        //     details={recent.details}
+                        //     author={recent.author}
+                        //     publishedDate={recent.publishedDate}
+                        // />
+                        <div></div>
                 )
             }
             )}
