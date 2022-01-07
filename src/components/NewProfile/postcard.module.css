@@ -1,12 +1,9 @@
-
-
 .cardcontainer{
-    
-    border-right: 1px solid #dee2e6;
-    border-left: 1px solid #dee2e6;
-    border-bottom: 1px solid #dee2e6;
-
-    height: 525px;
+    border-left: 1px solid #b1b1b1;
+    border-right: 1px solid #b1b1b1;
+    border-bottom: 1px solid #b1b1b1;
+    background-color: #edf5e1;
+    height: 535px;
     overflow-y: scroll;
 }
 

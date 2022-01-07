@@ -6,7 +6,7 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Settings from "@mui/icons-material/Settings";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import Logout from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
@@ -26,7 +26,7 @@ const Account = () => {
   };
   const logoutHandler = () => {
     dispatch(authActions.logout())
-    navigate("/", {replace: true})
+    navigate("/", { replace: true })
   }
   return (
     <React.Fragment>
@@ -76,10 +76,14 @@ const Account = () => {
         </MenuItem>
         <Divider />
         <MenuItem sx={{ fontSize: "0.9em" }}>
-          <ListItemIcon>
-            <Settings fontSize="medium" />
-          </ListItemIcon>
-          Settings
+          <Link to="/home/post" style={{
+            textDecoration: 'none', display: "flex", fontSize: '1.1em', color: '#3f3f3f'
+          }}>
+            <ListItemIcon>
+              <DashboardIcon fontSize="medium" />
+            </ListItemIcon>
+            Dashboard
+          </Link>
         </MenuItem>
         <MenuItem onClick={logoutHandler} sx={{ fontSize: "0.9em" }}>
           <ListItemIcon>

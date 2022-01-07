@@ -1,14 +1,15 @@
 import { Avatar, Link } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { removeuser } from "../../../store/counterReducer";
+import { profileActions } from "../../../store/profile";
+
 
 const Following = () => {
-  const followinglist = useSelector((state) => state.counter.followinglist);
+  const followinglist = useSelector((state) => state.profile.followingList);
   const dispatch = useDispatch();
   console.log(followinglist);
 
   const unfollowHandler = (index) => {
-    dispatch(removeuser(index));
+    dispatch(profileActions.removeuser(index));
     console.log(followinglist);
   };
 
@@ -16,7 +17,7 @@ const Following = () => {
     <div>
       <div class="container-fluid">
         <h4 style={{ paddingBottom: "0.5em" }}>
-          Followers: {followinglist.length}{" "}
+          Following: {followinglist.length}{" "}
         </h4>
         {followinglist.map((user) => (
           <div class="row" style={{ paddingBottom: "0.5em" }}>

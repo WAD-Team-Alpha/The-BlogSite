@@ -5,8 +5,9 @@ import signinimg from '../../../assets/images/Signin.png'
 import { useReducer } from 'react'
 import { signupAction } from "../../../store/auth-actions";
 import { useDispatch } from "react-redux";
-import { useNavigate } from 'react-router-dom'
-// import { authActions } from "./store/auth";
+import { Link, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+
 const signupReducer = (state, action) => {
 
     if (action.type === "EMAIL") {
@@ -75,6 +76,7 @@ const signupReducer = (state, action) => {
 const Signup = (props) => {
     const navigate = useNavigate();
     const dispatchAction = useDispatch();
+    const [isEmailExists, setIsEmailExists] = useState(false)
     const initState = {
         firstname: "",
         lastname: "",
@@ -110,11 +112,15 @@ const Signup = (props) => {
                     password: state.password
                 }
             )
+            props.onSubmit(true)
             dispatchAction(signupAction(state.email, state.password, state.firstname, state.lastname)).then((res)=>{
                 if (res === "success") {
-                    
+                    props.onSubmit(false)
                     navigate("/home/post", {replace: true})
-
+                }
+                if (res === "EMAIL_EXISTS") {
+                    props.onSubmit(false)
+                    setIsEmailExists(true)
                 }
             });
             dispatch({ type: "clear" })
@@ -125,7 +131,7 @@ const Signup = (props) => {
 
     return (
         <>
-            {props.display && <div className={'container shadow-lg ' + classes.signup}>
+            {props.display && <motion.div initial={{x: '100vw', opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, type:'spring'}} className={'container shadow-lg ' + classes.signup}>
                 <h1>Signup</h1>
                 <form onSubmit={formSubmitHandler}>
                     <div className="row">
@@ -144,6 +150,7 @@ const Signup = (props) => {
                         <div className={`mb-3 ${state.emailIsValid === false ? classes.invalid : ""} ${state.emailIsValid === true ? classes.valid : ""}`}>
                             <input type="email" className="form-control" placeholder='Email address' value={state.email} onChange={emailHandler} required />
                             {state.emailIsValid === false && <span style={{ fontSize: '0.8em', color: 'red' }}>Invalid Email Address</span>}
+                            {isEmailExists === true && <span style={{ fontSize: '0.8em', color: 'red' }}>Email already registered</span>}
                         </div>
                         <div className={`mb-3 ${state.passwordIsValid === false ? classes.invalid : ""} ${state.passwordIsValid === true ? classes.valid : ""} `} >
                             <input type={showPass ? "text" : "password"} className="form-control" placeholder="Password" value={state.password} onChange={passwordHandler} aria-label="Password" aria-describedby="button-addon2" required />
@@ -159,15 +166,12 @@ const Signup = (props) => {
                             <button type="submit" className={"btn btn-primary shadow-none"} disabled={!state.formIsValid}>Signup</button>
                         </div>
                         <span>
-                            Already have an account? <a href="w" className="link-primary" onClick={(event) => {
-                                event.preventDefault();
-                                props.onSignin(true)
-                            }}>Signin</a> here
+                            Already have an account? <Link to="/auth?code=signin&main=false" className="link-primary" replace={true}>Signin</Link> here
                         </span>
                     </div>
                 </form>
-            </div>}
-            {!props.display && <img src={signinimg} alt="" className={classes.signinimg} />}
+            </motion.div>}
+            {!props.display && <motion.img initial={{x: '100vw', opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.5, type:'spring'}} src={signinimg} alt="" className={classes.signinimg} />}
         </>
     )
 }

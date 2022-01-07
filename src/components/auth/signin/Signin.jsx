@@ -1,11 +1,11 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import React, { useReducer, useState } from "react";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import classes from "./Signin.module.css";
 import signupimg from "../../../assets/images/Signup.png";
 import { useDispatch } from "react-redux";
 import { signinAction } from "../../../store/auth-actions";
+import { motion } from "framer-motion";
 const signinReducer = (state, action) => {
   if (action.type === "EMAIL_ON_CHANGE") {
     return {
@@ -45,7 +45,9 @@ const signinReducer = (state, action) => {
 
 const Signin = (props) => {
   const navigate = useNavigate();
-  const isAuth = useSelector((state) => state.auth);
+  const location = useLocation();
+  const params = new URLSearchParams(location.search)
+  const [creds, setCreds] = useState({emailIsCorrect: null, passwordIsCorrect: null})
   const dispatchAction = useDispatch();
   const initState = {
     email: "",
@@ -72,9 +74,22 @@ const Signin = (props) => {
         email: state.email,
         password: state.password,
       });
+
+      props.onSubmit(true)
       dispatchAction(signinAction(state.email, state.password)).then((res) => {
         if (res === "success") {
+          props.onSubmit(false)
           navigate("/home/post", { replace: true });
+        }
+        if (res === "INVALID_PASSWORD") {
+          console.log("Please provide a right password")
+          props.onSubmit(false)
+          setCreds({...creds, passwordIsCorrect: false})
+        }
+        if (res === "EMAIL_NOT_FOUND") {
+          console.log("Please provide a right email")
+          props.onSubmit(false)
+          setCreds({...creds, emailIsCorrect: false})
         }
       });
     } else {
@@ -86,13 +101,12 @@ const Signin = (props) => {
   return (
     <>
       {props.display && (
-        <div className={"container shadow-lg " + classes.signin}>
+        <motion.div initial={{ x: '-100vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, type: 'spring' }} className={"container shadow-lg " + classes.signin}>
           <h1>Signin</h1>
           <form onSubmit={formSubmitHandler}>
             <div
-              className={`mb-3 ${
-                state.emailIsValid === false ? classes.invalid : ""
-              } ${state.emailIsValid === true ? classes.valid : ""} `}
+              className={`mb-3 ${state.emailIsValid === false ? classes.invalid : ""
+                } ${state.emailIsValid === true ? classes.valid : ""} `}
             >
               <input
                 type="email"
@@ -108,11 +122,15 @@ const Signin = (props) => {
                   Invalid email! Please include "@"
                 </span>
               )}
+              {creds.emailIsCorrect === false && (
+                <span style={{ fontSize: "0.8em", color: "red" }}>
+                  Email not registered !
+                </span>
+              )}
             </div>
             <div
-              className={`input-group mb-3 ${
-                state.passwordIsValid === false ? classes.invalid : ""
-              } ${state.passwordIsValid === true ? classes.valid : ""}`}
+              className={`input-group mb-3 ${state.passwordIsValid === false ? classes.invalid : ""
+                } ${state.passwordIsValid === true ? classes.valid : ""}`}
             >
               <input
                 type={showPass ? "text" : "password"}
@@ -151,6 +169,11 @@ const Signin = (props) => {
                 charachter
               </span>
             )}{" "}
+            {creds.passwordIsCorrect === false && (
+              <span style={{ fontSize: "0.8em", color: "red" }}>
+                Wrong password
+              </span>
+            )}{" "}
             <br />
             <button
               type="submit"
@@ -162,23 +185,20 @@ const Signin = (props) => {
             <br /> <br />
             <span>
               New to the application?{" "}
-              <a
-                href="w"
+              <Link
+                to="/auth?code=signup&main=false"
                 className="link-primary"
-                onClick={(event) => {
-                  event.preventDefault();
-                  props.onSignup(false);
-                }}
+                replace={true}
               >
                 Signup
-              </a>{" "}
+              </Link>{" "}
               here
             </span>
           </form>
-        </div>
+        </motion.div>
       )}
       {!props.display && (
-        <img src={signupimg} alt="" className={classes.signupimg} />
+        <motion.img initial={{ x: '-100vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, type: 'spring' }} src={signupimg} alt="" className={classes.signupimg} />
       )}
     </>
   );

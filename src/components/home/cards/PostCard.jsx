@@ -1,9 +1,20 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link } from 'react-router-dom';
 import classes from './PostCard.module.css'
+import { useDispatch } from 'react-redux';
+import { fetchPostData } from '../../../store/post-actions';
+import { useNavigate } from 'react-router-dom';
 const PostCard = (props) => {
+    const navigate = useNavigate();
+    const [submit, setSubmit] = useState(false);
+    const dispatch = useDispatch();
+    const getDataHandler = (event) => {
+        event.preventDefault();
+        navigate(`/posts/${props.id}`);
+        
+    }
     return (
-        <div className="card mb-3  mt-3" >
+        <div className="card mb-3  mt-3 shadow" >
             <div className="row g-0">
                 <div className="col-md-3">
                     <img src={props.banner} className="img-fluid rounded-start" height="200px" width="200px" alt="..." />
@@ -18,7 +29,7 @@ const PostCard = (props) => {
                         <ul className={`${classes.like}`}>
                             <li><img src="https://img.icons8.com/ios-filled/24/000000/facebook-like.png" alt='hi' /><a href="w">Like {props.likes}</a></li>
                             <li><img src="https://img.icons8.com/ios-glyphs/20/000000/speaker-notes.png" alt='hi'/><a href="w">Comment {props.comments}</a></li>
-                            <li><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png"alt='hi' /><Link to={`/posts/${props.id}`}>View post</Link></li>
+                            <li><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png"alt='hi' /><Link onClick={getDataHandler} to={`/posts/${props.id}`}>View post</Link></li>
                             <li><a href='w' className="fw-bold">Posted by <a href="w" style={{ color: "#05386b" }}>{props.author}</a> on {props.publishedDate}</a></li>
                         </ul>
                     </div>

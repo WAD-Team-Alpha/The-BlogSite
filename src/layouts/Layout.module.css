@@ -1,21 +1,25 @@
 .content {
-    margin-top: 4.3em;
+    margin-top: 4.4em;
 }
 .leftpane {
     position: sticky;
-    top: 4.3em;
-    height: calc(100vh - 4.3em);
-    border-right: 2px solid green;
+    top: 4.4em;
+    height: calc(100vh - 4.4em);
+    z-index: 1;
+    background-color: rgb(253, 253, 253);
 }
 
-/* .middlepane {
-} */
+.middlepane {
+    z-index: 0;
+    background-color: #edf5e1;
+}
 
 .rightpane {
     position: sticky;
-    top: 4.3em;
-    height: calc(100vh - 4.3em);
-    border-left: 2px solid green;
+    top: 4.4em;
+    height: calc(100vh - 4.4em);
+    z-index: 1;
+    background-color: rgb(253, 253, 253);
 }
 
 .footer {

@@ -5,10 +5,16 @@ import classes from './Navigation.module.css'
 import genreData from '../../helpers/genreData.json'
 import Carousel from './trending/carousel/Carousel'
 import trendingData from '../../helpers/trendingData.json'
+import { motion } from 'framer-motion'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 const Navigation = (props) => {
+    const trendData = useSelector(state => state.trending)
+    console.log(trendData)
+    const navigate = useNavigate()
     return (
-        <nav>
+        <motion.nav initial={{x: '-100vw', opacity: 0}} animate={{x: 0, opacity: 1}} transition={{duration: 0.7}}>
             <button className={'btn shadow-none ' + classes.nav} onClick={props.nav}>
                 <Close />
             </button>
@@ -18,7 +24,10 @@ const Navigation = (props) => {
                         <div className={classes.search}>
                             <Search className={classes['fa-search']} />
                             <input type="text" className="form-control" placeholder="Search here !" />
-                            <button className="btn btn-primary shadow-none">Search</button>
+                            <button className="btn btn-primary shadow-none" onClick={(event) => {
+                                event.preventDefault()
+                                navigate('/searchresults')
+                            }}>Search</button>
                         </div>
                     </div>
                 </div>
@@ -34,10 +43,10 @@ const Navigation = (props) => {
             <div className={"container " + classes.trending}>
                 <h2><TrendingUp fontSize='1.5em' /> Trending</h2>
                 <div className="">
-                    <Carousel data={trendingData} theme={"bg-dark"} className={"trendcard"} />
+                    <Carousel data={trendData.data} theme={"bg-dark"} className={"trendcard"} slidesToShow={4} />
                 </div>
             </div>
-        </nav>
+        </motion.nav>
     )
 }
 

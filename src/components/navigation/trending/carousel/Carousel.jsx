@@ -30,7 +30,7 @@ const Carousel = (props) => {
         nextArrow: <RightArrow />,
         infinite: false,
         arrows: true,
-        slidesToShow: 4,
+        slidesToShow: props.slidesToShow,
         slidesToScroll: 1,
         speed: 100,
         dots: false,
@@ -39,7 +39,9 @@ const Carousel = (props) => {
     return (
         <Slider {...settings}>
             {props.data.map(value => {
-                return <Card key={value} className={props.className} link={value.link} title={value.title} content={value.content} theme={props.theme} />
+                return props.className === "trendcard" ? 
+                <Card key={value.postId} className={props.className} id={value.postId} link={value.imageUrl} title={value.postTitle} content={value.postSummary} theme={props.theme} /> :
+                <Card key={value} className={props.className} link={value.link} title={value.title} content={value.content} theme={props.theme} />
             })}
         </Slider>
     )

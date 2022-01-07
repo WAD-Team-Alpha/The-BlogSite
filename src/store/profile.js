@@ -5,7 +5,12 @@ const initialProfileState = {
   lastName: "",
   email: "",
   bio: "",
-  genres: []
+  genres: [],
+  followersList : [],
+  followingList : [],
+  postIds: [],
+  questionIds: [],
+  
 };
 
 const profileSlice = createSlice({
@@ -19,7 +24,26 @@ const profileSlice = createSlice({
       state.email = action.payload.email;
       state.bio = action.payload.bio;
       state.genres = action.payload.genres;
+      state.postIds = action.payload.postIds;
+      state.questionIds = action.payload.questionIds;
+      state.followersList = action.payload.followersList;
+      state.followingList = action.payload.followingList;
     },
+    
+
+  removefollower(state,action){
+      return {
+         ...state,
+         followersList : state.followersList.filter((name)=>(name.id)!==action.payload)
+      }
+  },
+  removeuser(state,action){
+      return {
+         ...state,
+         followingList : state.followingList.filter((name)=>(name.id)!==action.payload)
+      }
+  },
+ 
   },
 });
 

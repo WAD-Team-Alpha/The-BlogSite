@@ -1,19 +1,17 @@
-import { Container, Box} from "@mui/material";
+import { Container, Box, Link } from "@mui/material";
 import { useState } from "react";
+import { Modal } from "react-bootstrap";
+import ModalButton from "./Modal/ModalButton";
 import classes from "./newprofile.module.css"
 import ProfileTabs from "./ProfileTabs";
 
-const ProfileMiddle=()=>{
+const ProfileMiddle = () => {
 
-    
+
     return <div className={classes.middleContainer}>
-        <Container sx={{marginTop:"1em",backgroundColor:"white", height:"560px"}}>
-            
-           <ProfileTabs/>
- 
-            
+        <Container sx={{ marginTop: "0.5em", backgroundColor: "white", height: "560px" }}>
+            <ProfileTabs />
         </Container>
-        
     </div>
 }
 
