@@ -9,6 +9,8 @@ const initialQuestionState = {
   imageUrl: "",
   description: "",
   comments: [],
+  bookmarks : 0,
+  status: "active"
 };
 
 const questionSlice = createSlice({
@@ -25,7 +27,10 @@ const questionSlice = createSlice({
       state.description = action.payload.description;
       state.likes = action.payload.likes;
       state.comments = action.payload.comments;
+      state.bookmarks = action.payload.bookmarks;
+      state.status = action.payload.status;
       console.log("question updated in store");
+      console.log(action.payload.bookmarks);
     },
   },
 });

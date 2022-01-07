@@ -10,6 +10,8 @@ import postData from '../../../../helpers/postData.json'
 import { useSelector ,useDispatch} from "react-redux";
 import { sendPostData } from '../../../../store/post-actions';
 
+import ThumbUpOffAlt from '@mui/icons-material/ThumbUpOffAlt';
+import BookmarkAdded from '@mui/icons-material/BookmarkAdded';
 
 const Leftp = (props) => {
     const postdata = useSelector((state) => state.post);
@@ -19,6 +21,8 @@ const Leftp = (props) => {
     const [bookmark,setBookmark] = useState(postdata.bookmarks); 
     const [likestatus,setLikestatus] = useState("like"); 
     const [bookmarkstatus,setBookmarkstatus] = useState("bookmark"); 
+    const [likeicon,setLikeIcon] = useState(<ThumbUpOffAlt/>)
+    const [bookmarkIcon,setBookmarkIcon] = useState(<BookmarkIcon/>)
 
     const likeHandler = () =>{
         var likes = like;
@@ -26,10 +30,13 @@ const Leftp = (props) => {
             setLikestatus("liked")
             setLike((val)=>val+1)
             likes = like + 1;
+            setLikeIcon(<ThumbUpIcon/>)
         } else {
             setLikestatus("like")
             setLike((val)=>val-1)
             likes = like - 1;
+            setLikeIcon(<ThumbUpOffAlt/>)
+
         }
         dispatch(sendPostData({...postdata,likes: likes},postdata.postId));
     }
@@ -39,10 +46,12 @@ const Leftp = (props) => {
             setBookmarkstatus("bookmarked")
             setBookmark((val)=>val+1)
             bookmarks = bookmark + 1;
+            setBookmarkIcon(<BookmarkAdded/>)
         } else {
             setBookmarkstatus("bookmark");
             setBookmark((val)=>val-1);
             bookmarks = bookmark -1 ;
+            setBookmarkIcon(<BookmarkIcon/>)
         }
         dispatch(sendPostData({...postdata,bookmarks},postdata.postId));
     }
@@ -62,9 +71,7 @@ const Leftp = (props) => {
         }
     }
 
-    const commentHandler = (e) => {
-        
-    }
+   
 
     const data = postData.find(post => post.id === parseInt(props.postID))
     console.log(postdata)
@@ -72,7 +79,7 @@ const Leftp = (props) => {
         <>
             <div style={{paddingTop:"3em"}}>
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} onClick={likeHandler}>
-                    <ThumbUpIcon/> {likestatus}
+                    {likeicon} {likestatus}
                 </button>
                
                 <span style={{paddingLeft:"7em"}}>{like}</span>
@@ -84,7 +91,7 @@ const Leftp = (props) => {
                 <br/><br/>
 
                 <button className='btn shadow-none' style={{paddingLeft:"5.5em"}} on onClick={bookmarkHandler}>
-                    <BookmarkIcon/> {bookmarkstatus}
+                   {bookmarkIcon} {bookmarkstatus}
                 </button>
                 <span style={{paddingLeft:"7em"}}>{bookmark}</span>
                 <br/><br/>

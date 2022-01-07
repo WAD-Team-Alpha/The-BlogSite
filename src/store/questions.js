@@ -15,9 +15,11 @@ const questionsSlice = createSlice({
         question : action.payload.question,
         imageUrl : action.payload.imageUrl,
         description : action.payload.description,
-        likes : action.payload.likes,
+        upvotes : action.payload.upvotes,
         comments : action.payload.comments,
+        bookmarks : action.payload.bookmarks
       });
+      console.log(action.payload.bookmarks)
       console.log(action.payload.questionId);
       console.log(action.payload.userId);
     //   console.log("question updated in store");
