@@ -56,7 +56,8 @@ export const fetchProfileData = (localId) => {
         bio: profileData.bio,
         genres: profileData.genres === undefined ? [] : profileData.genres,
         recentActivity: profileData.recentActivity === undefined ? [] : profileData.recentActivity,
-        savedContent: profileData.savedContent === undefined ? [] : profileData.savedContent
+        savedContent: profileData.savedContent === undefined ? [] : profileData.savedContent,
+        likedContent: profileData.likedContent === undefined ? [] : profileData.likedContent
       }
       console.log("testing data : ", data)
       dispatch(profileActions.update(data));
