@@ -1,14 +1,14 @@
 [
     {
         "id": 1,
-        "banner": "https://picsum.photos/200",
+        "banner": "https://picsum.photos/790",
         "title": "Card title 1",
         "description": "This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         "likes": 100,
         "comments": 999,
         "bookmarks": 999,
         "author": "Surya",
-        "publishedDate": "27/12/2021"
+        "publishedDate": "27/09/2021"
     },
     {
         "id": 2,
@@ -19,7 +19,7 @@
         "comments": 999,
         "bookmarks": 999,
         "author": "Surya",
-        "publishedDate": "27/12/2021"
+        "publishedDate": "27/08/2021"
     },
     {
         "id": 3,
