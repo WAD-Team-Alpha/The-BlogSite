@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {fetchQuestionData} from "../store/question-actions"
 import { fetchOtherProfileData } from '../store/profile-actions'
+import { profileActions } from '../store/profile';
 const QuestionLayout = () => {
     const dispatch = useDispatch();
     const [nav, setNav] = useState(false);
@@ -40,6 +41,7 @@ const QuestionLayout = () => {
         }
     }
     useEffect(() => {
+        dispatch(profileActions.updateRecentActivity({id: params.threadID, type: 'question'}))
         dispatch(fetchQuestionData(params.threadID)).then((result) => {
             console.log(result);
             if (result !== null) {

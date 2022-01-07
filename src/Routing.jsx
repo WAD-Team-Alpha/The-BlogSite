@@ -49,7 +49,7 @@ const Routing = () => {
                 <Route path="/forum-threads/:threadID" element={<QuestionLayout />} />
 
                 <Route element={<ProfileLayout />}>
-                    <Route path="/profile" element={<ProfileMiddle />} />
+                    <Route path="/profile/:uid" element={<ProfileMiddle />} />
                 </Route>
                 <Route path="*" element={<PageNotFound />} />
             </Routes>

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PostCard from '../cards/PostCard';
 import QuestionCard from '../cards/QuestionCard';
 import recentActivityData from '../../../helpers/recentActivityData.json'
 import { motion } from 'framer-motion';
 import Carousel from '../../navigation/trending/carousel/Carousel'
 import recommendedData from '../../../helpers/recommendedData.json'
+import { useDispatch, useSelector } from 'react-redux';
+import { updateRecentActivity } from '../../../store/profile-actions';
 
 const RecentActivityPage = () => {
     const mainVarient = {
@@ -27,6 +29,14 @@ const RecentActivityPage = () => {
             },
         }
     }
+
+    const dispatch = useDispatch();
+    const profileData = useSelector(state => state.profile)
+    const authData = useSelector(state => state.auth)
+    console.log(profileData.recentActivity)
+    useEffect(() => {
+        dispatch(updateRecentActivity(profileData, authData.localId))
+    }, [])
 
     return (
         <motion.div
