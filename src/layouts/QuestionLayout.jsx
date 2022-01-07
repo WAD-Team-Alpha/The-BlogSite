@@ -64,7 +64,7 @@ const QuestionLayout = () => {
                             <Middleq questionID={params.threadID}/>
                         </div>
                         <div className={"col-md-3 shadow-lg " + classes.rightpane}>
-                            <Rightq questionID={params.threadID}/>
+                            <Rightq questionID={params.threadID} profileData={data}/>
                         </div>
                     </div>
                 </div>

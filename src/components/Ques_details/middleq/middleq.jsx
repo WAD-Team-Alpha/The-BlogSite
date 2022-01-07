@@ -28,11 +28,11 @@ const Middleq = (props) => {
                                 <b>Status</b>  {data.status}
                             </div>
                         </div>
-                        <div class="col-3">
+                        {/* <div class="col-3">
                             <div className={classes.subhead}>
-                                <b>Likes</b>  {questiondata.likes}
+                                <b>Views</b>  {questiondata.likes}
                             </div>
-                        </div>
+                        </div> */}
                         <div class="col-3">
                             <div style={{textAlign:"right"}}>
                                 <button class="btn btn-primary" className={classes.button1}><div>Close thread</div></button>

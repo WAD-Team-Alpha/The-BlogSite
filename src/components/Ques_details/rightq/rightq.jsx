@@ -42,7 +42,7 @@ const Rightq = (props) => {
                                     />
                                     </div>
                                     <div class="col-8">
-                                    <span className={classes.uname}> <b></b></span>
+                                    <span className={classes.uname}> <b>{props.profileData.firstName}</b></span>
                                     
                                         
                                     <div class="row justify-content-center">
