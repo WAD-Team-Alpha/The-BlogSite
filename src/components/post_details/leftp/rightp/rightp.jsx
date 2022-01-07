@@ -10,7 +10,12 @@ import Button from '@mui/material/Button';
 
 const Rightp = (props) => {
     const num=[1,2,3,4]
-
+    const profileData = props.profileData;
+    console.log(profileData);
+    // var followercount = 0;
+    // var followingcount = 0;
+    
+    
     return(
         <div >
                 <div className={classes.containerMD}>
@@ -32,7 +37,7 @@ const Rightp = (props) => {
                                     />
                                     </div>
                                     <div class="col-8">
-                                    <span className={classes.uname}> <b>Surya Teja Tangirala</b></span>
+                                    <span className={classes.uname}> <b>{profileData.lastName}</b></span>
                                     
                                         
                                     <div class="row justify-content-center">
@@ -49,10 +54,10 @@ const Rightp = (props) => {
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-8">
-                                            <span className={classes.followercount} > <b>0</b></span>
+                                            <span className={classes.followercount} > <b>{profileData.followercount}</b></span>
                                         </div>
                                         <div class="col-4">
-                                            <span className={classes.followingcount}> <b>0</b></span>
+                                            <span className={classes.followingcount}> <b>{profileData.followingcount}</b></span>
                                         </div>
                                     </div>
                                     <div class="row justify-content-start">
