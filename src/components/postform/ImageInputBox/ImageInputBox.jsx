@@ -3,41 +3,21 @@ import React, { useEffect, useRef, useState } from 'react'
 import classes from './ImageInputBox.module.css'
 
 const ImageInputBox = (props) => {
-    const imageRef = useRef();
-    const [preview, setPreview] = useState()
-    const [image, setImage] = useState();
-    useEffect(() => {
-        if (image) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreview(reader.result);
-                props.isAdded ? props.onChange(props.id, reader.result) : props.onChange(reader.result)
-            }
-            reader.readAsDataURL(image)
-        } else {
-            setPreview(null)
-        }
-    }, [image, props])
+    const [preview, setPreview] = useState("")
     return (
-        <div className='d-flex align-items-center'>
+        <div className='d-flex align-items-center mb-3'>
             <div className={"container " + classes.banner} style={{ backgroundImage: `url(${preview})`, height: `${props.height}` }}>
                 <label style={{ fontWeight: "bold" }} htmlFor="bannerImage">
                     {props.inputname}
                 </label>
-                <label className={'btn btn-primary ' + classes.fileinput} style={{border: '2px solid', borderColor: image ? '' : 'red'}}>
+                <label className={'btn btn-primary ' + classes.fileinput} style={{border: '2px solid', borderColor: preview ? '' : 'red'}}>
                     <input
                         type="file"
                         id="bannerImage"
                         accept='images/*'
                         onChange={(event) => {
-                            const file = event.target.files[0];
-                            if (file && file.type.substring(0, 5) === "image") {
-                                setImage(file)
-                            } else {
-                                setImage(null)
-                            }
+                            setPreview("https://picsum.photos/200")
                         }}
-                        ref={imageRef}
                     />
                     Drop image
                 </label>
