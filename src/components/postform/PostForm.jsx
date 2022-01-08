@@ -17,23 +17,23 @@ const PostForm = () => {
   const posts = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [inputList, setInputList] = useState([]);
-  const [banner, setBanner] = useState();
-  const [title, setTitle] = useState();
-  const [summary, setSummary] = useState();
+  const [banner, setBanner] = useState("");
+  const [title, setTitle] = useState("");
+  const [summary, setSummary] = useState("");
   const [submit, setSubmit] = useState(false);
-  const [genre, setGenre] = useState(false);
+  const [genre, setGenre] = useState("");
   const navigate = useNavigate();
 
-  const bannerHandler = (value) => {
-    setBanner(value);
+  const bannerHandler = (event) => {
+    setBanner(event.target.value);
   };
 
-  const titleHandler = (value) => {
-    setTitle(value);
+  const titleHandler = (event) => {
+    setTitle(event.target.value);
   };
 
-  const summaryHandler = (value) => {
-    setSummary(value);
+  const summaryHandler = (event) => {
+    setSummary(event.target.value);
   };
 
   const addInputHandler = (type) => {
@@ -74,13 +74,21 @@ const PostForm = () => {
     var today = new Date();
     const publishedDate = today.toLocaleDateString("en-US");
     event.preventDefault();
-    if (genre === "" || summary === "" || title === "") {
+    console.log(genre, summary, title)
+    if (genre === "") {
+      setGenre(false)
       return;
     }
+    if (title === '') {
+      setTitle(false)
+      return
+    }
+    if (summary === '') {
+      setSummary(false)
+      return
+    }
     const finalData = inputList.map((input) => {
-      if (input.type === "text") {
-        input.value = input.value;
-      } else {
+      if (input.type === "image") {
         input.value = "https://picsum.photos/200";
       }
       return input;
@@ -123,6 +131,7 @@ const PostForm = () => {
             <b>Step 1: </b> Create the post
           </h1>
           <select
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Please select the type of genre this post is related to !"
             onChange={(e) => {
               setGenre(e.target.value);
             }}
@@ -130,13 +139,15 @@ const PostForm = () => {
             aria-label="Default select example"
             style={{
               width: "10em",
-              backgroundColor: "#05386b",
-              color: "white",
+              backgroundColor: "#5cdb95",
               fontWeight: "600",
+              border: '2px solid #5cdb95',
+              borderColor: genre === "genre-invalid" ? 'red' : ''
             }}
+            defaultValue={"default"}
             required
           >
-            <option value="" selected disabled>
+            <option value="default" disabled>
               Select genre
             </option>
             <option value="tech">Technology</option>
@@ -161,6 +172,7 @@ const PostForm = () => {
           inputname={"Title"}
           isAdded={false}
           onChange={titleHandler}
+          maxLength={120}
         />
         <br />
         <TextInputBox
@@ -169,6 +181,7 @@ const PostForm = () => {
           height={"100px"}
           isAdded={false}
           onChange={summaryHandler}
+          maxLength={400}
         />
         <br />
         {inputList.map((input, index) => {
@@ -180,6 +193,8 @@ const PostForm = () => {
                 isAdded={true}
                 onChange={inputChangeHandler}
                 onDelete={deleteInputHandler}
+                maxLength={400}
+                height={'120px'}
               />
               <br />
             </React.Fragment>
