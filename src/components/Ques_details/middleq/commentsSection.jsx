@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 const CommentsSection = (props) => {
 
-    const commentsdata = useSelector((state)=>state.question)
+    
     const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
     const [correctionicon,setCorrectionIcon] = useState(<TimerIcon />)
   
@@ -39,7 +39,7 @@ const CommentsSection = (props) => {
                 style={{ paddingLeft: "1.5em" }}
               >
                 <div className={classes.answersection}><b>{props.profileData.firstName}</b></div>
-                <div className={classes.answertime}> Answerd on {commentsdata.publishedDate} </div>
+                <div className={classes.answertime}> Answerd on {props.commentsdata.publishedDate} </div>
               </div>
               <div class="col-4" style={{ paddingLeft: "4em", textAlign:"right" }}>
                 <button class="btn shadow-none" onClick={correctionHandler}>

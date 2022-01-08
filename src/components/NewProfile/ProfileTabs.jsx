@@ -3,10 +3,13 @@ import classes from "./newprofile.module.css";
 import { Tabs, Tab } from "react-bootstrap";
 import Postcard from "./Postcard";
 import Questionscard from "./Questionscard";
+import { useSelector } from "react-redux";
 
 
 const ProfileTabs = () => {
   const [tab, setTab] = useState("posts");
+ 
+
   return (
 
     <div className={classes.container}>
