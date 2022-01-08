@@ -5,7 +5,7 @@ export const sendProfileData = (about, localId) => {
     console.log("send data action is triggered");
     const sendRequest = async () => {
       console.log(about);
-      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/users/${localId}.json`;
+      const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(about),
@@ -30,7 +30,7 @@ export const sendProfileData = (about, localId) => {
 export const fetchProfileData = (localId) => {
   return async (dispatch) => {
     console.log("fetch data action is triggered");
-    const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/users/${localId}.json`;
+    const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
     const fetchData = async () => {
       const response = await fetch(url);
 
@@ -72,7 +72,7 @@ export const fetchProfileData = (localId) => {
 export const fetchOtherProfileData = (localId) => {
   return async (dispatch) => {
     console.log("fetch data action is triggered");
-    const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/users/${localId}.json`;
+    const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
     const fetchData = async () => {
       const response = await fetch(url);
 
@@ -113,7 +113,7 @@ export const updateRecentActivity = (data, localId) => {
     console.log(data)
     console.log("send recent activity action is triggered");
     const sendRequest = async () => {
-      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/users/${localId}.json`;
+      const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(data),  
@@ -142,7 +142,7 @@ export const sendOtherProfileData = (about, userId) => {
     console.log("send data action is triggered");
     const sendRequest = async () => {
       console.log(about);
-      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/users/${userId}.json`;
+      const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${userId}.json`;
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(about),

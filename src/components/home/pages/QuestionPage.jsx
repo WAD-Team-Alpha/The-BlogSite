@@ -30,7 +30,7 @@ const QuestionPage = () => {
     
      useEffect(() => {
      const fetchData = async()=>{
-     const res = await fetch('https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions.json');
+     const res = await fetch('https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions.json');
      const data = await res.json();
      setTitle(data);
      }
@@ -44,10 +44,15 @@ const QuestionPage = () => {
      result.push( data [i]);
 
      console.log(result);
-
-
-     return (
-          <motion.div
+     
+     let status=result.length;
+   
+     return ( !status ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
+           <h1> NO Question data</h1>
+        </div>
+    
+     
+          :<motion.div
                variants={mainVarient}
                initial='hidden'
                animate='visible'

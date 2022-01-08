@@ -38,7 +38,7 @@ const PostPage = () => {
      useEffect(() => {
           const fetchData = async () => {
                try {
-                    const res = await fetch('https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts.json');
+                    const res = await fetch('https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts.json');
                     const data = await res.json();
                     return data
                } catch (error) {

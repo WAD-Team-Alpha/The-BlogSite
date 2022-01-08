@@ -78,7 +78,7 @@ const Right = () => {
                     </div>
                     <div className={`${classes.view}`}>
                         <button className={'btn btn-primary ' + classes.a} data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">View more</button>
-                        <PeopleYouMayKnow />
+                        {/* <PeopleYouMayKnow /> */}
                     </div>
 
 

@@ -7,7 +7,7 @@ const GenreCard = (props) => {
     return (
         <div className={"card bg-dark text-white shadow " + classes.gcard} onClick={(event) => {
             event.preventDefault()
-            navigate(`/searchresults?genre=${props.title.toLowerCase()}`)
+            navigate(`/searchresults?genre=${props.name.toLowerCase()}`)
         }} style={{cursor: 'pointer'}}>
             <img src={props.link} className="card-img" alt="..." />
             <div className={"card-img-overlay " + classes.genre}>

@@ -39,7 +39,7 @@ const Navigation = (props) => {
                 <h2><Category fontSize='1.5em' /> Genres</h2>
                 <div className="container d-flex justify-content-between">
                     {genreData.map(genre => {
-                        return <GenreCard title={genre.title} link={genre.link} />
+                        return <GenreCard title={genre.title} link={genre.link} name={genre.name} />
                     })}
                 </div>
             </div>

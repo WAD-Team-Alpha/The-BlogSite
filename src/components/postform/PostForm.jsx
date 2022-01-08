@@ -24,16 +24,16 @@ const PostForm = () => {
   const [genre, setGenre] = useState("");
   const navigate = useNavigate();
 
-  const bannerHandler = (event) => {
-    setBanner(event.target.value);
+  const bannerHandler = (value) => {
+    setBanner(value);
   };
 
-  const titleHandler = (event) => {
-    setTitle(event.target.value);
+  const titleHandler = (value) => {
+    setTitle(value);
   };
 
-  const summaryHandler = (event) => {
-    setSummary(event.target.value);
+  const summaryHandler = (value) => {
+    setSummary(value);
   };
 
   const addInputHandler = (type) => {
@@ -75,18 +75,6 @@ const PostForm = () => {
     const publishedDate = today.toLocaleDateString("en-US");
     event.preventDefault();
     console.log(genre, summary, title)
-    if (genre === "") {
-      setGenre(false)
-      return;
-    }
-    if (title === '') {
-      setTitle(false)
-      return
-    }
-    if (summary === '') {
-      setSummary(false)
-      return
-    }
     const finalData = inputList.map((input) => {
       if (input.type === "image") {
         input.value = "https://picsum.photos/200";
@@ -115,7 +103,7 @@ const PostForm = () => {
         dispatch(postsActions.addPost(postData));
         setSubmit(false);
 
-        navigate("/profile", { replace: true });
+        navigate(`/profile/${uid}`, { replace: true });
       }
     });
   };
@@ -144,10 +132,10 @@ const PostForm = () => {
               border: '2px solid #5cdb95',
               borderColor: genre === "genre-invalid" ? 'red' : ''
             }}
-            defaultValue={"default"}
+            defaultValue={""}
             required
           >
-            <option value="default" disabled>
+            <option value="" disabled>
               Select genre
             </option>
             <option value="tech">Technology</option>
