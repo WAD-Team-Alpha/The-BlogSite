@@ -165,6 +165,7 @@ export const fetchTrendingPosts = () => {
             for(var key in postData) {
                 data.push(postData[key])
             }
+            console.log(data)
             dispatch(trendingActions.addPosts(data));
             return "success";
         } catch ( error ) {

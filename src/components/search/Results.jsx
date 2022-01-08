@@ -6,7 +6,7 @@ const Results = () => {
     const params = new URLSearchParams(location.search)
     return (
         <div>
-            {params.get('')}
+            {params.get('genre')}
         </div>
     )
 }
