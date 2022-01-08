@@ -30,7 +30,7 @@ const QuestionPage = () => {
     
      useEffect(() => {
      const fetchData = async()=>{
-     const res = await fetch('https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions.json');
+     const res = await fetch('https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions.json');
      const data = await res.json();
      setTitle(data);
      }

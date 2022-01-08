@@ -1,4 +1,4 @@
- const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts.json`;
+ const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts.json`;
     export  const fetchData = async () => {
         const response = await fetch(url);
   
