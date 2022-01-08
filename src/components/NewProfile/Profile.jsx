@@ -5,64 +5,51 @@ import { Link } from "@mui/material";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import Editform from "./EditForm/Editform";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../../store/profile";
-
+import { useEffect } from "react";
 import Members from "./Members/Members";
 import { motion } from "framer-motion";
+import { sendOtherProfileData } from "../../store/profile-actions";
 
-
-
-
-const Profile = () => {
-
-
-
-  const userInfo = useSelector((state) => state.profile)
-  const [addform, setAddform] = useState(false)
-  const [memtab, setmemTab] = useState(false)
+const Profile = (props) => {
+  const authStatus = useSelector((state) => state.auth);
+  const userInfo = useSelector((state) => state.profile);
+  const [addform, setAddform] = useState(false);
+  const [memtab, setmemTab] = useState(false);
   const dispatch = useDispatch();
-  const [followStatus,setfollowStatus] = useState("Follow");
-  
-
+  const [followStatus, setfollowStatus] = useState("Follow");
+  const [curUser, setCurUser] = useState(true);
+  useEffect(() => {
+    if (props.userId !== authStatus.localId) {
+      setCurUser(false);
+    }
+  }, []);
 
   const userDetails = {
-    firstName : userInfo.firstName,
-    lastName : userInfo.lastName,
-    email : userInfo.email,
-    bio : userInfo.bio,
-    genres : userInfo.genres,
-    followingList : userInfo.followingList,
-    followersList : userInfo.followersList,
-    postIds : userInfo.postIds,
-    questionIds : userInfo.questionIds,
-    
-  }
-  console.log(userInfo)
-  console.log(userDetails.postIds)
-  console.log(userDetails.followersList)
+    firstName: userInfo.firstName,
+    lastName: userInfo.lastName,
+    email: userInfo.email,
+    bio: userInfo.bio,
+    genres: userInfo.genres,
+    followingList: userInfo.followingList,
+    followersList: userInfo.followersList,
+    postIds: userInfo.postIds,
+    questionIds: userInfo.questionIds,
+  };
+  console.log(userInfo);
+  console.log(userDetails.postIds);
+  console.log(userDetails.genres);
+  console.log(props.userInfo.genres);
 
   const followCount = userDetails.followersList.length;
   // console.log(followCount)
 
   const followingCount = userDetails.followingList.length;
-  console.log(followingCount)
+  console.log(followingCount);
 
-  const editHandler = (
-    firstName,
-    lastName,
-    email,
-    bio,
-    genres,
-  ) => {
-    console.log(
-      firstName,
-      lastName,
-      email,
-      bio,
-      genres,
-      
-    );
+  const editHandler = (firstName, lastName, email, bio, genres) => {
+    console.log(firstName, lastName, email, bio, genres);
     dispatch(
       profileActions.update({
         firstName: firstName,
@@ -70,70 +57,91 @@ const Profile = () => {
         email: email,
         bio: bio,
         genres: genres,
-        followersList : userDetails.followersList,
-        followingList : userDetails.followingList,
-        postIds : userDetails.postIds,
-        questionIds : userDetails.questionIds
+        followersList: userDetails.followersList,
+        followingList: userDetails.followingList,
+        postIds: userDetails.postIds,
+        questionIds: userDetails.questionIds,
       })
     );
   };
 
-
-
   const formHandler = (e) => {
-    setAddform((state) => !state)
-  }
+    setAddform((state) => !state);
+  };
 
   const linkHandler = (e) => {
-    setmemTab((state) => !state)
-  }
-
-
+    setmemTab((state) => !state);
+  };
 
   const followbuttonHandler = () => {
     if (followStatus === "Follow") {
-      setfollowStatus("Following")
-      return dispatch(profileActions.follow())
+      setfollowStatus("Following");
+      const newData= {
+        ...userInfo,
+        followingList: [...userInfo.followingList,props.userId]
+      }
+      dispatch(sendOtherProfileData())
+      dispatch(profileActions.update(newData));
+    } else {
+      setfollowStatus("Follow");
+      return dispatch(profileActions.remove());
     }
-    else {
-      setfollowStatus("Follow")
-      return dispatch(profileActions.remove())
-    }
-  }
+  };
 
   return (
     <div className={classes.maincontainer}>
-
       <div className={classes.containerMd}>
-        {(!addform && !memtab) && (
-          <Container style={{ paddingLeft: "1em", paddingRight: "1em" }} component={motion.div} initial={{ x: '-50vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 1.5, delay: 0.1, type: 'spring' }}>
+        {!addform && !memtab && (
+          <Container
+            style={{ paddingLeft: "1em", paddingRight: "1em" }}
+            component={motion.div}
+            initial={{ x: "-50vw", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 1.5, delay: 0.1, type: "spring" }}
+          >
             <Box
               sx={{ bgcolor: "white", height: "140px", borderRadius: "0.3em" }}
             >
               <div className="container-fluid">
                 <div className="row justify-content-end">
-                  <div class="col-1 p-0" >
-                    <div style={{ marginTop: "0.5em", marginLeft: "0.2em", cursor: "pointer" }}>
-                      <Link
-                        underline="none"
-                        color="black"
-
-                        onClick={formHandler}
-                      >
-                        <i class="bi bi-pencil-fill"></i>
-                      </Link>
+                  <div class="col-1 p-0">
+                    <div
+                      style={{
+                        marginTop: "0.5em",
+                        marginLeft: "0.2em",
+                        cursor: "pointer",
+                      }}
+                    >
+                      {curUser && (
+                        <Link
+                          underline="none"
+                          color="black"
+                          onClick={formHandler}
+                        >
+                          <i class="bi bi-pencil-fill"></i>
+                        </Link>
+                      )}
                     </div>
-
                   </div>
                 </div>
                 <div class="row justify-content-start">
-                  <div class="col-3" style={{ marginRight: "2em", paddingLeft: '0.3em' }}>
+                  <div
+                    class="col-3"
+                    style={{ marginRight: "2em", paddingLeft: "0.3em" }}
+                  >
                     <Avatar sx={{ width: "85px", height: "85px" }} />
                   </div>
 
                   <div class="col-7">
-                    <div style={{fontSize:"18px", width:"200px"}}>
-                      <b>{userDetails.firstName} {" "} {userDetails.lastName}</b>
+                    <div style={{ fontSize: "18px", width: "200px" }}>
+                      <b>
+                        {curUser
+                          ? userDetails.firstName
+                          : props.userInfo.firstName}{" "}
+                        {curUser
+                          ? userDetails.lastName
+                          : props.userInfo.lastName}
+                      </b>
                     </div>
 
                     <div class="row justify-content-center">
@@ -155,14 +163,21 @@ const Profile = () => {
                     </div>
                     <div class="row justify-content-end">
                       <div class="col">
-                        <span className={classes.followercount}><b>{followCount}</b></span>
+                        <span className={classes.followercount}>
+                          <b>{curUser
+                          ? followCount
+                          : props.userInfo.followerCount}</b>
+                        </span>
                       </div>
                       <div class="col">
-                        <span className={classes.followingcount}><b>{followingCount}</b></span>
+                        <span className={classes.followingcount}>
+                          <b>{curUser
+                          ? followingCount
+                          : props.userInfo.followingCount}</b>
+                        </span>
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </Box>
@@ -173,55 +188,146 @@ const Profile = () => {
             >
               <div class="row" style={{ marginTop: "0.2em" }}>
                 <span className={classes.genres}>
-                  <h5 style={{borderBottom: '1px solid #c4c4c4', width: '14em', paddingBottom: '0.2em', fontSize: '1.2em', fontWeight: '600'}}>Interested Geners</h5>
+                  <h5
+                    style={{
+                      borderBottom: "1px solid #c4c4c4",
+                      width: "14em",
+                      paddingBottom: "0.2em",
+                      fontSize: "1.2em",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Interested Geners
+                  </h5>
                 </span>
-                {userDetails.genres.length !== 0 && <div class="col" style={{ marginLeft: "1.2em", height: "60px" }}>
-                  <div >
-                    {userDetails.genres.map((gen) => (
-
-                      <Chip style={{ marginBottom: "0.5em", marginRight: "0.3em", backgroundColor: "#8ee4af", color: "#05386b", fontWeight: '600' }} label={gen} />
-
-                    ))}
+                {userDetails.genres.length !== 0 && (
+                  <div
+                    class="col"
+                    style={{ marginLeft: "1.2em", height: "60px" }}
+                  >
+                    <div>
+                      {curUser
+                        ? userDetails.genres.map((gen) => (
+                            <Chip
+                              style={{
+                                marginBottom: "0.5em",
+                                marginRight: "0.3em",
+                                backgroundColor: "#8ee4af",
+                                color: "#05386b",
+                                fontWeight: "600",
+                              }}
+                              label={gen}
+                            />
+                          ))
+                        : props.userInfo.genres.map((gen) => (
+                            <Chip
+                              style={{
+                                marginBottom: "0.5em",
+                                marginRight: "0.3em",
+                                backgroundColor: "#8ee4af",
+                                color: "#05386b",
+                                fontWeight: "600",
+                              }}
+                              label={gen}
+                            />
+                          ))}
+                    </div>
                   </div>
-                </div>}
-
+                )}
               </div>
               <div class="row" style={{ height: "70px" }}>
                 <span className={classes.email}>
-                <h5 style={{borderBottom: '1px solid #c4c4c4', width: '14em', paddingBottom: '0.2em', fontSize: '1.2em', fontWeight: '600'}}>Email</h5>
+                  <h5
+                    style={{
+                      borderBottom: "1px solid #c4c4c4",
+                      width: "14em",
+                      paddingBottom: "0.2em",
+                      fontSize: "1.2em",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Email
+                  </h5>
                 </span>
-                {userDetails.email !== "" && <div class="col" style={{ fontSize: '0.9em',  marginLeft: "1.2em" }}>
-                  {userDetails.email}
-                </div>}
+                {userDetails.email !== "" && (
+                  <div
+                    class="col"
+                    style={{ fontSize: "0.9em", marginLeft: "1.2em" }}
+                  >
+                    {curUser
+                          ? userDetails.email
+                          : props.userInfo.email}
+                  </div>
+                )}
                 <br />
               </div>
 
               <div class="row" style={{ marginTop: "0.4em" }}>
                 <span className={classes.bio}>
-                <h5 style={{borderBottom: '1px solid #c4c4c4', width: '14em', paddingBottom: '0.2em', fontSize: '1.2em', fontWeight: '600'}}>Bio</h5>
+                  <h5
+                    style={{
+                      borderBottom: "1px solid #c4c4c4",
+                      width: "14em",
+                      paddingBottom: "0.2em",
+                      fontSize: "1.2em",
+                      fontWeight: "600",
+                    }}
+                  >
+                    Bio
+                  </h5>
                 </span>
-                {userDetails.bio !== "" && <div class="row" style={{ fontSize: '0.9em', marginLeft: "1.2em", overflowY: "scroll", overflowX: "hidden", width: "280px" }}>
-                  {userDetails.bio}
-                </div>}
+                {userDetails.bio !== "" && (
+                  <div
+                    class="row"
+                    style={{
+                      fontSize: "0.9em",
+                      marginLeft: "1.2em",
+                      overflowY: "scroll",
+                      overflowX: "hidden",
+                      width: "280px",
+                    }}
+                  >
+                    {curUser
+                          ? userDetails.bio
+                          : props.userInfo.bio}
+                  </div>
+                )}
 
                 <br />
               </div>
-              <div class="row" style={{ marginTop: "1em", height: "60px" }}>
-                <div class="col">
-                  <div>
-                    <button className={classes.customfollowbtn} onClick={followbuttonHandler}><b>{followStatus}</b></button>
+              {!curUser && (
+                <div class="row" style={{ marginTop: "1em", height: "60px" }}>
+                  <div class="col">
+                    <div>
+                      <button
+                        className={classes.customfollowbtn}
+                        onClick={followbuttonHandler}
+                      >
+                        <b>{followStatus}</b>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </Box>
-
           </Container>
         )}
-        {(addform && <Editform setAddform={setAddform} editHandler={editHandler} userDetails={userDetails} />)}
-        {(memtab && <Members setmemTab={setmemTab} />)}
+        {addform && curUser && (
+          <Editform
+            setAddform={setAddform}
+            editHandler={editHandler}
+            userDetails={userDetails}
+          />
+        )}
+        {memtab && (
+          <Members
+            userInfo={props.userInfo}
+            curUser={curUser}
+            setmemTab={setmemTab}
+          />
+        )}
         <br />
       </div>
-
     </div>
   );
 };

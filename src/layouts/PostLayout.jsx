@@ -17,6 +17,7 @@ const PostLayout = () => {
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
     
+    
     const navHandler = () => {
         nav ? setNav(false) : setNav(true)
     }
@@ -48,7 +49,7 @@ const PostLayout = () => {
                 dispatch(fetchOtherProfileData(result.uid)).then((data)=>{
                     console.log(data);
                     console.log(data.followersList.length);
-                    setData({...data,followercount: data.followersList.length,followingcount: data.followingList.length})
+                    setData({...data,followercount: data.followersList.length,followingcount: data.followingList.length, userId: result.uid})
                 });
             }
         });
