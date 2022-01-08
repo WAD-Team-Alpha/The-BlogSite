@@ -1,7 +1,7 @@
 export const fetchActivity = async (recentActivity) => {
     const fetchPosts = async (postId) => {
         try {
-            const response = await fetch(`https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${postId}.json`);
+            const response = await fetch(`https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${postId}.json`);
             const data = await response.json();
             return data;
         } catch (error) {
@@ -11,7 +11,7 @@ export const fetchActivity = async (recentActivity) => {
 
     const fetchQuestions = async (threadId) => {
         try {
-            const response = await fetch(`https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions/${threadId}.json`);
+            const response = await fetch(`https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions/${threadId}.json`);
             const data = await response.json();
             return data;
         } catch (error) {

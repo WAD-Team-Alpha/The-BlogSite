@@ -9,7 +9,7 @@ export const sendPostData = ( postData, postId ) => {
         console.log( "send data action is triggered" );
         const sendRequest = async () => {
 
-            const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${ postId }.json`;
+            const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${ postId }.json`;
             const response = await fetch( url,
             {
 
@@ -50,7 +50,7 @@ export const fetchPostData = ( postId ) => {
 
     return async ( dispatch ) => {
         console.log( "fetch data action is triggered" );
-        const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${ postId }.json`;
+        const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${ postId }.json`;
         const fetchData = async () => {
 
             const response = await fetch( url );
@@ -100,7 +100,7 @@ export const fetchPostsData = ( postId ) => {
     return async ( dispatch ) => {
         
         console.log( "fetch data action is triggered" );
-        const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts/${ postId }.json`;
+        const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${ postId }.json`;
         const fetchData = async () => {
 
             const response = await fetch( url );
@@ -149,7 +149,7 @@ export const fetchPostsData = ( postId ) => {
 export const fetchTrendingPosts = () => {
     return async ( dispatch ) => {
         console.log( "fetch data action is triggered" );
-        const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/posts.json`;
+        const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts.json`;
         const fetchData = async () => {
             const response = await fetch( url );
             if (!response.ok) {

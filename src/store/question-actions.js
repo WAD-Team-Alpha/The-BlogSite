@@ -6,7 +6,7 @@ export const sendQuestionData = (questionData,questionId) => {
     console.log("sending");
     console.log("send data action is triggered");
     const sendRequest = async () => {
-      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions/${questionId}.json`;
+      const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions/${questionId}.json`;
       const response = await fetch(url, {
         method: "PUT",
         body: JSON.stringify(questionData),
@@ -34,7 +34,7 @@ export const fetchQuestionData = ( questionId ) => {
   return async ( dispatch ) => {
       
       console.log( "fetch data action is triggered" );
-      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions/${ questionId }.json`;
+      const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions/${ questionId }.json`;
       const fetchData = async () => {
 
           const response = await fetch( url );
@@ -86,7 +86,7 @@ export const fetchQuestionsData = ( questionId ) => {
 
   return async ( dispatch ) => {
       console.log( "questions fetch data action is triggered" );
-      const url = `https://fsd-project-e2e42-default-rtdb.firebaseio.com/questions/${ questionId }.json`;
+      const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions/${ questionId }.json`;
       const fetchData = async () => {
 
           const response = await fetch( url );
