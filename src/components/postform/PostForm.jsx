@@ -149,6 +149,7 @@ const PostForm = () => {
         </div>
         <br />
         <ImageInputBox
+          id={"hello9"}
           height={"30vh"}
           isAdded={false}
           onChange={bannerHandler}
@@ -156,12 +157,14 @@ const PostForm = () => {
         />
         <br />
         <TextInputBox
+          id={"hello0"}
           inputname={"Title"}
           isAdded={false}
           onChange={titleHandler}
         />
         <br />
         <TextInputBox
+          id={"hello"}
           inputname={"Summary"}
           height={"100px"}
           isAdded={false}
@@ -170,22 +173,20 @@ const PostForm = () => {
         <br />
         {inputList.map((input, index) => {
           return input.type === "text" ? (
-            <>
+            <React.Fragment key={index}>
               <TextInputBox
-                key={input.id}
-                id={input.id}
+                id={index}
                 inputname={`Content cell ${index + 1}`}
                 isAdded={true}
                 onChange={inputChangeHandler}
                 onDelete={deleteInputHandler}
               />
               <br />
-            </>
+            </React.Fragment>
           ) : (
-            <>
+            <React.Fragment  key={index}>
               <ImageInputBox
-                key={input.id}
-                id={input.id}
+                id={index}
                 height={"20vh"}
                 inputname={`Add image ${index + 1}`}
                 isAdded={true}
@@ -193,7 +194,7 @@ const PostForm = () => {
                 onDelete={deleteInputHandler}
               />
               <br />
-            </>
+            </React.Fragment>
           );
         })}
         <button
