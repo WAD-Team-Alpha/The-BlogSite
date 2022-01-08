@@ -63,7 +63,7 @@ const Last = (props) => {
       <div>
         {commentsdata.comments.map((comment) => (
           // coming soon
-          <CommentsSection profileData={profileData}  commentsdata={commentsdata}/>
+          <CommentsSection profileData={profileData}  commentsdata={commentsdata} comment={comment}/>
         ))}
         <div>
           <br />

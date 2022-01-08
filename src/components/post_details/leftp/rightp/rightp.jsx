@@ -6,9 +6,9 @@ import classes from './rightp.module.css'
 import { Avatar } from '@mui/material';
 import { Link } from '@mui/material';
 import Button from '@mui/material/Button';
-
-
+import { useNavigate } from "react-router-dom";
 const Rightp = (props) => {
+    const navigate = useNavigate();
     const num=[1,2,3,4]
     const profileData = props.profileData;
     console.log(profileData);
@@ -62,7 +62,7 @@ const Rightp = (props) => {
                                     </div>
                                     <div class="row justify-content-start">
                                         <div class="col-6">
-                                            <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#05386B", textTransform:"none"}}>Inspect</Button></span>
+                                            <span><Button onClick={()=>{navigate(`/profile/${profileData.userId}`)}} variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#05386B", textTransform:"none"}}>Inspect</Button></span>
                                         </div>
                                         <div class="col-6" >
                                             <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#5cdb95", color:"black", textTransform:"none"}}>Follow</Button></span>

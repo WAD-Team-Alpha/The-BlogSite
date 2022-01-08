@@ -16,12 +16,12 @@ const Memberstab=(props)=> {
       >
         <Tab eventKey="followers" title="Followers">
             <div style={{overflowY:"scroll", height:"420px"}}>
-          <Followers followCount={props.followCount} followingCount={props.followingCount}/>
+          <Followers curUser={props.curUser} userInfo={props.userInfo}/>
           </div>
         </Tab>
         <Tab eventKey="following" title="Following">
             <div style={{overflowY:"scroll", height:"420px"}}>
-           <Following/>
+           <Following curUser={props.curUser} userInfo={props.userInfo}/>
            </div>
         </Tab>
        

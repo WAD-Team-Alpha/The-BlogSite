@@ -112,6 +112,8 @@ export const fetchQuestionsData = ( questionId ) => {
 
               ... questionData,
               comments : questionData.comments === undefined ? [] : questionData.comments,
+              bookmarks : questionData.bookmarks === undefined ? 0 : questionData.bookmarks,
+              status : questionData.status === undefined ? "active" : questionData.status,
           }
           dispatch( questionsActions.addQuestion( data ) );
           return "success";

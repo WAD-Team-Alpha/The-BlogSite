@@ -26,7 +26,7 @@ const Members = (props) => {
               </button>
           </div>
         <div style={{overflowY:"scroll"}}>
-          <Memberstab/>
+          <Memberstab curUser={props.curUser} userInfo={props.userInfo}/>
         </div>
       </Box>
     </div>

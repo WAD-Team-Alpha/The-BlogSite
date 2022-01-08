@@ -7,7 +7,7 @@ const questionsSlice = createSlice({
   initialState: initialQuestionsState,
   reducers: {
     addQuestion(state, action) {
-      console.log("This is running???")
+      console.log("This is questions.js???")
       state.push({
         questionId : action.payload.questionId,
         userId : action.payload.userId,
@@ -15,9 +15,10 @@ const questionsSlice = createSlice({
         question : action.payload.question,
         imageUrl : action.payload.imageUrl,
         description : action.payload.description,
-        upvotes : action.payload.upvotes,
+        likes : action.payload.likes,
         comments : action.payload.comments,
-        bookmarks : action.payload.bookmarks
+        bookmarks : action.payload.bookmarks,
+        status : action.payload.status,
       });
       console.log(action.payload.bookmarks)
       console.log(action.payload.questionId);
