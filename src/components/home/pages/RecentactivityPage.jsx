@@ -73,8 +73,9 @@ const RecentActivityPage = () => {
                                 key={recent.data.questionId}
                                 id={recent.data.questionId}
                                 answers={recent.data.answers}
+                                votes={recent.data.bookmarks}
                                 question={recent.data.question}
-                                details={recent.data.details}
+                                details={recent.data.description}
                                 userId={recent.data.userId}
                                 publishedDate={recent.data.publishedDate}
                             />

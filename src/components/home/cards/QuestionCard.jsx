@@ -32,15 +32,20 @@ const QuestionCard = (props) => {
           dec=<p className="card-text">{result}....</p>  
         }
     return (
-        <div className="card shadow mb-3 mt-3" >
+        <div className={`card  mb-3 mt-3 ${classes.shadow}`} >
             <div class="row g-0">
                 <div className="col-md-2 mt-6">
-                    <div className={`${classes.votes}`}>
+                   
+                    <div className={`row ${classes.votes}`}>
+
                         <p className="fw-bold fs-1  ">{props.votes}</p>
+                        {/* <p className="fw-bold fs-1  ">500</p> */}
                         <p className={`${classes.vote}`}>Votes</p>
                     </div>
-                    <div className={`${classes.answer}`}>
+                    
+                    <div className={`row ${classes.answer}`}>
                         <p className="fw-bold fs-1 ml-6 ">{props.answers}</p>
+                        {/* <p className="fw-bold fs-1 ml-6 ">500</p> */}
                         <p className={`${classes.vote}`}>Answers</p>
                     </div>
 
