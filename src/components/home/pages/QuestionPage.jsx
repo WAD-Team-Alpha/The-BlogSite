@@ -44,10 +44,15 @@ const QuestionPage = () => {
      result.push( data [i]);
 
      console.log(result);
-
-
-     return (
-          <motion.div
+     
+     let status=result.length;
+   
+     return ( !status ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
+           <h1> NO Question data</h1>
+        </div>
+    
+     
+          :<motion.div
                variants={mainVarient}
                initial='hidden'
                animate='visible'

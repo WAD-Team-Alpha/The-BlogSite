@@ -3,6 +3,15 @@
     margin-left: 1px;
 
 }
+.answerpostion{
+    margin-top: -30px;
+    margin-left: 1px;
+    position: absolute;
+    bottom: 10px;
+}
+.answer p{
+    margin-top: 5px;
+}
 .shadow{
     height: 200px;
 }
@@ -42,10 +51,7 @@
     width: 100px;
     
 }
-.answer p{
-    position: absolute;
-    bottom: 0px;
-}
+
 .votes{
     margin-left: 25px;
 }
