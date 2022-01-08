@@ -21,6 +21,32 @@ const QuestionCard = (props) => {
             setUserName(result.firstName)
         })
         }, [])
+        let votelen=props.votes.length;
+        let numberofvote;
+        let ans=props.answers;
+        let numberofanswer
+        if(votelen > 0)
+        {
+            numberofvote=props.votes
+            
+        }
+        else{
+            numberofvote=0
+        }
+        
+        if(ans>0)
+        {
+            numberofanswer=ans
+        }
+        else{
+            numberofanswer=0
+        }
+
+       
+        
+
+
+
         const str=props.details;
         const len=str.length;
         
@@ -38,15 +64,15 @@ const QuestionCard = (props) => {
                    
                     <div className={`row ${classes.votes}`}>
 
-                        <p className="fw-bold fs-1  ">{props.votes}</p>
-                        {/* <p className="fw-bold fs-1  ">500</p> */}
+                        <p className="fw-bold fs-1  ">{numberofvote}</p>
+                        
                         <p className={`${classes.vote}`}>Votes</p>
                     </div>
                     
                     <div className={`row ${classes.answer}`}>
-                        <p className="fw-bold fs-1 ml-6 ">{props.answers}</p>
-                        {/* <p className="fw-bold fs-1 ml-6 ">500</p> */}
-                        <p className={`${classes.vote}`}>Answers</p>
+                        <p className="fw-bold fs-1 ml-6 ">{numberofanswer}</p>
+                       
+                        <p className={`${classes.answerpostion}`}>Answers</p>
                     </div>
 
 
