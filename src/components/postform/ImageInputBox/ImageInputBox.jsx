@@ -24,7 +24,7 @@ const ImageInputBox = (props) => {
                 <label style={{ fontWeight: "bold" }} htmlFor="bannerImage">
                     {props.inputname}
                 </label>
-                <label className={'btn btn-primary ' + classes.fileinput}>
+                <label className={'btn btn-primary ' + classes.fileinput} style={{border: '2px solid', borderColor: image ? '' : 'red'}}>
                     <input
                         type="file"
                         id="bannerImage"

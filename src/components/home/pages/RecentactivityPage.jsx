@@ -72,9 +72,10 @@ const RecentActivityPage = () => {
                             <QuestionCard
                                 key={recent.data.questionId}
                                 id={recent.data.questionId}
+                                votes={recent.data.bookmarks}
                                 answers={recent.data.answers}
                                 question={recent.data.question}
-                                details={recent.data.details}
+                                details={recent.data.description}
                                 userId={recent.data.userId}
                                 publishedDate={recent.data.publishedDate}
                             />
