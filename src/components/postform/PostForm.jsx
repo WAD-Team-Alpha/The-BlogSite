@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import classes from "./Form.module.css";
 import AddIcon from "@mui/icons-material/Add";
 import PostModal from "./PostModal";
@@ -23,6 +23,19 @@ const PostForm = () => {
   const [submit, setSubmit] = useState(false);
   const [genre, setGenre] = useState("");
   const navigate = useNavigate();
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (formRef.current) {
+      formRef.current.scrollIntoView(
+        {
+          behavior: 'smooth',
+          block: 'end',
+          inline: 'nearest'
+        })
+    }
+  },
+  [inputList.length])
 
   const bannerHandler = (value) => {
     setBanner(value);
@@ -36,6 +49,11 @@ const PostForm = () => {
     setSummary(value);
   };
 
+  function updateScroll() {
+    var element = document.getElementById("post-form");
+    element.scrollTop = element.scrollHeight;
+  }
+
   const addInputHandler = (type) => {
     setInputList((value) => [
       ...value,
@@ -46,6 +64,7 @@ const PostForm = () => {
       },
     ]);
     console.log(inputList);
+    updateScroll()
   };
 
   const deleteInputHandler = (id) => {
@@ -99,6 +118,7 @@ const PostForm = () => {
     dispatch(sendPostData(postData, postId)).then((result) => {
       if (result === "success") {
         var postIds = [...about.postIds, postId];
+        console.log("This is the profileActions.updts 3")
         dispatch(profileActions.update({ ...about, postIds: postIds }));
         dispatch(postsActions.addPost(postData));
         setSubmit(false);
@@ -112,10 +132,10 @@ const PostForm = () => {
     <LoadingSpinner />
   ) : (
     <div className={"col-md-8 " + classes.form}>
-      <form className={"container"} onSubmit={onSubmitHandler}>
-        <br />
-        <div className="d-flex align-items-center justify-content-between">
-          <h1>
+      <form className={"container"} onSubmit={onSubmitHandler} ref={formRef}>
+        {/* <br /> */}
+        <div id="post-form" className="d-flex align-items-center justify-content-between">
+          <h1 className="mb-4 mt-4">
             <b>Step 1: </b> Create the post
           </h1>
           <select
@@ -146,7 +166,7 @@ const PostForm = () => {
             <option value="gaming">Gaming</option>
           </select>
         </div>
-        <br />
+        {/* <br /> */}
         <ImageInputBox
           id={"hello9"}
           height={"30vh"}
@@ -154,7 +174,7 @@ const PostForm = () => {
           onChange={bannerHandler}
           inputname={"Add banner image"}
         />
-        <br />
+        {/* <br /> */}
         <TextInputBox
           id={"hello0"}
           inputname={"Title"}
@@ -162,7 +182,7 @@ const PostForm = () => {
           onChange={titleHandler}
           maxLength={120}
         />
-        <br />
+        {/* <br /> */}
         <TextInputBox
           id={"hello"}
           inputname={"Summary"}
@@ -171,7 +191,7 @@ const PostForm = () => {
           onChange={summaryHandler}
           maxLength={400}
         />
-        <br />
+        {/* <br /> */}
         {inputList.map((input, index) => {
           return input.type === "text" ? (
             <React.Fragment key={index}>
@@ -184,10 +204,10 @@ const PostForm = () => {
                 maxLength={400}
                 height={'120px'}
               />
-              <br />
+              {/* <br /> */}
             </React.Fragment>
           ) : (
-            <React.Fragment  key={index}>
+            <React.Fragment key={index}>
               <ImageInputBox
                 id={index}
                 height={"20vh"}
@@ -196,10 +216,11 @@ const PostForm = () => {
                 onChange={inputChangeHandler}
                 onDelete={deleteInputHandler}
               />
-              <br />
+              {/* <br /> */}
             </React.Fragment>
           );
         })}
+        <div id="post-form"></div>
         <button
           className="btn btn-primary"
           type="submit"
