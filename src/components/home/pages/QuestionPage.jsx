@@ -56,7 +56,7 @@ const QuestionPage = () => {
                {result.map((query) => <QuestionCard
                     key={query.questionId}
                     id={query.questionId}
-                    votes={query.bookmarks}
+                    votes={query.likes}
                     answers={query.answers}
                     question={query.question}
                     details={query.description}
