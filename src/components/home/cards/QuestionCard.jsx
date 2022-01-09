@@ -29,17 +29,28 @@ const QuestionCard = (props) => {
         
 
 
-
+ // If description length is more than 150 reduse the size of Detail Full lenght show in post detail page
         const str=props.details;
         const len=str.length;
         
         let dec;
-        let result = str.substring(0,270);
+        let result = str.substring(0,270); // take substring from Details string
         if( len<270){ 
         dec= <p className="card-text">{props.details}</p>}
         else{
           dec=<p className="card-text">{result}....</p>  
         }
+
+    const titles=props.question.length;
+    let resultitle=props.question.substring(0, 50); 
+    let shortitle;
+    if(titles<50)
+    {
+        shortitle=props.question
+    }
+    else{
+        shortitle =<h5 class="card-title fw-bold fs-4">{resultitle}...</h5>
+    }
     return (
         <div className={`card  mb-3 mt-3 ${classes.shadow}`} >
             <div class="row g-0">
@@ -62,7 +73,7 @@ const QuestionCard = (props) => {
                 </div>
                 <div class="col-md-10">
                     <div class="card-body">
-                        <h5 class="card-title fw-bold fs-4">{props.question}</h5>
+                        <h5 class="card-title fw-bold fs-4">{shortitle}</h5>
                         <p class="card-text" style={{ height: '5em' }}>{dec}</p>
 
                         <div className={classes.bottom}>

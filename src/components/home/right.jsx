@@ -1,6 +1,7 @@
 import React from 'react'
 import PeopleYouMayKnow from './PeopleYouMayKnow';
 import classes from './right.module.css'
+// post and Question filter page
 const Right = () => {
     return (
         <div>
