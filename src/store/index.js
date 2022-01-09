@@ -6,6 +6,7 @@ import postsReducer from "./posts"
 import questionReducer from "./question";
 import questionsReducer from "./questions"
 import trendingReducer from "./trending"
+import activityReducer from "./activity"
 const store = configureStore({
   reducer: {
     auth: authReducer,
@@ -14,7 +15,8 @@ const store = configureStore({
     posts : postsReducer,
     question : questionReducer,
     questions : questionsReducer,
-    trending: trendingReducer
+    trending: trendingReducer,
+    activity: activityReducer
   },
 });
 

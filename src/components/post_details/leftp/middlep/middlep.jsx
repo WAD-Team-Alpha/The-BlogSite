@@ -41,14 +41,15 @@ const Middlep = (props) => {
     dispatch(sendPostData({ ...postdata, comments: newComments }, postdata.postId)).then((res) => {
       console.log("printing response", res);
     });
+    setComment("")
   };
   return (
-    <>
+    <div style={{backgroundColor: 'white', marginTop: '1em', marginBottom: '1em', padding: '0.5em', borderRadius: '8px'}} className="shadow">
       <div>
         <div style={{ padding: "1em" }}>
           <img
             src={postdata.imageUrl}
-            alt="prathyush"
+            alt="none"
             width="800px"
             height="248px"
           />
@@ -63,9 +64,9 @@ const Middlep = (props) => {
                   </div>
                 </div>
                 <div class="col-3">
-                  {profileData.firstName + " " + profileData.lastName}
+                  <b>{profileData.firstName + " " + profileData.lastName}</b>
                   <br />
-                  Posted on {postdata.publishedDate}
+                  Posted on <b>{postdata.publishedDate}</b>
                   <br /> <br />
                 </div>
                 <div class="col-12">
@@ -82,10 +83,10 @@ const Middlep = (props) => {
                   <p>{postdata.postSummary}</p>
                   {postdata.postData.map((val) => {
                     if (val.type === "text") {
-                      return <p>{val.value}</p>;
+                      return <p className="mb-2 mt-2">{val.value}</p>;
                     } else {
                       return (
-                        <div>
+                        <div className="mb-2 mt-2">
                           <img
                             src={val.value}
                             alt=""
@@ -100,7 +101,7 @@ const Middlep = (props) => {
 
                 <hr />
 
-                <div>
+                <div ref={props.theRef}>
                   <h2>
                     <b>Comments</b>
                   </h2>
@@ -162,7 +163,7 @@ const Middlep = (props) => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

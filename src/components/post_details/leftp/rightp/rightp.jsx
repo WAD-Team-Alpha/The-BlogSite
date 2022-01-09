@@ -14,8 +14,6 @@ const Rightp = (props) => {
     console.log(profileData);
     // var followercount = 0;
     // var followingcount = 0;
-    
-    
     return(
         <div >
                 <div className={classes.containerMD}>
@@ -37,7 +35,7 @@ const Rightp = (props) => {
                                     />
                                     </div>
                                     <div class="col-8">
-                                    <span className={classes.uname}> <b>{profileData.lastName}</b></span>
+                                    <span className={classes.uname}> <b>{profileData.firstName}{" "}{profileData.lastName}</b></span>
                                     
                                         
                                     <div class="row justify-content-center">
@@ -60,14 +58,14 @@ const Rightp = (props) => {
                                             <span className={classes.followingcount}> <b>{profileData.followingcount}</b></span>
                                         </div>
                                     </div>
-                                    <div class="row justify-content-start">
+                                    { profileData.userId !== localStorage.getItem('localId') && <div class="row justify-content-start">
                                         <div class="col-6">
                                             <span><Button onClick={()=>{navigate(`/profile/${profileData.userId}`)}} variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#05386B", textTransform:"none"}}>Inspect</Button></span>
                                         </div>
                                         <div class="col-6" >
                                             <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#5cdb95", color:"black", textTransform:"none"}}>Follow</Button></span>
                                         </div>
-                                    </div>
+                                    </div>}
                                     </div>
                                 </div>
                             </div>                        
@@ -78,7 +76,7 @@ const Rightp = (props) => {
                 </div>
                 <hr style={{color:'#5CDB95', border:'2px', height:'2px', width:'343px'}}/>
               
-                <div className={classes.containerLD}>
+                {/* <div className={classes.containerLD}>
                     <div className={classes.Mcon}>
                     <span style={{color:"white"}}>Recommended</span>
                     </div>
@@ -90,7 +88,7 @@ const Rightp = (props) => {
                             <div className={classes.recomendedtext}>Just displaying the titles is enough here, but please make sure to show the question mark? </div>
                         </div></>
                     ))}
-                </div>
+                </div> */}
             </div>
     )
 }

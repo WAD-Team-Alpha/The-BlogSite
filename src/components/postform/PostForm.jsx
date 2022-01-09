@@ -77,13 +77,15 @@ const PostForm = () => {
   };
 
   const inputChangeHandler = (id, value) => {
+    console.log(value)
     const newInputFields = inputList.map((input) => {
+      console.log(input.id, id)
       if (input.id === id) {
         input.value = value;
       }
       return input;
     });
-
+    console.log(newInputFields)
     setInputList(newInputFields);
   };
 
@@ -196,7 +198,7 @@ const PostForm = () => {
           return input.type === "text" ? (
             <React.Fragment key={index}>
               <TextInputBox
-                id={index}
+                id={input.id}
                 inputname={`Content cell ${index + 1}`}
                 isAdded={true}
                 onChange={inputChangeHandler}
@@ -209,7 +211,7 @@ const PostForm = () => {
           ) : (
             <React.Fragment key={index}>
               <ImageInputBox
-                id={index}
+                id={input.id}
                 height={"20vh"}
                 inputname={`Add image ${index + 1}`}
                 isAdded={true}
