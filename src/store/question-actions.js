@@ -129,4 +129,50 @@ export const fetchQuestionsData = ( questionId ) => {
   };
 
 };
+export const fetchOtherQuestionsData = ( questionId ) => {
+
+  return async ( dispatch ) => {
+      console.log( "questions fetch data action is triggered" );
+      const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions/${ questionId }.json`;
+      const fetchData = async () => {
+
+          const response = await fetch( url );
+
+          if ( ! response.ok )
+          {
+
+              throw new Error( "Could not fetch data!" );
+
+          }
+          // console.log(response);
+          const data = await response.json();
+
+          return data;
+
+      };
+
+      try
+      {
+
+          const questionData = await fetchData();
+          var data = {
+
+              ...questionData,
+              comments : questionData.comments === undefined ? [] : questionData.comments,
+              bookmarks : questionData.bookmarks === undefined ? 0 : questionData.bookmarks,
+              status : questionData.status === undefined ? "active" : questionData.status,
+          }
+          return data;
+
+      } catch ( error )
+      {
+
+          console.log( "error" );
+          return "failed"
+
+      }
+
+  };
+
+};
 

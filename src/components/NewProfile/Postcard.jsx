@@ -2,11 +2,12 @@ import classes from "./postcard.module.css";
 import {  useSelector } from "react-redux";
 import PostCard from "../home/cards/PostCard";
 
-const Postcard = () => {
+const Postcard = (props) => {
   const postid = useSelector((state) => state.profile.postIds);
   console.log(postid);
   const postsdata = useSelector((state) => state.posts);
   console.log(postsdata);
+  console.log(props.postsData);
   if (postsdata === null) {
     return (
       <div style={{ paddingLeft: "16em", paddingTop: "3em" }}>
@@ -19,7 +20,18 @@ const Postcard = () => {
         <div className={classes.cardcontainer}>
           <div className={classes.postscreate}></div>
           <div className={classes.postcards}>
-            {postsdata.map((postdata) => (
+            {props.curUser ? postsdata.map((postdata) => (
+              <PostCard
+                key={postdata.postId}
+                id={postdata.postId}
+                banner={postdata.imageUrl}
+                title={postdata.postTitle}
+                description={postdata.postSummary}
+                likes={postdata.likes}
+                publishedDate={postdata.publishedDate}
+                userId={postdata.uid}
+              />
+            )) : props.postsData.map((postdata) => (
               <PostCard
                 key={postdata.postId}
                 id={postdata.postId}
