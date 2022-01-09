@@ -3,6 +3,22 @@
     margin-left: 1px;
 
 }
+.bottom {
+    display: flex;
+    justify-content: space-between;
+}
+.bottom p {
+    cursor: default;
+    font-size: 0.9em;
+}
+
+.bottom a {
+    font-size: 0.9em;
+}
+
+.bottom a:hover {
+    background-color: rgba(0, 0, 0, 0.19);
+}
 .answerpostion{
     margin-top: -30px;
     margin-left: 1px;
@@ -29,17 +45,17 @@
  .question li img{
      margin-right: 5px;
  }
- .question li a{
+ /* .question li a{
      text-decoration: none;
      color:black
      
- }
+ } */
  .post{
     margin-left: 315px;
 }
-.post a{
+/* .post a{
     color: chartreuse;
-}
+} */
 
 .answer{
     background-color: #379683;

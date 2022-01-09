@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useDispatch } from 'react-redux';
 import Header from '../components/header/Header'
 import classes from './Layout.module.css'
@@ -9,7 +9,7 @@ import Rightq from '../components/Ques_details/rightq/rightq'
 import Middleq from '../components/Ques_details/middleq/middleq'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import {fetchQuestionData} from "../store/question-actions"
+import { fetchQuestionData } from "../store/question-actions"
 import { fetchOtherProfileData, fetchProfileData } from '../store/profile-actions'
 import { profileActions } from '../store/profile';
 import LoadingSpinner from "../components/auth/LoadingSpinner";
@@ -77,16 +77,22 @@ const QuestionLayout = () => {
         dispatch(fetchQuestionData(params.threadID)).then((result) => {
             console.log(result);
             if (result !== null) {
-                dispatch(fetchOtherProfileData(result.userId)).then((data)=>{
+                dispatch(fetchOtherProfileData(result.userId)).then((data) => {
                     console.log(data);
-                    setData({...data, followercount: data.followersList.length,followingcount: data.followingList.length})
+                    setData({...data, followercount: data.followersList.length,followingcount: data.followingList.length, userId: result.userId })
                 });
             setSubmit(false);
 
             }
         });
     }, []);
-    return submit ? LoadingSpinner : (
+   
+
+    const myRef = useRef(null)
+    const executeScroll = () => myRef.current.scrollIntoView()
+    window.scroll(0, 0)
+
+    return submit ? <LoadingSpinner/> : (
         <>
             {!nav && <Header nav={navHandler} />}
             {nav && <Navigation nav={navHandler} />}
@@ -94,13 +100,13 @@ const QuestionLayout = () => {
                 <div className={"container-fluid " + classes.content}>
                     <div className="row">
                         <div className={"col-md-2 shadow-lg " + classes.leftpane}>
-                            <Leftq questionID={params.threadID}/>
+                            <Leftq questionID={params.threadID} handler={executeScroll} />
                         </div>
                         <div className={"col-md-7 shadow-lg " + classes.middlepane}>
-                            <Middleq questionID={params.threadID} profileData={data}/>
+                            <Middleq questionID={params.threadID} profileData={data} theRef={myRef} />
                         </div>
                         <div className={"col-md-3 shadow-lg " + classes.rightpane}>
-                            <Rightq questionID={params.threadID} profileData={data}/>
+                            <Rightq questionID={params.threadID} profileData={data} />
                         </div>
                     </div>
                 </div>

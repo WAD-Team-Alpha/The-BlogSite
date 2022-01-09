@@ -14,9 +14,10 @@ import { profileActions } from '../../../store/profile';
 import { questionActions } from '../../../store/question';
 import BookmarkAdded from '@mui/icons-material/BookmarkAdded';
 
+import Copyurl from '../../home/cards/CopyUrl';
 
 const Leftq = (props) => {
-    
+
 
     const checkId = (savedId, questionId) => {
         for (var i = 0; i < savedId.length; i++) {
@@ -35,7 +36,7 @@ const Leftq = (props) => {
 
     const dispatch = useDispatch();
 
-    const questiondata = useSelector((state)=> state.question)
+    const questiondata = useSelector((state) => state.question)
     console.log(questiondata)
     const [like,setLike] = useState(questiondata.likes); 
     const [bookmark,setBookmark] = useState(questiondata.bookmarks); 
@@ -104,6 +105,9 @@ const Leftq = (props) => {
           // dispatch(sendProfileData(profiledata, authdata.localId));
         }
       }
+
+      const [modalShow, setModalShow] = React.useState(false);
+    const url = window.location.href;
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
@@ -127,7 +131,7 @@ const Leftq = (props) => {
 
                 <span style={{ paddingLeft: "7em" }}>{like}</span>
                 <br /><br />
-                <button className='btn shadow-none' style={{ paddingLeft: "5.5em" }}>
+                <button className='btn shadow-none' style={{ paddingLeft: "5.5em" }} onClick={props.handler}>
                     <CommentIcon /> Answers
                 </button>
                 <span style={{ paddingLeft: "7em" }}>{questiondata.comments.length}</span>
@@ -154,9 +158,14 @@ const Leftq = (props) => {
                 <span style={{ paddingLeft: "7em" }}> {bookmark}</span>
                 <br /><br />
 
-                <button className='btn shadow-none' style={{ paddingLeft: "5.5em" }}>
-                    <ShareIcon /> Share   
+                <button className='btn shadow-none' style={{ paddingLeft: "5.5em" }} onClick={() => setModalShow(true)}>
+                    <ShareIcon /> Share
                 </button>
+                <Copyurl
+                    show={modalShow}
+                    url={url}
+                    onHide={() => setModalShow(false)}
+                />
                 <br />
 
             </div>

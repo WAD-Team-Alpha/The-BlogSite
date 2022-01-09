@@ -22,14 +22,16 @@ const PostLayout = () => {
 
   const updateRecentActivity = (data, value) => {
     var temp
-    if (data.filter((obj) => obj.id === value.id) !== []) {
+    var filtered = data.filter((obj) => obj.id === value.id)
+    if (filtered.length !== 0) {
       temp = data.filter((obj) => obj.id !== value.id)
       temp = [value].concat(temp)
       return temp
     }
-    if (data.length === 10) {
-      temp = data.pop()
-      temp = [value].concat(data)
+    if (data.length >= 10) {
+      var limited = [...data]
+      limited.pop()
+      temp = [value].concat(limited)
       return temp
     } else {
       temp = [value].concat(data)
@@ -79,8 +81,14 @@ const PostLayout = () => {
         dispatch(fetchOtherProfileData(result.uid)).then((data) => {
           console.log(data);
           console.log(data.followersList.length);
-          setData({ ...data, followercount: data.followersList.length, followingcount: data.followingList.length, userId: result.uid })
-          setSubmit(false)
+          setData({
+            ...data,
+            followercount: data.followersList.length,
+            followingcount: data.followingList.length,
+            userId: result.uid,
+          });
+          console.log(data.followersList.length,data.followingList.length);
+          setSubmit(false);
         });
       }
     });

@@ -9,35 +9,32 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 const Rightp = (props) => {
     const navigate = useNavigate();
-    const num=[1,2,3,4]
+    const num = [1, 2, 3, 4]
     const profileData = props.profileData;
     console.log(profileData);
     // var followercount = 0;
     // var followingcount = 0;
-    return(
+    return (
         <div >
-                <div className={classes.containerMD}>
-                    <Container>
-                        <Box sx={{bgcolor:"white", height:"158px", borderRadius:"0.3em"}}>
-                            <div className="container-fluid">
-                                <div className="row justify-content-end">
-                                    <div class="col-2" >
-                                    <button type="submit" class="btn shadow-none" style={{marginTop:"0.2em"}} ><i class="bi bi-pencil-fill" ></i></button>
-    
-                                    </div>
-                                </div>
-                                <div class="row justify-content-start">
-                                
-                                    <div class="col-1" style={{marginRight:"4em"}}>
+            <div className={classes.containerMD}>
+                <Container>
+                    <Box sx={{ bgcolor: "white", height: "158px", borderRadius: "0.3em" }}>
+                        <div className="container-fluid">
+                            <div className="row justify-content-end">
+                                <div style={{height: '2.7em'}}></div>
+                            </div>
+                            <div class="row justify-content-start">
+
+                                <div class="col-1" style={{ marginRight: "4em" }}>
                                     <Avatar
-                                        sx={{ width: "74px", height: "73px"}}
-                                    
+                                        sx={{ width: "74px", height: "73px" }}
+
                                     />
-                                    </div>
-                                    <div class="col-8">
+                                </div>
+                                <div class="col-8">
                                     <span className={classes.uname}> <b>{profileData.firstName}{" "}{profileData.lastName}</b></span>
-                                    
-                                        
+
+
                                     <div class="row justify-content-center">
                                         <div class="col-6">
                                             <span >
@@ -58,25 +55,22 @@ const Rightp = (props) => {
                                             <span className={classes.followingcount}> <b>{profileData.followingcount}</b></span>
                                         </div>
                                     </div>
-                                    { profileData.userId !== localStorage.getItem('localId') && <div class="row justify-content-start">
-                                        <div class="col-6">
-                                            <span><Button onClick={()=>{navigate(`/profile/${profileData.userId}`)}} variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#05386B", textTransform:"none"}}>Inspect</Button></span>
-                                        </div>
-                                        <div class="col-6" >
-                                            <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#5cdb95", color:"black", textTransform:"none"}}>Follow</Button></span>
+                                    {profileData.userId !== localStorage.getItem('localId') && <div class="row justify-content-start">
+                                        <div class="col-12">
+                                            <Button onClick={() => { navigate(`/profile/${profileData.userId}`) }} variant="contained" style={{ height: "30px", width: '100%', marginTop: '1em', backgroundColor: "#05386B", textTransform: "none" }}>Inspect</Button>
                                         </div>
                                     </div>}
-                                    </div>
                                 </div>
-                            </div>                        
-    
-                        </Box>
-                    </Container>
-                    
-                </div>
-                <hr style={{color:'#5CDB95', border:'2px', height:'2px', width:'343px'}}/>
-              
-                {/* <div className={classes.containerLD}>
+                            </div>
+                        </div>
+
+                    </Box>
+                </Container>
+
+            </div>
+            <hr style={{ color: '#5CDB95', border: '2px', height: '2px', width: '343px' }} />
+
+            {/* <div className={classes.containerLD}>
                     <div className={classes.Mcon}>
                     <span style={{color:"white"}}>Recommended</span>
                     </div>
@@ -89,7 +83,7 @@ const Rightp = (props) => {
                         </div></>
                     ))}
                 </div> */}
-            </div>
+        </div>
     )
 }
 

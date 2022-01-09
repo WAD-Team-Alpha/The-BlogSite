@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateRecentActivity } from '../../../store/profile-actions'
 import { fetchActivity } from '../../../store/activity-actions'
-import { CircularProgress } from '@mui/material'
+import { CircularProgress, Pagination, Stack } from '@mui/material'
 import Carousel from '../../navigation/trending/carousel/Carousel'
 
 const SavedForLaterPage = () => {
@@ -46,6 +46,13 @@ const SavedForLaterPage = () => {
         })
     }, [])
 
+    const [limit, setLimit] = useState(0)
+     const pageinationHandler = (e, value) => {
+          console.log(value)
+          setLimit((value - 1) * 10)
+          window.scroll(0, 0)
+     }
+
     return (
         status ? <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
             <CircularProgress sx={{ color: '#5cdb95' }} />
@@ -56,29 +63,38 @@ const SavedForLaterPage = () => {
                 animate='visible'
                 exit='exit'
             >
-                {saved.map((saved, index) => {
+                {saved.slice(limit, limit + 10).map((saved, index) => {
                     return saved.type === "post" ?
-                        index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
-                            <PostCard
-                                key={index}
-                                banner={saved.data.imageUrl}
-                                title={saved.data.postTitle}
-                                description={saved.data.postSummary}
-                                likes={saved.data.likes}
-                                author={"Surya"}
-                                publishedDate={saved.data.publishedDate}
-                            /> : index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
-                            <QuestionCard
-                                key={saved.data.questionId}
-                                id={saved.data.questionId}
-                                answers={saved.data.answers}
-                                question={saved.data.question}
-                                details={saved.data.details}
-                                userId={saved.data.userId}
-                                publishedDate={saved.data.publishedDate}
-                            />
+                        <PostCard
+                            key={index}
+                            banner={saved.data.imageUrl}
+                            title={saved.data.postTitle}
+                            description={saved.data.postSummary}
+                            likes={saved.data.likes}
+                            author={saved.data.author}
+                            publishedDate={saved.data.publishedDate}
+                        /> :
+                        <QuestionCard
+                            key={saved.data.questionId}
+                            id={saved.data.questionId}
+                            answers={saved.data.answers}
+                            question={saved.data.question}
+                            details={saved.data.details}
+                            author={saved.data.author}
+                            userId={saved.data.userId}
+                            publishedDate={saved.data.publishedDate}
+                        />
                 }
                 )}
+                <Stack spacing={2}>
+                    <Pagination
+                         sx={{ margin: '1em auto', backgroundColor: '#5cdb95', padding: '0.5em', color: 'white', borderRadius: '0.5em' }}
+                         count={Math.ceil(saved.length / 10)}
+                         variant="outlined"
+                         shape="rounded"
+                         onChange={pageinationHandler}
+                    />
+               </Stack>
             </motion.div>
     );
 }
