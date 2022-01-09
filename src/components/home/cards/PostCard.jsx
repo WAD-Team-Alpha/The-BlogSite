@@ -26,17 +26,30 @@ const PostCard = (props) => {
             setUserName(result.firstName)
         })
     }, [])
+
+    // If description length is more than 150 reduse the size of Description Full lenght show in post detail page 
     const str = props.description;
     const len = str.length;
 
     let dec;
-    let result = str.substring(0, 150);
+    let result = str.substring(0, 150); // take substring from Description string
     if (len < 150) {
         dec = <p className="card-text">{props.description}</p>
     }
     else {
         dec = <p className="card-text">{result}....</p>
     }
+    const titles=props.title.length;
+    let resultitle=props.title.substring(0, 25); 
+    let shortitle;
+    if(titles<25)
+    {
+        shortitle=props.title
+    }
+    else{
+        shortitle =<h5 className="card-title fw-bold fs-1 ">{resultitle}....</h5>
+    }
+
     return (
         <div className={`card mb-3  mt-3 ${classes.shadow}`} >
             <div className="row g-0">
@@ -45,7 +58,7 @@ const PostCard = (props) => {
                 </div>
                 <div className="col-md-9">
                     <div className="card-body">
-                        <h5 className="card-title fw-bold fs-1 ">{props.title}</h5>
+                        <h5 className="card-title fw-bold fs-1 ">{shortitle}</h5>
                         <p style={{height: '2.5em'}}>{dec}</p>
                     </div>
                     <div className={classes.bottom}>
