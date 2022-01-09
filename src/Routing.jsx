@@ -18,6 +18,7 @@ import { AnimatePresence } from 'framer-motion';
 import ProfileMiddle from './components/NewProfile/ProfileMiddle';
 import SearchResultsLayout from './layouts/SearchResultsLayout';
 import Results from './components/search/Results';
+import Admin from './admin/Admin';
 
 
 const Routing = () => {
@@ -51,6 +52,7 @@ const Routing = () => {
                 <Route element={<ProfileLayout />}>
                     <Route path="/profile/:uid" element={<ProfileMiddle />} />
                 </Route>
+                <Route path="/admin" element={<Admin />} />
                 <Route path="*" element={<PageNotFound />} />
             </Routes>
         </AnimatePresence>
