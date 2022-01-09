@@ -19,7 +19,8 @@ const postsSlice = createSlice({
             likes : action.payload.likes,
             bookmarks : action.payload.bookmarks,
             comments : action.payload.comments,
-            genre : action.payload.genre
+            genre : action.payload.genre,
+            author: action.payload.author
         });
         console.log(state);
         console.log(action.payload.postId);

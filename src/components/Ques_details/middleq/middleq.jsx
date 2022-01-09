@@ -13,21 +13,16 @@ const Middleq = (props) => {
     console.log(userData)
     const questiondata = useSelector((state)=> state.question)
     return (
-        <div class="container-fluid" >
+        <div class="container-fluid" style={{backgroundColor: 'white', marginTop: '1em', marginBottom: '1em', padding: '1em', borderRadius: '8px'}} className="shadow">
             <div class="row" style={{height:"150px"}}>
                 <div class="col">
                    <div className={classes.middleheader}>
                    <h3><b>{questiondata.question}</b></h3>
                    </div>
                    <div class="row" style={{paddingTop:"0.5em"}}>
-                        <div class="col-3">
-                            <div className={classes.subhead}>
-                               <b>Asked</b>  {questiondata.publishedDate}
-                            </div>
-                        </div>
-                        <div class="col-3">
-                            <div className={classes.subhead}>
-                                <b>Status</b>  {questiondata.status}
+                        <div class="col-12">
+                            <div style={{fontSize: '1em'}}>
+                               <b>Asked on</b>{"  "}<b style={{color: 'green'}}>{questiondata.publishedDate}</b> {"  "} by {"  "} <b style={{color: 'blue'}}>{questiondata.author}</b>
                             </div>
                         </div>
                         {/* <div class="col-3">
@@ -35,11 +30,11 @@ const Middleq = (props) => {
                                 <b>Views</b>  {questiondata.likes}
                             </div>
                         </div> */}
-                        <div class="col-6">
+                        {/* <div class="col-6">
                             <div style={{textAlign:"right"}}>
                                 <button class="btn btn-primary" className={classes.button1}><div>Close thread</div></button>
                             </div>
-                        </div>
+                        </div> */}
                    </div>
                 </div>
             </div>
@@ -52,7 +47,7 @@ const Middleq = (props) => {
             <hr/>
             <div class="row" >
                 <div class="col" >
-                   <Last profileData={props.profileData}/>
+                   <Last profileData={props.profileData} theRef={props.theRef}/>
                         
                 </div>
             </div>

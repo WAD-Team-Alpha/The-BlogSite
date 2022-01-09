@@ -342,6 +342,9 @@ const Profile = (props) => {
             userDetails={userDetails}
           />
         )}
+        {!curUser && (
+          <div style={{height: '1em'}}></div>
+        )}
         {memtab && (
           <Members
             userInfo={otherProfileData}

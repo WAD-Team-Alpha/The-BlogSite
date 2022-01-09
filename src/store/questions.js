@@ -19,6 +19,7 @@ const questionsSlice = createSlice({
         comments : action.payload.comments,
         bookmarks : action.payload.bookmarks,
         status : action.payload.status,
+        author: action.payload.author,
       });
       console.log(action.payload.bookmarks)
       console.log(action.payload.questionId);
