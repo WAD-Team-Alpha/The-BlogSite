@@ -30,6 +30,7 @@ const Postcard = (props) => {
                 likes={postdata.likes}
                 publishedDate={postdata.publishedDate}
                 userId={postdata.uid}
+                author={postdata.author}
               />
             )) : props.postsData.map((postdata) => (
               <PostCard
@@ -41,6 +42,7 @@ const Postcard = (props) => {
                 likes={postdata.likes}
                 publishedDate={postdata.publishedDate}
                 userId={postdata.uid}
+                author={postdata.author}
               />
             ))}
           </div>

@@ -10,7 +10,8 @@ const initialQuestionState = {
   description: "",
   comments: [],
   bookmarks : 0,
-  status: "active"
+  status: "active",
+  author: ""
 };
 
 const questionSlice = createSlice({
@@ -29,6 +30,7 @@ const questionSlice = createSlice({
       state.comments = action.payload.comments;
       state.bookmarks = action.payload.bookmarks;
       state.status = action.payload.status;
+      state.author = action.payload.author;
       console.log("question updated in store");
       console.log(action.payload.bookmarks);
     },

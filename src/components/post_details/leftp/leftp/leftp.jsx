@@ -124,23 +124,9 @@ const Leftp = (props) => {
       // dispatch(sendProfileData(profiledata, authdata.localId));
     }
   }
-
-
-
-  const intialsharecount = 0;
-  const [share, setshare] = useState(0);
-  const [sharestatus, setsharestatus] = useState("share");
-
-  const shareHandler = () => {
-    if (sharestatus === "share") {
-      setsharestatus("share");
-      setshare(intialsharecount + 1);
-    } else {
-      setsharestatus("share");
-    }
-  };
   const [modalShow, setModalShow] = React.useState(false);
   const url = window.location.href;
+
   console.log(postdata);
   return (
     <>
@@ -151,7 +137,7 @@ const Leftp = (props) => {
             style={{ paddingLeft: "5.5em" }}
             onClick={dislikeHandler}
           >
-            <ThumbUpIcon /> {likestatus ? "liked" : "like"}
+            <ThumbUpIcon /> {likestatus ? "Liked" : "Like"}
           </button>
         ) : (
           <button
@@ -159,7 +145,7 @@ const Leftp = (props) => {
             style={{ paddingLeft: "5.5em" }}
             onClick={likeHandler}
           >
-            <ThumbUpOffAlt /> {likestatus ? "liked" : "like"}
+            <ThumbUpOffAlt /> {likestatus ? "Liked" : "Like"}
           </button>
         )}
         <span style={{ paddingLeft: "7em" }}>{like}</span>
@@ -178,7 +164,7 @@ const Leftp = (props) => {
             style={{ paddingLeft: "5.5em" }}
             onClick={bookmarkdislikeHandler}
           >
-            <BookmarkAdded /> {bookmarkstatus ? "bookmarked" : "bookmark"}
+            <BookmarkAdded /> {bookmarkstatus ? "Bookmarked" : "Bookmark"}
           </button>
         ) : (
           <button
@@ -186,7 +172,7 @@ const Leftp = (props) => {
             style={{ paddingLeft: "5.5em" }}
             onClick={bookmarklikeHandler}
           >
-            <BookmarkIcon /> {bookmarkstatus ? "bookmarked" : "bookmark"}
+            <BookmarkIcon /> {bookmarkstatus ? "Bookmarked" : "Bookmark"}
           </button>
         )}
         <span style={{ paddingLeft: "7em" }}>{bookmark}</span>
@@ -196,12 +182,11 @@ const Leftp = (props) => {
         <button
           className="btn shadow-none"
           style={{ paddingLeft: "5.5em" }}
-          onClick={shareHandler}
           onClick={() => setModalShow(true)}
         >
-          <ShareIcon  /> {sharestatus}
+          <ShareIcon />  Share
         </button>
-        <span style={{ paddingLeft: "7em" }} >{share}</span>
+
         <Copyurl
           show={modalShow}
           url={url}
