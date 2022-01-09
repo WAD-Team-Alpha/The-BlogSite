@@ -21,7 +21,7 @@ const Rightp = (props) => {
                     <Box sx={{ bgcolor: "white", height: "158px", borderRadius: "0.3em" }}>
                         <div className="container-fluid">    {/*This division is to print the user details in a box*/ }
                             <div className="row justify-content-end">
-                                <div style={{height: '2.7em'}}></div>
+                                <div style={{height: '1em'}}></div>
                             </div>
                             <div class="row justify-content-start">
 

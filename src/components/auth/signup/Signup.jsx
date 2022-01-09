@@ -8,8 +8,9 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
+// Reducer for signup validation
 const signupReducer = (state, action) => {
-
+    // Email validation
     if (action.type === "EMAIL") {
         return {
             ...state,
@@ -19,6 +20,7 @@ const signupReducer = (state, action) => {
                 state.passwordIsValid && state.passwordIsMatching
         }
     }
+    // Password validation
     if (action.type === "PASSWORD") {
         const passValid = action.payload.trim().length > 6 && /[a-z]/.test(action.payload.trim()) && /[A-Z]/.test(action.payload.trim()) &&
             /[0-9]/.test(action.payload.trim()) && /[^a-zA-Z0-9]/.test(action.payload.trim())
@@ -31,6 +33,7 @@ const signupReducer = (state, action) => {
             passwordIsMatching: passValid && action.payload === state.confirmPassword,
         }
     }
+    // Password validation
     if (action.type === "CONFIRM_PASSWORD") {
         return {
             ...state,
@@ -40,6 +43,7 @@ const signupReducer = (state, action) => {
                 state.passwordIsValid && action.payload === state.password
         }
     }
+    // Firstname validation
     if (action.type === "FIRSTNAME") {
         return {
             ...state,
@@ -49,6 +53,7 @@ const signupReducer = (state, action) => {
                 state.passwordIsValid && state.passwordIsMatching
         }
     }
+    // Lastname validation
     if (action.type === "LASTNAME") {
         return {
             ...state,
@@ -74,9 +79,9 @@ const signupReducer = (state, action) => {
 }
 
 const Signup = (props) => {
-    const navigate = useNavigate();
-    const dispatchAction = useDispatch();
-    const [isEmailExists, setIsEmailExists] = useState(false)
+    const navigate = useNavigate(); //Navigation hook for navigating user
+    const dispatchAction = useDispatch(); //Dispatch hook for sending redux state updates
+    const [isEmailExists, setIsEmailExists] = useState(false) //Initial states
     const initState = {
         firstname: "",
         lastname: "",
@@ -96,11 +101,14 @@ const Signup = (props) => {
     }
     const [state, dispatch] = useReducer(signupReducer, initState)
 
+    // Form handlers each for each input field
     const firstNameHandler = (event) => dispatch({ type: "FIRSTNAME", payload: event.target.value })
     const lastNameHandler = (event) => dispatch({ type: "LASTNAME", payload: event.target.value })
     const emailHandler = (event) => dispatch({ type: "EMAIL", payload: event.target.value })
     const passwordHandler = (event) => dispatch({ type: "PASSWORD", payload: event.target.value })
     const confirmPasswordHandler = (event) => dispatch({ type: "CONFIRM_PASSWORD", payload: event.target.value })
+
+    // Form submit handler
     const formSubmitHandler = (event) => {
         event.preventDefault()
         if (state.formIsValid) {

@@ -6,7 +6,7 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from '@mui/icons-material'
 import classes from './Carousel.module.css'
 import Card from '../card/Card';
 
-const LeftArrow = (props) => {
+const LeftArrow = (props) => { //Left arrow custom ui
     const { className, onClick } = props
     return props.currentSlide !== 0 ? (
         <div className={className + " " + classes.arrow + " " + classes.left} onClick={onClick} >
@@ -15,7 +15,7 @@ const LeftArrow = (props) => {
     ) : <div></div>
 }
 
-const RightArrow = (props) => {
+const RightArrow = (props) => { //Right arrow custom ui
     const { className, onClick } = props
     return props.currentSlide !== 6 ? (
         <div className={className + " " + classes.arrow + " " + classes.right} onClick={onClick} >
@@ -24,7 +24,7 @@ const RightArrow = (props) => {
     ) : <div></div>
 }
 
-const Carousel = (props) => {
+const Carousel = (props) => { //Carousel component
     let settings = {
         prevArrow: <LeftArrow />,
         nextArrow: <RightArrow />,

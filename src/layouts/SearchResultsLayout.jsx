@@ -8,7 +8,7 @@ const SearchResults = () => {
     const navHandler = () => {
         nav ? setNav(false) : setNav(true)
     }
-    const location = useLocation()
+    const location = useLocation() //QUery parameters
     const params = new URLSearchParams(location.search)
     if(params.get('query')) {
         console.log("The query is ", params.get('query'))

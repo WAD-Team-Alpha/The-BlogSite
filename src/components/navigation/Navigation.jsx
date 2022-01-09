@@ -9,11 +9,11 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 const Navigation = (props) => {
-    const trendData = useSelector(state => state.trending)
+    const trendData = useSelector(state => state.trending) //Accessing the trending data from the redux store
     console.log(trendData)
-    const navigate = useNavigate()
-    const [search, setSearch] = useState()
-    const genreHandler = (event) => {
+    const navigate = useNavigate() //Navigating hooks
+    const [search, setSearch] = useState() //state is stored here
+    const genreHandler = (event) => { //Genre handler
         setSearch(event.target.value)
     }
     return (
@@ -29,7 +29,7 @@ const Navigation = (props) => {
                             <input type="text" className="form-control" placeholder="Search here !" onChange={genreHandler} />
                             <button className="btn btn-primary shadow-none" onClick={(event) => {
                                 event.preventDefault()
-                                navigate(`/searchresults?query=${search.split(" ").join("-").toLowerCase()}`)
+                                navigate(`/searchresults?query=${search.split(" ").join("-").toLowerCase()}`) //Navigating to the search results page
                             }}>Search</button>
                         </div>
                     </div>
@@ -38,6 +38,7 @@ const Navigation = (props) => {
             <div className={"container " + classes.genre}>
                 <h2><Category fontSize='1.5em' /> Genres</h2>
                 <div className="container d-flex justify-content-between">
+                    {/* Rendering all the genres randomly */}
                     {genreData.map(genre => {
                         return <GenreCard title={genre.title} link={genre.link} name={genre.name} />
                     })}

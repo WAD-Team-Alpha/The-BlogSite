@@ -45,7 +45,7 @@ const QuestionLayout = () => {
             },
         }
     }
-    const updateRecentActivity = (data, value) => {
+    const updateRecentActivity = (data, value) => { //Function to update the recent activity
         var temp
         if (data.filter((obj) => obj.id === value.id) !== []) {
             temp = data.filter((obj) => obj.id !== value.id)
@@ -62,21 +62,22 @@ const QuestionLayout = () => {
         }
     }
 
+    // Effets to handle the api requests for the question data
     useEffect(() => {
         
         setSubmit(true);
-        dispatch(fetchProfileData(localStorage.getItem("localId"))).then((result) => {
+        dispatch(fetchProfileData(localStorage.getItem("localId"))).then((result) => { //Fetching the profile data
             if (result !== 'false') {
                 console.log("I am in the false case lmaoooo", result)
-                dispatch(profileActions.update({
+                dispatch(profileActions.update({ //Dispatching the data
                     ...result,
                     recentActivity: updateRecentActivity(result.recentActivity, { id: params.threadID, type: 'question' })
                 }))
             }
         })
-        dispatch(fetchQuestionData(params.threadID)).then((result) => {
+        dispatch(fetchQuestionData(params.threadID)).then((result) => { //Fetching the others profile data
             console.log(result);
-            if (result !== null) {
+            if (result !== null) { //Dispatching it
                 dispatch(fetchOtherProfileData(result.userId)).then((data) => {
                     console.log(data);
                     setData({...data, followercount: data.followersList.length,followingcount: data.followingList.length, userId: result.userId })

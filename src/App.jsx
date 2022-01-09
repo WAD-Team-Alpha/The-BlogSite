@@ -41,10 +41,10 @@ function App() {
     console.log("send data is triggered");
     console.log(aboutData);
     dispatch(fetchProfileData(isAuth.localId)).then((res)=>{if(res!==null){
-      res.postIds.map(id=>{console.log("this line is excecuted");(dispatch(fetchPostsData(id)))})
+      res.postIds?.map(id=>{console.log("this line is excecuted");(dispatch(fetchPostsData(id)))})
     }});
     dispatch(fetchProfileData(isAuth.localId)).then((res)=>{if(res!==null){
-      res.questionIds.map(id=>{console.log("this line is excecuted");(dispatch(fetchQuestionsData(id)))})
+      res.questionIds?.map(id=>{console.log("this line is excecuted");(dispatch(fetchQuestionsData(id)))})
     }});
   
   },[isAuth])

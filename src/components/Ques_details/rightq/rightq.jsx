@@ -30,7 +30,7 @@ const Rightq = (props) => {
                         <Box sx={{bgcolor:"white", height:"158px", borderRadius:"0.3em"}}>
                             <div className="container-fluid">
                                 <div className="row justify-content-end">
-                                    <div class="col-2" style={{height: '1em'}} >
+                                    <div class="col-2" style={{height: 'em'}} >
                                     </div>
                                 </div>
                                 <div class="row justify-content-start">
