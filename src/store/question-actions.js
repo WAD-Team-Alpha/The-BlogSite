@@ -58,7 +58,7 @@ export const fetchQuestionData = ( questionId ) => {
           const questionData = await fetchData();
           var data = {
 
-              ... questionData,
+              ...questionData,
               comments : questionData.comments === undefined ? [] : questionData.comments,
               bookmarks : questionData.bookmarks === undefined ? 0 : questionData.bookmarks,
               status : questionData.status === undefined ? "active" : questionData.status,
@@ -110,7 +110,7 @@ export const fetchQuestionsData = ( questionId ) => {
           const questionData = await fetchData();
           var data = {
 
-              ... questionData,
+              ...questionData,
               comments : questionData.comments === undefined ? [] : questionData.comments,
               bookmarks : questionData.bookmarks === undefined ? 0 : questionData.bookmarks,
               status : questionData.status === undefined ? "active" : questionData.status,
