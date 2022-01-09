@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//fetching the question ids of the user to show in the profile page
 const initialQuestionsState = [];
 
 const questionsSlice = createSlice({
   name: "questionsData",
-  initialState: initialQuestionsState,
+  initialState: initialQuestionsState, //intializing the initial state in the store
   reducers: {
-    addQuestion(state, action) {
+    addQuestion(state, action) { //storing the user created question details
       console.log("This is questions.js???")
       state.push({
         questionId : action.payload.questionId,
@@ -29,6 +30,6 @@ const questionsSlice = createSlice({
   },
 });
 
-export const questionsActions = questionsSlice.actions;
+export const questionsActions = questionsSlice.actions; //exporting the reducers
 
-export default questionsSlice.reducer;
+export default questionsSlice.reducer; //exporting the store

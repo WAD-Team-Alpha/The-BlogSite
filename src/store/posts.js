@@ -1,12 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//for showing the posts details of the users in the profile page
 const initialpostsState = [];
 
 const postsSlice = createSlice({
   name: "postsData",
   initialState: initialpostsState,
   reducers: {
-    addPost(state, action) {
+    addPost(state, action) { //adding the details of the posts
         console.log("line 10 is running");
         state.push({
             postId : action.payload.postId,
@@ -29,6 +30,6 @@ const postsSlice = createSlice({
   },
 });
 
-export const postsActions = postsSlice.actions;
+export const postsActions = postsSlice.actions; //exporting the reducers
 
-export default postsSlice.reducer;
+export default postsSlice.reducer; //exporting the store

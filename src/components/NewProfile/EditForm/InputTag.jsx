@@ -1,15 +1,14 @@
-import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
+import * as React from "react";
+import { useTheme } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import Chip from "@mui/material/Chip";
 
 
-// import { useDispatch,useSelector } from 'react-redux';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -22,13 +21,7 @@ const MenuProps = {
   },
 };
 
-const genres = [
-  "Technology",
-  "Science",
-  "Coding",
-  "Nature",
-  "Gaming"
-];
+const genres = ["Technology", "Science", "Coding", "Nature", "Gaming"]; //User genres
 
 function getStyles(name, genreName, theme) {
   return {
@@ -40,11 +33,10 @@ function getStyles(name, genreName, theme) {
 }
 
 export default function MultipleSelectChip(props) {
-  // const dispatch=useDispatch();
-  // const genres = useSelector((state)=>state.counter.genres)
+  
 
   const theme = useTheme();
-  // const [genreName, setGenreName] = React.useState([]);
+ 
 
   const handleChange = (event) => {
     const {
@@ -52,30 +44,31 @@ export default function MultipleSelectChip(props) {
     } = event;
     props.setGenre(
       // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-
+      typeof value === "string" ? value.split(",") : value
     );
-   
-   
   };
 
- 
   return (
     <div>
-      <FormControl sx={{width: 280 }}>
+      <FormControl sx={{ width: 280 }}>
         <InputLabel id="demo-multiple-chip-label">Intrested Genre</InputLabel>
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           multiple
-          defaultValue={props.genre}
+          defaultValue={props.genre} //Setting the selected value into genre
           onChange={handleChange}
-         
-          input={<OutlinedInput id="select-multiple-chip" label="Intrested Genre" />}
+          input={
+            <OutlinedInput id="select-multiple-chip" label="Intrested Genre" />
+          }
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value}  style={{backgroundColor:"#8ee4af", color:"#05386b"}}/>
+                <Chip
+                  key={value}
+                  label={value}
+                  style={{ backgroundColor: "#8ee4af", color: "#05386b" }}
+                />
               ))}
             </Box>
           )}

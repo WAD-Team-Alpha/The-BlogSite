@@ -5,11 +5,11 @@ import { fetchOtherProfileData } from "../../../store/profile-actions";
 import { sendOtherProfileData } from "../../../store/profile-actions";
 
 const Following = (props) => {
-  const followinglist = useSelector((state) => state.profile.followingList);
-  const dispatch = useDispatch();
+  const followinglist = useSelector((state) => state.profile.followingList); //fetching user following list from the store
+  const dispatch = useDispatch(); //Intializing the dispatch
   console.log(followinglist);
-  const followInfo = useSelector((state) => state.profile);
-  const authStatus = useSelector((state) => state.auth);
+  const followInfo = useSelector((state) => state.profile); //fetching user info from the store 
+  const authStatus = useSelector((state) => state.auth); //fetching user authentication from the user
   const unfollowHandler = (index) => {
     const newList = followInfo.followingList.filter((id)=>id.id !== index)
     
@@ -47,7 +47,7 @@ const Following = (props) => {
             <div class="col-4" style={{}}>
               <button
                 class="btn btn-danger"
-                onClick={() => unfollowHandler(user.id)}
+                onClick={() => unfollowHandler(user.id)} //unfollowing the user by using their ids
               >
                 Unfollow
               </button>

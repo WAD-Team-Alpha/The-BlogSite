@@ -1,11 +1,11 @@
 import { questionActions } from "./question";
 import { questionsActions } from "./questions";
-export const sendQuestionData = (questionData,questionId) => {
+export const sendQuestionData = (questionData,questionId) => { //sending the question details to the database
   return async (dispatch) => {
     console.log(questionData, questionId)
     console.log("sending");
     console.log("send data action is triggered");
-    const sendRequest = async () => {
+    const sendRequest = async () => { //sending the req to the database
       const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions/${questionId}.json`;
       const response = await fetch(url, {
         method: "PUT",
@@ -29,7 +29,7 @@ export const sendQuestionData = (questionData,questionId) => {
   };
 };
 
-export const fetchQuestionData = ( questionId ) => {
+export const fetchQuestionData = ( questionId ) => { //fetching the question details from the database
 
   return async ( dispatch ) => {
       
@@ -64,7 +64,7 @@ export const fetchQuestionData = ( questionId ) => {
               status : questionData.status === undefined ? "active" : questionData.status,
 
           }
-          dispatch( questionActions.add( data ) );
+          dispatch( questionActions.add( data ) ); //updating the details in the store
           console.log(data)
           return data;
           
@@ -82,7 +82,7 @@ export const fetchQuestionData = ( questionId ) => {
 };
 
 
-export const fetchQuestionsData = ( questionId ) => {
+export const fetchQuestionsData = ( questionId ) => { //fetching the question details  to show in the question tabs in the profile page
 
   return async ( dispatch ) => {
       console.log( "questions fetch data action is triggered" );
@@ -129,7 +129,7 @@ export const fetchQuestionsData = ( questionId ) => {
   };
 
 };
-export const fetchOtherQuestionsData = ( questionId ) => {
+export const fetchOtherQuestionsData = ( questionId ) => { //
 
   return async ( dispatch ) => {
       console.log( "questions fetch data action is triggered" );

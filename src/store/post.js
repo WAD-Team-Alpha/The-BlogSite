@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//Intial state of the posts details
 const initialpostState = {
   postId: "",
   likes: 0,
@@ -17,9 +18,9 @@ const initialpostState = {
 
 const postSlice = createSlice({
   name: "postData",
-  initialState: initialpostState,
+  initialState: initialpostState, //intializing the intialstate of the posts in this store
   reducers: {
-    add(state, action) {
+    add(state, action) {  //function/reducer for adding the created posts into the store
       console.log(action.payload);
       state.postId = action.payload.postId;
       state.uid = action.payload.uid;
@@ -37,6 +38,6 @@ const postSlice = createSlice({
   },
 });
 
-export const postActions = postSlice.actions;
+export const postActions = postSlice.actions; //exporting the actions of the post i.e add
 
-export default postSlice.reducer;
+export default postSlice.reducer; //exporting the reducer
