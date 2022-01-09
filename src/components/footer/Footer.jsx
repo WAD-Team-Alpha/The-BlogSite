@@ -2,6 +2,8 @@ import { Facebook, GitHub, Instagram, KeyboardArrowUp, Twitter, WhatsApp, YouTub
 import React from 'react'
 import classes from './Footer.module.css'
 
+
+// Complete static file with no state management
 const Footer = () => {
     return (
         <>

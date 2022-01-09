@@ -1,4 +1,5 @@
 export const fetchActivity = async (recentActivity) => {
+    // Fetch all the posts with teh given post id
     const fetchPosts = async (postId) => {
         try {
             const response = await fetch(`https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${postId}.json`);
@@ -9,6 +10,7 @@ export const fetchActivity = async (recentActivity) => {
         }
     };
 
+    // Fetch all the questions give the questio  id
     const fetchQuestions = async (threadId) => {
         try {
             const response = await fetch(`https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions/${threadId}.json`);
@@ -20,9 +22,9 @@ export const fetchActivity = async (recentActivity) => {
     };
 
     console.log(recentActivity)
-    const postData = recentActivity.filter((obj) => obj?.type === "post")
+    const postData = recentActivity.filter((obj) => obj?.type === "post") //Filtering all the post ids
     console.log(postData)
-    const questionData = recentActivity.filter((obj) => obj?.type === "question")
+    const questionData = recentActivity.filter((obj) => obj?.type === "question") //Filtering all the question ids
     console.log(questionData)
     const recents = []
     for (var post in postData) {
@@ -37,5 +39,5 @@ export const fetchActivity = async (recentActivity) => {
         recents.push({ type: 'question', data: temp })
     }
 
-    return recents
+    return recents //Returning all the data
 };

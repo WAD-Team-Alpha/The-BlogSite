@@ -3,6 +3,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
 
 const PostModal = (props) => {
+    // Model to select the type of input box 
     return (
         <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div className="modal-dialog">

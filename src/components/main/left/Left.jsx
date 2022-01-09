@@ -6,8 +6,8 @@ import { motion } from 'framer-motion';
 import {useSelector} from 'react-redux'
 
 const Left = (props) => {
-    const authStatus = useSelector((state) => state.auth)
-    const path = authStatus.isAuthenticated ? 'forms/post' : '/auth?code=signin&main=true'
+    const authStatus = useSelector((state) => state.auth) //Acceessing the user's data
+    const path = authStatus.isAuthenticated ? 'forms/post' : '/auth?code=signin&main=true' // Conditional form path
     return (
         <motion.div initial={{x: '-100vw'}} animate={{x: 0}} transition={{ type: 'spring', duration: 2, bounce: 0.4}}>
             <div className={classes.header}>
