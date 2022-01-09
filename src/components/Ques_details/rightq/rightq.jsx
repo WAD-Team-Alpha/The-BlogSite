@@ -9,12 +9,13 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOtherProfileData } from '../../../store/profile-actions';
 
-
+import { useNavigate } from "react-router-dom";
 
 const Rightq = (props) => {
     const num=[1,2,3,4]
+    const profileData = props.profileData;
     const dispatch = useDispatch()
-   
+    const navigate = useNavigate();
     const userDetails = props.profileData
     console.log(userDetails)
 
@@ -68,7 +69,7 @@ const Rightq = (props) => {
                                     </div>
                                     <div class="row justify-content-start">
                                         <div class="col-6">
-                                            <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#05386B", textTransform:"none"}}>Inspect</Button></span>
+                                            <span><Button variant="contained" onClick={()=>{navigate(`/profile/${profileData.userId}`)}} style={{ height:"28px", width:"76px", backgroundColor:"#05386B", textTransform:"none"}}>Inspect</Button></span>
                                         </div>
                                         <div class="col-6" >
                                             <span><Button variant="contained" style={{ height:"28px", width:"76px", backgroundColor:"#5cdb95", color:"black", textTransform:"none"}}>Follow</Button></span>

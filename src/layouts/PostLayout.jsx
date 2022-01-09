@@ -79,8 +79,14 @@ const PostLayout = () => {
         dispatch(fetchOtherProfileData(result.uid)).then((data) => {
           console.log(data);
           console.log(data.followersList.length);
-          setData({ ...data, followercount: data.followersList.length, followingcount: data.followingList.length, userId: result.uid })
-          setSubmit(false)
+          setData({
+            ...data,
+            followercount: data.followersList.length,
+            followingcount: data.followingList.length,
+            userId: result.uid,
+          });
+          console.log(data.followersList.length,data.followingList.length);
+          setSubmit(false);
         });
       }
     });
