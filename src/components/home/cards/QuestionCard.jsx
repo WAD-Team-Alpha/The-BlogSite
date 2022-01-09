@@ -22,34 +22,24 @@ const QuestionCard = (props) => {
 
             setUserName(result.firstName)
         })
-    }, [])
-    let votelen = props.votes.length;
-    let numberofvote;
-    let ans = props.answers;
-    let numberofanswer
-    if (votelen > 0) {
-        numberofvote = props.votes
-    }
-    else {
-        numberofvote = 0
-    }
-    if (ans > 0) {
-        numberofanswer = ans
-    }
-    else {
-        numberofanswer = 0
-    }
-    const str = props.details;
-    const len = str.length;
+        }, [])
+       
 
-    let dec;
-    let result = str.substring(0, 270);
-    if (len < 270) {
-        dec = <p className="card-text">{props.details}</p>
-    }
-    else {
-        dec = <p className="card-text">{result}....</p>
-    }
+       
+        
+
+
+
+        const str=props.details;
+        const len=str.length;
+        
+        let dec;
+        let result = str.substring(0,270);
+        if( len<270){ 
+        dec= <p className="card-text">{props.details}</p>}
+        else{
+          dec=<p className="card-text">{result}....</p>  
+        }
     return (
         <div className={`card  mb-3 mt-3 ${classes.shadow}`} >
             <div class="row g-0">
@@ -57,14 +47,14 @@ const QuestionCard = (props) => {
 
                     <div className={`row ${classes.votes}`}>
 
-                        <p className="fw-bold fs-1  ">{numberofvote}</p>
-
+                        <p className="fw-bold fs-1  ">{props.votes}</p>
+                        
                         <p className={`${classes.vote}`}>Votes</p>
                     </div>
 
                     <div className={`row ${classes.answer}`}>
-                        <p className="fw-bold fs-1 ml-6 ">{numberofanswer}</p>
-
+                        <p className="fw-bold fs-1 ml-6 ">{props.answers}</p>
+                       
                         <p className={`${classes.answerpostion}`}>Answers</p>
                     </div>
 
