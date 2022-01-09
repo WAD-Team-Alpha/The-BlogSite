@@ -1,113 +1,142 @@
-import React, { useState, useEffect } from 'react'
-import Header from '../components/header/Header'
-import classes from './Layout.module.css'
-import Footer from '../components/footer/Footer'
-import Navigation from '../components/navigation/Navigation'
-import Rightp from '../components/post_details/leftp/rightp/rightp'
-import Leftp from '../components/post_details/leftp/leftp/leftp'
-import Middlep from '../components/post_details/leftp/middlep/middlep'
-import { useParams } from 'react-router-dom'
-import { motion } from 'framer-motion'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchPostData } from '../store/post-actions'
-import { fetchOtherProfileData, fetchProfileData } from '../store/profile-actions'
-import { profileActions } from '../store/profile'
+import React, { useState, useEffect } from "react";
+import Header from "../components/header/Header";
+import classes from "./Layout.module.css";
+import Footer from "../components/footer/Footer";
+import Navigation from "../components/navigation/Navigation";
+import Rightp from "../components/post_details/leftp/rightp/rightp";
+import Leftp from "../components/post_details/leftp/leftp/leftp";
+import Middlep from "../components/post_details/leftp/middlep/middlep";
+import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPostData } from "../store/post-actions";
+import {
+  fetchOtherProfileData,
+  fetchProfileData,
+} from "../store/profile-actions";
+import { profileActions } from "../store/profile";
+import LoadingSpinner from "../components/auth/LoadingSpinner";
 
 const PostLayout = () => {
-    const dispatch = useDispatch();
-    const [nav, setNav] = useState(false);
-    const [data, setData] = useState({});
+  const dispatch = useDispatch();
+  const [nav, setNav] = useState(false);
+  const [data, setData] = useState({});
+  const [submit, setSubmit] = useState(false);
 
-    const profileData = useSelector(state => state.profile)
-    const updateRecentActivity = (data, value) => {
-        var temp
-        if (data.filter((obj) => obj.id === value.id) !== []) {
-            temp = data.filter((obj) => obj.id !== value.id)
-            temp = [value].concat(temp)
-            return temp
-        }
-        if (data.length === 10) {
-            temp = data.pop()
-            temp = [value].concat(data)
-            return temp
-        } else {
-            temp = [value].concat(data)
-            return temp
-        }
+  const profileData = useSelector((state) => state.profile);
+  const updateRecentActivity = (data, value) => {
+    var temp;
+    if (data.filter((obj) => obj.id === value.id) !== []) {
+      temp = data.filter((obj) => obj.id !== value.id);
+      temp = [value].concat(temp);
+      return temp;
     }
+    if (data.length === 10) {
+      temp = data.pop();
+      temp = [value].concat(data);
+      return temp;
+    } else {
+      temp = [value].concat(data);
+      return temp;
+    }
+  };
 
+  const navHandler = () => {
+    nav ? setNav(false) : setNav(true);
+  };
+  const params = useParams();
+  const mainVarient = {
+    hidden: {
+      opacity: 0,
+      x: "100vw",
+    },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
+    exit: {
+      x: "100vw",
+      transition: {
+        ease: "easeInOut",
+      },
+    },
+  };
 
-    const navHandler = () => {
-        nav ? setNav(false) : setNav(true)
-    }
-    const params = useParams();
-    const mainVarient = {
-        hidden: {
-            opacity: 0,
-            x: '100vw'
-        },
-        visible: {
-            x: 0,
-            opacity: 1,
-            transition: {
-                duration: 0.5,
-                ease: 'easeInOut'
-            },
-        },
-        exit: {
-            x: '100vw',
-            transition: {
-                ease: 'easeInOut'
-            },
+  useEffect(() => {
+    setSubmit(true);
+    dispatch(fetchProfileData(localStorage.getItem("localId"))).then(
+      (result) => {
+        if (result !== "false") {
+          console.log("I am in the false case lmaoooo", result);
+          dispatch(
+            profileActions.update({
+              ...result,
+              recentActivity: updateRecentActivity(profileData.recentActivity, {
+                id: params.postID,
+                type: "post",
+              }),
+            })
+          );
         }
-    }
-    useEffect(() => {
-        dispatch(fetchProfileData(localStorage.getItem("localId"))).then((result) => {
-            if (result !== 'false') {
-                console.log("I am in the false case lmaoooo", result)
-                dispatch(profileActions.update({
-                    ...result,
-                    recentActivity: updateRecentActivity(profileData.recentActivity, { id: params.postID, type: 'post' })
-                }))
-            }
-        })
-        dispatch(fetchPostData(params.postID)).then((result) => {
-            if (result !== null) {
-                dispatch(fetchOtherProfileData(result.uid)).then((data) => {
-                    console.log(data);
-                    console.log(data.followersList.length);
-                    setData({ ...data, followercount: data.followersList.length, followingcount: data.followingList.length, userId: result.uid })
-                });
-            }
+      }
+    );
+    dispatch(fetchPostData(params.postID)).then((result) => {
+      if (result !== null) {
+        dispatch(fetchOtherProfileData(result.uid)).then((data) => {
+
+          console.log(data);
+          console.log(data.followersList.length);
+          setData({
+            ...data,
+            followercount: data.followersList.length,
+            followingcount: data.followingList.length,
+            userId: result.uid,
+          });
+          setSubmit(false);
         });
-    }, []);
+      }
+     
+    });
+   
+  }, []);
 
+  return submit ? (
+    LoadingSpinner
+  ) : (
+    <>
+      {!nav && <Header nav={navHandler} />}
+      {nav && <Navigation nav={navHandler} />}
+      {!nav && (
+        <motion.div
+          variants={mainVarient}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+        >
+          <div className={"container-fluid " + classes.content}>
+            <div className="row">
+              <div className={"col-md-2 shadow-lg " + classes.leftpane}>
+                <Leftp postID={params.postID} profileData={data} />
+              </div>
+              <div className={"col-md-7 shadow-lg " + classes.middlepane}>
+                <Middlep postID={params.postID} profileData={data} />
+              </div>
+              <div className={"col-md-3 shadow-lg " + classes.rightpane}>
+                <Rightp postID={params.postID} profileData={data} />
+              </div>
+            </div>
+          </div>
+          <div className={classes.footer}>
+            <Footer />
+          </div>
+        </motion.div>
+      )}
+    </>
+  );
+};
 
-    return (
-        <>
-            {!nav && <Header nav={navHandler} />}
-            {nav && <Navigation nav={navHandler} />}
-            {!nav && <motion.div variants={mainVarient} initial='hidden' animate='visible' exit='exit'>
-                <div className={"container-fluid " + classes.content}>
-                    <div className="row">
-                        <div className={"col-md-2 shadow-lg " + classes.leftpane}>
-                            <Leftp postID={params.postID} profileData={data} />
-                        </div>
-                        <div className={"col-md-7 shadow-lg " + classes.middlepane}>
-                            <Middlep postID={params.postID} profileData={data} />
-                        </div>
-                        <div className={"col-md-3 shadow-lg " + classes.rightpane}>
-                            <Rightp postID={params.postID} profileData={data} />
-                        </div>
-                    </div>
-                </div>
-                <div className={classes.footer}>
-                    <Footer />
-                </div>
-            </motion.div>}
-        </>
-    )
-
-}
-
-export default PostLayout
+export default PostLayout;

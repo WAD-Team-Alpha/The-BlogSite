@@ -11,6 +11,7 @@ import ThumbUpOffAlt from "@mui/icons-material/ThumbUpOffAlt";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
 import { profileActions } from "../../../../store/profile";
 import { sendProfileData } from "../../../../store/profile-actions";
+import { postActions } from "../../../../store/post";
 
 
 const Leftp = (props) => {
@@ -21,24 +22,48 @@ const Leftp = (props) => {
 
   const [like, setLike] = useState(postdata.likes);
   const [bookmark, setBookmark] = useState(postdata.bookmarks);
- 
+  console.log(postdata);
   // const [bookmarkIcon, setBookmarkIcon] = useState(<BookmarkIcon />);
   console.log(bookmark);
   const likedcontent = useSelector((state) => state.profile);
   const likeid = likedcontent.likedContent;
 
-  const savedId = likedcontent.savedContent;
+  const checkId = (savedId, postId)=>{
+    for (var i = 0; i < savedId.length; i++) {
+      console.log(savedId[i], postId);
+    
+      if(savedId[i].id === postId){
+        console.log("true")
+        return true
+      }
+      //Do something
+  }
+  console.log("false");
+  return false
+  }
+ 
+  const savedId = likedcontent.savedContent
+
   console.log(savedId);
+  console.log(postdata.postId);
+  console.log(likedcontent);
 
   const [likestatus, setLikestatus] = useState(likeid.includes(postdata.postId));
-  const [bookmarkstatus, setBookmarkstatus] = useState(false);
+  console.log(savedId.includes(postdata.postId));
+  const [bookmarkstatus, setBookmarkstatus] = useState(checkId(savedId, postdata.postId));
+  
   console.log(likeid.includes(postdata.postId));
     if (likeid.includes(postdata.postId)) {
       console.log("You already liked this post...");
     }
 
+    if (savedId.includes(postdata.postId)) {
+      console.log("You already bookmarked this post...");
+    }
+
   console.log(like);
   console.log(likestatus);
+  console.log(bookmarkstatus)
 
   const likeHandler = () => {
     if (!likestatus) {
@@ -50,7 +75,11 @@ const Leftp = (props) => {
 
       // dispatch(sendProfileData(profiledata, authdata.localId));
       console.log(postdata);
-      dispatch(sendPostData({ ...postdata, likes: likes }, postdata.postId));
+      dispatch(sendPostData({ ...postdata, likes: likes }, postdata.postId)).then((res)=>{
+        if(res==="success"){
+          dispatch(postActions.add({...postdata, likes: likes}))
+        }
+      });
     }
   };
 
@@ -66,28 +95,37 @@ const Leftp = (props) => {
     }
   };
 
-
-  const bookmarkHandler = () => {
-    var bookmarks = postdata.bookmarks;
+  const bookmarklikeHandler = () =>{
     if (!bookmarkstatus) {
-      setBookmarkstatus(false);
+      var bookmarks = bookmark;
+      setBookmarkstatus(true);
       setBookmark((val) => val + 1);
       bookmarks = bookmark + 1;
-      dispatch(
-        profileActions.addBookmark({ type: "post", id: postdata.postId })
-      );
-    } else {
+     dispatch(profileActions.addBookmark({ type: "post", id: postdata.postId }))
+
+      // dispatch(sendProfileData(profiledata, authdata.localId));
+      console.log(postdata);
+      dispatch(sendPostData({ ...postdata, bookmarks : bookmarks }, postdata.postId))
+    }
+  }
+
+  const bookmarkdislikeHandler = () => {
+    if (bookmarkstatus) {
+      var bookmarks = bookmark;
       setBookmarkstatus(false);
       setBookmark((val) => val - 1);
       bookmarks = bookmark - 1;
-      dispatch(
-        profileActions.removeBookmark({ type: "post", id: postdata.postId })
-      );
+      dispatch(profileActions.removeBookmark({ type: "post", id: postdata.postId }))
+      dispatch(sendPostData({ ...postdata, bookmarks : bookmarks }, postdata.postId)).then((res)=>{
+        if(res==="success"){
+          dispatch(postActions.add({...postdata, bookmarks : bookmarks}))
+        }
+      });;
+      // dispatch(sendProfileData(profiledata, authdata.localId));
     }
-    dispatch(
-      sendPostData({ ...postdata, bookmarks: bookmarks }, postdata.postId)
-    );
-  };
+  }
+
+  
 
   const intialsharecount = 0;
   const [share, setshare] = useState(0);
@@ -133,19 +171,19 @@ const Leftp = (props) => {
         <br />
         <br />
 
-        {savedId.includes(postdata.postId) ? (
+        {bookmarkstatus ? (
           <button
             className="btn shadow-none"
             style={{ paddingLeft: "5.5em" }}
-            onClick={bookmarkHandler}
+            onClick={bookmarkdislikeHandler}
           >
-            <BookmarkAdded /> {bookmarkstatus ? "bookmarked" : "bookmark"}
+            <BookmarkAdded/> {bookmarkstatus ? "bookmarked" : "bookmark"}
           </button>
         ) : (
           <button
             className="btn shadow-none"
             style={{ paddingLeft: "5.5em" }}
-            onClick={bookmarkHandler}
+            onClick = { bookmarklikeHandler}
           >
             <BookmarkIcon /> {bookmarkstatus ? "bookmarked" : "bookmark"}
           </button>
