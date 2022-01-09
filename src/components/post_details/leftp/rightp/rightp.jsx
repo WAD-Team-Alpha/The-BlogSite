@@ -9,8 +9,8 @@ import Button from '@mui/material/Button';
 import { useNavigate } from "react-router-dom";
 const Rightp = (props) => {
     const navigate = useNavigate();
-    const num = [1, 2, 3, 4]
-    const profileData = props.profileData;
+    // const num = [1, 2, 3, 4] // This was for testing purpose
+    const profileData = props.profileData;    // importing and saving the profile data
     console.log(profileData);
     // var followercount = 0;
     // var followingcount = 0;
@@ -19,7 +19,7 @@ const Rightp = (props) => {
             <div className={classes.containerMD}>
                 <Container>
                     <Box sx={{ bgcolor: "white", height: "158px", borderRadius: "0.3em" }}>
-                        <div className="container-fluid">
+                        <div className="container-fluid">    {/*This division is to print the user details in a box*/ }
                             <div className="row justify-content-end">
                                 <div style={{height: '1em'}}></div>
                             </div>
@@ -31,6 +31,7 @@ const Rightp = (props) => {
 
                                     />
                                 </div>
+                                
                                 <div class="col-8">
                                     <span className={classes.uname}> <b>{profileData.firstName}{" "}{profileData.lastName}</b></span>
 

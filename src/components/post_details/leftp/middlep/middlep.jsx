@@ -21,7 +21,8 @@ const Middlep = (props) => {
   const [comment, setComment] = useState("");
   const profileData = props.profileData;
   const [comments, setComments] = useState(postdata.comments);
-  const addCommentHandler = (event) => {
+
+  const addCommentHandler = (event) => {          // comment handler from leftp component
     event.preventDefault();
     console.log();
     if (comment === "") {
@@ -31,7 +32,7 @@ const Middlep = (props) => {
       ...postdata.comments,
       { userId: authdata.localId, name: userData.firstName, text: comment },
     ];
-    dispatch(postActions.add({ ...postdata, comments: newComments }));
+    dispatch(postActions.add({ ...postdata, comments: newComments })); //accessing data from store
     setComments((state) => {
       return [
         ...state,
@@ -80,8 +81,8 @@ const Middlep = (props) => {
                   <hr />
                 </div>
                 <div>
-                  <p>{postdata.postSummary}</p>
-                  {postdata.postData.map((val) => {
+                  <p>{postdata.postSummary}</p>   
+                  {postdata.postData.map((val) => {         // itterating all the data from the post and showing it
                     if (val.type === "text") {
                       return <p className="mb-2 mt-2">{val.value}</p>;
                     } else {
@@ -134,7 +135,7 @@ const Middlep = (props) => {
 
                   <br />
                   <br />
-                  {postdata.comments.map((val) => (
+                  {postdata.comments.map((val) => (          //itterating through all the comments and printing them below the post
                     <div>
                       <div class="container-fluid">
                         <div class="row">
