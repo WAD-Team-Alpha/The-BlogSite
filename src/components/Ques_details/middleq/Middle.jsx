@@ -8,7 +8,7 @@ const Middle=()=>{
             <span>{questiondata.description} </span>
         </div>
         <div style={{ paddingRight: "1em", paddingTop:"1em" }}>
-          <img src={questiondata.imageUrl} alt="prathyush" width="820px" height="248px" />
+          <img src={questiondata.imageUrl} alt="none" width="820px" height="248px" />
         </div>
     </div>
 

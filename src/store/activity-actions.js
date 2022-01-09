@@ -20,8 +20,9 @@ export const fetchActivity = async (recentActivity) => {
     };
 
     console.log(recentActivity)
-    const postData = recentActivity.filter((obj) => obj.type === "post")
-    const questionData = recentActivity.filter((obj) => obj.type === "question")
+    const postData = recentActivity.filter((obj) => obj?.type === "post")
+    console.log(postData)
+    const questionData = recentActivity.filter((obj) => obj?.type === "question")
     console.log(questionData)
     const recents = []
     for (var post in postData) {

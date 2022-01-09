@@ -6,8 +6,8 @@ import { fetchPostData } from '../../../store/post-actions';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { fetchOtherProfileData } from '../../../store/profile-actions';
-import OutsideClickHandler from 'react-outside-click-handler';
-import CopyToClipboard from 'react-copy-to-clipboard';
+
+import Copyurl from './CopyUrl'
 const PostCard = (props) => {
     const navigate = useNavigate();
     const [submit, setSubmit] = useState(false);
@@ -39,28 +39,12 @@ const PostCard = (props) => {
         dec = <p className="card-text">{result}....</p>
     }
     const url = window.location.href;
+
+    const [modalShow, setModalShow] = React.useState(false);
    
     return (
         <div className={`card mb-3  mt-3 ${classes.shadow}`} >
-            { 
-               hidden && (
-                <div className={` container ${classes.copy}`} onClick={() => setHidden(false)}>
-                    
-                           
-                    <button className={` ${classes.botton}`} onClick={() => setHidden(false)}><img src="https://img.icons8.com/material-outlined/24/000000/cancel--v1.png" /></button>
-                   
-                    {/* <input className={` ${classes.input }`} type="text" value={`${url}s/${props.id}`} />
-                    <button className={` ${classes.copybotton}`} >Copy text</button>
-                     */}
-                     
-                                <CopyToClipboard className={` ${classes.copylink}`} text={`http://localhost:3000/posts/${props.id}`}>
-                                    <button>Copy URL to the clipboard</button>
-                                </CopyToClipboard>
-                </div>
-
-            )
-
-            }
+            
             <div className="row g-0">
                 <div className="col-md-3">
                     <img src={props.banner} className="img-fluid rounded-start" height="200px" width="200px" alt="..." />
@@ -77,12 +61,19 @@ const PostCard = (props) => {
                             <li><img src="https://img.icons8.com/ios-glyphs/20/000000/speaker-notes.png" alt='hi' /><a href="w">Comment {props.comments}</a></li>
                             <li><img src="https://img.icons8.com/material-outlined/24/000000/visible--v2.png" alt='hi' /><Link onClick={getDataHandler} to={`/posts/${props.id}`}>View post</Link></li>
                             <li>
-                                <OutsideClickHandler  >
+                               
                                     <img src="https://img.icons8.com/ios-glyphs/30/000000/share--v1.png" height={"20px"} width={"20px"} />
-                                    <button className={` ${classes.btn}`} onClick={() => setHidden(true)}>Share</button>
-
-                                </OutsideClickHandler>
-
+                                    
+                                    <button className={`${classes.btn}`} onClick={() => setModalShow(true)}>
+                                        share
+                                    </button>
+                                    
+                                
+                                <Copyurl
+                                show={modalShow}
+                                url={`http://localhost:3000/posts/${props.id}`}
+                                onHide={() => setModalShow(false)}
+                            />
                             </li>
                             <li><a href='w' className="fw-bold">Posted by <a href="w" style={{ color: "#05386b" }}>{userName}</a> on {props.publishedDate}</a></li>
                         </ul>

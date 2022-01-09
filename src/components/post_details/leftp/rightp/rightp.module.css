@@ -3,8 +3,10 @@
     width: 343px;
     background-color: #05386b;
     /* top: 86px; */
-    margin-top: 2em;
     padding-top: 2em;
+    border-radius: 6px;
+    margin: auto;
+    margin-top: 2em;
 }
 
 .containerSD {
