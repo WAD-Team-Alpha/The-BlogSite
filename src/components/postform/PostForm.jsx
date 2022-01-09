@@ -12,10 +12,12 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
 import { postsActions } from "../../store/posts";
 const PostForm = () => {
-  const auth = useSelector((state) => state.auth);
-  const about = useSelector((state) => state.profile);
-  const posts = useSelector((state) => state.posts);
-  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth); //Accessing the user's data from the redux store
+  const about = useSelector((state) => state.profile); //Accessing the user's profile from the redux store
+  const posts = useSelector((state) => state.posts); //Accessing all the posts to store the current post
+  const dispatch = useDispatch(); //Dispatch to dispatch the actions
+
+  // State for the form inputs
   const [inputList, setInputList] = useState([]);
   const [banner, setBanner] = useState("");
   const [title, setTitle] = useState("");
@@ -25,6 +27,7 @@ const PostForm = () => {
   const navigate = useNavigate();
   const formRef = useRef();
 
+    // Effect for the scroll
   useEffect(() => {
     if (formRef.current) {
       formRef.current.scrollIntoView(
@@ -37,6 +40,7 @@ const PostForm = () => {
   },
   [inputList.length])
 
+  // Handler for the form validation
   const bannerHandler = (value) => {
     setBanner(value);
   };
@@ -49,10 +53,13 @@ const PostForm = () => {
     setSummary(value);
   };
 
+  // Scrolling function
   function updateScroll() {
     var element = document.getElementById("post-form");
     element.scrollTop = element.scrollHeight;
   }
+
+  // Input handler for custom inputs
 
   const addInputHandler = (type) => {
     setInputList((value) => [
@@ -67,6 +74,7 @@ const PostForm = () => {
     updateScroll()
   };
 
+  // Input delete handler
   const deleteInputHandler = (id) => {
     const values = [...inputList];
     values.splice(
@@ -76,6 +84,7 @@ const PostForm = () => {
     setInputList(values);
   };
 
+  // Input on change handler
   const inputChangeHandler = (id, value) => {
     console.log(value)
     const newInputFields = inputList.map((input) => {
@@ -89,6 +98,7 @@ const PostForm = () => {
     setInputList(newInputFields);
   };
 
+  // Form on submit handler
   const onSubmitHandler = (event) => {
     const postId = uuidv4();
     const uid = auth.localId;
@@ -118,7 +128,7 @@ const PostForm = () => {
       author: about.firstName,
     };
     setSubmit(true);
-    dispatch(sendPostData(postData, postId)).then((result) => {
+    dispatch(sendPostData(postData, postId)).then((result) => { //Dispatching the required data to the redux store and firebase
       if (result === "success") {
         var postIds = [...about.postIds, postId];
         console.log("This is the profileActions.updts 3")
@@ -195,6 +205,7 @@ const PostForm = () => {
           maxLength={400}
         />
         {/* <br /> */}
+        {/* Custom rendering */}
         {inputList.map((input, index) => {
           return input.type === "text" ? (
             <React.Fragment key={index}>

@@ -6,11 +6,13 @@ import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 
 const Right = () => {
-    const authStatus = useSelector((state) => state.auth)
+    const authStatus = useSelector((state) => state.auth) //Acceessing the user's data
     return (
         <motion.div initial={{ x: '100vw' }} animate={{ x: 0 }} transition={{ type: 'spring', duration: 2, bounce: 0.4 }}>
             {!authStatus.isAuthenticated && <div className={"container " + classes.header}>
+                {/* Login button */}
                 <Link to="/auth?code=signin&main=true" className={'btn shadow-none ' + classes.loginbtn}>Login</Link>
+                {/* Signup button */}
                 <Link to="/auth?code=signup&main=true" className={'btn btn-primary shadow-none ' + classes.signupbtn}>Signup</Link>
             </div>} {authStatus.isAuthenticated &&
                 <div className={"container " + classes.header}>

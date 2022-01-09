@@ -25,12 +25,12 @@ const Rightq = (props) => {
 
     return(
         <div >
-                <div className={classes.containerMD}>
+                <div className={classes.containerMD}> {/*The users details are printed in this component in the right side of the question details page*/}
                     <Container>
                         <Box sx={{bgcolor:"white", height:"158px", borderRadius:"0.3em"}}>
                             <div className="container-fluid">
                                 <div className="row justify-content-end">
-                                    <div class="col-2" style={{height: '1em'}} >
+                                    <div class="col-2" style={{height: 'em'}} >
                                     </div>
                                 </div>
                                 <div class="row justify-content-start">

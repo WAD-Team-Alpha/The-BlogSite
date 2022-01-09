@@ -1,17 +1,15 @@
 import { motion } from "framer-motion";
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
 import Header from "../components/header/Header";
 import Navigation from "../components/navigation/Navigation";
 import Profile from "../components/NewProfile/Profile";
-import ProfileAnalytics from "../components/NewProfile/ProfileAnalytics";
 import RestrictedAccess from "./RestrictedAccess";
 
 const Layout = (props) => {
-  const dispatch = useDispatch();
-  const [nav, setNav] = useState(false);
-  const navHandler = () => {
+  const [nav, setNav] = useState(false); //State for the nav
+  const navHandler = () => { //Nav handler
     nav ? setNav(false) : setNav(true);
   };
   const authStatus = useSelector((state) => state.auth);

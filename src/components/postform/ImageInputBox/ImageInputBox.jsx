@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import classes from './ImageInputBox.module.css'
 
 const ImageInputBox = (props) => {
-    const [preview, setPreview] = useState("")
+    // Custom input box for image
+    const [preview, setPreview] = useState("") //State for the previw of the image
     return (
         <div className='d-flex align-items-center mb-3'>
             <div className={"container " + classes.banner} style={{ backgroundImage: `url(${preview})`, height: `${props.height}` }}>
