@@ -7,7 +7,7 @@ import Navigation from "../components/navigation/Navigation";
 import Profile from "../components/NewProfile/Profile";
 import ProfileAnalytics from "../components/NewProfile/ProfileAnalytics";
 import RestrictedAccess from "./RestrictedAccess";
-import { fetchOtherProfileData } from "../store/profile-actions";
+
 const Layout = (props) => {
   const dispatch = useDispatch();
   const [nav, setNav] = useState(false);
@@ -16,7 +16,7 @@ const Layout = (props) => {
   };
   const authStatus = useSelector((state) => state.auth);
   const params = useParams();
-  const [otherProfieData, setOtherProfileData] = useState({});
+  
 
   // This is the uid extracted from the url via routing
   console.log(
@@ -46,26 +46,7 @@ const Layout = (props) => {
       },
     },
   };
-  useEffect(() => {
-    if (params.uid === authStatus.localId) {
-      return;
-    }
-    
-    dispatch(fetchOtherProfileData(params.uid)).then((res) => {
-      console.log(res);
-      const data = {
-        ...res,
-        followerCount: res.followersList.length,
-        followingCount: res.followingList.length,
-      };
-
-      setOtherProfileData(data);
-      console.log("line 66 is running");
-      return () => {
-        setOtherProfileData({}); // This worked for me
-      };
-    });
-  }, []);
+  
 
   return authStatus.isAuthenticated ? (
     <>
@@ -81,7 +62,7 @@ const Layout = (props) => {
         >
           <div className="row">
             <div className="col-md-3">
-              <Profile userId={params.uid} userInfo={otherProfieData} />
+              <Profile uid={params.uid}  />
             </div>
             <div className="col-md-9">
               <Outlet />
