@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//Intial Profile State with all required fields
 const initialProfileState = {
   firstName: "",
   lastName: "",
@@ -17,9 +18,9 @@ const initialProfileState = {
 
 const profileSlice = createSlice({
   name: "profileData",
-  initialState: initialProfileState,
-  reducers: {
-    update(state, action) {
+  initialState: initialProfileState, //Intializing the profile intial state 
+  reducers: { // reducers 
+    update(state, action) { // this update function state is used for updating the details of the user
       console.log(action.payload);
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
@@ -35,42 +36,28 @@ const profileSlice = createSlice({
       state.likedContent = action.payload.likedContent;
     },
 
-
-    removefollower(state, action) {
-      return {
-        ...state,
-        followersList: state.followersList.filter((name) => (name.id) !== action.payload)
-      }
-    },
-    removeuser(state, action) {
-      return {
-        ...state,
-        followingList: state.followingList.filter((name) => (name.id) !== action.payload)
-      }
-    },
-
-    addBookmark(state, action) {
+    addBookmark(state, action) { //addBookmark is used for adding the bookmark of the post/question into the database and store by using post/question id
       return {
         ...state,
         savedContent: [...state.savedContent, action.payload]
       }
     },
 
-    removeBookmark(state, action) {
+    removeBookmark(state, action) { //removeBookmark is used for removing the bookmark of the post/question into the database and store by using post/question id
       return {
         ...state,
         savedContent: state.savedContent.filter(obj => obj.id !== action.payload.id)
       }
     },
 
-    addLikedContent(state, action) {
+    addLikedContent(state, action) { //This function is used for adding the liked id of the post/question by the user  into the database
       return {
         ...state,
         likedContent: [...state.likedContent, action.payload]
       }
     },
 
-    removeLikedContent(state, action) {
+    removeLikedContent(state, action) { //This function is used for removing the liked id of the post/question by the user into the database
       return {
         ...state,
         likedContent: state.likedContent.filter(id => id !== action.payload)
@@ -79,6 +66,6 @@ const profileSlice = createSlice({
   },
 });
 
-export const profileActions = profileSlice.actions;
+export const profileActions = profileSlice.actions; //exporting the actions(update function) by using profileActions
 
-export default profileSlice.reducer;
+export default profileSlice.reducer; //exporting the reducer

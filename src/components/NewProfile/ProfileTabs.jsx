@@ -10,7 +10,7 @@ import { fetchOtherPostsData } from "../../store/post-actions";
 import { fetchOtherQuestionsData } from "../../store/question-actions";
 import LoadingSpinner from "../auth/LoadingSpinner";
 const ProfileTabs = (props) => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); //Intializing the dispatch
   const authStatus = useSelector((state) => state.auth);
   const [tab, setTab] = useState("posts");
   const [submit, setSubmit] = useState(false);
@@ -26,21 +26,21 @@ const ProfileTabs = (props) => {
       setSubmit(false);
       return;
     }
-    setCurUser(false)
+    setCurUser(false);
     console.log("Profile tabs exucuted");
     dispatch(fetchOtherProfileData(props.uid)).then((res) => {
       console.log(res);
       if (res !== null) {
         res.postIds.map((id) => {
           console.log("this line is excecuted");
-          dispatch(fetchOtherPostsData(id)).then((res) => {
+          dispatch(fetchOtherPostsData(id)).then((res) => { //fetching posts data of the other users by their ids
             console.log(res);
             setPostsData((state) => [...state, res]);
           });
         });
         res.questionIds.map((id) => {
           console.log("this line is excecuted");
-          dispatch(fetchOtherQuestionsData(id)).then((res) => {
+          dispatch(fetchOtherQuestionsData(id)).then((res) => { //fetching questions data of the other usersby their user ids
             console.log(res);
             setQuestionsData((state) => [...state, res]);
           });
@@ -57,18 +57,18 @@ const ProfileTabs = (props) => {
         <Tabs
           id="profiletab"
           activeKey={tab}
-          onSelect={(k) => setTab(k)}
+          onSelect={(k) => setTab(k)} //setting tabs on select posts tab for posts and questions tabs for questions
           style={{ borderColor: "#b1b1b1" }}
         >
           <Tab eventKey="posts" title="Posts">
-            <Postcard curUser={curUser} postsData={postsData}/>
+            <Postcard curUser={curUser} postsData={postsData} />
           </Tab>
           <Tab
             eventKey="questions"
             title="Questions"
             style={{ borderColor: "#b1b1b1" }}
           >
-            <Questionscard curUser={curUser} questionsData={questionsData}/>
+            <Questionscard curUser={curUser} questionsData={questionsData} />
           </Tab>
         </Tabs>
       </div>

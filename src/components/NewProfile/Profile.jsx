@@ -15,13 +15,13 @@ import { fetchOtherProfileData } from "../../store/profile-actions";
 import LoadingSpinner from "../auth/LoadingSpinner";
 const Profile = (props) => {
   const [submit, setSubmit] = useState(false);
-  const [otherProfileData, setOtherProfileData] = useState({});
-  const authStatus = useSelector((state) => state.auth);
+  const [otherProfileData, setOtherProfileData] = useState({}); //setting usestate for other users profile
+  const authStatus = useSelector((state) => state.auth); 
   const userInfo = useSelector((state) => state.profile);
   const [addform, setAddform] = useState(false);
   const [memtab, setmemTab] = useState(false);
   const dispatch = useDispatch();
-  const isFollowing = (list, id) => {
+  const isFollowing = (list, id) => { // checking the id of the users who are following
     for (var i = 0; i < list.length; i++) {
       console.log(list[i], id);
       if (list[i].id === id) {
@@ -34,9 +34,9 @@ const Profile = (props) => {
   const [followStatus, setfollowStatus] = useState(
     isFollowing(userInfo.followingList, props.uid)
   );
-  const [curUser, setCurUser] = useState(true);
+  const [curUser, setCurUser] = useState(true); //setting current user to true
 
-  const userDetails = {
+  const userDetails = { //current or logined user userDetails
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
@@ -52,15 +52,15 @@ const Profile = (props) => {
   console.log(userDetails.genres);
   // console.log(props.userInfo.genres);
 
-  const followCount = userDetails.followersList.length;
+  const followCount = userDetails.followersList.length; //followcount of the current user
   // console.log(followCount)
 
-  const followingCount = userDetails.followingList.length;
+  const followingCount = userDetails.followingList.length; //following count of the current
   console.log(followingCount);
 
-  const editHandler = (firstName, lastName, email, bio, genres) => {
+  const editHandler = (firstName, lastName, email, bio, genres) => { //editHandler for updating the user details using edit form
     console.log(firstName, lastName, email, bio, genres);
-    dispatch(
+    dispatch( //sending updated user details to the store
       profileActions.update({
         firstName: firstName,
         lastName: lastName,
@@ -75,11 +75,11 @@ const Profile = (props) => {
     );
   };
 
-  const formHandler = (e) => {
+  const formHandler = (e) => { //form that appears when clicking the edit icon
     setAddform((state) => !state);
   };
 
-  const linkHandler = (e) => {
+  const linkHandler = (e) => { // for followers and following tab
     setmemTab((state) => !state);
   };
 
@@ -87,7 +87,7 @@ const Profile = (props) => {
     if (followStatus === false) {
       setfollowStatus(true);
 
-      dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+      dispatch(fetchOtherProfileData(props.uid)).then((res) => { //fetching the followed user id
         console.log(res);
         const newData = {
           ...userInfo,
@@ -97,7 +97,7 @@ const Profile = (props) => {
           ],
         };
         dispatch(
-          sendOtherProfileData(
+          sendOtherProfileData( //sending the id of us to the followed user
             {
               ...res,
               followersList: [
@@ -110,28 +110,28 @@ const Profile = (props) => {
         ).then((result) => {
           if (result === "succes") {
             console.log("this is running");
-            dispatch(profileActions.update(newData));
-            var len = otherProfileData.followerCount + 1;
+            dispatch(profileActions.update(newData)); //updating the store
+            var len = otherProfileData.followerCount + 1; //increasing the followers count
             console.log(len);
-            setOtherProfileData((res) => {
+            setOtherProfileData((res) => { //updating the count in the other users profile
               return { ...res, followerCount: len };
             });
           }
         });
       });
-    } else {
+    } else { //else condition is for unfollowing
       setfollowStatus(false);
-      const newList = userInfo.followingList.filter(
+      const newList = userInfo.followingList.filter( //filtering the user id
         (id) => id.id !== props.uid
       );
-      const newData = {
+      const newData = { //updating the user data
         ...userInfo,
         followingList: newList,
       };
       dispatch(fetchOtherProfileData(props.uid)).then((res) => {
         console.log(res);
         dispatch(
-          sendOtherProfileData(
+          sendOtherProfileData( //updating the other users data
             {
               ...res,
               followersList: res.followersList.filter(
@@ -142,7 +142,7 @@ const Profile = (props) => {
           )
         ).then((result) => {
           if (result === "succes") {
-            dispatch(profileActions.update(newData));
+            dispatch(profileActions.update(newData)); //updating the data in the store
             var len = otherProfileData.followerCount - 1;
             console.log(len);
             setOtherProfileData((res) => {
@@ -160,15 +160,15 @@ const Profile = (props) => {
       return;
     }
     setCurUser(false);
-    dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+    dispatch(fetchOtherProfileData(props.uid)).then((res) => { //getting the details of the other users
       console.log(res);
       const data = {
         ...res,
-        followerCount: res.followersList.length,
-        followingCount: res.followingList.length,
+        followerCount: res.followersList.length, //getting followers count of the other users
+        followingCount: res.followingList.length, //getting following count of the other users
       };
 
-      setOtherProfileData(data);
+      setOtherProfileData(data); //setting the above obtained data into the otherProfileData variable using useState
       setSubmit(false);
       console.log(data);
       console.log("line 66 is running");
@@ -200,7 +200,7 @@ const Profile = (props) => {
                         cursor: "pointer",
                       }}
                     >
-                      {curUser && (
+                      {curUser && ( //for keeping edit icon access to the current user
                         <Link
                           underline="none"
                           color="black"
@@ -224,10 +224,10 @@ const Profile = (props) => {
                   <div class="col-7">
                     <div style={{ fontSize: "18px", width: "200px" }}>
                       <b>
-                        {curUser
+                        {curUser //details of the current user
                           ? userDetails.firstName
                           : otherProfileData.firstName}{" "}
-                        {curUser
+                        {curUser //details of the other user
                           ? userDetails.lastName
                           : otherProfileData.lastName}
                       </b>
@@ -275,8 +275,8 @@ const Profile = (props) => {
                         <span className={classes.followercount}>
                           <b>
                             {curUser
-                              ? followCount
-                              : otherProfileData.followerCount}
+                              ? followCount //followers count of the current user : else followerscount of the other user
+                              : otherProfileData.followerCount} 
                           </b>
                         </span>
                       </div>
@@ -284,7 +284,7 @@ const Profile = (props) => {
                         <span className={classes.followingcount}>
                           <b>
                             {curUser
-                              ? followingCount
+                              ? followingCount //following count of the current user : else followingcount of the other user
                               : otherProfileData.followingCount}
                           </b>
                         </span>
@@ -319,7 +319,7 @@ const Profile = (props) => {
                     style={{ marginLeft: "1.2em", height: "60px" }}
                   >
                     <div>
-                      {curUser
+                      {curUser //genres of the current user
                         ? userDetails.genres.map((gen) => (
                             <Chip
                               style={{
@@ -332,7 +332,7 @@ const Profile = (props) => {
                               label={gen}
                             />
                           ))
-                        : otherProfileData.genres.map((gen) => {
+                        : otherProfileData.genres.map((gen) => { //genres of the other users
                             console.log("this is running");
                             return (
                               <Chip
@@ -369,6 +369,7 @@ const Profile = (props) => {
                   <div
                     class="col"
                     style={{ fontSize: "0.9em", marginLeft: "1.2em" }}
+                    //current user email else other users email
                   >
                     {curUser ? userDetails.email : otherProfileData.email}
                   </div>
@@ -424,7 +425,7 @@ const Profile = (props) => {
             </Box>
           </Container>
         )}
-        {addform && curUser && (
+        {addform && curUser && ( //giving access to the edit form only to the current user
           <Editform
             setAddform={setAddform}
             editHandler={editHandler}
@@ -434,7 +435,7 @@ const Profile = (props) => {
         {!curUser && (
           <div style={{height: '1em'}}></div>
         )}
-        {memtab && (
+        {memtab && ( //for followers and following tab
           <Members
             userInfo={otherProfileData}
             curUser={curUser}

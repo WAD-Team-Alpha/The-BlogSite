@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+//initial state of question details
 const initialQuestionState = {
   questionId: "",
   likes: 0,
@@ -16,27 +17,27 @@ const initialQuestionState = {
 
 const questionSlice = createSlice({
   name: "questionmData",
-  initialState: initialQuestionState,
+  initialState: initialQuestionState, //intializing the intial state in this store
   reducers: {
-    add(state, action) {
+    add(state, action) { //adding the question details into the store
       console.log(action.payload);
-      state.questionId = action.payload.questionId;
-      state.userId = action.payload.userId;
-      state.publishedDate = action.payload.publishedDate;
-      state.question = action.payload.question;
-      state.imageUrl = action.payload.imageUrl;
-      state.description = action.payload.description;
-      state.likes = action.payload.likes;
-      state.comments = action.payload.comments;
-      state.bookmarks = action.payload.bookmarks;
-      state.status = action.payload.status;
-      state.author = action.payload.author;
+      state.questionId = action.payload.questionId; //question id
+      state.userId = action.payload.userId; //user id of the question created user
+      state.publishedDate = action.payload.publishedDate; //published date of the question
+      state.question = action.payload.question; //question text
+      state.imageUrl = action.payload.imageUrl; //imageurl of the question data
+      state.description = action.payload.description; //description of the question
+      state.likes = action.payload.likes; //number of the likes for the question
+      state.comments = action.payload.comments; //comments for the question
+      state.bookmarks = action.payload.bookmarks; //no.of bookmarks for the question
+      state.status = action.payload.status; //status of the question
+      state.author = action.payload.author; //author of the created user
       console.log("question updated in store");
       console.log(action.payload.bookmarks);
     },
   },
 });
 
-export const questionActions = questionSlice.actions;
+export const questionActions = questionSlice.actions; //exporting the reducers
 
-export default questionSlice.reducer;
+export default questionSlice.reducer; //exporting the store
