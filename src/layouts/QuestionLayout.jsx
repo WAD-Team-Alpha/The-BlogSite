@@ -10,7 +10,7 @@ import Middleq from '../components/Ques_details/middleq/middleq'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {fetchQuestionData} from "../store/question-actions"
-import { fetchOtherProfileData } from '../store/profile-actions'
+import { fetchOtherProfileData, fetchProfileData } from '../store/profile-actions'
 import { profileActions } from '../store/profile';
 const QuestionLayout = () => {
     const dispatch = useDispatch();
@@ -40,8 +40,33 @@ const QuestionLayout = () => {
             },
         }
     }
+    const updateRecentActivity = (data, value) => {
+        var temp
+        if (data.filter((obj) => obj.id === value.id) !== []) {
+            temp = data.filter((obj) => obj.id !== value.id)
+            temp = [value].concat(temp)
+            return temp
+        }
+        if (data.length === 10) {
+            temp = data.pop()
+            temp = [value].concat(data)
+            return temp
+        } else {
+            temp = [value].concat(data)
+            return temp
+        }
+    }
+
     useEffect(() => {
-        dispatch(profileActions.updateRecentActivity({id: params.threadID, type: 'question'}))
+        dispatch(fetchProfileData(localStorage.getItem("localId"))).then((result) => {
+            if (result !== 'false') {
+                console.log("I am in the false case lmaoooo", result)
+                dispatch(profileActions.update({
+                    ...result,
+                    recentActivity: updateRecentActivity(result.recentActivity, { id: params.threadID, type: 'question' })
+                }))
+            }
+        })
         dispatch(fetchQuestionData(params.threadID)).then((result) => {
             console.log(result);
             if (result !== null) {

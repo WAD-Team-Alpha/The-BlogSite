@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import PostCard from '../cards/PostCard';
 import QuestionCard from '../cards/QuestionCard';
-import recentActivityData from '../../../helpers/recentActivityData.json'
 import { motion } from 'framer-motion';
 import Carousel from '../../navigation/trending/carousel/Carousel'
 import recommendedData from '../../../helpers/recommendedData.json'
-import { useDispatch, useSelector } from 'react-redux';
-import { updateRecentActivity } from '../../../store/profile-actions';
+import { useSelector } from 'react-redux';
 import { fetchActivity } from '../../../store/activity-actions';
 import { CircularProgress } from '@mui/material';
 
@@ -32,14 +30,11 @@ const RecentActivityPage = () => {
         }
     }
 
-    const dispatch = useDispatch();
     const profileData = useSelector(state => state.profile)
-    const authData = useSelector(state => state.auth)
     console.log(profileData.recentActivity)
     const [status, setStatus] = useState(false)
     const [recents, setRecents] = useState([])
     useEffect(() => {
-        dispatch(updateRecentActivity(profileData, authData.localId))
         setStatus(true)
         fetchActivity(profileData.recentActivity).then((result) => {
             setRecents(result)
@@ -74,7 +69,6 @@ const RecentActivityPage = () => {
                                 id={recent.data.questionId}
                                 votes={recent.data.bookmarks}
                                 answers={recent.data.answers}
-                                votes={recent.data.bookmarks}
                                 question={recent.data.question}
                                 details={recent.data.description}
                                 userId={recent.data.userId}
