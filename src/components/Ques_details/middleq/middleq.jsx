@@ -7,11 +7,11 @@ import questionData from '../../../helpers/questionData.json'
 import { useSelector } from 'react-redux'
 
 const Middleq = (props) => {
-    const data = questionData.find((query) => query.id === parseInt(props.questionID))
+    const data = questionData.find((query) => query.id === parseInt(props.questionID))   // importing the question data
     console.log(data)
     const userData = props.profileData
     console.log(userData)
-    const questiondata = useSelector((state)=> state.question)
+    const questiondata = useSelector((state)=> state.question)   // using selector to get the data from the store
     return (
         <div class="container-fluid" style={{backgroundColor: 'white', marginTop: '1em', marginBottom: '1em', padding: '1em', borderRadius: '8px'}} className="shadow">
             <div class="row" style={{height:"150px"}}>
@@ -40,14 +40,14 @@ const Middleq = (props) => {
             </div>
             <hr/>
             <div class="row" style={{ height:"360px"}}>
-                <div class="col">
-                   <Middle/>
+                <div class="col"> {/*Till above is the question details like asked on and posted by*/}
+                   <Middle/>      {/*Here we are importing the question and question description  part*/}
                 </div>
             </div>
             <hr/>
             <div class="row" >
                 <div class="col" >
-                   <Last profileData={props.profileData} theRef={props.theRef}/>
+                   <Last profileData={props.profileData} theRef={props.theRef}/> {/*Here we are importing the comments for the posted question printing component*/}
                         
                 </div>
             </div>

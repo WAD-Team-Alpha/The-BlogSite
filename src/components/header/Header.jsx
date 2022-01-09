@@ -8,7 +8,7 @@ import ModalButton from '../NewProfile/Modal/ModalButton'
 import { useSelector } from 'react-redux'
 
 const Header = (props) => {
-    const navigate = useNavigate()
+    const navigate = useNavigate() //Header of the website, used to navigate between main page and for navigation
     const authStatus = useSelector(state => state.auth)
     return (
         <div className={'container-fluid ' + classes.appbar}>

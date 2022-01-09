@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import classes from './TextInputBox.module.css'
 
 const TextInputBox = (props) => {
-    const [length, setLength] = useState(0)
+    // Custom for the tetxt input box
+    const [length, setLength] = useState(0) //State for the length of the text entered
     return (
         <div className='d-flex align-items-center mb-3'>
             <div className={"form-floating flex-grow-1"}>
@@ -20,7 +21,7 @@ const TextInputBox = (props) => {
             </div>
             {props.isAdded && <button className={'btn shadow-none'} style={{ paddingRight: 0, }} onClick={(event) => {
                 event.preventDefault();
-                props.onDelete(props.id)
+                props.onDelete(props.id) //Deleting the input box appropriately
             }}>
                 <Delete sx={{ color: 'red' }} />
             </button>}

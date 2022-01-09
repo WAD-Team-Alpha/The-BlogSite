@@ -3,9 +3,9 @@ import {  useSelector } from "react-redux";
 import PostCard from "../home/cards/PostCard";
 
 const Postcard = (props) => {
-  const postid = useSelector((state) => state.profile.postIds);
+  const postid = useSelector((state) => state.profile.postIds); //Fetching the postids of the user 
   console.log(postid);
-  const postsdata = useSelector((state) => state.posts);
+  const postsdata = useSelector((state) => state.posts); //fetching the details of the particular user
   console.log(postsdata);
   console.log(props.postsData);
   if (postsdata === null) {
@@ -20,29 +20,29 @@ const Postcard = (props) => {
         <div className={classes.cardcontainer}>
           <div className={classes.postscreate}></div>
           <div className={classes.postcards}>
-            {props.curUser ? postsdata.map((postdata) => (
-              <PostCard
-                key={postdata.postId}
-                id={postdata.postId}
-                banner={postdata.imageUrl}
-                title={postdata.postTitle}
-                description={postdata.postSummary}
-                likes={postdata.likes}
-                publishedDate={postdata.publishedDate}
-                userId={postdata.uid}
-                author={postdata.author}
+            {props.curUser ? postsdata.map((postdata) => ( //Checking if the user is ourselves or others to render the posts section in profile page
+              <PostCard   //if we are the user and sending the current post details using props
+                key={postdata.postId} 
+                id={postdata.postId} //id of the post
+                banner={postdata.imageUrl} //banner of the post
+                title={postdata.postTitle} //posts title
+                description={postdata.postSummary} //posts description
+                likes={postdata.likes} //posts likes
+                publishedDate={postdata.publishedDate} //posts published date
+                userId={postdata.uid} //user id of the particular post
+                author={postdata.author} //author of the post
               />
-            )) : props.postsData.map((postdata) => (
+            )) : props.postsData.map((postdata) => ( //other users posts data
               <PostCard
-                key={postdata.postId}
-                id={postdata.postId}
-                banner={postdata.imageUrl}
-                title={postdata.postTitle}
-                description={postdata.postSummary}
-                likes={postdata.likes}
-                publishedDate={postdata.publishedDate}
-                userId={postdata.uid}
-                author={postdata.author}
+                key={postdata.postId} 
+                id={postdata.postId} //id of the post
+                banner={postdata.imageUrl} //banner of the post
+                title={postdata.postTitle} //posts title
+                description={postdata.postSummary} //posts description
+                likes={postdata.likes} //likes of the posts
+                publishedDate={postdata.publishedDate} //published date of the post
+                userId={postdata.uid} //user id of the post
+                author={postdata.author} //author of the post
               />
             ))}
           </div>

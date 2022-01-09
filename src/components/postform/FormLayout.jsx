@@ -3,6 +3,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom';
 
 const FormLayout = () => {
+  // Just a sample layout file
     const mainVarient = {
         hidden: {
           opacity: 0,

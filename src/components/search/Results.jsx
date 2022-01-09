@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
 import PostCard from '../home/cards/PostCard'
 
 const Results = () => {
-    const location = useLocation()
+    const location = useLocation() //Navigation info
     const params = new URLSearchParams(location.search)
     const posts = useSelector(state => state.trending)
     const mainVarient = {
@@ -28,7 +28,7 @@ const Results = () => {
             },
         }
     }
-
+    // Results pave which renders all the search results
     return (
         <motion.div
             variants={mainVarient}

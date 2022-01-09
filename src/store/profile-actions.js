@@ -1,9 +1,9 @@
 import { profileActions } from "./profile";
-export const sendProfileData = (about, localId) => {
+export const sendProfileData = (about, localId) => { //sending the profile data to the database
   return async (dispatch) => {
     console.log("sending");
     console.log("send data action is triggered");
-    const sendRequest = async () => {
+    const sendRequest = async () => { //sending req to the database
       console.log(about);
       const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
       const response = await fetch(url, {
@@ -27,7 +27,7 @@ export const sendProfileData = (about, localId) => {
   };
 };
 
-export const fetchProfileData = (localId) => {
+export const fetchProfileData = (localId) => { //fetching the profile data from the database
   return async (dispatch) => {
     console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
@@ -44,7 +44,7 @@ export const fetchProfileData = (localId) => {
     };
 
     try {
-      const profileData = await fetchData();
+      const profileData = await fetchData(); //fetching data of the user profile
       var data = {
         firstName: profileData.firstName,
         lastName: profileData.lastName,
@@ -60,7 +60,7 @@ export const fetchProfileData = (localId) => {
         likedContent: profileData.likedContent === undefined ? [] : profileData.likedContent
       }
       console.log("testing data : ", data)
-      dispatch(profileActions.update(data));
+      dispatch(profileActions.update(data)); //updating the data from the database to the store
       return data
     } catch (error) {
       console.log("error");
@@ -69,7 +69,7 @@ export const fetchProfileData = (localId) => {
   };
 };
 
-export const fetchOtherProfileData = (localId) => {
+export const fetchOtherProfileData = (localId) => { //fetching the profile details of the other users
   return async (dispatch) => {
     console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
@@ -86,7 +86,7 @@ export const fetchOtherProfileData = (localId) => {
     };
 
     try {
-      const profileData = await fetchData();
+      const profileData = await fetchData(); //fetching the other users profile data
       var data = {
         ...profileData,
         firstName: profileData.firstName,

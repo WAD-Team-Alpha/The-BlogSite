@@ -19,7 +19,7 @@ import Copyurl from '../../home/cards/CopyUrl';
 const Leftq = (props) => {
 
 
-    const checkId = (savedId, questionId) => {
+    const checkId = (savedId, questionId) => {                   // function to check if the user has liked(or bookmarked) the particular post earlier or not
         for (var i = 0; i < savedId.length; i++) {
         //   console.log(savedId[i], postId);
     
@@ -34,20 +34,20 @@ const Leftq = (props) => {
       }
     
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch();        // initialising the dispatch to use store easily
 
-    const questiondata = useSelector((state) => state.question)
+    const questiondata = useSelector((state) => state.question)        // Getting the data from the store
     console.log(questiondata)
     const [like,setLike] = useState(questiondata.likes); 
     const [bookmark,setBookmark] = useState(questiondata.bookmarks); 
-     const likedcontent = useSelector((state) => state.profile);
+     const likedcontent = useSelector((state) => state.profile);       // Getting the upvotes of the post from the store
     const likeid = likedcontent.likedContent;
     const savedId = likedcontent.savedContent
     
     const [likestatus, setLikestatus] = useState(likeid.includes(questiondata.questionId));
     const[bookmarkstatus, setBookmarkstatus] = useState(checkId(savedId, questiondata.questionId));
 
-    const likeHandler = () => {
+    const likeHandler = () => {             // like handler to increment number of likes in database and ui on clicking like buttons
         if (!likestatus) {
           var likes = like;
           setLikestatus(true);
@@ -65,7 +65,7 @@ const Leftq = (props) => {
         }
       };
     
-      const dislikeHandler = () => {
+      const dislikeHandler = () => {       // dislike handler to decrement number of likes in database and ui on clicking like button again when already liked
         if (likestatus) {
           var likes = like;
           setLikestatus(false);
@@ -76,7 +76,7 @@ const Leftq = (props) => {
           // dispatch(sendProfileData(profiledata, authdata.localId));
         }
       };
-      const bookmarklikeHandler = () => {
+      const bookmarklikeHandler = () => {            // state management for bookmark button
         if (!bookmarkstatus) {
           var bookmarks = bookmark;
           setBookmarkstatus(true);
@@ -90,7 +90,7 @@ const Leftq = (props) => {
         }
       }
     
-      const bookmarkdislikeHandler = () => {
+      const bookmarkdislikeHandler = () => {         // state management for un bookmarking
         if (bookmarkstatus) {
           var bookmarks = bookmark;
           setBookmarkstatus(false);
@@ -111,19 +111,19 @@ const Leftq = (props) => {
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
-            {likeid.includes(questiondata.questionId) ? (
+            {likeid.includes(questiondata.questionId) ? (          //  if else condition to check if the user liked the post earlier
                 <button
-                    className="btn shadow-none"
+                    className="btn shadow-none"                   // Dislike butoon is shown if the above condition is true or not
                     style={{ paddingLeft: "5.5em" }}
-                    onClick={dislikeHandler}
+                    onClick={dislikeHandler}                      // Triggers dislike handler
                 >
                     <ThumbUpIcon /> {likestatus ? "Upvoted" : "Upvote"}
                 </button>
                 ) : (
                 <button
-                    className="btn shadow-none"
+                    className="btn shadow-none"                     // like button is shown if the above condition returns false
                     style={{ paddingLeft: "5.5em" }}
-                    onClick={likeHandler}
+                    onClick={likeHandler}                          // Triggers like handler
                 >
                     <ThumbUpOffAlt /> {likestatus ? "Upvoted" : "Upvote"}
                 </button>
@@ -138,19 +138,19 @@ const Leftq = (props) => {
                 <br /><br />
 
                
-            {bookmarkstatus ? (
+            {bookmarkstatus ? (                           // if else condition to check if the user bookmarked the post earlier
              <button
-            className="btn shadow-none"
+            className="btn shadow-none"                  // Unbookmark butoon is shown if the above condition is true or not
             style={{ paddingLeft: "5.5em" }}
-            onClick={bookmarkdislikeHandler}
+            onClick={bookmarkdislikeHandler}              // Triggers bookmarkdislikeHandler
           >
             <BookmarkAdded /> {bookmarkstatus ? "Bookmarked" : "Bookmark"}
           </button>
         ) : (
           <button
-            className="btn shadow-none"
+            className="btn shadow-none"                  // bookmark button is shown if the above condition returns false
             style={{ paddingLeft: "5.5em" }}
-            onClick={bookmarklikeHandler}
+            onClick={bookmarklikeHandler}               // Triggers bookmarklikeHandler
           >
             <BookmarkIcon /> {bookmarkstatus ? "Bookmarked" : "Bookmark"}
           </button>
