@@ -10,56 +10,61 @@ import { sendQuestionData } from '../../../store/question-actions';
 import { ThumbUpOffAlt } from '@mui/icons-material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import Copyurl from '../../home/cards/CopyUrl';
 
 const Leftq = (props) => {
-    
+
 
     const dispatch = useDispatch();
 
-    const questiondata = useSelector((state)=> state.question)
+    const questiondata = useSelector((state) => state.question)
     console.log(questiondata)
-    const [like,setLike] = useState(questiondata.likes); 
-    const [upvotestatus,setUpvotestatus] = useState("Upvote"); 
-    const [bookmarkstatus,setBookmarkstatus] = useState("Bookmark"); 
-    const [bookmark,setBookmark] = useState(questiondata.bookmarks); 
+    const [like, setLike] = useState(questiondata.likes);
+    const [upvotestatus, setUpvotestatus] = useState("Upvote");
+    const [bookmarkstatus, setBookmarkstatus] = useState("Bookmark");
+    const [bookmark, setBookmark] = useState(questiondata.bookmarks);
 
-    const [likeicon,setLikeIcon] = useState(<ThumbUpOffAlt/>)
-    const [bookmarkIcon,setBookmarkIcon] = useState(<BookmarkIcon/>)
+    const [likeicon, setLikeIcon] = useState(<ThumbUpOffAlt />)
+    const [bookmarkIcon, setBookmarkIcon] = useState(<BookmarkIcon />)
 
 
 
-    const likeHandler = () =>{
+    const likeHandler = () => {
         var likes = like;
-        if (upvotestatus==="Upvote") {
+        if (upvotestatus === "Upvote") {
             setUpvotestatus("Upvoted")
-            setLike((val)=>val+1)
+            setLike((val) => val + 1)
             likes = like + 1;
-            setLikeIcon(<ThumbUpAltIcon/>)
+            setLikeIcon(<ThumbUpAltIcon />)
         } else {
             setUpvotestatus("Upvote")
-            setLike((val)=>val-1)
+            setLike((val) => val - 1)
             likes = like - 1;
-            setLikeIcon(<ThumbUpOffAlt/>)
+            setLikeIcon(<ThumbUpOffAlt />)
         }
-        dispatch(sendQuestionData({...questiondata,likes: likes},questiondata.questionId));
-     }
+        dispatch(sendQuestionData({ ...questiondata, likes: likes }, questiondata.questionId));
+    }
 
-     const bookmarkHandler = () => {
+    const bookmarkHandler = () => {
         var bookmarks = questiondata.bookmarks
-        if (bookmarkstatus==="Bookmark") {
+        if (bookmarkstatus === "Bookmark") {
             setBookmarkstatus("Bookmarked")
-            setBookmark((val)=>val+1)
+            setBookmark((val) => val + 1)
             bookmarks = bookmark + 1;
-            setBookmarkIcon(<BookmarkAddedIcon/>)
+            setBookmarkIcon(<BookmarkAddedIcon />)
         } else {
             setBookmarkstatus("Bookmark");
-            setBookmark((val)=>val-1);
-            bookmarks = bookmark -1 ;
-            setBookmarkIcon(<BookmarkIcon/>)
+            setBookmark((val) => val - 1);
+            bookmarks = bookmark - 1;
+            setBookmarkIcon(<BookmarkIcon />)
 
         }
-        dispatch(sendQuestionData({...questiondata,bookmarks},questiondata.questionId));
+        dispatch(sendQuestionData({ ...questiondata, bookmarks }, questiondata.questionId));
     }
+
+    const [modalShow, setModalShow] = React.useState(false);
+    const url = window.location.href;
+
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
@@ -81,9 +86,14 @@ const Leftq = (props) => {
                 <span style={{ paddingLeft: "7em" }}> {bookmark}</span>
                 <br /><br />
 
-                <button className='btn shadow-none' style={{ paddingLeft: "5.5em" }}>
-                    <ShareIcon /> Share   
+                <button className='btn shadow-none' style={{ paddingLeft: "5.5em" }} onClick={() => setModalShow(true)}>
+                    <ShareIcon /> Share
                 </button>
+                <Copyurl
+                    show={modalShow}
+                    url={url}
+                    onHide={() => setModalShow(false)}
+                />
                 <br />
 
             </div>
