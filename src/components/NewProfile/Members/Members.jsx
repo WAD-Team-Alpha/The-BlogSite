@@ -5,7 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 const Members = (props) => {
 
     const closeHandler=()=>{
-       props.setmemTab((state)=> !state);
+       props.setmemTab((state)=> !state); //closing the followers and following tab
 
     }
   return (
@@ -26,7 +26,7 @@ const Members = (props) => {
               </button>
           </div>
         <div style={{overflowY:"scroll"}}>
-          <Memberstab curUser={props.curUser} userInfo={props.userInfo}/>
+          <Memberstab curUser={props.curUser} userInfo={props.userInfo}/> 
         </div>
       </Box>
     </div>

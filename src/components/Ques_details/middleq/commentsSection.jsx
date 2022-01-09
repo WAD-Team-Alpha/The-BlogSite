@@ -8,11 +8,11 @@ import { useSelector } from "react-redux";
 
 const CommentsSection = (props) => {
 
-    
+    //this component is separated from last.jsx so that each comment can be changed individually
     const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
     const [correctionicon,setCorrectionIcon] = useState(<TimerIcon />)
   
-    const correctionHandler = (props) => {
+    const correctionHandler = (props) => {                                          // correction handler to mark the answer as correct
           if (correctionstatus==="Mark as correct") {
               setcorrectionstatus("Marked")
               setCorrectionIcon(<DoneSharpIcon style={{color:"green"}}/>)

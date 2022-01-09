@@ -33,6 +33,16 @@ const QuestionCard = (props) => {
   } else {
     dec = <p className="card-text">{result}....</p>;
   }
+  const titles=props.question.length;
+  let resultitle=props.question.substring(0, 50); 
+  let shortitle;
+  if(titles<50)
+  {
+      shortitle=props.question
+  }
+  else{
+      shortitle =<h5 class="card-title fw-bold fs-4">{resultitle}...</h5>
+  }
   return (
     <div className={`card  mb-3 mt-3 ${classes.shadow}`}>
       <div class="row g-0">
@@ -51,7 +61,7 @@ const QuestionCard = (props) => {
         </div>
         <div class="col-md-10">
           <div class="card-body">
-            <h5 class="card-title fw-bold fs-4">{props.question}</h5>
+            <h5 class="card-title fw-bold fs-4">{shortitle}</h5>
             <p class="card-text" style={{ height: "5em" }}>
               {dec}
             </p>

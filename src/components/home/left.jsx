@@ -4,10 +4,12 @@ import classes from './left.module.css'
 const Left = () => {
     const classname = (navData) => navData.isActive ? `fw-bold fs-8 ${classes.active}` : `fw-bold fs-8`
     const navigate = useNavigate();
+    // Home page list item 
     return (
+
         <div>
             <ul className={`${classes.list}`}>
-                <li><NavLink to={"post"} className={classname} onClick={(event)=> {
+                <li><NavLink to={"post"} className={classname} onClick={(event)=> { 
                     event.preventDefault()
                     navigate("post", {replace: true})
                 }}>Posts</NavLink></li>

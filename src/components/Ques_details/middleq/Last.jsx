@@ -11,15 +11,15 @@ import { sendQuestionData } from "../../../store/question-actions";
 import CommentsSection from "./commentsSection";
 
 const Last = (props) => {
-  const dispatch = useDispatch()
-  const authdata = useSelector((state) => state.auth);
-  const userData = useSelector((state) => state.profile);
+  const dispatch = useDispatch()  // initialising the dispatch to use store easily
+  const authdata = useSelector((state) => state.auth);  // importing auth data from store
+  const userData = useSelector((state) => state.profile); // importing profile data
   const [comment, setComment] = useState("");
   const profileData = props.profileData;
   const commentsdata = useSelector((state)=>state.question)
   const [comments, setComments] = useState(commentsdata.comments);
   console.log(profileData)
-  const addCommentHandler = (event) => {
+  const addCommentHandler = (event) => {    // function to handle comments
     
     event.preventDefault();
     setComment("")
@@ -31,7 +31,7 @@ const Last = (props) => {
       ...commentsdata.comments,
       { userId: authdata.localId, name: userData.firstName, text: comment },
     ];
-    dispatch(questionActions.add({ ...commentsdata, comments: newComments }));
+    dispatch(questionActions.add({ ...commentsdata, comments: newComments }));  // adding comments for the questions in store
     setComments((state) => {
       return [
         ...state,
@@ -62,13 +62,13 @@ const Last = (props) => {
         <b ref={props.theRef}>Answers</b>
       </span>
       <div>
-        {commentsdata.comments.map((comment) => (
+        {commentsdata.comments.map((comment) => (  // printing all the comments is done in commentssection component and we are importing it here
           // coming soon
           <CommentsSection profileData={profileData}  commentsdata={commentsdata} comment={comment}/>
         ))}
         <div>
           <br />
-          <form onSubmit={addCommentHandler}>
+          <form onSubmit={addCommentHandler}>  {/* adding comment onsubmit */}
           <div class="container-fluid">
             <div class="row">
               <div class="col-1">
