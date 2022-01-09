@@ -51,31 +51,35 @@ const RecentActivityPage = () => {
                 initial='hidden'
                 animate='visible'
                 exit='exit'
-            >   
+            >
                 {console.log(recents)}
                 {recents.map((recent, index) => {
                     return (
-                        recent !== null ? recent.type === "post" ?
-                            <PostCard
-                                id={recent.data.postId}
-                                key={index}
-                                banner={recent.data.imageUrl}
-                                title={recent.data.postTitle}
-                                description={recent.data.postSummary}
-                                likes={recent.data.likes}
-                                author={"Surya"}
-                                publishedDate={recent.data.publishedDate}
-                            /> :
-                            <QuestionCard
-                                key={recent.data.questionId}
-                                id={recent.data.questionId}
-                                votes={recent.data.bookmarks}
-                                answers={recent.data.answers}
-                                question={recent.data.question}
-                                details={recent.data.description}
-                                userId={recent.data.userId}
-                                publishedDate={recent.data.publishedDate}
-                            /> : <div></div>
+                        recent !== null && recent.data !== null ?
+                            recent.type === "post" ?
+                                <PostCard
+                                    id={recent.data.postId}
+                                    key={index}
+                                    banner={recent.data.imageUrl}
+                                    title={recent.data.postTitle}
+                                    description={recent.data.postSummary}
+                                    likes={recent.data.likes}
+                                    author={recent.data.author}
+                                    publishedDate={recent.data.publishedDate}
+                                    userId = {recent.data.uid}
+                                /> :
+                                <QuestionCard
+                                    key={recent.data.questionId}
+                                    id={recent.data.questionId}
+                                    votes={recent.data.bookmarks}
+                                    answers={recent.data.answers}
+                                    question={recent.data.question}
+                                    details={recent.data.description}
+                                    author={recent.data.author}
+                                    userId={recent.data.userId}
+                                    publishedDate={recent.data.publishedDate}
+                                />
+                            : <div></div>
                     )
                 }
                 )}

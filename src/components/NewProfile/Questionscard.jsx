@@ -28,6 +28,7 @@ const Questionscard = (props) => {
          details={question.description}
          userId = {question.userId}
          publishedDate={question.publishedDate}
+         author={question.author}
         />
       )) : props.questionsData.map((question) => (<QuestionCard
         key={question.questionId}
@@ -38,6 +39,7 @@ const Questionscard = (props) => {
         details={question.description}
         userId = {question.userId}
         publishedDate={question.publishedDate}
+        author={question.author}
        />
      ))}
     </div>

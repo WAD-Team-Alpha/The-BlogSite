@@ -88,6 +88,7 @@ export const fetchOtherProfileData = (localId) => {
     try {
       const profileData = await fetchData();
       var data = {
+        ...profileData,
         firstName: profileData.firstName,
         lastName: profileData.lastName,
         email: profileData.email,

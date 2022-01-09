@@ -46,7 +46,7 @@ const Right = () => {
 
                 </div>
                 <hr style={{ color: '#379683', padding: "1px", marginRight: "20px" }} />
-                <div className={`  ${classes.fellow}`}>
+                {/* <div className={`  ${classes.fellow}`}>
 
                     <div className={`${classes.head}`}>
                         <p className={`fw-bold fs-8 `} style={{ color: 'black' }}>People you may know</p>
@@ -78,11 +78,10 @@ const Right = () => {
                     </div>
                     <div className={`${classes.view}`}>
                         <button className={'btn btn-primary ' + classes.a} data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom">View more</button>
-                        {/* <PeopleYouMayKnow /> */}
                     </div>
 
 
-                </div>
+                </div> */}
             </div>
         </div>
     );

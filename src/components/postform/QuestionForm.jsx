@@ -18,6 +18,7 @@ const QuestionForm = () => {
   const [description, setDescription] = useState();
   const [image, setImage] = useState();
   const [submit, setSubmit] = useState(false);
+  const [genre, setGenre] = useState("");
   const navigate = useNavigate();
 
   const imageHandler = (value) => {
@@ -50,8 +51,10 @@ const QuestionForm = () => {
           userId: auth.localId,
           comments: [],
           likes: 0,
-          bookmarks : 0,
-          status : "active"
+          bookmarks: 0,
+          status: "active",
+          genre,
+          author: about.firstName
         },
         questionId
       )
@@ -69,6 +72,8 @@ const QuestionForm = () => {
           userId: auth.localId,
           comments: [],
           likes: 0,
+          genre,
+          author: about.firstName
         })
       );
       navigate(`/profile/${auth.localId}`, { replace: true });
@@ -87,37 +92,63 @@ const QuestionForm = () => {
               className={"container " + classes.form}
               onSubmit={onSubmitHandler}
             >
-              <br />
-              <h1>
-                <b>Step 1: </b> Open the thread
-              </h1>
-              <br />
+              <div id="post-form" className="d-flex align-items-center justify-content-between">
+                <h1 className="mt-3 mb-4">
+                  <b>Step 1: </b> Open the thread
+                </h1>
+                <select
+                  data-bs-toggle="tooltip" data-bs-placement="top" title="Please select the type of genre this post is related to !"
+                  onChange={(e) => {
+                    setGenre(e.target.value);
+                  }}
+                  class="form-select"
+                  aria-label="Default select example"
+                  style={{
+                    width: "10em",
+                    backgroundColor: "#5cdb95",
+                    fontWeight: "600",
+                    border: '2px solid #5cdb95',
+                    borderColor: genre === "genre-invalid" ? 'red' : ''
+                  }}
+                  defaultValue={""}
+                  required
+                >
+                  <option value="" disabled>
+                    Select genre
+                  </option>
+                  <option value="tech">Technology</option>
+                  <option value="gadgets">Gadgets</option>
+                  <option value="coding">Coding</option>
+                  <option value="traveling">Traveling</option>
+                  <option value="movies">Movies</option>
+                  <option value="gaming">Gaming</option>
+                </select>
+              </div>
               <TextInputBox
                 inputname={"Question"}
                 isAdded={false}
                 onChange={questionHandler}
+                maxLength={200}
               />
-              <br />
               <TextInputBox
                 inputname={"Description"}
                 height={"100px"}
                 isAdded={false}
                 onChange={descriptionHandler}
+                maxLength={20000}
               />
-              <br />
               <ImageInputBox
                 height={"30vh"}
                 isAdded={false}
                 onChange={imageHandler}
                 inputname={"Attach image"}
               />
-              <br />
               <button
                 className="btn btn-primary"
                 type="submit"
                 style={{ marginBottom: "1em" }}
               >
-                Publish post
+                Publish Thread
               </button>
             </form>
           </div>
