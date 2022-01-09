@@ -12,7 +12,12 @@ import { motion } from 'framer-motion'
 import { fetchQuestionData } from "../store/question-actions"
 import { fetchOtherProfileData, fetchProfileData } from '../store/profile-actions'
 import { profileActions } from '../store/profile';
+import LoadingSpinner from "../components/auth/LoadingSpinner";
+
+
 const QuestionLayout = () => {
+    
+    const [submit, setSubmit] = useState(false);
     const dispatch = useDispatch();
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
@@ -58,6 +63,8 @@ const QuestionLayout = () => {
     }
 
     useEffect(() => {
+        
+        setSubmit(true);
         dispatch(fetchProfileData(localStorage.getItem("localId"))).then((result) => {
             if (result !== 'false') {
                 console.log("I am in the false case lmaoooo", result)
@@ -74,15 +81,18 @@ const QuestionLayout = () => {
                     console.log(data);
                     setData({...data, followercount: data.followersList.length,followingcount: data.followingList.length, userId: result.userId })
                 });
+            setSubmit(false);
+
             }
         });
     }, []);
+   
 
     const myRef = useRef(null)
     const executeScroll = () => myRef.current.scrollIntoView()
     window.scroll(0, 0)
 
-    return (
+    return submit ? <LoadingSpinner/> : (
         <>
             {!nav && <Header nav={navHandler} />}
             {nav && <Navigation nav={navHandler} />}
