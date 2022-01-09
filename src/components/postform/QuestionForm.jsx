@@ -71,7 +71,7 @@ const QuestionForm = () => {
           likes: 0,
         })
       );
-      navigate("/profile", { replace: true });
+      navigate(`/profile/${auth.localId}`, { replace: true });
     });
   };
 
