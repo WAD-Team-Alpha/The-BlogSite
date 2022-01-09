@@ -2,12 +2,13 @@ import { useSelector } from "react-redux";
 import QuestionCard from "../home/cards/QuestionCard";
 
 const Questionscard = (props) => {
-
+  
   const quesdata = useSelector((state)=> state.questions)
   console.log(quesdata)
   
   const quesid = useSelector((state)=> state.profile.questionIds)
   console.log(quesid)
+  console.log(props.questionsData);
   
   return <div>
 
@@ -18,7 +19,7 @@ const Questionscard = (props) => {
       borderBottom: '1px solid #b1b1b1',
       backgroundColor: '#edf5e1',
     }}>
-      {quesdata.map((question) => (<QuestionCard
+      {props.curUser ? quesdata.map((question) => (<QuestionCard
          key={question.questionId}
          id={question.questionId}
          votes={question.likes}
@@ -28,7 +29,17 @@ const Questionscard = (props) => {
          userId = {question.userId}
          publishedDate={question.publishedDate}
         />
-      ))}
+      )) : props.questionsData.map((question) => (<QuestionCard
+        key={question.questionId}
+        id={question.questionId}
+        votes={question.likes}
+        answers={question.comments.length}
+        question={question.question}
+        details={question.description}
+        userId = {question.userId}
+        publishedDate={question.publishedDate}
+       />
+     ))}
     </div>
   </div>
 

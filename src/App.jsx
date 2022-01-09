@@ -45,7 +45,7 @@ function App() {
     }});
     dispatch(fetchProfileData(isAuth.localId)).then((res)=>{if(res!==null){
       res.questionIds.map(id=>{console.log("this line is excecuted");(dispatch(fetchQuestionsData(id)))})
-    }})
+    }});
   
   },[isAuth])
   return (
