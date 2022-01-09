@@ -8,15 +8,17 @@ import { Outlet } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import RestrictedAccess from './RestrictedAccess'
 const HomeLayout = () => {
-    const [nav, setNav] = useState(false);
+    // Home layout
+    const [nav, setNav] = useState(false); //Navigation state
     const navHandler = () => {
         nav ? setNav(false) : setNav(true)
     }
-    const authStatus = useSelector((state) => state.auth);
+    const authStatus = useSelector((state) => state.auth); //Accessing the Auth data
     return (
-        authStatus.isAuthenticated ?
+        authStatus.isAuthenticated ? //COnitional rendering
             <>
                 {!nav && <Header nav={navHandler} />}
+                {/* Conditional rendering the nav bar */}
                 {nav && <Navigation nav={navHandler} />}
                 {!nav && <>
                     <div className={"container-fluid " + classes.content}>

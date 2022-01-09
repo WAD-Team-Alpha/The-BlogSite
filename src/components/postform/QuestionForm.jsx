@@ -11,8 +11,10 @@ import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
 import { questionsActions } from "../../store/questions";
 const QuestionForm = () => {
-  const auth = useSelector((state) => state.auth);
-  const about = useSelector((state) => state.profile);
+  const auth = useSelector((state) => state.auth); //Accessing the user's auth details
+  const about = useSelector((state) => state.profile); //Accessing the user's profuile details
+
+  // State management form form validation
   const dispatch = useDispatch();
   const [question, setQuestion] = useState();
   const [description, setDescription] = useState();
@@ -21,6 +23,7 @@ const QuestionForm = () => {
   const [genre, setGenre] = useState("");
   const navigate = useNavigate();
 
+  // Form input handlers
   const imageHandler = (value) => {
     setImage(value);
   };
@@ -33,6 +36,7 @@ const QuestionForm = () => {
     setDescription(value);
   };
 
+  // Form on submit handlers
   const onSubmitHandler = (event) => {
     event.preventDefault();
     const questionId = uuidv4();
@@ -40,7 +44,7 @@ const QuestionForm = () => {
     const publishedDate = today.toLocaleDateString("en-US");
     console.log({ question, description, image });
     setSubmit(true);
-    dispatch(
+    dispatch( //Dispatching the form data
       sendQuestionData(
         {
           question,
@@ -60,7 +64,7 @@ const QuestionForm = () => {
       )
     ).then((result) => {
       const questionIds = [...about.questionIds, questionId];
-      dispatch(profileActions.update({ ...about, questionIds: questionIds }));
+      dispatch(profileActions.update({ ...about, questionIds: questionIds })); //Sending the data to the redux store
       setSubmit(false);
       dispatch(
         questionsActions.addQuestion({
@@ -76,7 +80,7 @@ const QuestionForm = () => {
           author: about.firstName
         })
       );
-      navigate(`/profile/${auth.localId}`, { replace: true });
+      navigate(`/profile/${auth.localId}`, { replace: true }); // Navigating to the desired destination
     });
   };
 

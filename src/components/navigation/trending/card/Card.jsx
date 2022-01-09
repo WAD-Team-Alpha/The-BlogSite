@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import classes from './Card.module.css';
 
 const Card = (props) => {
+    // Card UI
     return (
         <div className={"card shadow" + " " + props.theme + " " + classes[props.className]}>
             <img src={props.link} className="card-img-top" alt="..." />

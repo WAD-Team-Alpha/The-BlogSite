@@ -10,6 +10,8 @@ import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
 const Content = (props) => {
+
+    // All these triggers for the css part
     const [ref1, inView1] = useInView({ triggerOnce: true });
     const animation1 = useAnimation();
 
@@ -22,6 +24,7 @@ const Content = (props) => {
     const [ref4, inView4] = useInView({ triggerOnce: true });
     const animation4 = useAnimation();
 
+    // This effects is used to trigger the animations appropriately
     useEffect(() => {
         if (inView1) {
             animation1.start({

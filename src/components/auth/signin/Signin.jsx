@@ -6,7 +6,10 @@ import signupimg from "../../../assets/images/Signup.png";
 import { useDispatch } from "react-redux";
 import { signinAction } from "../../../store/auth-actions";
 import { motion } from "framer-motion";
+
+// Reducer for signin validation
 const signinReducer = (state, action) => {
+  // Email Validation
   if (action.type === "EMAIL_ON_CHANGE") {
     return {
       ...state,
@@ -15,6 +18,7 @@ const signinReducer = (state, action) => {
       formIsValid: action.payload.includes("@") && state.passwordIsValid,
     };
   }
+  // Password Validation
   if (action.type === "PASSWORD_ON_CHANGE") {
     return {
       ...state,
@@ -44,11 +48,10 @@ const signinReducer = (state, action) => {
 };
 
 const Signin = (props) => {
+  // Navigation hook to redirect user
   const navigate = useNavigate();
-  const location = useLocation();
-  const params = new URLSearchParams(location.search)
-  const [creds, setCreds] = useState({emailIsCorrect: null, passwordIsCorrect: null})
-  const dispatchAction = useDispatch();
+  const [creds, setCreds] = useState({emailIsCorrect: null, passwordIsCorrect: null}) // Creds of the user, stored in state
+  const dispatchAction = useDispatch(); // To dispatch the redux state
   const initState = {
     email: "",
     password: "",
@@ -57,16 +60,20 @@ const Signin = (props) => {
     formIsValid: null,
   };
   const [showPass, setShowPass] = useState(false);
+  // Password change handler
   const showPassHandler = () => {
     setShowPass(!showPass);
   };
   const [state, dispatch] = useReducer(signinReducer, initState);
+  // Email handler on every key stroke
   const emailHandler = (event) => {
     dispatch({ type: "EMAIL_ON_CHANGE", payload: event.target.value });
   };
   const passwordHandler = (event) => {
     dispatch({ type: "PASSWORD_ON_CHANGE", payload: event.target.value });
   };
+
+  // Handler to submmit the form after validation
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (state.formIsValid) {
@@ -79,14 +86,17 @@ const Signin = (props) => {
       dispatchAction(signinAction(state.email, state.password)).then((res) => {
         if (res === "success") {
           props.onSubmit(false)
+          // Navigating the user after successful signin
           navigate("/home/post", { replace: true });
         }
         if (res === "INVALID_PASSWORD") {
+          // Alerting user for invalid password
           console.log("Please provide a right password")
           props.onSubmit(false)
           setCreds({...creds, passwordIsCorrect: false})
         }
         if (res === "EMAIL_NOT_FOUND") {
+          // Alerting use for email not found
           console.log("Please provide a right email")
           props.onSubmit(false)
           setCreds({...creds, emailIsCorrect: false})
@@ -100,6 +110,7 @@ const Signin = (props) => {
 
   return (
     <>
+    {/* Conditional display  */}
       {props.display && (
         <motion.div initial={{ x: '-100vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, type: 'spring' }} className={"container shadow-lg " + classes.signin}>
           <h1>Signin</h1>
