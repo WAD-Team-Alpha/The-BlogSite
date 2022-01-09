@@ -22,14 +22,16 @@ const PostLayout = () => {
 
   const updateRecentActivity = (data, value) => {
     var temp
-    if (data.filter((obj) => obj.id === value.id) !== []) {
+    var filtered = data.filter((obj) => obj.id === value.id)
+    if (filtered.length !== 0) {
       temp = data.filter((obj) => obj.id !== value.id)
       temp = [value].concat(temp)
       return temp
     }
-    if (data.length === 10) {
-      temp = data.pop()
-      temp = [value].concat(data)
+    if (data.length >= 10) {
+      var limited = [...data]
+      limited.pop()
+      temp = [value].concat(limited)
       return temp
     } else {
       temp = [value].concat(data)

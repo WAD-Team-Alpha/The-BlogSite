@@ -115,6 +115,7 @@ const PostForm = () => {
       postData: finalData,
       comments: [],
       genre: genre,
+      author: about.firstName,
     };
     setSubmit(true);
     dispatch(sendPostData(postData, postId)).then((result) => {

@@ -22,6 +22,7 @@ const Last = (props) => {
   const addCommentHandler = (event) => {
     
     event.preventDefault();
+    setComment("")
     console.log("this is comment handler");
     if (comment === "") {
       return;
@@ -58,7 +59,7 @@ const Last = (props) => {
   return (
     <div className={classes.answers}>
       <span style={{ fontSize: "30px" }}>
-        <b>Answers</b>
+        <b ref={props.theRef}>Answers</b>
       </span>
       <div>
         {commentsdata.comments.map((comment) => (
@@ -75,6 +76,7 @@ const Last = (props) => {
               </div>
               <div class="col-11">
                 <TextField
+                  value={comment}
                   fullWidth
                   width="500px"
                   helperText=" "
@@ -88,7 +90,6 @@ const Last = (props) => {
                 <Button variant="contained" type="submit" >Submit</Button>
                 <br />
                 <br />
-                
               </div>
             </div>
           </div>

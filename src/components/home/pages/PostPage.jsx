@@ -72,6 +72,7 @@ const PostPage = () => {
                     key={post.postId}
                     id={post.postId}
                     banner={post.imageUrl}
+                    author={post.author}
                     title={post.postTitle}
                     description={post.postSummary}
                     likes={post.likes}
