@@ -1,16 +1,31 @@
 import { Avatar, Link } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { profileActions } from "../../../store/profile";
+import { fetchOtherProfileData } from "../../../store/profile-actions";
+import { sendOtherProfileData } from "../../../store/profile-actions";
 
-
-const Following = () => {
+const Following = (props) => {
   const followinglist = useSelector((state) => state.profile.followingList);
   const dispatch = useDispatch();
   console.log(followinglist);
-
+  const followInfo = useSelector((state) => state.profile);
+  const authStatus = useSelector((state) => state.auth);
   const unfollowHandler = (index) => {
-    dispatch(profileActions.removeuser(index));
-    console.log(followinglist);
+    const newList = followInfo.followingList.filter((id)=>id.id !== index)
+    
+    dispatch(fetchOtherProfileData(index)).then((res) => {
+      console.log(res);
+      dispatch(
+        sendOtherProfileData({
+          ...res,
+          followersList: res.followersList.filter((id)=>id.id !== authStatus.localId),
+        },index)
+      ).then((result) => {
+        if (result === "succes") {
+          dispatch(profileActions.update({...followInfo,followingList: newList}));
+        }
+      });
+    });
   };
 
   return (

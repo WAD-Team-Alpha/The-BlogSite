@@ -96,6 +96,7 @@ const PostLayout = () => {
             followingcount: data.followingList.length,
             userId: result.uid,
           });
+          console.log(data.followersList.length,data.followingList.length);
           setSubmit(false);
         });
       }
