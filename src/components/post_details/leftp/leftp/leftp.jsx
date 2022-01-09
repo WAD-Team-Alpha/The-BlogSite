@@ -12,7 +12,7 @@ import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
 import { profileActions } from "../../../../store/profile";
 import { sendProfileData } from "../../../../store/profile-actions";
 import { postActions } from "../../../../store/post";
-
+import Copyurl from '../../../home/cards/CopyUrl'
 
 const Leftp = (props) => {
   const postdata = useSelector((state) => state.post);
@@ -28,20 +28,20 @@ const Leftp = (props) => {
   const likedcontent = useSelector((state) => state.profile);
   const likeid = likedcontent.likedContent;
 
-  const checkId = (savedId, postId)=>{
+  const checkId = (savedId, postId) => {
     for (var i = 0; i < savedId.length; i++) {
       console.log(savedId[i], postId);
-    
-      if(savedId[i].id === postId){
+
+      if (savedId[i].id === postId) {
         console.log("true")
         return true
       }
       //Do something
+    }
+    console.log("false");
+    return false
   }
-  console.log("false");
-  return false
-  }
- 
+
   const savedId = likedcontent.savedContent
 
   console.log(savedId);
@@ -51,15 +51,15 @@ const Leftp = (props) => {
   const [likestatus, setLikestatus] = useState(likeid.includes(postdata.postId));
   console.log(savedId.includes(postdata.postId));
   const [bookmarkstatus, setBookmarkstatus] = useState(checkId(savedId, postdata.postId));
-  
-  console.log(likeid.includes(postdata.postId));
-    if (likeid.includes(postdata.postId)) {
-      console.log("You already liked this post...");
-    }
 
-    if (savedId.includes(postdata.postId)) {
-      console.log("You already bookmarked this post...");
-    }
+  console.log(likeid.includes(postdata.postId));
+  if (likeid.includes(postdata.postId)) {
+    console.log("You already liked this post...");
+  }
+
+  if (savedId.includes(postdata.postId)) {
+    console.log("You already bookmarked this post...");
+  }
 
   console.log(like);
   console.log(likestatus);
@@ -75,9 +75,9 @@ const Leftp = (props) => {
 
       // dispatch(sendProfileData(profiledata, authdata.localId));
       console.log(postdata);
-      dispatch(sendPostData({ ...postdata, likes: likes }, postdata.postId)).then((res)=>{
-        if(res==="success"){
-          dispatch(postActions.add({...postdata, likes: likes}))
+      dispatch(sendPostData({ ...postdata, likes: likes }, postdata.postId)).then((res) => {
+        if (res === "success") {
+          dispatch(postActions.add({ ...postdata, likes: likes }))
         }
       });
     }
@@ -95,17 +95,17 @@ const Leftp = (props) => {
     }
   };
 
-  const bookmarklikeHandler = () =>{
+  const bookmarklikeHandler = () => {
     if (!bookmarkstatus) {
       var bookmarks = bookmark;
       setBookmarkstatus(true);
       setBookmark((val) => val + 1);
       bookmarks = bookmark + 1;
-     dispatch(profileActions.addBookmark({ type: "post", id: postdata.postId }))
+      dispatch(profileActions.addBookmark({ type: "post", id: postdata.postId }))
 
       // dispatch(sendProfileData(profiledata, authdata.localId));
       console.log(postdata);
-      dispatch(sendPostData({ ...postdata, bookmarks : bookmarks }, postdata.postId))
+      dispatch(sendPostData({ ...postdata, bookmarks: bookmarks }, postdata.postId))
     }
   }
 
@@ -116,14 +116,16 @@ const Leftp = (props) => {
       setBookmark((val) => val - 1);
       bookmarks = bookmark - 1;
       dispatch(profileActions.removeBookmark({ type: "post", id: postdata.postId }))
-      dispatch(sendPostData({ ...postdata, bookmarks : bookmarks }, postdata.postId)).then((res)=>{
-        if(res==="success"){
-          dispatch(postActions.add({...postdata, bookmarks : bookmarks}))
+      dispatch(sendPostData({ ...postdata, bookmarks: bookmarks }, postdata.postId)).then((res) => {
+        if (res === "success") {
+          dispatch(postActions.add({ ...postdata, bookmarks: bookmarks }))
         }
       });;
       // dispatch(sendProfileData(profiledata, authdata.localId));
     }
   }
+  const [modalShow, setModalShow] = React.useState(false);
+  const url = window.location.href;
 
   console.log(postdata);
   return (
@@ -162,13 +164,13 @@ const Leftp = (props) => {
             style={{ paddingLeft: "5.5em" }}
             onClick={bookmarkdislikeHandler}
           >
-            <BookmarkAdded/> {bookmarkstatus ? "Bookmarked" : "Bookmark"}
+            <BookmarkAdded /> {bookmarkstatus ? "Bookmarked" : "Bookmark"}
           </button>
         ) : (
           <button
             className="btn shadow-none"
             style={{ paddingLeft: "5.5em" }}
-            onClick = { bookmarklikeHandler}
+            onClick={bookmarklikeHandler}
           >
             <BookmarkIcon /> {bookmarkstatus ? "Bookmarked" : "Bookmark"}
           </button>
@@ -180,9 +182,16 @@ const Leftp = (props) => {
         <button
           className="btn shadow-none"
           style={{ paddingLeft: "5.5em" }}
+          onClick={() => setModalShow(true)}
         >
           <ShareIcon />  Share
         </button>
+
+        <Copyurl
+          show={modalShow}
+          url={url}
+          onHide={() => setModalShow(false)}
+        />
         <br />
       </div>
     </>

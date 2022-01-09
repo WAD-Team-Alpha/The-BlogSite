@@ -9,12 +9,13 @@ import Button from '@mui/material/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchOtherProfileData } from '../../../store/profile-actions';
 
-
+import { useNavigate } from "react-router-dom";
 
 const Rightq = (props) => {
     const num=[1,2,3,4]
+    const profileData = props.profileData;
     const dispatch = useDispatch()
-   
+    const navigate = useNavigate();
     const userDetails = props.profileData
     console.log(userDetails)
 

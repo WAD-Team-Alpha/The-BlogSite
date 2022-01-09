@@ -21,7 +21,19 @@ const Profile = (props) => {
   const [addform, setAddform] = useState(false);
   const [memtab, setmemTab] = useState(false);
   const dispatch = useDispatch();
-  const [followStatus, setfollowStatus] = useState("Follow");
+  const isFollowing = (list, id) => {
+    for (var i = 0; i < list.length; i++) {
+      console.log(list[i], id);
+      if (list[i].id === id) {
+        console.log(list[i], id);
+        return true;
+      }
+    }
+    return false;
+  };
+  const [followStatus, setfollowStatus] = useState(
+    isFollowing(userInfo.followingList, props.uid)
+  );
   const [curUser, setCurUser] = useState(true);
 
   const userDetails = {
@@ -72,17 +84,73 @@ const Profile = (props) => {
   };
 
   const followbuttonHandler = () => {
-    if (followStatus === "Follow") {
-      setfollowStatus("Following");
+    if (followStatus === false) {
+      setfollowStatus(true);
+
+      dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+        console.log(res);
+        const newData = {
+          ...userInfo,
+          followingList: [
+            ...userInfo.followingList,
+            { id: props.uid, name: res.firstName },
+          ],
+        };
+        dispatch(
+          sendOtherProfileData(
+            {
+              ...res,
+              followersList: [
+                ...res.followersList,
+                { id: authStatus.localId, name: userInfo.firstName },
+              ],
+            },
+            props.uid
+          )
+        ).then((result) => {
+          if (result === "succes") {
+            console.log("this is running");
+            dispatch(profileActions.update(newData));
+            var len = otherProfileData.followerCount + 1;
+            console.log(len);
+            setOtherProfileData((res) => {
+              return { ...res, followerCount: len };
+            });
+          }
+        });
+      });
+    } else {
+      setfollowStatus(false);
+      const newList = userInfo.followingList.filter(
+        (id) => id.id !== props.uid
+      );
       const newData = {
         ...userInfo,
-        followingList: [...userInfo.followingList, props.uid],
+        followingList: newList,
       };
-      dispatch(sendOtherProfileData());
-      dispatch(profileActions.update(newData));
-    } else {
-      setfollowStatus("Follow");
-      return dispatch(profileActions.remove());
+      dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+        console.log(res);
+        dispatch(
+          sendOtherProfileData(
+            {
+              ...res,
+              followersList: res.followersList.filter(
+                (id) => id.id !== authStatus.localId
+              ),
+            },
+            props.uid
+          )
+        ).then((result) => {
+          if (result === "succes") {
+            dispatch(profileActions.update(newData));
+            var len = otherProfileData.followerCount - 1;
+            console.log(len);
+            setOtherProfileData((res) => {
+              return { ...res, followerCount: len };
+            });
+          }
+        });
+      });
     }
   };
   useEffect(() => {
@@ -141,6 +209,7 @@ const Profile = (props) => {
                           <i class="bi bi-pencil-fill"></i>
                         </Link>
                       )}
+                      {!curUser && <div style={{ height: "1em" }}></div>}
                     </div>
                   </div>
                 </div>
@@ -164,23 +233,43 @@ const Profile = (props) => {
                       </b>
                     </div>
 
-                    <div class="row justify-content-center">
-                      <div class="col-7">
-                        <Link underline="none" onClick={linkHandler}>
-                          <span className={classes.mainfollowers}>
-                            <b>Followers</b>
-                          </span>
-                        </Link>
+                    {curUser ? (
+                      <div class="row justify-content-center">
+                        <div class="col-7">
+                          <Link underline="none" onClick={linkHandler}>
+                            <span className={classes.mainfollowers}>
+                              <b>Followers</b>
+                            </span>
+                          </Link>
+                        </div>
+                        <div class="col-5">
+                          <Link underline="none" onClick={linkHandler}>
+                            {" "}
+                            <span className={classes.mainfollowing}>
+                              <b>Following</b>
+                            </span>
+                          </Link>
+                        </div>
                       </div>
-                      <div class="col-5">
-                        <Link underline="none" onClick={linkHandler}>
-                          {" "}
-                          <span className={classes.mainfollowing}>
-                            <b>Following</b>
-                          </span>
-                        </Link>
+                    ) : (
+                      <div class="row justify-content-center">
+                        <div class="col-7">
+                          <Link underline="none">
+                            <span className={classes.mainfollowers}>
+                              <b>Followers</b>
+                            </span>
+                          </Link>
+                        </div>
+                        <div class="col-5">
+                          <Link underline="none">
+                            {" "}
+                            <span className={classes.mainfollowing}>
+                              <b>Following</b>
+                            </span>
+                          </Link>
+                        </div>
                       </div>
-                    </div>
+                    )}
                     <div class="row justify-content-end">
                       <div class="col">
                         <span className={classes.followercount}>
@@ -326,7 +415,7 @@ const Profile = (props) => {
                         className={classes.customfollowbtn}
                         onClick={followbuttonHandler}
                       >
-                        <b>{followStatus}</b>
+                        <b>{followStatus ? "Following" : "Follow"}</b>
                       </button>
                     </div>
                   </div>

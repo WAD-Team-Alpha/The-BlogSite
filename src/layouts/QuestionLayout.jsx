@@ -72,7 +72,7 @@ const QuestionLayout = () => {
             if (result !== null) {
                 dispatch(fetchOtherProfileData(result.userId)).then((data) => {
                     console.log(data);
-                    setData({ ...data, followercount: data.followersList.length, followingcount: data.followingList.length })
+                    setData({...data, followercount: data.followersList.length,followingcount: data.followingList.length, userId: result.userId })
                 });
             }
         });
