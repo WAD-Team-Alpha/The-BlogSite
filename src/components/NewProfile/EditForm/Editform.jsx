@@ -61,7 +61,7 @@ const Editform = (props) => {
                   class="form-control"
                   id="userfname"
                   placeholder="Enter your first name"
-                  defaultValue={props.userDetails.firstname}
+                  defaultValue={props.userDetails.firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
@@ -75,7 +75,7 @@ const Editform = (props) => {
                   class="form-control"
                   id="userlname"
                   placeholder="Enter your Last name"
-                  defaultValue={props.userDetails.lastname}
+                  defaultValue={props.userDetails.lastName}
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
