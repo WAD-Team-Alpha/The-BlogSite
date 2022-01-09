@@ -61,7 +61,7 @@ export const fetchProfileData = (localId) => {
       }
       console.log("testing data : ", data)
       dispatch(profileActions.update(data));
-      return { questionIds: data.questionIds, postIds: data.postIds }
+      return data
     } catch (error) {
       console.log("error");
       return "false"
