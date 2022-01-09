@@ -6,9 +6,12 @@ import Signup from './signup/Signup'
 import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 const Authentication = () => {
-    const location = useLocation();
+    // Main page for authentication
+    const location = useLocation(); //Location to track the type of signin
     const query = new URLSearchParams(location.search);
     const [submitted, setSubmitted] = useState(false)
+
+    // Css properties
     const mainVarient = query.get('main') === 'true' ? {
         hidden: {
             opacity: 0,
@@ -29,6 +32,8 @@ const Authentication = () => {
             },
         }
     } : {}
+
+    
     return (
         <motion.div variants={mainVarient} initial='hidden' animate='visible' exit='exit' className="container-fluid" >
             <div className="row">

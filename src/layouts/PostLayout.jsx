@@ -15,12 +15,12 @@ import { profileActions } from '../store/profile'
 import LoadingSpinner from '../components/auth/LoadingSpinner'
 
 const PostLayout = () => {
-  const dispatch = useDispatch();
-  const [nav, setNav] = useState(false);
-  const [data, setData] = useState({});
-  const [submit, setSubmit] = useState(false)
+  const dispatch = useDispatch(); //Dispatch function to update data in the store
+  const [nav, setNav] = useState(false); //State for the nav
+  const [data, setData] = useState({}); //State for the data
+  const [submit, setSubmit] = useState(false) //State for the loading spinner
 
-  const updateRecentActivity = (data, value) => {
+  const updateRecentActivity = (data, value) => { //Updating recent activity locally
     var temp
     var filtered = data.filter((obj) => obj.id === value.id)
     if (filtered.length !== 0) {
@@ -39,10 +39,10 @@ const PostLayout = () => {
     }
   }
 
-  const navHandler = () => {
+  const navHandler = () => { // Setting the nav handler
     nav ? setNav(false) : setNav(true);
   };
-  const params = useParams();
+  const params = useParams(); // Extracting the data from the routing params
   const mainVarient = {
     hidden: {
       opacity: 0,
@@ -63,22 +63,24 @@ const PostLayout = () => {
       },
     },
   };
+  // Useeffects are used here for fetching and sending the data for the post data
   useEffect(() => {
     dispatch(fetchProfileData(localStorage.getItem("localId"))).then((result) => {
       if (result !== 'false') {
-        console.log("I am in the false case lmaoooo", result)
+        console.log("I am in the false case lmaoooo", result) //Fetching the data here
         console.log(updateRecentActivity(result.recentActivity, { id: params.postID, type: 'post' }), " is the temp")
         dispatch(profileActions.update({
-          ...result,
+          ...result, //Updating the recent activity
           recentActivity: updateRecentActivity(result.recentActivity, { id: params.postID, type: 'post' })
         }))
       }
     })
     setSubmit(true)
+    // Dispatching the actions
     dispatch(fetchPostData(params.postID)).then((result) => {
       if (result !== null) {
         console.log(result)
-        dispatch(fetchOtherProfileData(result.uid)).then((data) => {
+        dispatch(fetchOtherProfileData(result.uid)).then((data) => { //Fetching other profile data for the inspect feature
           console.log(data);
           console.log(data.followersList.length);
           setData({

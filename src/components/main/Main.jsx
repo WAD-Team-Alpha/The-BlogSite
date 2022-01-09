@@ -4,9 +4,9 @@ import Navigation from "../navigation/Navigation";
 import { motion } from 'framer-motion'
 
 function Home() {
-  const [nav, setNav] = useState(false);
+  const [nav, setNav] = useState(false); // Navigation state
   const navHandler = () => {
-    nav ? setNav(false) : setNav(true)
+    nav ? setNav(false) : setNav(true) //Navigation handler
   }
 
   const mainVarient = {
@@ -32,7 +32,8 @@ function Home() {
       exit='exit'
     >
       {!nav && <Content nav={navHandler} />}
-      {nav && <Navigation nav={navHandler} />}
+      {/* Navigation conditionally */}
+      {nav && <Navigation nav={navHandler} />} 
     </motion.div>
   );
 }

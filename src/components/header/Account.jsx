@@ -14,21 +14,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 const Account = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate(); //Navigate hook to navigate the user to profile management
+  const dispatch = useDispatch(); //Dispatch to send redux state updates
+  const [anchorEl, setAnchorEl] = React.useState(null); //Setting up the state
   const open = Boolean(anchorEl);
+
+  // Click handlers
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  // Logout handler
   const logoutHandler = () => {
     dispatch(authActions.logout())
     navigate("/", { replace: true })
   }
-  const authData = useSelector(state => state.auth)
+  const authData = useSelector(state => state.auth) //accessing the authenticated user's data
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
