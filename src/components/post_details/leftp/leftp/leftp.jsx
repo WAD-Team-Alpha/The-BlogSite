@@ -120,7 +120,7 @@ const Leftp = (props) => {
         <span style={{ paddingLeft: "7em" }}>{like}</span>
         <br />
         <br />
-        <button className="btn shadow-none" style={{ paddingLeft: "5.5em" }}>
+        <button className="btn shadow-none" style={{ paddingLeft: "5.5em" }} onClick={props.handler}>
           <CommentIcon /> Comment
         </button>
         <span style={{ paddingLeft: "7em" }}>{postdata.comments.length}</span>

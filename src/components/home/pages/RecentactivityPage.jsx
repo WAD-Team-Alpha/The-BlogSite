@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import PostCard from '../cards/PostCard';
 import QuestionCard from '../cards/QuestionCard';
 import { motion } from 'framer-motion';
-import Carousel from '../../navigation/trending/carousel/Carousel'
-import recommendedData from '../../../helpers/recommendedData.json'
 import { useSelector } from 'react-redux';
 import { fetchActivity } from '../../../store/activity-actions';
 import { CircularProgress } from '@mui/material';
@@ -36,7 +34,9 @@ const RecentActivityPage = () => {
     const [recents, setRecents] = useState([])
     useEffect(() => {
         setStatus(true)
+        console.log("hello worold")
         fetchActivity(profileData.recentActivity).then((result) => {
+            console.log(result)
             setRecents(result)
             setStatus(false)
         })
@@ -51,11 +51,13 @@ const RecentActivityPage = () => {
                 initial='hidden'
                 animate='visible'
                 exit='exit'
-            >
+            >   
+                {console.log(recents)}
                 {recents.map((recent, index) => {
                     return (
-                        recent.type === "post" ? index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
+                        recent !== null ? recent.type === "post" ?
                             <PostCard
+                                id={recent.data.postId}
                                 key={index}
                                 banner={recent.data.imageUrl}
                                 title={recent.data.postTitle}
@@ -63,7 +65,7 @@ const RecentActivityPage = () => {
                                 likes={recent.data.likes}
                                 author={"Surya"}
                                 publishedDate={recent.data.publishedDate}
-                            /> : index === 4 ? <Carousel className={"recommendCard"} data={recommendedData} theme={"bg-dark"} slidesToShow={4} /> :
+                            /> :
                             <QuestionCard
                                 key={recent.data.questionId}
                                 id={recent.data.questionId}
@@ -73,7 +75,7 @@ const RecentActivityPage = () => {
                                 details={recent.data.description}
                                 userId={recent.data.userId}
                                 publishedDate={recent.data.publishedDate}
-                            />
+                            /> : <div></div>
                     )
                 }
                 )}

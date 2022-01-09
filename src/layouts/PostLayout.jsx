@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Header from '../components/header/Header'
 import classes from './Layout.module.css'
 import Footer from '../components/footer/Footer'
@@ -8,17 +8,18 @@ import Leftp from '../components/post_details/leftp/leftp/leftp'
 import Middlep from '../components/post_details/leftp/middlep/middlep'
 import { useParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { fetchPostData } from '../store/post-actions'
 import { fetchOtherProfileData, fetchProfileData } from '../store/profile-actions'
 import { profileActions } from '../store/profile'
+import LoadingSpinner from '../components/auth/LoadingSpinner'
 
 const PostLayout = () => {
     const dispatch = useDispatch();
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
+    const [submit, setSubmit] = useState(false)
 
-    const profileData = useSelector(state => state.profile)
     const updateRecentActivity = (data, value) => {
         var temp
         if (data.filter((obj) => obj.id === value.id) !== []) {
@@ -65,14 +66,18 @@ const PostLayout = () => {
         dispatch(fetchProfileData(localStorage.getItem("localId"))).then((result) => {
             if (result !== 'false') {
                 console.log("I am in the false case lmaoooo", result)
+                console.log(updateRecentActivity(result.recentActivity, { id: params.postID, type: 'post' }), " is the temp")
                 dispatch(profileActions.update({
                     ...result,
-                    recentActivity: updateRecentActivity(profileData.recentActivity, { id: params.postID, type: 'post' })
+                    recentActivity: updateRecentActivity(result.recentActivity, { id: params.postID, type: 'post' })
                 }))
             }
         })
+        setSubmit(true)
         dispatch(fetchPostData(params.postID)).then((result) => {
             if (result !== null) {
+                console.log(result)
+                setSubmit(false)
                 dispatch(fetchOtherProfileData(result.uid)).then((data) => {
                     console.log(data);
                     console.log(data.followersList.length);
@@ -82,19 +87,22 @@ const PostLayout = () => {
         });
     }, []);
 
+    const myRef = useRef(null)
+    const executeScroll = () => myRef.current.scrollIntoView()
+
 
     return (
-        <>
+        submit ? <LoadingSpinner /> : <>
             {!nav && <Header nav={navHandler} />}
             {nav && <Navigation nav={navHandler} />}
             {!nav && <motion.div variants={mainVarient} initial='hidden' animate='visible' exit='exit'>
                 <div className={"container-fluid " + classes.content}>
                     <div className="row">
                         <div className={"col-md-2 shadow-lg " + classes.leftpane}>
-                            <Leftp postID={params.postID} profileData={data} />
+                            <Leftp postID={params.postID} profileData={data} handler={executeScroll} />
                         </div>
                         <div className={"col-md-7 shadow-lg " + classes.middlepane}>
-                            <Middlep postID={params.postID} profileData={data} />
+                            <Middlep postID={params.postID} profileData={data} theRef={myRef} />
                         </div>
                         <div className={"col-md-3 shadow-lg " + classes.rightpane}>
                             <Rightp postID={params.postID} profileData={data} />
