@@ -145,6 +145,56 @@ export const fetchPostsData = ( postId ) => {
 
 };
 
+export const fetchOtherPostsData = ( postId ) => {
+
+    return async ( dispatch ) => {
+        
+        console.log( "fetch data action is triggered" );
+        const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${ postId }.json`;
+        const fetchData = async () => {
+
+            const response = await fetch( url );
+
+            if ( ! response.ok )
+            {
+
+                throw new Error( "Could not fetch data!" );
+
+            }
+            // console.log(response);
+            const data = await response.json();
+
+            return data;
+
+        };
+
+        try
+        {
+
+            const postData = await fetchData();
+            var data = {
+
+                ... postData,
+                comments : postData.comments === undefined ? [] : postData.comments,
+                postData : postData.postData === undefined ? [] : postData.postData,
+                genre : postData.genre === undefined ? "tech" : postData.genre,
+
+            }
+            
+            return data;
+
+        } catch ( error )
+        {
+
+            console.log( "error" );
+            return "failed"
+
+        }
+
+    };
+
+};
+
 
 export const fetchTrendingPosts = () => {
     return async ( dispatch ) => {
