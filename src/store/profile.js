@@ -49,34 +49,6 @@ const profileSlice = createSlice({
       }
     },
 
-    updateRecentActivity(state, action) {
-      var temp
-      if (state.recentActivity.filter((obj) => obj.id === action.payload.id) !== []) {
-        temp = state.recentActivity.filter((obj) => obj.id !== action.payload.id)
-        temp = [action.payload].concat(temp)
-        return {
-          ...state,
-          recentActivity: temp
-        }
-      }
-      if (state.recentActivity.length === 10) {
-        console.log("I am in 2nd if")
-        temp = state.recentActivity.pop()
-        temp = [action.payload].concat(state.recentActivity)
-        return {
-          ...state,
-          recentActivity: temp
-        }
-      } else {
-        console.log("I am in else")
-        temp = [action.payload].concat(state.recentActivity)
-        return {
-          ...state,
-          recentActivity: temp
-        }
-      }
-    },
-
     addBookmark(state, action) {
       return {
         ...state,

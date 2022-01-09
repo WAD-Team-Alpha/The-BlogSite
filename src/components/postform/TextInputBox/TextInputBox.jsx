@@ -5,7 +5,7 @@ import classes from './TextInputBox.module.css'
 const TextInputBox = (props) => {
     const [length, setLength] = useState(0)
     return (
-        <div className='d-flex align-items-center'>
+        <div className='d-flex align-items-center mb-3'>
             <div className={"form-floating flex-grow-1"}>
                 <textarea className="form-control" placeholder="Leave a comment here" id="floatingTextarea" style={{ height: `${props.height}` }}
                     onChange={(event) => {

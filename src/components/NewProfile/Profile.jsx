@@ -11,8 +11,11 @@ import { useEffect } from "react";
 import Members from "./Members/Members";
 import { motion } from "framer-motion";
 import { sendOtherProfileData } from "../../store/profile-actions";
-
+import { fetchOtherProfileData } from "../../store/profile-actions";
+import LoadingSpinner from "../auth/LoadingSpinner";
 const Profile = (props) => {
+  const [submit, setSubmit] = useState(false);
+  const [otherProfileData, setOtherProfileData] = useState({});
   const authStatus = useSelector((state) => state.auth);
   const userInfo = useSelector((state) => state.profile);
   const [addform, setAddform] = useState(false);
@@ -20,11 +23,6 @@ const Profile = (props) => {
   const dispatch = useDispatch();
   const [followStatus, setfollowStatus] = useState("Follow");
   const [curUser, setCurUser] = useState(true);
-  useEffect(() => {
-    if (props.userId !== authStatus.localId) {
-      setCurUser(false);
-    }
-  }, []);
 
   const userDetails = {
     firstName: userInfo.firstName,
@@ -40,7 +38,7 @@ const Profile = (props) => {
   console.log(userInfo);
   console.log(userDetails.postIds);
   console.log(userDetails.genres);
-  console.log(props.userInfo.genres);
+  // console.log(props.userInfo.genres);
 
   const followCount = userDetails.followersList.length;
   // console.log(followCount)
@@ -76,19 +74,41 @@ const Profile = (props) => {
   const followbuttonHandler = () => {
     if (followStatus === "Follow") {
       setfollowStatus("Following");
-      const newData= {
+      const newData = {
         ...userInfo,
-        followingList: [...userInfo.followingList,props.userId]
-      }
-      dispatch(sendOtherProfileData())
+        followingList: [...userInfo.followingList, props.uid],
+      };
+      dispatch(sendOtherProfileData());
       dispatch(profileActions.update(newData));
     } else {
       setfollowStatus("Follow");
       return dispatch(profileActions.remove());
     }
   };
+  useEffect(() => {
+    setSubmit(true);
+    if (props.uid === authStatus.localId) {
+      setSubmit(false);
+      return;
+    }
+    setCurUser(false);
+    dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+      console.log(res);
+      const data = {
+        ...res,
+        followerCount: res.followersList.length,
+        followingCount: res.followingList.length,
+      };
 
-  return (
+      setOtherProfileData(data);
+      setSubmit(false);
+      console.log(data);
+      console.log("line 66 is running");
+    });
+  }, []);
+  return submit ? (
+    <LoadingSpinner />
+  ) : (
     <div className={classes.maincontainer}>
       <div className={classes.containerMd}>
         {!addform && !memtab && (
@@ -137,10 +157,10 @@ const Profile = (props) => {
                       <b>
                         {curUser
                           ? userDetails.firstName
-                          : props.userInfo.firstName}{" "}
+                          : otherProfileData.firstName}{" "}
                         {curUser
                           ? userDetails.lastName
-                          : props.userInfo.lastName}
+                          : otherProfileData.lastName}
                       </b>
                     </div>
 
@@ -164,16 +184,20 @@ const Profile = (props) => {
                     <div class="row justify-content-end">
                       <div class="col">
                         <span className={classes.followercount}>
-                          <b>{curUser
-                          ? followCount
-                          : props.userInfo.followerCount}</b>
+                          <b>
+                            {curUser
+                              ? followCount
+                              : otherProfileData.followerCount}
+                          </b>
                         </span>
                       </div>
                       <div class="col">
                         <span className={classes.followingcount}>
-                          <b>{curUser
-                          ? followingCount
-                          : props.userInfo.followingCount}</b>
+                          <b>
+                            {curUser
+                              ? followingCount
+                              : otherProfileData.followingCount}
+                          </b>
                         </span>
                       </div>
                     </div>
@@ -219,18 +243,21 @@ const Profile = (props) => {
                               label={gen}
                             />
                           ))
-                        : props.userInfo.genres.map((gen) => (
-                            <Chip
-                              style={{
-                                marginBottom: "0.5em",
-                                marginRight: "0.3em",
-                                backgroundColor: "#8ee4af",
-                                color: "#05386b",
-                                fontWeight: "600",
-                              }}
-                              label={gen}
-                            />
-                          ))}
+                        : otherProfileData.genres.map((gen) => {
+                            console.log("this is running");
+                            return (
+                              <Chip
+                                style={{
+                                  marginBottom: "0.5em",
+                                  marginRight: "0.3em",
+                                  backgroundColor: "#8ee4af",
+                                  color: "#05386b",
+                                  fontWeight: "600",
+                                }}
+                                label={gen}
+                              />
+                            );
+                          })}
                     </div>
                   </div>
                 )}
@@ -254,9 +281,7 @@ const Profile = (props) => {
                     class="col"
                     style={{ fontSize: "0.9em", marginLeft: "1.2em" }}
                   >
-                    {curUser
-                          ? userDetails.email
-                          : props.userInfo.email}
+                    {curUser ? userDetails.email : otherProfileData.email}
                   </div>
                 )}
                 <br />
@@ -287,9 +312,7 @@ const Profile = (props) => {
                       width: "280px",
                     }}
                   >
-                    {curUser
-                          ? userDetails.bio
-                          : props.userInfo.bio}
+                    {curUser ? userDetails.bio : otherProfileData.bio}
                   </div>
                 )}
 
@@ -321,7 +344,7 @@ const Profile = (props) => {
         )}
         {memtab && (
           <Members
-            userInfo={props.userInfo}
+            userInfo={otherProfileData}
             curUser={curUser}
             setmemTab={setmemTab}
           />
