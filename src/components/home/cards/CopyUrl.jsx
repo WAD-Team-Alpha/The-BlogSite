@@ -18,11 +18,11 @@ const Copyurl = (props)=>{
         </Modal.Header>
         <Modal.Body>
                
-<div class="input-group input-group-lg">
+<div className="input-group input-group-lg">
  
-<input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" value={props.url}/>
+<input type="text" className="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2" value={props.url}/>
 <CopyToClipboard  text={props.url}>
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Copy URL</button>
+                                    <button className="btn btn-outline-secondary" type="button" id="button-addon2">Copy URL</button>
                                 </CopyToClipboard>
    
 </div>
