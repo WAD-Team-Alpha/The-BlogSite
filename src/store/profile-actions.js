@@ -125,6 +125,9 @@ export const fetchOtherProfileData = (localId) => {
           profileData.questionIds === undefined ? [] : profileData.questionIds,
         bio: profileData.bio,
         genres: profileData.genres === undefined ? [] : profileData.genres,
+        recentActivity: profileData.recentActivity === undefined ? [] : profileData.recentActivity,
+        savedContent: profileData.savedContent === undefined ? [] : profileData.savedContent,
+        likedContent: profileData.likedContent === undefined ? [] : profileData.likedContent,
       };
       console.log("testing data : ", data);
       return data;
