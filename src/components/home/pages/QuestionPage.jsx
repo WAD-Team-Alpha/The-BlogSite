@@ -77,17 +77,14 @@ const QuestionPage = () => {
     >
       {result.slice(limit, limit + 10).map((query) => {
            console.log(query);
-           var count = 0
-           if (query.comments !== undefined) {
-               count  = query.comments.length;
-           }
+           
            
         return (
           <QuestionCard
             key={query.questionId}
             id={query.questionId}
             votes={query.likes}
-            answers={count}
+            answers={query.comments}
             author={query.author}
             question={query.question}
             details={query.description}

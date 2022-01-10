@@ -23,7 +23,7 @@ const Questionscard = (props) => {
          key={question.questionId}
          id={question.questionId} 
          votes={question.likes}
-         answers={question.comments.length}
+         answers={question.comments}
          question={question.question}
          details={question.description}
          userId = {question.userId}
@@ -34,7 +34,7 @@ const Questionscard = (props) => {
         key={question.questionId}
         id={question.questionId}
         votes={question.likes}
-        answers={question.comments.length}
+        answers={question.comments}
         question={question.question}
         details={question.description}
         userId = {question.userId}
