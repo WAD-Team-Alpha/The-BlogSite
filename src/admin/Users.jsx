@@ -1,39 +1,28 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 const Users = () => {
     const admin = useSelector(state => state.admin)
     console.log(admin.users, "These are the users from the backend")
     return (
-        <div>
-            <table id="customers" className='table table-striped'>
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                    <th>Bio</th>
-                    <th>Genres</th>
-                    <th>Liked content</th>
-                    <th>Recent Activity</th>
-                    <th>Saved content</th>
-                    <th>Posts</th>
-                    <th>Questions</th>
-                </tr>
-                { admin.users.map((item, index) => {
-                    return <tr>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.email}</td>
-                    <td>{item.bio}</td>
-                    <td>{item.genres}</td>
-                    <td><button className='btn' data={item.likedContent}>Liked Content</button></td>
-                    <td><button className='btn' data={item.recentActivity}>Recent Activity</button></td>
-                    <td><button className='btn' data={item.savedContent}>Saved Content</button></td>
-                    <td><button className='btn' data={item.postIds}>Posts</button></td>
-                    <td><button className='btn' data={item.questionIds}>Questions</button></td>
-                </tr>
+        <div className='container'>
+            <h1>Users</h1>
+            <div className="row">
+                {admin.users.map((item, index) => {
+                    return <div className="col-md-3" key={index}>
+                        <div class="card" style={{width: "18rem", marginTop: '2em'}}>
+                            <div class="card-body">
+                                <h5 class="card-title">{item.firstname}{" "}{item.lastName}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{item.email}</h6>
+                                <p class="card-text">{item.bio}</p>
+                                <Link to={`/admin/users/${index}`} class="card-link">View profile</Link>
+                                {/* <Link to="#" class="card-link">Delete user</Link> */}
+                            </div>
+                        </div>
+                    </div>
                 })}
-            </table>
+            </div>
         </div>
     )
 }
