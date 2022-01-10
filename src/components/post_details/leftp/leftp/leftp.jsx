@@ -26,7 +26,7 @@ const Leftp = (props) => {
   // const [bookmarkIcon, setBookmarkIcon] = useState(<BookmarkIcon />);
   console.log(bookmark);
   const likedcontent = useSelector((state) => state.profile);        // Getting the likes of the post from the store
-  const likeid = likedcontent.likedContent;
+  const likeid = likedcontent.likedContent === undefined ? []: likedcontent.likedContent;
 
   const checkId = (savedId, postId) => {   // function to check if the user has liked(or bookmarked) the particular post earlier or not
     for (var i = 0; i < savedId.length; i++) {
