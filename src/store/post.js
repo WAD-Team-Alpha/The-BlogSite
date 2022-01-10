@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //Intial state of the posts details
 const initialpostState = {
+  author : "",
   postId: "",
   likes: 0,
   uid: "",
@@ -33,6 +34,7 @@ const postSlice = createSlice({
       state.bookmarks = action.payload.bookmarks;
       state.comments = action.payload.comments;
       state.genre = action.payload.genre;
+      state.author = action.payload.author
       console.log("post updated in store");
     },
   },

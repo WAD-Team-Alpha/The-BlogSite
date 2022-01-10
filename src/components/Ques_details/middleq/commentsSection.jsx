@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 
 const CommentsSection = (props) => {
-
+    
     //this component is separated from last.jsx so that each comment can be changed individually
     const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
     const [correctionicon,setCorrectionIcon] = useState(<TimerIcon />)
@@ -38,8 +38,8 @@ const CommentsSection = (props) => {
                 class="col-6"
                 style={{ paddingLeft: "1.5em" }}
               >
-                <div className={classes.answersection}><b>{props.profileData.firstName}</b></div>
-                <div className={classes.answertime}> Answerd on {props.commentsdata.publishedDate} </div>
+                <div className={classes.answersection}><b>{props.comment.name}</b></div>
+                <div className={classes.answertime}> Answerd on {props.comment.publishedDate} </div>
               </div>
               <div class="col-4" style={{ paddingLeft: "4em", textAlign:"right" }}>
                 <button class="btn shadow-none" onClick={correctionHandler}>
