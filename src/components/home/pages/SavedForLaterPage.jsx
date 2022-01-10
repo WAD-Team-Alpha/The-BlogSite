@@ -73,6 +73,8 @@ const SavedForLaterPage = () => {
         console.log(saved);
         return saved.type === "post" ? (
           <PostCard
+            id={saved.data.postId}
+            userId={saved.data.uid}
             key={index}
             banner={saved.data.imageUrl}
             title={saved.data.postTitle}
