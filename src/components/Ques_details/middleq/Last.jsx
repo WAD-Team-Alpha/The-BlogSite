@@ -26,12 +26,13 @@ const Last = (props) => {
     console.log("this is comment handler");
     if (comment === "") {
       return;
-    }
+    }var today = new Date();
+    const publishedDate = today.toLocaleDateString("en-US");
     const newComments = [
       ...commentsdata.comments,
-      { userId: authdata.localId, name: userData.firstName, text: comment },
+      { userId: authdata.localId, name: userData.firstName, text: comment, publishedDate },
     ];
-    dispatch(questionActions.add({ ...commentsdata, comments: newComments }));  // adding comments for the questions in store
+    dispatch(questionActions.add({ ...commentsdata, comments: newComments, }));  // adding comments for the questions in store
     setComments((state) => {
       return [
         ...state,

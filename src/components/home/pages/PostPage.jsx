@@ -77,6 +77,7 @@ const PostPage = () => {
                     description={post.postSummary}
                     likes={post.likes}
                     publishedDate={post.publishedDate}
+                    comments={post.comments}
                     userId = {post.uid}
                />)}
                <Stack spacing={2}>
