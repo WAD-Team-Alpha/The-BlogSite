@@ -1,14 +1,11 @@
 import { CircularProgress } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { Link, Outlet } from 'react-router-dom'
 import { adminActions } from '../store/admin'
 import { fetchPosts, fetchQuestions, fetchUsers } from '../store/admin-actions'
-import Posts from './Posts'
-import Questions from './Questions'
-import Users from './Users'
 
 const Admin = () => {
-    const [page, setPage] = useState("users")
     const dispatch = useDispatch()
     const [submit, setSubmit] = useState(false)
     useEffect(() => {
@@ -29,21 +26,21 @@ const Admin = () => {
     }, [])
     return (
         submit ? <CircularProgress /> : <div>
-            <button onClick={(event) => {
-                event.preventDefault()
-                setPage("users")
-            }}>Users</button>
-            <button onClick={(event) => {
-                event.preventDefault()
-                setPage("posts")
-            }}>Posts</button>
-            <button onClick={(event) => {
-                event.preventDefault()
-                setPage("questions")
-            }}>Questions</button>
-            {page === 'users' && <Users />}
-            {page === 'posts' && <Posts />}
-            {page === 'questions' && <Questions />}
+            <ul class="nav">
+                <li class="nav-item">
+                    <Link to="users" className='nav-link'>Users</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="posts" className='nav-link'>Posts</Link>
+                </li>
+                <li class="nav-item">
+                    <Link to="questions" className='nav-link'>Questions</Link>
+                </li>
+            </ul>
+            <div className='container d-flex justify-content-center'>
+                <h1>Admin Page</h1>
+            </div>
+            <Outlet />
         </div>
     )
 }
