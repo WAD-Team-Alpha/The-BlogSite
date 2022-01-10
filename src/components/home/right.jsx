@@ -1,53 +1,75 @@
-import React from 'react'
-import PeopleYouMayKnow from './PeopleYouMayKnow';
-import classes from './right.module.css'
+import React from "react";
+import classes from "./right.module.css";
 // post and Question filter page
 const Right = () => {
-    return (
-        <div>
-            <div className={`${classes.fix}`}>
-                <div className={`row ${classes.order}`} >
-                    <div className="col-md-6">
-                        <h6 className="mt-4 fw-bold fs-5">Sort By</h6>
-                        <div class="form-check mt-3">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" for="flexCheckDefault">
-                                block
-                            </label>
-                        </div>
-                        <div class="form-check mt-3">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" for="flexCheckDefault">
-                                checkbox
-                            </label>
-                        </div>
-                        <div class="form-check mt-3">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" for="flexCheckDefault">
-                                html
-                            </label>
-                        </div>
-
-                    </div>
-                    <div className="col-md-6">
-                        <h6 className="mt-4 fw-bold fs-5">Order By</h6>
-                        <div className="form-check mt-3">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" for="flexCheckDefault">
-                                checkbox
-                            </label>
-                        </div>
-                        <div className="form-check mt-3">
-                            <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-                            <label className="form-check-label" for="flexCheckDefault">
-                                html
-                            </label>
-                        </div>
-                    </div>
-
-                </div>
-                <hr style={{ color: '#379683', padding: "1px", marginRight: "20px" }} />
-                {/* <div className={`  ${classes.fellow}`}>
+  return (
+    <div>
+      <div className={`${classes.fix}`}>
+        <div className={`row ${classes.order}`}>
+          <div className="col-md-6">
+            <h6 className="mt-4 fw-bold fs-5">Sort By</h6>
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                block
+              </label>
+            </div>
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                checkbox
+              </label>
+            </div>
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                html
+              </label>
+            </div>
+          </div>
+          <div className="col-md-6">
+            <h6 className="mt-4 fw-bold fs-5">Order By</h6>
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                checkbox
+              </label>
+            </div>
+            <div className="form-check mt-3">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                html
+              </label>
+            </div>
+          </div>
+        </div>
+        <hr style={{ color: "#379683", padding: "1px", marginRight: "20px" }} />
+        {/* <div className={`  ${classes.fellow}`}>
 
                     <div className={`${classes.head}`}>
                         <p className={`fw-bold fs-8 `} style={{ color: 'black' }}>People you may know</p>
@@ -83,9 +105,9 @@ const Right = () => {
 
 
                 </div> */}
-            </div>
-        </div>
-    );
-}
+      </div>
+    </div>
+  );
+};
 
 export default Right;

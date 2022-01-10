@@ -10,16 +10,17 @@ const initialQuestionState = {
   imageUrl: "",
   description: "",
   comments: [],
-  bookmarks : 0,
+  bookmarks: 0,
   status: "active",
-  author: ""
+  author: "",
 };
 
 const questionSlice = createSlice({
   name: "questionmData",
   initialState: initialQuestionState, //intializing the intial state in this store
   reducers: {
-    add(state, action) { //adding the question details into the store
+    add(state, action) {
+      //adding the question details into the store
       console.log(action.payload);
       state.questionId = action.payload.questionId; //question id
       state.userId = action.payload.userId; //user id of the question created user

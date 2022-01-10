@@ -4,7 +4,6 @@ import classes from "./form.module.css";
 import InputTag from "./InputTag";
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
-import { Opacity } from "@mui/icons-material";
 
 const Editform = (props) => {
   //props are form
@@ -53,7 +52,7 @@ const Editform = (props) => {
         <form onSubmit={formsubmitHandler}>
           <div className={classes.formmain}>
             <button
-              class="btn shadow-none"
+              className="btn shadow-none"
               onClick={closeForm}
               style={{ marginLeft: "16em" }}
             >
@@ -64,12 +63,12 @@ const Editform = (props) => {
                 <b>Enter your details</b>
               </span>
             </div>
-            <div class="form-group-row">
-              <div class="col-11">
+            <div className="form-group-row">
+              <div className="col-11">
                 <label for="userfname">First name</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="userfname"
                   placeholder="Enter your first name"
                   defaultValue={props.userDetails.firstName}
@@ -78,12 +77,12 @@ const Editform = (props) => {
               </div>
             </div>
             <br />
-            <div class="form-group-row">
-              <div class="col-11">
+            <div className="form-group-row">
+              <div className="col-11">
                 <label for="userlname">Last name</label>
                 <input
                   type="text"
-                  class="form-control"
+                  className="form-control"
                   id="userlname"
                   placeholder="Enter your Last name"
                   defaultValue={props.userDetails.lastName}
@@ -92,12 +91,12 @@ const Editform = (props) => {
               </div>
             </div>
             <br />
-            <div class="form-group-row">
-              <div class="col-11">
+            <div className="form-group-row">
+              <div className="col-11">
                 <label for="useremail">Email</label>
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="useremail"
                   placeholder="Enter your email"
                   defaultValue={props.userDetails.email}
@@ -110,8 +109,8 @@ const Editform = (props) => {
             </div>
             <br />
 
-            <div class="form-group-row">
-              <div class="col-11">
+            <div className="form-group-row">
+              <div className="col-11">
                 <InputTag
                   genre={props.userDetails.genres}
                   setGenre={setGenre}
@@ -120,11 +119,11 @@ const Editform = (props) => {
             </div>
 
             <br />
-            <div class="form-group-row">
-              <div class="col-11">
+            <div className="form-group-row">
+              <div className="col-11">
                 <label for="userbio">Enter bio</label>
                 <textarea
-                  class="form-control"
+                  className="form-control"
                   id="userbio"
                   rows="3"
                   defaultValue={props.userDetails.bio}
@@ -135,7 +134,7 @@ const Editform = (props) => {
             <br />
 
             <button className={classes.customupdatebtn}>
-              <span className={classes.update}>Update</span> 
+              <span className={classes.update}>Update</span>
             </button>
           </div>
         </form>

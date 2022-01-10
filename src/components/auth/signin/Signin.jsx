@@ -1,6 +1,6 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import React, { useReducer, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./Signin.module.css";
 import signupimg from "../../../assets/images/Signup.png";
 import { useDispatch } from "react-redux";
@@ -50,7 +50,10 @@ const signinReducer = (state, action) => {
 const Signin = (props) => {
   // Navigation hook to redirect user
   const navigate = useNavigate();
-  const [creds, setCreds] = useState({emailIsCorrect: null, passwordIsCorrect: null}) // Creds of the user, stored in state
+  const [creds, setCreds] = useState({
+    emailIsCorrect: null,
+    passwordIsCorrect: null,
+  }); // Creds of the user, stored in state
   const dispatchAction = useDispatch(); // To dispatch the redux state
   const initState = {
     email: "",
@@ -82,24 +85,24 @@ const Signin = (props) => {
         password: state.password,
       });
 
-      props.onSubmit(true)
+      props.onSubmit(true);
       dispatchAction(signinAction(state.email, state.password)).then((res) => {
         if (res === "success") {
-          props.onSubmit(false)
+          props.onSubmit(false);
           // Navigating the user after successful signin
           navigate("/home/post", { replace: true });
         }
         if (res === "INVALID_PASSWORD") {
           // Alerting user for invalid password
-          console.log("Please provide a right password")
-          props.onSubmit(false)
-          setCreds({...creds, passwordIsCorrect: false})
+          console.log("Please provide a right password");
+          props.onSubmit(false);
+          setCreds({ ...creds, passwordIsCorrect: false });
         }
         if (res === "EMAIL_NOT_FOUND") {
           // Alerting use for email not found
-          console.log("Please provide a right email")
-          props.onSubmit(false)
-          setCreds({...creds, emailIsCorrect: false})
+          console.log("Please provide a right email");
+          props.onSubmit(false);
+          setCreds({ ...creds, emailIsCorrect: false });
         }
       });
     } else {
@@ -110,14 +113,20 @@ const Signin = (props) => {
 
   return (
     <>
-    {/* Conditional display  */}
+      {/* Conditional display  */}
       {props.display && (
-        <motion.div initial={{ x: '-100vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, type: 'spring' }} className={"container shadow-lg " + classes.signin}>
+        <motion.div
+          initial={{ x: "-100vw", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, type: "spring" }}
+          className={"container shadow-lg " + classes.signin}
+        >
           <h1>Signin</h1>
           <form onSubmit={formSubmitHandler}>
             <div
-              className={`mb-3 ${state.emailIsValid === false ? classes.invalid : ""
-                } ${state.emailIsValid === true ? classes.valid : ""} `}
+              className={`mb-3 ${
+                state.emailIsValid === false ? classes.invalid : ""
+              } ${state.emailIsValid === true ? classes.valid : ""} `}
             >
               <input
                 type="email"
@@ -140,8 +149,9 @@ const Signin = (props) => {
               )}
             </div>
             <div
-              className={`input-group mb-3 ${state.passwordIsValid === false ? classes.invalid : ""
-                } ${state.passwordIsValid === true ? classes.valid : ""}`}
+              className={`input-group mb-3 ${
+                state.passwordIsValid === false ? classes.invalid : ""
+              } ${state.passwordIsValid === true ? classes.valid : ""}`}
             >
               <input
                 type={showPass ? "text" : "password"}
@@ -209,7 +219,14 @@ const Signin = (props) => {
         </motion.div>
       )}
       {!props.display && (
-        <motion.img initial={{ x: '-100vw', opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ duration: 0.5, type: 'spring' }} src={signupimg} alt="" className={classes.signupimg} />
+        <motion.img
+          initial={{ x: "-100vw", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.5, type: "spring" }}
+          src={signupimg}
+          alt=""
+          className={classes.signupimg}
+        />
       )}
     </>
   );

@@ -44,7 +44,8 @@ const QuestionForm = () => {
     const publishedDate = today.toLocaleDateString("en-US");
     console.log({ question, description, image });
     setSubmit(true);
-    dispatch( //Dispatching the form data
+    dispatch(
+      //Dispatching the form data
       sendQuestionData(
         {
           question,
@@ -58,7 +59,7 @@ const QuestionForm = () => {
           bookmarks: 0,
           status: "active",
           genre,
-          author: about.firstName
+          author: about.firstName,
         },
         questionId
       )
@@ -77,7 +78,7 @@ const QuestionForm = () => {
           comments: [],
           likes: 0,
           genre,
-          author: about.firstName
+          author: about.firstName,
         })
       );
       navigate(`/profile/${auth.localId}`, { replace: true }); // Navigating to the desired destination
@@ -96,23 +97,28 @@ const QuestionForm = () => {
               className={"container " + classes.form}
               onSubmit={onSubmitHandler}
             >
-              <div id="post-form" className="d-flex align-items-center justify-content-between">
+              <div
+                id="post-form"
+                className="d-flex align-items-center justify-content-between"
+              >
                 <h1 className="mt-3 mb-4">
                   <b>Step 1: </b> Open the thread
                 </h1>
                 <select
-                  data-bs-toggle="tooltip" data-bs-placement="top" title="Please select the type of genre this post is related to !"
+                  data-bs-toggle="tooltip"
+                  data-bs-placement="top"
+                  title="Please select the type of genre this post is related to !"
                   onChange={(e) => {
                     setGenre(e.target.value);
                   }}
-                  class="form-select"
+                  className="form-select"
                   aria-label="Default select example"
                   style={{
                     width: "10em",
                     backgroundColor: "#5cdb95",
                     fontWeight: "600",
-                    border: '2px solid #5cdb95',
-                    borderColor: genre === "genre-invalid" ? 'red' : ''
+                    border: "2px solid #5cdb95",
+                    borderColor: genre === "genre-invalid" ? "red" : "",
                   }}
                   defaultValue={""}
                   required

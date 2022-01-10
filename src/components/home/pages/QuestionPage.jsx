@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import React from "react";
-import questionData from "../../../helpers/questionData.json";
 import QuestionCard from "../cards/QuestionCard";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -76,9 +75,8 @@ const QuestionPage = () => {
       exit="exit"
     >
       {result.slice(limit, limit + 10).map((query) => {
-           console.log(query);
-           
-           
+        console.log(query);
+
         return (
           <QuestionCard
             key={query.questionId}
