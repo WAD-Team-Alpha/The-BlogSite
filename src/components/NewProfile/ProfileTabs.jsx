@@ -13,17 +13,17 @@ const ProfileTabs = (props) => {
   const dispatch = useDispatch(); //Intializing the dispatch
   const authStatus = useSelector((state) => state.auth);
   const [tab, setTab] = useState("posts");
-  const [submit, setSubmit] = useState(false);
+  const [submit, setSubmit] = useState(true);
   const [questionsData, setQuestionsData] = useState([]);
   const [postsData, setPostsData] = useState([]);
   const [curUser, setCurUser] = useState(true);
   console.log(props.uid);
   useEffect(() => {
     console.log("Profile tabs exucuted");
-    setSubmit(true);
+    setSubmit(false);
     if (props.uid === localStorage.getItem("localId")) {
       console.log("Profile tabs exucuted");
-      setSubmit(false);
+      setSubmit(true);
       return;
     }
     setCurUser(false);
@@ -35,7 +35,11 @@ const ProfileTabs = (props) => {
           console.log("this line is excecuted");
           dispatch(fetchOtherPostsData(id)).then((res) => { //fetching posts data of the other users by their ids
             console.log(res);
-            setPostsData((state) => [...state, res]);
+            if(res !== "failed"){
+              setPostsData((state) => [...state, res]);
+            }
+            
+            
           });
         });
         res.questionIds.map((id) => {
@@ -43,15 +47,16 @@ const ProfileTabs = (props) => {
           dispatch(fetchOtherQuestionsData(id)).then((res) => { //fetching questions data of the other usersby their user ids
             console.log(res);
             setQuestionsData((state) => [...state, res]);
+            
           });
         });
+
       }
-      setSubmit(false);
+      setSubmit(true);
+      
     });
   }, []);
-  return submit ? (
-    LoadingSpinner
-  ) : (
+  return (submit )?  (
     <div className={classes.container}>
       <div className={classes.profileTabs}>
         <Tabs
@@ -73,7 +78,9 @@ const ProfileTabs = (props) => {
         </Tabs>
       </div>
     </div>
-  );
+  ):(
+    <LoadingSpinner/>
+  ) ;
 };
 
 export default ProfileTabs;
