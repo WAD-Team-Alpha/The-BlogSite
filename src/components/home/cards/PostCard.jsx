@@ -63,7 +63,7 @@ const PostCard = (props) => {
                     </div>
                     <div className={classes.bottom}>
                         <p className='btn'><ThumbUpIcon /> Likes {props.likes} </p>
-                        <p className='btn'><CommentIcon /> Comments {props.likes} </p>
+                        <p className='btn'><CommentIcon /> Comments {props.comments === undefined ? 0 : props.comments.length} </p>
                         <Link className='btn' style={{height: '2.5em'}} onClick={getDataHandler} to={`/posts/${props.id}`}> <RemoveRedEyeIcon /> View post</Link>
                         <p className="btn">Posted by <span style={{color: 'blue', fontWeight: '600'}}>{props.author}</span> on {props.publishedDate}</p>
                     </div>

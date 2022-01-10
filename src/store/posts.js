@@ -27,6 +27,7 @@ const postsSlice = createSlice({
         console.log(action.payload.postId);
         console.log(action.payload.uid);
     },
+    reset: () => initialpostsState,
   },
 });
 
