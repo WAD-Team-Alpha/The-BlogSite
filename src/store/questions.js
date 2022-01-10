@@ -27,6 +27,7 @@ const questionsSlice = createSlice({
       console.log(action.payload.userId);
     //   console.log("question updated in store");
     },
+    reset: () => initialQuestionsState,
   },
 });
 

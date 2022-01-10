@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
+import { postsActions } from "../../store/posts";
+import { questionsActions } from "../../store/questions";
 const Account = () => {
   const navigate = useNavigate(); //Navigate hook to navigate the user to profile management
   const dispatch = useDispatch(); //Dispatch to send redux state updates
@@ -29,6 +31,7 @@ const Account = () => {
 
   // Logout handler
   const logoutHandler = () => {
+    console.log("log out is triggered");
     dispatch(authActions.logout())
     navigate("/", { replace: true })
   }

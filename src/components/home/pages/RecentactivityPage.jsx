@@ -54,6 +54,7 @@ const RecentActivityPage = () => {
             >
                 {console.log(recents)}
                 {recents.map((recent, index) => {
+                    console.log(recent);
                     return (
                         recent !== null && recent.data !== null ?
                             recent.type === "post" ?
@@ -67,12 +68,13 @@ const RecentActivityPage = () => {
                                     author={recent.data.author}
                                     publishedDate={recent.data.publishedDate}
                                     userId = {recent.data.uid}
+                                    comments={recent.data.comments}
                                 /> :
                                 <QuestionCard
                                     key={recent.data.questionId}
                                     id={recent.data.questionId}
                                     votes={recent.data.bookmarks}
-                                    answers={recent.data.answers}
+                                    answers={recent.data.comments}
                                     question={recent.data.question}
                                     details={recent.data.description}
                                     author={recent.data.author}

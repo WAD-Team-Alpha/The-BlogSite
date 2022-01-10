@@ -8,9 +8,9 @@ import section3 from '../../assets/images/section3.png'
 import Footer from '../footer/Footer'
 import { motion, useAnimation } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-
+import { useSelector } from 'react-redux';
 const Content = (props) => {
-
+    const posts = useSelector((state)=>state.posts)
     // All these triggers for the css part
     const [ref1, inView1] = useInView({ triggerOnce: true });
     const animation1 = useAnimation();
@@ -23,7 +23,7 @@ const Content = (props) => {
 
     const [ref4, inView4] = useInView({ triggerOnce: true });
     const animation4 = useAnimation();
-
+    console.log(posts);
     // This effects is used to trigger the animations appropriately
     useEffect(() => {
         if (inView1) {

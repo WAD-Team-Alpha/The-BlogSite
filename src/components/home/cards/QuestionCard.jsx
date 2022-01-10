@@ -43,6 +43,7 @@ const QuestionCard = (props) => {
   else{
       shortitle =<h5 class="card-title fw-bold fs-4">{resultitle}...</h5>
   }
+  
   return (
     <div className={`card  mb-3 mt-3 ${classes.shadow}`}>
       <div class="row g-0">
@@ -54,7 +55,7 @@ const QuestionCard = (props) => {
           </div>
 
           <div className={`row ${classes.answer}`}>
-            <p className="fw-bold fs-1 ml-6 ">{props.answers}</p>
+            <p className="fw-bold fs-1 ml-6 ">{props.answers === undefined ? 0 : props.answers.length}</p>
 
             <p className={`${classes.answerpostion}`}>Answers</p>
           </div>

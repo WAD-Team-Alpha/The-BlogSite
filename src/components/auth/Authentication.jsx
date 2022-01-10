@@ -13,10 +13,7 @@ const Authentication = () => {
 
     // Css properties
     const mainVarient = query.get('main') === 'true' ? {
-        hidden: {
-            opacity: 0,
-            x: '100vw'
-        },
+        
         visible: {
             x: 0,
             opacity: 1,

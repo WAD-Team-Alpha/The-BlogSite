@@ -64,6 +64,7 @@ const SavedForLaterPage = () => {
                 exit='exit'
             >
                 {saved.slice(limit, limit + 10).map((saved, index) => {
+                    console.log(saved);
                     return saved.type === "post" ?
                         <PostCard
                             key={index}
@@ -72,15 +73,17 @@ const SavedForLaterPage = () => {
                             description={saved.data.postSummary}
                             likes={saved.data.likes}
                             author={saved.data.author}
+                            comments={saved.data.comments}
                             publishedDate={saved.data.publishedDate}
                         /> :
                         <QuestionCard
                             key={saved.data.questionId}
                             id={saved.data.questionId}
-                            answers={saved.data.answers}
+                            answers={saved.data.comments}
                             question={saved.data.question}
-                            details={saved.data.details}
+                            details={saved.data.description}
                             author={saved.data.author}
+                            votes={saved.data.likes}
                             userId={saved.data.userId}
                             publishedDate={saved.data.publishedDate}
                         />
