@@ -9,15 +9,15 @@ const Postdetails = (props) => {
 
     return(
         <>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-2">
+            <div className="container-fluid">
+                <div className="row">
+                    <div className="col-2">
                         <Leftp/>
                     </div>
-                    <div class='col-7'>
+                    <div className='col-7'>
                         <Middlep/>
                     </div>
-                    <div class="col-3">
+                    <div className="col-3">
                         <Rightp/>
                     </div>
                 </div>

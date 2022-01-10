@@ -9,12 +9,12 @@ import RestrictedAccess from "./RestrictedAccess";
 
 const Layout = (props) => {
   const [nav, setNav] = useState(false); //State for the nav
-  const navHandler = () => { //Nav handler
+  const navHandler = () => {
+    //Nav handler
     nav ? setNav(false) : setNav(true);
   };
   const authStatus = useSelector((state) => state.auth);
   const params = useParams();
-  
 
   // This is the uid extracted from the url via routing
   console.log(
@@ -44,7 +44,6 @@ const Layout = (props) => {
       },
     },
   };
-  
 
   return authStatus.isAuthenticated ? (
     <>
@@ -60,7 +59,7 @@ const Layout = (props) => {
         >
           <div className="row">
             <div className="col-md-3">
-              <Profile uid={params.uid}  />
+              <Profile uid={params.uid} />
             </div>
             <div className="col-md-9">
               <Outlet />

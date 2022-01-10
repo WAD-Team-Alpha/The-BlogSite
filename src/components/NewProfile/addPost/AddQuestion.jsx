@@ -20,7 +20,9 @@ const AddQuestion = () => {
           <h2 className={classes.title}>Add Post</h2>
           <div className="form-row">
             <div className={classValue}>
-              <label style={{fontWeight:"bold"}} for="title">Question Title</label>
+              <label style={{ fontWeight: "bold" }} for="title">
+                Question Title
+              </label>
               <input
                 type="text"
                 className="form-control"
@@ -34,7 +36,9 @@ const AddQuestion = () => {
               />
             </div>
             <div className={classValue}>
-              <label style={{fontWeight:"bold"}} for="parah1">Question Description</label>
+              <label style={{ fontWeight: "bold" }} for="parah1">
+                Question Description
+              </label>
               <textarea
                 className="form-control"
                 value={description}
@@ -46,7 +50,9 @@ const AddQuestion = () => {
               ></textarea>
             </div>
             <div className={classValue}>
-              <label style={{fontWeight:"bold"}} for="bannerImage">Add banner Image</label>
+              <label style={{ fontWeight: "bold" }} for="bannerImage">
+                Add banner Image
+              </label>
               <br />
               <input
                 type="file"

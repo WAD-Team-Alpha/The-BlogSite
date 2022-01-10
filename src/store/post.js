@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //Intial state of the posts details
 const initialpostState = {
-  author : "",
+  author: "",
   postId: "",
   likes: 0,
   uid: "",
@@ -14,14 +14,14 @@ const initialpostState = {
   postData: [],
   comments: [],
   genre: "",
-
 };
 
 const postSlice = createSlice({
   name: "postData",
   initialState: initialpostState, //intializing the intialstate of the posts in this store
   reducers: {
-    add(state, action) {  //function/reducer for adding the created posts into the store
+    add(state, action) {
+      //function/reducer for adding the created posts into the store
       console.log(action.payload);
       state.postId = action.payload.postId;
       state.uid = action.payload.uid;
@@ -34,7 +34,7 @@ const postSlice = createSlice({
       state.bookmarks = action.payload.bookmarks;
       state.comments = action.payload.comments;
       state.genre = action.payload.genre;
-      state.author = action.payload.author
+      state.author = action.payload.author;
       console.log("post updated in store");
     },
   },

@@ -13,14 +13,16 @@ const initialProfileState = {
   questionIds: [],
   recentActivity: [],
   savedContent: [],
-  likedContent: []
+  likedContent: [],
 };
 
 const profileSlice = createSlice({
   name: "profileData",
-  initialState: initialProfileState, //Intializing the profile intial state 
-  reducers: { // reducers 
-    update(state, action) { // this update function state is used for updating the details of the user
+  initialState: initialProfileState, //Intializing the profile intial state
+  reducers: {
+    // reducers
+    update(state, action) {
+      // this update function state is used for updating the details of the user
       console.log(action.payload);
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
@@ -36,33 +38,39 @@ const profileSlice = createSlice({
       state.likedContent = action.payload.likedContent;
     },
 
-    addBookmark(state, action) { //addBookmark is used for adding the bookmark of the post/question into the database and store by using post/question id
+    addBookmark(state, action) {
+      //addBookmark is used for adding the bookmark of the post/question into the database and store by using post/question id
       return {
         ...state,
-        savedContent: [...state.savedContent, action.payload]
-      }
+        savedContent: [...state.savedContent, action.payload],
+      };
     },
 
-    removeBookmark(state, action) { //removeBookmark is used for removing the bookmark of the post/question into the database and store by using post/question id
+    removeBookmark(state, action) {
+      //removeBookmark is used for removing the bookmark of the post/question into the database and store by using post/question id
       return {
         ...state,
-        savedContent: state.savedContent.filter(obj => obj.id !== action.payload.id)
-      }
+        savedContent: state.savedContent.filter(
+          (obj) => obj.id !== action.payload.id
+        ),
+      };
     },
 
-    addLikedContent(state, action) { //This function is used for adding the liked id of the post/question by the user  into the database
+    addLikedContent(state, action) {
+      //This function is used for adding the liked id of the post/question by the user  into the database
       return {
         ...state,
-        likedContent: [...state.likedContent, action.payload]
-      }
+        likedContent: [...state.likedContent, action.payload],
+      };
     },
 
-    removeLikedContent(state, action) { //This function is used for removing the liked id of the post/question by the user into the database
+    removeLikedContent(state, action) {
+      //This function is used for removing the liked id of the post/question by the user into the database
       return {
         ...state,
-        likedContent: state.likedContent.filter(id => id !== action.payload)
-      }
-    }
+        likedContent: state.likedContent.filter((id) => id !== action.payload),
+      };
+    },
   },
 });
 

@@ -147,7 +147,7 @@ const AddPost = () => {
               );
             })}
             <div className={classValue}>
-              <div class="form-row">
+              <div className="form-row">
                 <div className="form-group col-md-6">
                   <div className={classes.dropdown}>
                     <select

@@ -11,7 +11,6 @@ import { questionsActions } from "./store/questions";
 function App() {
   const isAuth = useSelector((state) => state.auth);
   const aboutData = useSelector((state) => state.profile);
-  const posts = useSelector((state)=>state.posts)
   const dispatch = useDispatch();
   useEffect(() => {
     if (localStorage.getItem("idToken") !== null) {
@@ -62,7 +61,7 @@ function App() {
       }
     });
   }, [isAuth]);
-  
+
   return (
     <div className="App">
       <BrowserRouter>

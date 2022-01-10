@@ -14,7 +14,7 @@ import { postsActions } from "../../store/posts";
 const PostForm = () => {
   const auth = useSelector((state) => state.auth); //Accessing the user's data from the redux store
   const about = useSelector((state) => state.profile); //Accessing the user's profile from the redux store
-  const posts = useSelector((state) => state.posts); //Accessing all the posts to store the current post
+  
   const dispatch = useDispatch(); //Dispatch to dispatch the actions
 
   // State for the form inputs
@@ -156,7 +156,7 @@ const PostForm = () => {
             onChange={(e) => {
               setGenre(e.target.value);
             }}
-            class="form-select"
+            className="form-select"
             aria-label="Default select example"
             style={{
               width: "10em",

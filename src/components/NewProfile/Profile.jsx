@@ -16,12 +16,13 @@ import LoadingSpinner from "../auth/LoadingSpinner";
 const Profile = (props) => {
   const [submit, setSubmit] = useState(false);
   const [otherProfileData, setOtherProfileData] = useState({}); //setting usestate for other users profile
-  const authStatus = useSelector((state) => state.auth); 
+  const authStatus = useSelector((state) => state.auth);
   const userInfo = useSelector((state) => state.profile);
   const [addform, setAddform] = useState(false);
   const [memtab, setmemTab] = useState(false);
   const dispatch = useDispatch();
-  const isFollowing = (list, id) => { // checking the id of the users who are following
+  const isFollowing = (list, id) => {
+    // checking the id of the users who are following
     for (var i = 0; i < list.length; i++) {
       console.log(list[i], id);
       if (list[i].id === id) {
@@ -36,7 +37,8 @@ const Profile = (props) => {
   );
   const [curUser, setCurUser] = useState(true); //setting current user to true
 
-  const userDetails = { //current or logined user userDetails
+  const userDetails = {
+    //current or logined user userDetails
     firstName: userInfo.firstName,
     lastName: userInfo.lastName,
     email: userInfo.email,
@@ -58,9 +60,11 @@ const Profile = (props) => {
   const followingCount = userDetails.followingList.length; //following count of the current
   console.log(followingCount);
 
-  const editHandler = (firstName, lastName, email, bio, genres) => { //editHandler for updating the user details using edit form
+  const editHandler = (firstName, lastName, email, bio, genres) => {
+    //editHandler for updating the user details using edit form
     console.log(firstName, lastName, email, bio, genres);
-    dispatch( //sending updated user details to the store
+    dispatch(
+      //sending updated user details to the store
       profileActions.update({
         firstName: firstName,
         lastName: lastName,
@@ -75,11 +79,13 @@ const Profile = (props) => {
     );
   };
 
-  const formHandler = (e) => { //form that appears when clicking the edit icon
+  const formHandler = (e) => {
+    //form that appears when clicking the edit icon
     setAddform((state) => !state);
   };
 
-  const linkHandler = (e) => { // for followers and following tab
+  const linkHandler = (e) => {
+    // for followers and following tab
     setmemTab((state) => !state);
   };
 
@@ -87,7 +93,8 @@ const Profile = (props) => {
     if (followStatus === false) {
       setfollowStatus(true);
 
-      dispatch(fetchOtherProfileData(props.uid)).then((res) => { //fetching the followed user id
+      dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+        //fetching the followed user id
         console.log(res);
         const newData = {
           ...userInfo,
@@ -97,7 +104,8 @@ const Profile = (props) => {
           ],
         };
         dispatch(
-          sendOtherProfileData( //sending the id of us to the followed user
+          sendOtherProfileData(
+            //sending the id of us to the followed user
             {
               ...res,
               followersList: [
@@ -113,25 +121,30 @@ const Profile = (props) => {
             dispatch(profileActions.update(newData)); //updating the store
             var len = otherProfileData.followerCount + 1; //increasing the followers count
             console.log(len);
-            setOtherProfileData((res) => { //updating the count in the other users profile
+            setOtherProfileData((res) => {
+              //updating the count in the other users profile
               return { ...res, followerCount: len };
             });
           }
         });
       });
-    } else { //else condition is for unfollowing
+    } else {
+      //else condition is for unfollowing
       setfollowStatus(false);
-      const newList = userInfo.followingList.filter( //filtering the user id
+      const newList = userInfo.followingList.filter(
+        //filtering the user id
         (id) => id.id !== props.uid
       );
-      const newData = { //updating the user data
+      const newData = {
+        //updating the user data
         ...userInfo,
         followingList: newList,
       };
       dispatch(fetchOtherProfileData(props.uid)).then((res) => {
         console.log(res);
         dispatch(
-          sendOtherProfileData( //updating the other users data
+          sendOtherProfileData(
+            //updating the other users data
             {
               ...res,
               followersList: res.followersList.filter(
@@ -160,7 +173,8 @@ const Profile = (props) => {
       return;
     }
     setCurUser(false);
-    dispatch(fetchOtherProfileData(props.uid)).then((res) => { //getting the details of the other users
+    dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+      //getting the details of the other users
       console.log(res);
       const data = {
         ...res,
@@ -192,7 +206,7 @@ const Profile = (props) => {
             >
               <div className="container-fluid">
                 <div className="row justify-content-end">
-                  <div class="col-1 p-0">
+                  <div className="col-1 p-0">
                     <div
                       style={{
                         marginTop: "0.5em",
@@ -206,22 +220,22 @@ const Profile = (props) => {
                           color="black"
                           onClick={formHandler}
                         >
-                          <i class="bi bi-pencil-fill"></i>
+                          <i className="bi bi-pencil-fill"></i>
                         </Link>
                       )}
                       {!curUser && <div style={{ height: "1em" }}></div>}
                     </div>
                   </div>
                 </div>
-                <div class="row justify-content-start">
+                <div className="row justify-content-start">
                   <div
-                    class="col-3"
+                    className="col-3"
                     style={{ marginRight: "2em", paddingLeft: "0.3em" }}
                   >
                     <Avatar sx={{ width: "85px", height: "85px" }} />
                   </div>
 
-                  <div class="col-7">
+                  <div className="col-7">
                     <div style={{ fontSize: "18px", width: "200px" }}>
                       <b>
                         {curUser //details of the current user
@@ -234,15 +248,15 @@ const Profile = (props) => {
                     </div>
 
                     {curUser ? (
-                      <div class="row justify-content-center">
-                        <div class="col-7">
+                      <div className="row justify-content-center">
+                        <div className="col-7">
                           <Link underline="none" onClick={linkHandler}>
                             <span className={classes.mainfollowers}>
                               <b>Followers</b>
                             </span>
                           </Link>
                         </div>
-                        <div class="col-5">
+                        <div className="col-5">
                           <Link underline="none" onClick={linkHandler}>
                             {" "}
                             <span className={classes.mainfollowing}>
@@ -252,15 +266,15 @@ const Profile = (props) => {
                         </div>
                       </div>
                     ) : (
-                      <div class="row justify-content-center">
-                        <div class="col-7">
+                      <div className="row justify-content-center">
+                        <div className="col-7">
                           <Link underline="none">
                             <span className={classes.mainfollowers}>
                               <b>Followers</b>
                             </span>
                           </Link>
                         </div>
-                        <div class="col-5">
+                        <div className="col-5">
                           <Link underline="none">
                             {" "}
                             <span className={classes.mainfollowing}>
@@ -270,17 +284,17 @@ const Profile = (props) => {
                         </div>
                       </div>
                     )}
-                    <div class="row justify-content-end">
-                      <div class="col">
+                    <div className="row justify-content-end">
+                      <div className="col">
                         <span className={classes.followercount}>
                           <b>
                             {curUser
                               ? followCount //followers count of the current user : else followerscount of the other user
-                              : otherProfileData.followerCount} 
+                              : otherProfileData.followerCount}
                           </b>
                         </span>
                       </div>
-                      <div class="col">
+                      <div className="col">
                         <span className={classes.followingcount}>
                           <b>
                             {curUser
@@ -299,7 +313,7 @@ const Profile = (props) => {
             <Box
               sx={{ bgcolor: "white", height: "385px", borderRadius: "0.3em" }}
             >
-              <div class="row" style={{ marginTop: "0.2em" }}>
+              <div className="row" style={{ marginTop: "0.2em" }}>
                 <span className={classes.genres}>
                   <h5
                     style={{
@@ -315,7 +329,7 @@ const Profile = (props) => {
                 </span>
                 {userDetails.genres.length !== 0 && (
                   <div
-                    class="col"
+                    className="col"
                     style={{ marginLeft: "1.2em", height: "60px" }}
                   >
                     <div>
@@ -332,7 +346,8 @@ const Profile = (props) => {
                               label={gen}
                             />
                           ))
-                        : otherProfileData.genres.map((gen) => { //genres of the other users
+                        : otherProfileData.genres.map((gen) => {
+                            //genres of the other users
                             console.log("this is running");
                             return (
                               <Chip
@@ -351,7 +366,7 @@ const Profile = (props) => {
                   </div>
                 )}
               </div>
-              <div class="row" style={{ height: "70px" }}>
+              <div className="row" style={{ height: "70px" }}>
                 <span className={classes.email}>
                   <h5
                     style={{
@@ -367,7 +382,7 @@ const Profile = (props) => {
                 </span>
                 {userDetails.email !== "" && (
                   <div
-                    class="col"
+                    className="col"
                     style={{ fontSize: "0.9em", marginLeft: "1.2em" }}
                     //current user email else other users email
                   >
@@ -377,7 +392,7 @@ const Profile = (props) => {
                 <br />
               </div>
 
-              <div class="row" style={{ marginTop: "0.4em" }}>
+              <div className="row" style={{ marginTop: "0.4em" }}>
                 <span className={classes.bio}>
                   <h5
                     style={{
@@ -393,7 +408,7 @@ const Profile = (props) => {
                 </span>
                 {userDetails.bio !== "" && (
                   <div
-                    class="row"
+                    className="row"
                     style={{
                       fontSize: "0.9em",
                       marginLeft: "1.2em",
@@ -409,8 +424,11 @@ const Profile = (props) => {
                 <br />
               </div>
               {!curUser && (
-                <div class="row" style={{ marginTop: "1em", height: "60px" }}>
-                  <div class="col">
+                <div
+                  className="row"
+                  style={{ marginTop: "1em", height: "60px" }}
+                >
+                  <div className="col">
                     <div>
                       <button
                         className={classes.customfollowbtn}
@@ -425,16 +443,15 @@ const Profile = (props) => {
             </Box>
           </Container>
         )}
-        {addform && curUser && ( //giving access to the edit form only to the current user
-          <Editform
-            setAddform={setAddform}
-            editHandler={editHandler}
-            userDetails={userDetails}
-          />
-        )}
-        {!curUser && (
-          <div style={{height: '1em'}}></div>
-        )}
+        {addform &&
+          curUser && ( //giving access to the edit form only to the current user
+            <Editform
+              setAddform={setAddform}
+              editHandler={editHandler}
+              userDetails={userDetails}
+            />
+          )}
+        {!curUser && <div style={{ height: "1em" }}></div>}
         {memtab && ( //for followers and following tab
           <Members
             userInfo={otherProfileData}

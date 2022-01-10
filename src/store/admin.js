@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialAdminData = {
   users: [],
   posts: [],
-  questions: []
+  questions: [],
 };
 
 const adminSlice = createSlice({
@@ -11,23 +11,23 @@ const adminSlice = createSlice({
   initialState: initialAdminData,
   reducers: {
     setUsers(state, action) {
-        return {
-            ...state,
-            users: action.payload
-        }
+      return {
+        ...state,
+        users: action.payload,
+      };
     },
     setPosts(state, action) {
-        return {
-            ...state,
-            posts: action.payload
-        }
+      return {
+        ...state,
+        posts: action.payload,
+      };
     },
     setQuestions(state, action) {
-        return {
-            ...state,
-            questions: action.payload
-        }
-    }
+      return {
+        ...state,
+        questions: action.payload,
+      };
+    },
   },
 });
 
