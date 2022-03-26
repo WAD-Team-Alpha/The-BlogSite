@@ -7,13 +7,13 @@ const Followers = (props) => {
   const followInfo = useSelector((state) => state.profile); //fetching the user data from the store
   const authStatus = useSelector((state) => state.auth); //fetching the user authentication from the store
   const followerslist = followInfo.followersList; //Taking followerslist from the followinfo
-  console.log(followerslist);
+  // console.log(followerslist);
   const dispatch = useDispatch(); //Intializing dispatch
   const removeHandler = (index) => {
     const newList = followInfo.followersList.filter((id) => id.id !== index);
 
     dispatch(fetchOtherProfileData(index)).then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch(
         sendOtherProfileData(
           {
@@ -32,7 +32,7 @@ const Followers = (props) => {
         }
       });
     });
-    console.log(followerslist);
+    // console.log(followerslist);
   };
 
   return (

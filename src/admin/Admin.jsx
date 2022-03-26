@@ -11,15 +11,12 @@ const Admin = () => {
     useEffect(() => {
         setSubmit(true)
         dispatch(fetchUsers()).then((result) => {
-            console.log("Users: ", result)
             dispatch(adminActions.setUsers(result))
         })
         dispatch(fetchPosts()).then((result) => {
-            console.log("Posts: ", result)
             dispatch(adminActions.setPosts(result))
         })
         dispatch(fetchQuestions()).then((result) => {
-            console.log("Users: ", result)
             dispatch(adminActions.setQuestions(result))
             setSubmit(false)
         })

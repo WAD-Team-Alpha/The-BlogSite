@@ -18,9 +18,9 @@ const Leftp = (props) => {
 
   const [like, setLike] = useState(postdata.likes);
   const [bookmark, setBookmark] = useState(postdata.bookmarks);
-  console.log(postdata);
+  // console.log(postdata);
   // const [bookmarkIcon, setBookmarkIcon] = useState(<BookmarkIcon />);
-  console.log(bookmark);
+  // console.log(bookmark);
   const likedcontent = useSelector((state) => state.profile); // Getting the likes of the post from the store
   const likeid =
     likedcontent.likedContent === undefined ? [] : likedcontent.likedContent;
@@ -28,45 +28,45 @@ const Leftp = (props) => {
   const checkId = (savedId, postId) => {
     // function to check if the user has liked(or bookmarked) the particular post earlier or not
     for (var i = 0; i < savedId.length; i++) {
-      console.log(savedId[i], postId);
+      // console.log(savedId[i], postId);
 
       if (savedId[i].id === postId) {
-        console.log("true");
+        // console.log("true");
         return true;
       }
       //Do something
     }
-    console.log("false");
+    // console.log("false");
     return false;
   };
 
   const savedId = likedcontent.savedContent;
 
-  console.log(savedId);
-  console.log(postdata.postId);
-  console.log(likedcontent);
+  // console.log(savedId);
+  // console.log(postdata.postId);
+  // console.log(likedcontent);
 
   const [likestatus, setLikestatus] = useState(
     likeid.includes(postdata.postId)
   );
-  console.log(savedId.includes(postdata.postId));
+  // console.log(savedId.includes(postdata.postId));
   const [bookmarkstatus, setBookmarkstatus] = useState(
     checkId(savedId, postdata.postId)
   );
 
-  console.log(likeid.includes(postdata.postId));
+  // console.log(likeid.includes(postdata.postId));
   if (likeid.includes(postdata.postId)) {
     // if condition to check if the user liked the post earlier
-    console.log("You already liked this post...");
+    // console.log("You already liked this post...");
   }
 
   if (savedId.includes(postdata.postId)) {
-    console.log("You already bookmarked this post..."); // if condition to check if the user bookmarked the post earlier
+    // console.log("You already bookmarked this post..."); // if condition to check if the user bookmarked the post earlier
   }
 
-  console.log(like);
-  console.log(likestatus);
-  console.log(bookmarkstatus);
+  // console.log(like);
+  // console.log(likestatus);
+  // console.log(bookmarkstatus);
 
   const likeHandler = () => {
     // like handler to increment number of likes in database and ui on clicking like buttons
@@ -78,7 +78,7 @@ const Leftp = (props) => {
       dispatch(profileActions.addLikedContent(postdata.postId));
 
       // dispatch(sendProfileData(profiledata, authdata.localId));
-      console.log(postdata);
+      // console.log(postdata);
       dispatch(
         sendPostData({ ...postdata, likes: likes }, postdata.postId)
       ).then((res) => {
@@ -114,7 +114,7 @@ const Leftp = (props) => {
       );
 
       // dispatch(sendProfileData(profiledata, authdata.localId));
-      console.log(postdata);
+      // console.log(postdata);
       dispatch(
         sendPostData({ ...postdata, bookmarks: bookmarks }, postdata.postId)
       );
@@ -144,7 +144,7 @@ const Leftp = (props) => {
   const [modalShow, setModalShow] = React.useState(false);
   const url = window.location.href;
 
-  console.log(postdata);
+  // console.log(postdata);
   return (
     <>
       <div style={{ paddingTop: "3em" }}>

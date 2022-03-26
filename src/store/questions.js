@@ -9,7 +9,6 @@ const questionsSlice = createSlice({
   reducers: {
     addQuestion(state, action) {
       //storing the user created question details
-      console.log("This is questions.js???");
       state.push({
         questionId: action.payload.questionId,
         userId: action.payload.userId,
@@ -23,10 +22,6 @@ const questionsSlice = createSlice({
         status: action.payload.status,
         author: action.payload.author,
       });
-      console.log(action.payload.bookmarks);
-      console.log(action.payload.questionId);
-      console.log(action.payload.userId);
-      //   console.log("question updated in store");
     },
     reset: () => initialQuestionsState,
   },

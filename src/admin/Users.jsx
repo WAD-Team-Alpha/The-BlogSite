@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 
 const Users = () => {
     const admin = useSelector(state => state.admin)
-    console.log(admin.users, "These are the users from the backend")
     return (
         <div className='container'>
             <h1>Users</h1>

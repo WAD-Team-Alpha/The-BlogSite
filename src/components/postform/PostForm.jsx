@@ -70,7 +70,7 @@ const PostForm = () => {
         value: "",
       },
     ]);
-    console.log(inputList);
+    // console.log(inputList);
     updateScroll()
   };
 
@@ -86,15 +86,15 @@ const PostForm = () => {
 
   // Input on change handler
   const inputChangeHandler = (id, value) => {
-    console.log(value)
+    // console.log(value)
     const newInputFields = inputList.map((input) => {
-      console.log(input.id, id)
+      // console.log(input.id, id)
       if (input.id === id) {
         input.value = value;
       }
       return input;
     });
-    console.log(newInputFields)
+    // console.log(newInputFields)
     setInputList(newInputFields);
   };
 
@@ -105,14 +105,14 @@ const PostForm = () => {
     var today = new Date();
     const publishedDate = today.toLocaleDateString("en-US");
     event.preventDefault();
-    console.log(genre, summary, title)
+    // console.log(genre, summary, title)
     const finalData = inputList.map((input) => {
       if (input.type === "image") {
         input.value = "https://picsum.photos/200";
       }
       return input;
     });
-    console.log({ banner, title, summary }, finalData);
+    // console.log({ banner, title, summary }, finalData);
     const postData = {
       postId: postId,
       likes: 0,
@@ -131,7 +131,7 @@ const PostForm = () => {
     dispatch(sendPostData(postData, postId)).then((result) => { //Dispatching the required data to the redux store and firebase
       if (result === "success") {
         var postIds = [...about.postIds, postId];
-        console.log("This is the profileActions.updts 3")
+        // console.log("This is the profileActions.updts 3")
         dispatch(profileActions.update({ ...about, postIds: postIds }));
         dispatch(postsActions.addPost(postData));
         setSubmit(false);

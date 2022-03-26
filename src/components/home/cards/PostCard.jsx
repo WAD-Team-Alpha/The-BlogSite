@@ -9,7 +9,6 @@ const PostCard = (props) => {
   const navigate = useNavigate();
   const getDataHandler = (event) => {
     event.preventDefault();
-    console.log(props.id);
     navigate(`/posts/${props.id}`);
   };
 

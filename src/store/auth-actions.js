@@ -28,18 +28,18 @@ export const signinAction = (email, password) => {
 
     const authData = await fetchData();
     if (authData.error) {
-      console.log(authData.error);
+      // console.log(authData.error);
       return authData.error.message;
     }
     dispatch(authActions.login(authData));
-    console.log("Success", authData);
+    // console.log("Success", authData);
     return "success";
   };
 };
 
 export const signupAction = (email, password, firstname, lastName) => {
   return async (dispatch) => {
-    console.log("sending");
+    // console.log("sending");
 
     const sendRequest = async () => {
       try {
@@ -67,7 +67,7 @@ export const signupAction = (email, password, firstname, lastName) => {
 
     const authData = await sendRequest();
     if (authData.error) {
-      console.log(authData.error);
+      // console.log(authData.error);
       return authData.error.message;
     }
     await dispatch(authActions.login(authData));
@@ -84,7 +84,7 @@ export const signupAction = (email, password, firstname, lastName) => {
         followingList: [],
       })
     );
-    console.log("Success", authData);
+    // console.log("Success", authData);
     return "success";
   };
 };

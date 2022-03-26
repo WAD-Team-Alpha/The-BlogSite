@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 const Navigation = (props) => {
   const trendData = useSelector((state) => state.trending); //Accessing the trending data from the redux store
-  console.log(trendData);
   const navigate = useNavigate(); //Navigating hooks
   const [search, setSearch] = useState(); //state is stored here
   const genreHandler = (event) => {

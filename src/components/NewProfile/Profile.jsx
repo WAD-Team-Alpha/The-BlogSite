@@ -24,9 +24,7 @@ const Profile = (props) => {
   const isFollowing = (list, id) => {
     // checking the id of the users who are following
     for (var i = 0; i < list.length; i++) {
-      console.log(list[i], id);
       if (list[i].id === id) {
-        console.log(list[i], id);
         return true;
       }
     }
@@ -49,20 +47,13 @@ const Profile = (props) => {
     postIds: userInfo.postIds,
     questionIds: userInfo.questionIds,
   };
-  console.log(userInfo);
-  console.log(userDetails.postIds);
-  console.log(userDetails.genres);
-  // console.log(props.userInfo.genres);
 
   const followCount = userDetails.followersList.length; //followcount of the current user
-  // console.log(followCount)
 
   const followingCount = userDetails.followingList.length; //following count of the current
-  console.log(followingCount);
 
   const editHandler = (firstName, lastName, email, bio, genres) => {
     //editHandler for updating the user details using edit form
-    console.log(firstName, lastName, email, bio, genres);
     dispatch(
       //sending updated user details to the store
       profileActions.update({
@@ -95,7 +86,6 @@ const Profile = (props) => {
 
       dispatch(fetchOtherProfileData(props.uid)).then((res) => {
         //fetching the followed user id
-        console.log(res);
         const newData = {
           ...userInfo,
           followingList: [
@@ -117,10 +107,8 @@ const Profile = (props) => {
           )
         ).then((result) => {
           if (result === "succes") {
-            console.log("this is running");
             dispatch(profileActions.update(newData)); //updating the store
             var len = otherProfileData.followerCount + 1; //increasing the followers count
-            console.log(len);
             setOtherProfileData((res) => {
               //updating the count in the other users profile
               return { ...res, followerCount: len };
@@ -141,7 +129,6 @@ const Profile = (props) => {
         followingList: newList,
       };
       dispatch(fetchOtherProfileData(props.uid)).then((res) => {
-        console.log(res);
         dispatch(
           sendOtherProfileData(
             //updating the other users data
@@ -157,7 +144,6 @@ const Profile = (props) => {
           if (result === "succes") {
             dispatch(profileActions.update(newData)); //updating the data in the store
             var len = otherProfileData.followerCount - 1;
-            console.log(len);
             setOtherProfileData((res) => {
               return { ...res, followerCount: len };
             });
@@ -175,7 +161,6 @@ const Profile = (props) => {
     setCurUser(false);
     dispatch(fetchOtherProfileData(props.uid)).then((res) => {
       //getting the details of the other users
-      console.log(res);
       const data = {
         ...res,
         followerCount: res.followersList.length, //getting followers count of the other users
@@ -184,8 +169,6 @@ const Profile = (props) => {
 
       setOtherProfileData(data); //setting the above obtained data into the otherProfileData variable using useState
       setSubmit(false);
-      console.log(data);
-      console.log("line 66 is running");
     });
   }, []);
   return submit ? (
@@ -348,7 +331,6 @@ const Profile = (props) => {
                           ))
                         : otherProfileData.genres.map((gen) => {
                             //genres of the other users
-                            console.log("this is running");
                             return (
                               <Chip
                                 style={{

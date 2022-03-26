@@ -42,7 +42,7 @@ const QuestionForm = () => {
     const questionId = uuidv4();
     var today = new Date();
     const publishedDate = today.toLocaleDateString("en-US");
-    console.log({ question, description, image });
+    // console.log({ question, description, image });
     setSubmit(true);
     dispatch(
       //Dispatching the form data

@@ -13,6 +13,7 @@ function App() {
   const aboutData = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   useEffect(() => {
+    // console.log("I am in app.jsx")
     if (localStorage.getItem("idToken") !== null) {
       dispatch(
         authActions.login({
@@ -23,31 +24,23 @@ function App() {
     }
   }, []);
   useEffect(() => {
-    console.log(isAuth);
     if (!isAuth.isAuthenticated) {
       return;
     }
-    console.log("send data is triggered");
-    console.log(aboutData);
     dispatch(sendProfileData(aboutData, isAuth.localId));
   }, [aboutData]);
   useEffect(() => {
     dispatch(fetchTrendingPosts());
   }, []);
   useEffect(() => {
-    console.log(isAuth);
     if (!isAuth.isAuthenticated) {
       dispatch(postsActions.reset());
       dispatch(questionsActions.reset());
-      console.log("store cleared");
       return;
     }
-    console.log("fetch posts and questions data is triggered");
-    console.log(aboutData);
     dispatch(fetchProfileData(isAuth.localId)).then((res) => {
       if (res !== null) {
         res.postIds?.map((id) => {
-          console.log("this line is excecuted");
           dispatch(fetchPostsData(id));
         });
       }
@@ -55,7 +48,6 @@ function App() {
     dispatch(fetchProfileData(isAuth.localId)).then((res) => {
       if (res !== null) {
         res.questionIds?.map((id) => {
-          console.log("this line is excecuted");
           dispatch(fetchQuestionsData(id));
         });
       }

@@ -11,10 +11,10 @@ const SearchResults = () => {
   const location = useLocation(); //QUery parameters
   const params = new URLSearchParams(location.search);
   if (params.get("query")) {
-    console.log("The query is ", params.get("query"));
+    // console.log("The query is ", params.get("query"));
   }
   if (params.get("genre")) {
-    console.log("The genre is ", params.get("genre"));
+    // console.log("The genre is ", params.get("genre"));
   }
   return (
     <>

@@ -4,7 +4,6 @@ import PostCard from './PostCard'
 
 const Posts = () => {
     const admin = useSelector(state => state.admin)
-    console.log(admin.posts, "These are the users from the backend")
     return (
         <div className="container">
             <h1>Posts</h1>

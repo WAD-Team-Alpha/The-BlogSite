@@ -29,7 +29,6 @@ const Account = () => {
 
   // Logout handler
   const logoutHandler = () => {
-    console.log("log out is triggered");
     dispatch(authActions.logout());
     navigate("/", { replace: true });
   };

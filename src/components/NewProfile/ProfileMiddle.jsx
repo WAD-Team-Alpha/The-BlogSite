@@ -4,7 +4,6 @@ import ProfileTabs from "./ProfileTabs";
 import { useParams } from "react-router-dom";
 const ProfileMiddle = () => {
   const params = useParams();
-  console.log(params.uid);
   return (
     <div className={classes.middleContainer}>
       <Container
