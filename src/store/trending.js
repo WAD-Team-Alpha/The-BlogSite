@@ -1,17 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialTrendData = {
-  data: [],
+    data: [],
 };
 
 const trendingSlice = createSlice({
-  name: "trendData",
-  initialState: initialTrendData,
-  reducers: {
-    addPosts(state, action) {
-      state.data = action.payload;
+    name: "trendData",
+    initialState: initialTrendData,
+    reducers: {
+        addPosts(state, action) {
+            state.data = action.payload;
+        },
     },
-  },
 });
 
 export const trendingActions = trendingSlice.actions;

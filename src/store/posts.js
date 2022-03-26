@@ -4,32 +4,28 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialpostsState = [];
 
 const postsSlice = createSlice({
-  name: "postsData",
-  initialState: initialpostsState,
-  reducers: {
-    addPost(state, action) {
-      //adding the details of the posts
-      // console.log("line 10 is running");
-      state.push({
-        postId: action.payload.postId,
-        uid: action.payload.uid,
-        publishedDate: action.payload.publishedDate,
-        postTitle: action.payload.postTitle,
-        imageUrl: action.payload.imageUrl,
-        postSummary: action.payload.postSummary,
-        postData: action.payload.postData,
-        likes: action.payload.likes,
-        bookmarks: action.payload.bookmarks,
-        comments: action.payload.comments,
-        genre: action.payload.genre,
-        author: action.payload.author,
-      });
-      // console.log(state);
-      // console.log(action.payload.postId);
-      // console.log(action.payload.uid);
+    name: "postsData",
+    initialState: initialpostsState,
+    reducers: {
+        addPost(state, action) {
+            //adding the details of the posts
+            state.push({
+                postId: action.payload.postId,
+                uid: action.payload.uid,
+                publishedDate: action.payload.publishedDate,
+                postTitle: action.payload.postTitle,
+                imageUrl: action.payload.imageUrl,
+                postSummary: action.payload.postSummary,
+                postData: action.payload.postData,
+                likes: action.payload.likes,
+                bookmarks: action.payload.bookmarks,
+                comments: action.payload.comments,
+                genre: action.payload.genre,
+                author: action.payload.author,
+            });
+        },
+        reset: () => initialpostsState,
     },
-    reset: () => initialpostsState,
-  },
 });
 
 export const postsActions = postsSlice.actions; //exporting the reducers
