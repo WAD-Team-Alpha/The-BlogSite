@@ -1,12 +1,11 @@
 import { authActions } from "./auth";
-import { API_KEY } from "../keys";
 import { profileActions } from "./profile";
 export const signinAction = (email, password) => {
   return async (dispatch) => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`,
+          `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.API_KEY}`,
           {
             method: "POST",
             body: JSON.stringify({
@@ -44,7 +43,7 @@ export const signupAction = (email, password, firstname, lastName) => {
     const sendRequest = async () => {
       try {
         const response = await fetch(
-          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`,
+          `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.API_KEY}`,
           {
             method: "POST",
             body: JSON.stringify({
