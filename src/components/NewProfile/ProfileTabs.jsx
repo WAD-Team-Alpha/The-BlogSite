@@ -1,61 +1,72 @@
 import { useState } from "react";
 import classes from "./newprofile.module.css";
 import { Tabs, Tab } from "react-bootstrap";
-import AddPost from "./addPost/AddPost";
-import AddQuestion from "./addPost/AddQuestion";
 import Postcard from "./Postcard";
 import Questionscard from "./Questionscard";
-
-
-const ProfileTabs = () => {
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { fetchOtherProfileData } from "../../store/profile-actions";
+import { fetchOtherPostsData } from "../../store/post-actions";
+import { fetchOtherQuestionsData } from "../../store/question-actions";
+import LoadingSpinner from "../auth/LoadingSpinner";
+const ProfileTabs = (props) => {
+  const dispatch = useDispatch(); //Intializing the dispatch
   const [tab, setTab] = useState("posts");
-  const [addPost, setAddPost] = useState(false);
-  const [addQuestion, setAddQuestion] = useState(false);
-  const addPostHandler = () => {
-    setAddPost((state) => !state);
-  };
-  const addQuestionHandler = () => {
-    setAddQuestion((state) => !state);
-  };
-  return (
-   
+  const [submit, setSubmit] = useState(true);
+  const [questionsData, setQuestionsData] = useState([]);
+  const [postsData, setPostsData] = useState([]);
+  const [curUser, setCurUser] = useState(true);
+  useEffect(() => {
+    setSubmit(false);
+    if (props.uid === localStorage.getItem("localId")) {
+      setSubmit(true);
+      return;
+    }
+    setCurUser(false);
+    dispatch(fetchOtherProfileData(props.uid)).then((res) => {
+      if (res !== null) {
+        res.postIds.map((id) => {
+          dispatch(fetchOtherPostsData(id)).then((res) => {
+            //fetching posts data of the other users by their ids
+            if (res !== "failed") {
+              setPostsData((state) => [...state, res]);
+            }
+          });
+        });
+        res.questionIds.map((id) => {
+          dispatch(fetchOtherQuestionsData(id)).then((res) => {
+            //fetching questions data of the other usersby their user ids
+            setQuestionsData((state) => [...state, res]);
+          });
+        });
+      }
+      setSubmit(true);
+    });
+  }, []);
+  return submit ? (
     <div className={classes.container}>
       <div className={classes.profileTabs}>
         <Tabs
           id="profiletab"
           activeKey={tab}
-          onSelect={(k) => setTab(k)}
-          className="mb-3"
+          onSelect={(k) => setTab(k)} //setting tabs on select posts tab for posts and questions tabs for questions
+          style={{ borderColor: "#b1b1b1" }}
         >
           <Tab eventKey="posts" title="Posts">
-            {!addPost && (
-              <div className={classes.postbtndiv}>
-                <button onClick={addPostHandler} className="btn btn-primary">
-                  Create Post
-                </button>
-              </div>
-            )}
-            {addPost && <AddPost />}
+            <Postcard curUser={curUser} postsData={postsData} />
           </Tab>
-          <Tab eventKey="questions" title="Questions">
-            {!addQuestion && (
-              <div className={classes.postbtndiv}>
-                <button
-                  onClick={addQuestionHandler}
-                  className="btn btn-primary"
-                >
-                  Add a question
-                </button>
-              </div>
-            )}
-            {addQuestion && <AddQuestion />}
+          <Tab
+            eventKey="questions"
+            title="Questions"
+            style={{ borderColor: "#b1b1b1" }}
+          >
+            <Questionscard curUser={curUser} questionsData={questionsData} />
           </Tab>
         </Tabs>
-      
-        </div>
       </div>
-      
-   
+    </div>
+  ) : (
+    <LoadingSpinner />
   );
 };
 

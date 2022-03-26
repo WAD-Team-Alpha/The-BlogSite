@@ -12,7 +12,6 @@ const AddPost = () => {
       ...value,
       { id: uuidv4(), type: itype, value: "" },
     ]);
-    console.log(inputFields);
   };
   const onDeleteHandler = (id) => {
     const values = [...inputFields];
@@ -24,8 +23,6 @@ const AddPost = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title, description, image);
-    console.log("InputFields", inputFields);
   };
   const handleChangeInput = (id, event) => {
     const newInputFields = inputFields.map((i) => {
@@ -147,7 +144,7 @@ const AddPost = () => {
               );
             })}
             <div className={classValue}>
-              <div class="form-row">
+              <div className="form-row">
                 <div className="form-group col-md-6">
                   <div className={classes.dropdown}>
                     <select

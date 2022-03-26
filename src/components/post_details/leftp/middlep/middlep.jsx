@@ -1,137 +1,176 @@
 import * as React from "react";
-import banner_logo from "../../../../assets/images/banner_logo.png";
+import { useState } from "react";
 import { Avatar } from "@mui/material";
-import india1 from "../../../../assets/images/india1.png"
-import india2 from "../../../../assets/images/india2.jpg"
 import { TextField } from "@mui/material";
-import Button from '@mui/material/Button';
+import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
-
-
+import classes from "./middlep.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { postActions } from "../../../../store/post";
+import { sendPostData } from "../../../../store/post-actions";
 const Middlep = (props) => {
+  const dispatch = useDispatch();
+  const postdata = useSelector((state) => state.post);
+  const authdata = useSelector((state) => state.auth);
+  const userData = useSelector((state) => state.profile);
+  const [comment, setComment] = useState("");
+  const profileData = props.profileData;
+
+  const addCommentHandler = (event) => {
+    // comment handler from leftp component
+    event.preventDefault();
+    // console.log();
+    if (comment === "") {
+      return;
+    }
+    const newComments = [
+      ...postdata.comments,
+      { userId: authdata.localId, name: userData.firstName, text: comment },
+    ];
+    dispatch(postActions.add({ ...postdata, comments: newComments })); //accessing data from store
+
+    dispatch(
+      sendPostData({ ...postdata, comments: newComments }, postdata.postId)
+    ).then((res) => {
+      // console.log("printing response", res);
+    });
+    setComment("");
+  };
   return (
-    <>
-        <div style={{borderLeft:"2px solid green", borderRight:"2px solid green", borderTop:"2px solid green", borderSpacing: "15px"}}>
-            <div style={{ padding: "1em" }}>
-                <img src={banner_logo} alt="prathyush" width="800px" height="248px" />
-            </div>
-            <div>
-                <div>
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-1">
-                                <Avatar />
-                            </div>
-                            <div class="col-11">
-                                Surya Teja Tangirala 
-                                <br />
-                                Posted on 09/10/2021
-                                <br /> <br />
-                            </div>
-                            <div class="col-12">
-                                <b><h3 style={{size:'25px', font:'Roboto', width:'754px'}}><b>Here we place our title very neatly and with bold and big sized font. Title is the key for any post in our website.</b></h3></b>
-                                <hr />
-                            </div>
-                            <div>
-                                <p>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt 
-                                </p>
-                                <div >
-                                    <img src={india1} alt="" width="760px" height="187px"/>
-                                </div>
-                                <p>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisq.
-                                </p>
-                                <p>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisq. si architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisq.
-                                </p>
-                                    <img src={india2} alt="" width="760px" height="187px"/>
-                                <p>
-                                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisq.
-                                </p>
-                            </div>
-
-                            <hr />
-
-                            <div>
-                                <h2><b>Comments</b></h2>
-
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-1">
-                                            <Avatar />
-                                        </div>
-                                        <div class="col-11">
-                                            {/* <p>Hi</p> */}
-                                            <TextField
-                                                fullWidth
-                                                helperText=" "
-                                                id="description_posts"
-                                                label="Comment publicly as Surya Teja"
-                                                multiline
-                                                rows={3}
-                                                size = "small"
-                                            />
-                                            <Button variant="contained">Submit</Button>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-                                <br />
-
-
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-1">
-                                            <Avatar />
-                                        </div>
-                                        <div class="col-11">
-                                            <Box height="71px" width="715px" border="solid black">
-                                                <h4> I commented here, so please ignore this and go to next comment</h4>
-                                            </Box>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-1">
-                                            <Avatar />
-                                        </div>
-                                        <div class="col-11">
-                                            <Box height="71px" width="715px" border="solid black">
-                                                <h4> I commented here, so please ignore this and go to next comment</h4>
-                                            </Box>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-1">
-                                            <Avatar />
-                                        </div>
-                                        <div class="col-11">
-                                            <Box height="71px" width="715px" border="solid black">
-                                                <h4> I commented here, so please ignore this and go to next comment</h4>
-                                            </Box>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-
-                                
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+    <div
+      style={{
+        backgroundColor: "white",
+        marginTop: "1em",
+        marginBottom: "1em",
+        padding: "0.5em",
+        borderRadius: "8px",
+      }}
+      className="shadow"
+    >
+      <div>
+        <div style={{ padding: "1em" }}>
+          <img
+            src={postdata.imageUrl}
+            alt="none"
+            width="800px"
+            height="248px"
+          />
         </div>
-    </>
+        <div>
+          <div>
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-1">
+                  <div>
+                    <Avatar />
+                  </div>
+                </div>
+                <div className="col-3">
+                  <b>{profileData.firstName + " " + profileData.lastName}</b>
+                  <br />
+                  Posted on <b>{postdata.publishedDate}</b>
+                  <br /> <br />
+                </div>
+                <div className="col-12">
+                  <b>
+                    <h3
+                      style={{ size: "25px", font: "Roboto", width: "754px" }}
+                    >
+                      <b>{postdata.postTitle}</b>
+                    </h3>
+                  </b>
+                  <hr />
+                </div>
+                <div>
+                  <p>{postdata.postSummary}</p>
+                  {postdata.postData.map((val) => {
+                    // itterating all the data from the post and showing it
+                    if (val.type === "text") {
+                      return <p className="mb-2 mt-2">{val.value}</p>;
+                    } else {
+                      return (
+                        <div className="mb-2 mt-2">
+                          <img
+                            src={val.value}
+                            alt=""
+                            width="760px"
+                            height="187px"
+                          />
+                        </div>
+                      );
+                    }
+                  })}
+                </div>
+
+                <hr />
+
+                <div ref={props.theRef}>
+                  <h2>
+                    <b>Comments</b>
+                  </h2>
+                  <form onSubmit={addCommentHandler}>
+                    <div className="container-fluid">
+                      <div className="row">
+                        <div className="col-1">
+                          <Avatar />
+                        </div>
+                        <div className="col-11">
+                          {/* <p>Hi</p> */}
+                          <TextField
+                            fullWidth
+                            value={comment}
+                            onChange={(e) => setComment(e.target.value)}
+                            helperText=" "
+                            id="description_posts"
+                            label={`Comment publicly as ${profileData.firstName}`}
+                            multiline
+                            rows={3}
+                            size="small"
+                          />
+                          <Button type="submit" variant="contained">
+                            Submit
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+                  <br />
+                  <br />
+                  {postdata.comments.map(
+                    (
+                      val //itterating through all the comments and printing them below the post
+                    ) => (
+                      <div>
+                        <div className="container-fluid">
+                          <div className="row">
+                            <div className="col-1">
+                              <Avatar />
+                            </div>
+                            <div className="col-11">
+                              <Box
+                                height="71px"
+                                width="715px"
+                                style={{ border: "2px solid #c4c4c4" }}
+                              >
+                                <div className={classes.commentsp}>
+                                  {val.text}
+                                </div>
+                              </Box>
+                            </div>
+                          </div>
+                        </div>
+                        <br />
+                      </div>
+                    )
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

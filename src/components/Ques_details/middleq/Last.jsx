@@ -1,105 +1,118 @@
-import ThumbUp from "@mui/icons-material/ThumbUp";
-import { Avatar, Grid } from "@mui/material";
+//import ThumbUp from "@mui/icons-material/ThumbUp";
+import { Avatar } from "@mui/material";
 import classes from "./last.module.css";
-import TimerIcon from "@mui/icons-material/Timer";
+//import TimerIcon from "@mui/icons-material/Timer";
 import { TextField, Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { questionActions } from "../../../store/question";
+import { sendQuestionData } from "../../../store/question-actions";
+//import DoneSharpIcon from '@mui/icons-material/DoneSharp';
+import CommentsSection from "./commentsSection";
 
-const Last = () => {
-  const users = [
-    "Mahaboob",
-    "Surya",
-    "Sekhar",
-    "Satyam",
-    "Prathyush",
-    "user1",
-    "user2",
-  ];
+const Last = (props) => {
+  const dispatch = useDispatch(); // initialising the dispatch to use store easily
+  const authdata = useSelector((state) => state.auth); // importing auth data from store
+  const userData = useSelector((state) => state.profile); // importing profile data
+  const [comment, setComment] = useState("");
+  const profileData = props.profileData;
+  const commentsdata = useSelector((state) => state.question);
+  // console.log(profileData);
+  const addCommentHandler = (event) => {
+    // function to handle comments
+
+    event.preventDefault();
+    setComment("");
+    // console.log("this is comment handler");
+    if (comment === "") {
+      return;
+    }
+    var today = new Date();
+    const publishedDate = today.toLocaleDateString("en-US");
+    const newComments = [
+      ...commentsdata.comments,
+      {
+        userId: authdata.localId,
+        name: userData.firstName,
+        text: comment,
+        publishedDate,
+      },
+    ];
+    dispatch(questionActions.add({ ...commentsdata, comments: newComments })); // adding comments for the questions in store
+
+    dispatch(
+      sendQuestionData(
+        { ...commentsdata, comments: newComments },
+        commentsdata.questionId
+      )
+    ).then((res) => {
+      // console.log("printing response", res);
+    });
+  };
+
+  // const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
+  // const [correctionicon,setCorrectionIcon] = useState(<TimerIcon />)
+
+  // const correctionHandler = (props) => {
+  //       if (correctionstatus==="Mark as correct") {
+  //           setcorrectionstatus("Marked")
+  //           setCorrectionIcon(<DoneSharpIcon style={{color:"green"}}/>)
+  //       } else {
+  //           setcorrectionstatus("Mark as correct")
+  //           setCorrectionIcon(<TimerIcon/>)
+  //       }
+  // }
+
   return (
     <div className={classes.answers}>
       <span style={{ fontSize: "30px" }}>
-        <b>Answers</b>
+        <b ref={props.theRef}>Answers</b>
       </span>
       <div>
-        {users.map((user) => (
-          <div className={classes.anscon}>
-            <div class="row">
-              <div
-                class="col-2"
-                style={{
-                  paddingLeft: "2em",
-                  paddingTop: "0.5em",
-                  width: "80px",
-                }}
-              >
-                <Avatar sx={{ width: "60px", height: "60px" }} />
-              </div>
-              <div
-                class="col-6"
-                style={{ paddingTop: "0.5em", paddingLeft: "1.5em" }}
-              >
-                <b> {user} </b>
-                <br />
-                Answerd on 10/08/2021
-              </div>
-              <div class="col-4" style={{ paddingLeft: "4em" }}>
-                <button class="btn shadow-none">
-                  <b>Mark as correct answer</b>
-                </button>
-              </div>
-            </div>
-            <div class="row">
-              <div
-                class="col"
-                style={{ paddingLeft: "2em", paddingTop: "1em" }}
-              >
-                <span>
-                  {" "}
-                  Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                  accusantium doloremque laudantium, totam rem aperiam, eaque
-                  ipsa quae ab illo inventore veritatis et quasi architecto
-                  beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem
-                  quia voluptas sit aspernatur aut odit aut fugit, sed quia
-                  consequuntur magni dolores eos qui ratione voluptatem sequi
-                  nesciunt. Neque porro quisq.
-                </span>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-8">
-                <div className={classes.likeicon}>
-                  <ThumbUp /> 999
-                </div>
-              </div>
-              <div class="col-4">
-                <div className={classes.timeicon}>
-                  <TimerIcon />
-                </div>
-              </div>
-            </div>
-          </div>
-        ))}
+        {commentsdata.comments.map(
+          (
+            comment // printing all the comments is done in commentssection component and we are importing it here
+          ) => (
+            // coming soon
+            <CommentsSection
+              profileData={profileData}
+              commentsdata={commentsdata}
+              comment={comment}
+            />
+          )
+        )}
         <div>
           <br />
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-1">
-                <Avatar />
-              </div>
-              <div class="col-11">
-                <TextField
-                  fullWidth
-                  width="500px"
-                  helperText=" "
-                  id="ques_answer"
-                  label="Add an answer"
-                  multiline
-                  rows={3}
-                  size="small"
-                />
-                <Button variant="contained">Submit</Button>
+          <form onSubmit={addCommentHandler}>
+            {" "}
+            {/* adding comment onsubmit */}
+            <div className="container-fluid">
+              <div className="row">
+                <div className="col-1">
+                  <Avatar />
+                </div>
+                <div className="col-11">
+                  <TextField
+                    value={comment}
+                    fullWidth
+                    width="500px"
+                    helperText=" "
+                    id="ques_answer"
+                    label="Add an answer"
+                    onChange={(e) => setComment(e.target.value)}
+                    multiline
+                    rows={3}
+                    size="small"
+                  />
+                  <Button variant="contained" type="submit">
+                    Submit
+                  </Button>
+                  <br />
+                  <br />
+                </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

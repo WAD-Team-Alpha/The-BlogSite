@@ -6,29 +6,33 @@ import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
-import Settings from "@mui/icons-material/Settings";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import Logout from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
-import { makeStyles } from "@mui/styles";
-
-const useStyles = makeStyles({
-  links: {
-    textDecoration: "none",
-    display: "flex",
-    fontSize: "1.4em",
-  },
-});
-
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "../../store/auth";
+import { useNavigate } from "react-router-dom";
 const Account = () => {
-  const style = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate(); //Navigate hook to navigate the user to profile management
+  const dispatch = useDispatch(); //Dispatch to send redux state updates
+  const [anchorEl, setAnchorEl] = React.useState(null); //Setting up the state
   const open = Boolean(anchorEl);
+
+  // Click handlers
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  // Logout handler
+  const logoutHandler = () => {
+    dispatch(authActions.logout());
+    navigate("/", { replace: true });
+  };
+  const authData = useSelector((state) => state.auth); //accessing the authenticated user's data
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
@@ -71,16 +75,38 @@ const Account = () => {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem sx={{ fontSize: "0.9em" }}>
-            <Avatar /><Typography sx={{padding: "0.2em", color: "#3d3d3d"}}>Profile</Typography>
+          <Link
+            to={`/profile/${authData.localId}`}
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              fontSize: "1.4em",
+            }}
+          >
+            <Avatar />
+            <Typography sx={{ padding: "0.2em", color: "#3d3d3d" }}>
+              Profile
+            </Typography>
+          </Link>
         </MenuItem>
         <Divider />
         <MenuItem sx={{ fontSize: "0.9em" }}>
-          <ListItemIcon>
-            <Settings fontSize="medium" />
-          </ListItemIcon>
-          Settings
+          <Link
+            to="/home/post"
+            style={{
+              textDecoration: "none",
+              display: "flex",
+              fontSize: "1.1em",
+              color: "#3f3f3f",
+            }}
+          >
+            <ListItemIcon>
+              <DashboardIcon fontSize="medium" />
+            </ListItemIcon>
+            Dashboard
+          </Link>
         </MenuItem>
-        <MenuItem sx={{ fontSize: "0.9em" }}>
+        <MenuItem onClick={logoutHandler} sx={{ fontSize: "0.9em" }}>
           <ListItemIcon>
             <Logout fontSize="medium" />
           </ListItemIcon>

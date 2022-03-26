@@ -3,8 +3,10 @@
     width: 343px;
     background-color: #05386b;
     /* top: 86px; */
-    margin-top: 2em;
     padding-top: 2em;
+    border-radius: 6px;
+    margin: auto;
+    margin-top: 2em;
 }
 
 .containerSD {
@@ -42,4 +44,66 @@
     background-color: #05386b;
     border-top-left-radius: 0.3em;
     border-top-right-radius: 0.3em;
+}
+
+.mainfollowers {
+    /* font-family: Roboto; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #8E8E8E;
+    padding-top: 0.5em;
+    cursor: pointer;
+}
+
+.followercount {
+    font-size: 24px;
+    color: black;
+    margin-left: 1.2em;
+    padding-top: 0em;
+}
+
+.followingcount {
+    font-size: 24px;
+    color: black;
+    margin-left: 0em;
+}
+
+.uname {
+    /* font-family: Roboto; */
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.Mcon {
+    /* font-family: Roboto; */
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 21px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding-top: 0.5em;
+    color: white;
+    padding-left: 1em;
+}
+
+.recomendedtext {
+    /* font-family: Roboto; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 16px;
+    letter-spacing: 0em;
+    text-align: left;
+    padding-left: 1em;
+    color: solid #333333;
+    padding-top: 1em;
 }

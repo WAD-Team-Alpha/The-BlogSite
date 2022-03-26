@@ -1,49 +1,75 @@
-import * as React from 'react'
+import * as React from "react";
 //import { Avatar, Hidden } from '@mui/material'
-import classes from './middleq.module.css'
-import Middle from './Middle'
-import Last from './Last'
+import classes from "./middleq.module.css";
+import Middle from "./Middle";
+import Last from "./Last";
+import { useSelector } from "react-redux";
 
 const Middleq = (props) => {
-
-    return (
-        <div class="container-fluid" style={{borderLeft:"2px solid #5cdb95", borderRight:"2px solid #5cdb95"}}>
-            <div class="row" style={{height:"150px"}}>
-                <div class="col">
-                   <div className={classes.middleheader}>
-                   <h3><b>Here we place our title very neatly and with bold and big sized font. Title is the key for any post in our website ?</b></h3>
-                   </div>
-                   <div class="row" style={{paddingTop:"0.5em"}}>
-                        <div class="col-3">
-                            Asked 10/08/2021
-                        </div>
-                        <div class="col-3">
-                            Status Active
-                        </div>
-                        <div class="col-3">
-                            Views 999
-                        </div>
-                        <div class="col-3">
-                            <button class="btn btn-primary">Close thread</button>
-                        </div>
-                   </div>
-                </div>
+  const userData = props.profileData;
+  // console.log(userData);
+  const questiondata = useSelector((state) => state.question); // using selector to get the data from the store
+  return (
+    <div
+      className="container-fluid shadow"
+      style={{
+        backgroundColor: "white",
+        marginTop: "1em",
+        marginBottom: "1em",
+        padding: "1em",
+        borderRadius: "8px",
+      }}
+    >
+      <div className="row" style={{ height: "150px" }}>
+        <div className="col">
+          <div className={classes.middleheader}>
+            <h3>
+              <b>{questiondata.question}</b>
+            </h3>
+          </div>
+          <div className="row" style={{ paddingTop: "0.5em" }}>
+            <div className="col-12">
+              <div style={{ fontSize: "1em" }}>
+                <b>Asked on</b>
+                {"  "}
+                <b style={{ color: "green" }}>
+                  {questiondata.publishedDate}
+                </b>{" "}
+                {"  "} by {"  "}{" "}
+                <b style={{ color: "blue" }}>{questiondata.author}</b>
+              </div>
             </div>
-            <hr/>
-            <div class="row" style={{ height:"360px"}}>
-                <div class="col">
-                   <Middle/>
-                </div>
-            </div>
-            <hr/>
-            <div class="row" >
-                <div class="col" >
-                   <Last/>
-                  
-                </div>
-            </div>
+            {/* <div className="col-3">
+                            <div className={classes.subhead}>
+                                <b>Views</b>  {questiondata.likes}
+                            </div>
+                        </div> */}
+            {/* <div className="col-6">
+                            <div style={{textAlign:"right"}}>
+                                <button className="btn btn-primary" className={classes.button1}><div>Close thread</div></button>
+                            </div>
+                        </div> */}
+          </div>
         </div>
-    )
-}
+      </div>
+      <hr />
+      <div className="row" style={{ height: "360px" }}>
+        <div className="col">
+          {" "}
+          {/*Till above is the question details like asked on and posted by*/}
+          <Middle />{" "}
+          {/*Here we are importing the question and question description  part*/}
+        </div>
+      </div>
+      <hr />
+      <div className="row">
+        <div className="col">
+          <Last profileData={props.profileData} theRef={props.theRef} />{" "}
+          {/*Here we are importing the comments for the posted question printing component*/}
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Middleq
+export default Middleq;

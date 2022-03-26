@@ -1,55 +1,62 @@
-import { Grid } from "@mui/material";
 import classes from "./postcard.module.css";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
+import { useSelector } from "react-redux";
+import PostCard from "../home/cards/PostCard";
 
-const Postcard = () => {
-
-    const titles=["title1", "title2", "title3", "t4", "t5"]
-  return (
-    
-    <div>
-      <div className={classes.cardcontainer}>
-        <div className={classes.postscreate}>
-          <button class="btn btn-info">
-            <i class="bi bi-plus-circle"></i> Create
-          </button>
-        </div>
-        <Grid container spacing={2}   direction="row"
-                justify="flex-start"
-                alignItems="flex-start">
-        {titles.map((titlename)=> (
-        <div className={classes.cards}>
-           
-          <Card sx={{ maxWidth: 400 }}>
-            <CardMedia
-              component="img"
-              alt="green iguana"
-              height="140"
-              image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2ZKz8ynpVEhLQE43X0O4lq80gOt23vguqdg&usqp=CAU"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-               {titlename}
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{marginLeft:"7em", marginTop:"1em"}}>
-                Published on 20-08-2021
-              </Typography>
-            </CardContent>
-            
-          </Card>
-         
-          <br/>
-        </div>
-        
-        ))}
-        </Grid>
+const Postcard = (props) => {
+  const postid = useSelector((state) => state.profile.postIds); //Fetching the postids of the user
+  const postsdata = useSelector((state) => state.posts); //fetching the details of the particular user
+  if (postsdata === null) {
+    return (
+      <div style={{ paddingLeft: "16em", paddingTop: "3em" }}>
+        <b>Create your own post</b>
       </div>
-    </div>
-    
-  );
+    );
+  } else {
+    return (
+      <div>
+        <div className={classes.cardcontainer}>
+          <div className={classes.postscreate}></div>
+          <div className={classes.postcards}>
+            {props.curUser
+              ? postsdata.map(
+                  (
+                    postdata //Checking if the user is ourselves or others to render the posts section in profile page
+                  ) => (
+                    <PostCard //if we are the user and sending the current post details using props
+                      key={postdata.postId}
+                      id={postdata.postId} //id of the post
+                      banner={postdata.imageUrl} //banner of the post
+                      title={postdata.postTitle} //posts title
+                      description={postdata.postSummary} //posts description
+                      likes={postdata.likes} //posts likes
+                      publishedDate={postdata.publishedDate} //posts published date
+                      userId={postdata.uid} //user id of the particular post
+                      author={postdata.author} //author of the post
+                    />
+                  )
+                )
+              : props.postsData.map(
+                  (
+                    postdata //other users posts data
+                  ) => (
+                    <PostCard
+                      key={postdata.postId}
+                      id={postdata.postId} //id of the post
+                      banner={postdata.imageUrl} //banner of the post
+                      title={postdata.postTitle} //posts title
+                      description={postdata.postSummary} //posts description
+                      likes={postdata.likes} //likes of the posts
+                      publishedDate={postdata.publishedDate} //published date of the post
+                      userId={postdata.uid} //user id of the post
+                      author={postdata.author} //author of the post
+                    />
+                  )
+                )}
+          </div>
+        </div>
+      </div>
+    );
+  }
 };
 
 export default Postcard;
