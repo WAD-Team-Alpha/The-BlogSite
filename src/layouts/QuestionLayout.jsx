@@ -71,7 +71,7 @@ const QuestionLayout = () => {
       (result) => {
         //Fetching the profile data
         if (result !== "false") {
-          console.log("I am in the false case lmaoooo", result);
+          // console.log("I am in the false case lmaoooo", result);
           dispatch(
             profileActions.update({
               //Dispatching the data
@@ -87,11 +87,11 @@ const QuestionLayout = () => {
     );
     dispatch(fetchQuestionData(params.threadID)).then((result) => {
       //Fetching the others profile data
-      console.log(result);
+      // console.log(result);
       if (result !== null) {
         //Dispatching it
         dispatch(fetchOtherProfileData(result.userId)).then((data) => {
-          console.log(data);
+          // console.log(data);
           setData({
             ...data,
             followercount: data.followersList.length,

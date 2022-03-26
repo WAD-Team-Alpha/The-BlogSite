@@ -30,7 +30,6 @@ const PostPage = () => {
   const [limit, setLimit] = useState(0);
   const [status, setStatus] = useState(false);
   const pageinationHandler = (e, value) => {
-    console.log(value);
     setLimit((value - 1) * 10);
     window.scroll(0, 0);
   };
@@ -44,7 +43,6 @@ const PostPage = () => {
         const data = await res.json();
         return data;
       } catch (error) {
-        console.log(error);
         return "failed";
       }
     };
@@ -58,7 +56,6 @@ const PostPage = () => {
   }, []);
   var result = [];
   for (var i in data) result.push(data[i]);
-  console.log(result);
 
   return status ? (
     <div

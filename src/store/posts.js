@@ -9,7 +9,7 @@ const postsSlice = createSlice({
   reducers: {
     addPost(state, action) {
       //adding the details of the posts
-      console.log("line 10 is running");
+      // console.log("line 10 is running");
       state.push({
         postId: action.payload.postId,
         uid: action.payload.uid,
@@ -24,9 +24,9 @@ const postsSlice = createSlice({
         genre: action.payload.genre,
         author: action.payload.author,
       });
-      console.log(state);
-      console.log(action.payload.postId);
-      console.log(action.payload.uid);
+      // console.log(state);
+      // console.log(action.payload.postId);
+      // console.log(action.payload.uid);
     },
     reset: () => initialpostsState,
   },

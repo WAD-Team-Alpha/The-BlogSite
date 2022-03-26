@@ -4,10 +4,7 @@ import PostCard from "../home/cards/PostCard";
 
 const Postcard = (props) => {
   const postid = useSelector((state) => state.profile.postIds); //Fetching the postids of the user
-  console.log(postid);
   const postsdata = useSelector((state) => state.posts); //fetching the details of the particular user
-  console.log(postsdata);
-  console.log(props.postsData);
   if (postsdata === null) {
     return (
       <div style={{ paddingLeft: "16em", paddingTop: "3em" }}>

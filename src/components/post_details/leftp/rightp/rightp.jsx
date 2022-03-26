@@ -11,7 +11,7 @@ const Rightp = (props) => {
   const navigate = useNavigate();
   // const num = [1, 2, 3, 4] // This was for testing purpose
   const profileData = props.profileData; // importing and saving the profile data
-  console.log(profileData);
+  // console.log(profileData);
   // var followercount = 0;
   // var followingcount = 0;
   return (

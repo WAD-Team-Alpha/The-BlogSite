@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 
 const Middle = () => {
   const questiondata = useSelector((state) => state.question); // selecting the data from the store
-  console.log(questiondata);
+  // console.log(questiondata);
   return (
     <div>
       <div>

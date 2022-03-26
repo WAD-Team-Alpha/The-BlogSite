@@ -43,13 +43,11 @@ const QuestionPage = () => {
 
   for (var i in data) result.push(data[i]);
 
-  console.log(result);
 
   let status = result.length;
 
   const [limit, setLimit] = useState(0);
   const pageinationHandler = (e, value) => {
-    console.log(value);
     setLimit((value - 1) * 10);
     window.scroll(0, 0);
   };
@@ -75,7 +73,6 @@ const QuestionPage = () => {
       exit="exit"
     >
       {result.slice(limit, limit + 10).map((query) => {
-        console.log(query);
 
         return (
           <QuestionCard

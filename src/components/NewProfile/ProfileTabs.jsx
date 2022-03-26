@@ -16,35 +16,26 @@ const ProfileTabs = (props) => {
   const [questionsData, setQuestionsData] = useState([]);
   const [postsData, setPostsData] = useState([]);
   const [curUser, setCurUser] = useState(true);
-  console.log(props.uid);
   useEffect(() => {
-    console.log("Profile tabs exucuted");
     setSubmit(false);
     if (props.uid === localStorage.getItem("localId")) {
-      console.log("Profile tabs exucuted");
       setSubmit(true);
       return;
     }
     setCurUser(false);
-    console.log("Profile tabs exucuted");
     dispatch(fetchOtherProfileData(props.uid)).then((res) => {
-      console.log(res);
       if (res !== null) {
         res.postIds.map((id) => {
-          console.log("this line is excecuted");
           dispatch(fetchOtherPostsData(id)).then((res) => {
             //fetching posts data of the other users by their ids
-            console.log(res);
             if (res !== "failed") {
               setPostsData((state) => [...state, res]);
             }
           });
         });
         res.questionIds.map((id) => {
-          console.log("this line is excecuted");
           dispatch(fetchOtherQuestionsData(id)).then((res) => {
             //fetching questions data of the other usersby their user ids
-            console.log(res);
             setQuestionsData((state) => [...state, res]);
           });
         });

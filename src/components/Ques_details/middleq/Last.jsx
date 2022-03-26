@@ -17,13 +17,13 @@ const Last = (props) => {
   const [comment, setComment] = useState("");
   const profileData = props.profileData;
   const commentsdata = useSelector((state) => state.question);
-  console.log(profileData);
+  // console.log(profileData);
   const addCommentHandler = (event) => {
     // function to handle comments
 
     event.preventDefault();
     setComment("");
-    console.log("this is comment handler");
+    // console.log("this is comment handler");
     if (comment === "") {
       return;
     }
@@ -46,7 +46,7 @@ const Last = (props) => {
         commentsdata.questionId
       )
     ).then((res) => {
-      console.log("printing response", res);
+      // console.log("printing response", res);
     });
   };
 

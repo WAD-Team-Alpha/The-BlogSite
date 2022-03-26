@@ -4,7 +4,7 @@ import classes from "./AddPost.module.css";
 const AddQuestion = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(title, description, image);
+    // console.log(title, description, image);
   };
 
   const [title, setTitle] = useState("");

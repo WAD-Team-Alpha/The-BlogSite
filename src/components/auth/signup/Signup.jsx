@@ -143,12 +143,6 @@ const Signup = (props) => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (state.formIsValid) {
-      console.log({
-        firstname: state.firstname,
-        lastname: state.lastname,
-        email: state.email,
-        password: state.password,
-      });
       props.onSubmit(true);
       dispatchAction(
         signupAction(
@@ -169,7 +163,6 @@ const Signup = (props) => {
       });
       dispatch({ type: "clear" });
     } else {
-      console.log("Some error occured");
     }
   };
 

@@ -4,7 +4,6 @@ import QuestionCard from './QuestionCard'
 
 const Questions = () => {
     const admin = useSelector(state => state.admin)
-    console.log(admin.questions, "These are the users from the backend")
     return (
         <div className="container">
             <h1>Questions</h1>

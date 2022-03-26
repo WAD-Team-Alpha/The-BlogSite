@@ -80,10 +80,6 @@ const Signin = (props) => {
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (state.formIsValid) {
-      console.log({
-        email: state.email,
-        password: state.password,
-      });
 
       props.onSubmit(true);
       dispatchAction(signinAction(state.email, state.password)).then((res) => {
@@ -94,19 +90,16 @@ const Signin = (props) => {
         }
         if (res === "INVALID_PASSWORD") {
           // Alerting user for invalid password
-          console.log("Please provide a right password");
           props.onSubmit(false);
           setCreds({ ...creds, passwordIsCorrect: false });
         }
         if (res === "EMAIL_NOT_FOUND") {
           // Alerting use for email not found
-          console.log("Please provide a right email");
           props.onSubmit(false);
           setCreds({ ...creds, emailIsCorrect: false });
         }
       });
     } else {
-      console.log("Error occured");
     }
     dispatch({ type: "clear" });
   };

@@ -29,14 +29,11 @@ const RecentActivityPage = () => {
   };
 
   const profileData = useSelector((state) => state.profile);
-  console.log(profileData.recentActivity);
   const [status, setStatus] = useState(false);
   const [recents, setRecents] = useState([]);
   useEffect(() => {
     setStatus(true);
-    console.log("hello worold");
     fetchActivity(profileData.recentActivity).then((result) => {
-      console.log(result);
       setRecents(result);
       setStatus(false);
     });
@@ -60,9 +57,7 @@ const RecentActivityPage = () => {
       animate="visible"
       exit="exit"
     >
-      {console.log(recents)}
       {recents.map((recent, index) => {
-        console.log(recent);
         return recent !== null && recent.data !== null ? (
           recent.type === "post" ? (
             <PostCard

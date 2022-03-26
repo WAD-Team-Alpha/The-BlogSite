@@ -21,7 +21,6 @@ const UserDetailed = () => {
                 <h1>Posts</h1>
                 {user.postIds.map((item, index) => {
                     var post = posts.filter(obj => obj.postId === item)
-                    console.log(post)
                     return <div className="col-md-3">
                         <PostCard
                             key={item}
@@ -38,7 +37,6 @@ const UserDetailed = () => {
                 <h1>Questions</h1>
                 {user.questionIds.map((item, index) => {
                     var question = questions.filter(obj => obj.questionId === item)
-                    console.log(question)
                     return <div className="col-md-3">
                         <QuestionCard
                             key={item}

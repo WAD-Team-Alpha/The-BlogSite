@@ -74,14 +74,14 @@ const PostLayout = () => {
     dispatch(fetchProfileData(localStorage.getItem("localId"))).then(
       (result) => {
         if (result !== "false") {
-          console.log("I am in the false case lmaoooo", result); //Fetching the data here
-          console.log(
-            updateRecentActivity(result.recentActivity, {
-              id: params.postID,
-              type: "post",
-            }),
-            " is the temp"
-          );
+          // console.log("I am in the false case lmaoooo", result); //Fetching the data here
+          // console.log(
+          //   updateRecentActivity(result.recentActivity, {
+          //     id: params.postID,
+          //     type: "post",
+          //   }),
+          //   " is the temp"
+          // );
           dispatch(
             profileActions.update({
               ...result, //Updating the recent activity
@@ -98,18 +98,18 @@ const PostLayout = () => {
     // Dispatching the actions
     dispatch(fetchPostData(params.postID)).then((result) => {
       if (result !== null) {
-        console.log(result);
+        // console.log(result);
         dispatch(fetchOtherProfileData(result.uid)).then((data) => {
           //Fetching other profile data for the inspect feature
-          console.log(data);
-          console.log(data.followersList.length);
+          // console.log(data);
+          // console.log(data.followersList.length);
           setData({
             ...data,
             followercount: data.followersList.length,
             followingcount: data.followingList.length,
             userId: result.uid,
           });
-          console.log(data.followersList.length, data.followingList.length);
+          // console.log(data.followersList.length, data.followingList.length);
           setSubmit(false);
         });
       }

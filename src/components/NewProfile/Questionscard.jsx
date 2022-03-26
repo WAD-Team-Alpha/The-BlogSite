@@ -3,11 +3,6 @@ import QuestionCard from "../home/cards/QuestionCard";
 
 const Questionscard = (props) => {
   const quesdata = useSelector((state) => state.questions); //fetching question data from the question store
-  console.log(quesdata);
-
-  const quesid = useSelector((state) => state.profile.questionIds); //fetching the quesids of the current users
-  console.log(quesid);
-  console.log(props.questionsData);
 
   return (
     <div>

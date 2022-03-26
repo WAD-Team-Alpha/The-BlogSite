@@ -7,14 +7,14 @@ import { sendOtherProfileData } from "../../../store/profile-actions";
 const Following = (props) => {
   const followinglist = useSelector((state) => state.profile.followingList); //fetching user following list from the store
   const dispatch = useDispatch(); //Intializing the dispatch
-  console.log(followinglist);
+  // console.log(followinglist);
   const followInfo = useSelector((state) => state.profile); //fetching user info from the store
   const authStatus = useSelector((state) => state.auth); //fetching user authentication from the user
   const unfollowHandler = (index) => {
     const newList = followInfo.followingList.filter((id) => id.id !== index);
 
     dispatch(fetchOtherProfileData(index)).then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch(
         sendOtherProfileData(
           {
