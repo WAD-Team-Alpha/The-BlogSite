@@ -22,7 +22,7 @@ const postSlice = createSlice({
   reducers: {
     add(state, action) {
       //function/reducer for adding the created posts into the store
-      console.log(action.payload);
+      // console.log(action.payload);
       state.postId = action.payload.postId;
       state.uid = action.payload.uid;
       state.publishedDate = action.payload.publishedDate;
@@ -35,7 +35,7 @@ const postSlice = createSlice({
       state.comments = action.payload.comments;
       state.genre = action.payload.genre;
       state.author = action.payload.author;
-      console.log("post updated in store");
+      // console.log("post updated in store");
     },
   },
 });

@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const Middleq = (props) => {
   const userData = props.profileData;
-  console.log(userData);
+  // console.log(userData);
   const questiondata = useSelector((state) => state.question); // using selector to get the data from the store
   return (
     <div

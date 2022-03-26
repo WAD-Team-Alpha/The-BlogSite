@@ -32,7 +32,6 @@ const SavedForLaterPage = () => {
   const dispatch = useDispatch();
   const authData = useSelector((state) => state.auth);
   const profile = useSelector((state) => state.profile);
-  console.log(profile.savedContent);
   const [status, setStatus] = useState(false);
   const [saved, setSaved] = useState([]);
   useEffect(() => {
@@ -46,7 +45,6 @@ const SavedForLaterPage = () => {
 
   const [limit, setLimit] = useState(0);
   const pageinationHandler = (e, value) => {
-    console.log(value);
     setLimit((value - 1) * 10);
     window.scroll(0, 0);
   };
@@ -70,7 +68,6 @@ const SavedForLaterPage = () => {
       exit="exit"
     >
       {saved.slice(limit, limit + 10).map((saved, index) => {
-        console.log(saved);
         return saved.type === "post" ? (
           <PostCard
             id={saved.data.postId}

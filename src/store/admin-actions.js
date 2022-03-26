@@ -12,12 +12,12 @@ export const fetchUsers = () => {
 
     try {
       const users = await getUsers();
-      console.log(users);
-      console.log("Success");
+      // console.log(users);
+      // console.log("Success");
       return Object.values(users);
     } catch (error) {
-      console.log(error);
-      console.log("send post error");
+      // console.log(error);
+      // console.log("send post error");
       return "failure";
     }
   };
@@ -37,12 +37,12 @@ export const fetchPosts = () => {
 
     try {
       const posts = await getPosts();
-      console.log(posts);
-      console.log("Success");
+      // console.log(posts);
+      // console.log("Success");
       return Object.values(posts);
     } catch (error) {
-      console.log(error);
-      console.log("send post error");
+      // console.log(error);
+      // console.log("send post error");
       return "failure";
     }
   };
@@ -62,12 +62,12 @@ export const fetchQuestions = () => {
 
     try {
       const threads = await getQuestions();
-      console.log(threads);
-      console.log("Success");
+      // console.log(threads);
+      // console.log("Success");
       return Object.values(threads);
     } catch (error) {
-      console.log(error);
-      console.log("send post error");
+      // console.log(error);
+      // console.log("send post error");
       return "failure";
     }
   };

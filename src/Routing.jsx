@@ -28,7 +28,6 @@ const Routing = () => {
   const location = useLocation();
   return (
     <AnimatePresence exitBeforeEnter>
-      {console.log(location.key)}
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Main />} />
         <Route element={<SearchResultsLayout />}>

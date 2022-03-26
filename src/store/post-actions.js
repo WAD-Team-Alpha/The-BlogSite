@@ -3,8 +3,8 @@ import { postsActions } from "./posts";
 import { trendingActions } from "./trending";
 export const sendPostData = (postData, postId) => {
   return async (dispatch) => {
-    console.log(postData, postId);
-    console.log("send data action is triggered");
+    // console.log(postData, postId);
+    // console.log("send data action is triggered");
     const sendRequest = async () => {
       const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${postId}.json`;
       const response = await fetch(url, {
@@ -19,11 +19,11 @@ export const sendPostData = (postData, postId) => {
 
     try {
       await sendRequest();
-      console.log("Success");
+      // console.log("Success");
       return "success";
     } catch (error) {
-      console.log(error);
-      console.log("send post error");
+      // console.log(error);
+      // console.log("send post error");
       return "failure";
     }
   };
@@ -31,7 +31,7 @@ export const sendPostData = (postData, postId) => {
 
 export const fetchPostData = (postId) => {
   return async (dispatch) => {
-    console.log("fetch data action is triggered");
+    // console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${postId}.json`;
     const fetchData = async () => {
       const response = await fetch(url);
@@ -39,7 +39,7 @@ export const fetchPostData = (postId) => {
       if (!response.ok) {
         throw new Error("Could not fetch data!");
       }
-      console.log(response);
+      // console.log(response);
       const data = await response.json();
 
       return data;
@@ -56,7 +56,7 @@ export const fetchPostData = (postId) => {
       dispatch(postActions.add(data));
       return data;
     } catch (error) {
-      console.log("error");
+      // console.log("error");
       return "failed";
     }
   };
@@ -64,7 +64,7 @@ export const fetchPostData = (postId) => {
 
 export const fetchPostsData = (postId) => {
   return async (dispatch) => {
-    console.log("fetch data action is triggered");
+    // console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${postId}.json`;
     const fetchData = async () => {
       const response = await fetch(url);
@@ -89,7 +89,7 @@ export const fetchPostsData = (postId) => {
       dispatch(postsActions.addPost(data));
       return "success";
     } catch (error) {
-      console.log("error");
+      // console.log("error");
       return "failed";
     }
   };
@@ -97,7 +97,7 @@ export const fetchPostsData = (postId) => {
 
 export const fetchOtherPostsData = (postId) => {
   return async (dispatch) => {
-    console.log("fetch data action is triggered");
+    // console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts/${postId}.json`;
     const fetchData = async () => {
       const response = await fetch(url);
@@ -122,7 +122,7 @@ export const fetchOtherPostsData = (postId) => {
 
       return data;
     } catch (error) {
-      console.log("error");
+      // console.log("error");
       return "failed";
     }
   };
@@ -130,14 +130,14 @@ export const fetchOtherPostsData = (postId) => {
 
 export const fetchTrendingPosts = () => {
   return async (dispatch) => {
-    console.log("fetch data action is triggered");
+    // console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/posts.json`;
     const fetchData = async () => {
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error("Could not fetch data!");
       }
-      console.log(response);
+      // console.log(response);
       const data = await response.json();
       return data;
     };
@@ -147,11 +147,11 @@ export const fetchTrendingPosts = () => {
       for (var key in postData) {
         data.push(postData[key]);
       }
-      console.log(data);
+      // console.log(data);
       dispatch(trendingActions.addPosts(data));
       return "success";
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       return "failed";
     }
   };

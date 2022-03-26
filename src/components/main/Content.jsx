@@ -23,7 +23,6 @@ const Content = (props) => {
 
   const [ref4, inView4] = useInView({ triggerOnce: true });
   const animation4 = useAnimation();
-  console.log(posts);
   // This effects is used to trigger the animations appropriately
   useEffect(() => {
     if (inView1) {
@@ -39,7 +38,6 @@ const Content = (props) => {
     if (!inView1) {
       animation1.start({ x: "-100vw" });
     }
-    console.log("animation value ", inView1);
   }, [inView1, animation1]);
   useEffect(() => {
     if (inView2) {
@@ -55,7 +53,6 @@ const Content = (props) => {
     if (!inView2) {
       animation2.start({ x: "100vw" });
     }
-    console.log("animation value ", inView2);
   }, [inView2, animation2]);
   useEffect(() => {
     if (inView3) {
@@ -71,7 +68,6 @@ const Content = (props) => {
     if (!inView3) {
       animation3.start({ x: "-100vw" });
     }
-    console.log("animation value ", inView3);
   }, [inView3, animation3]);
   useEffect(() => {
     if (inView4) {
@@ -88,7 +84,6 @@ const Content = (props) => {
     if (!inView4) {
       animation4.start({ y: "20vh", opacity: 0 });
     }
-    console.log("animation value ", inView4);
   }, [inView4, animation4]);
   return (
     <>

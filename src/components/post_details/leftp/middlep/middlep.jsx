@@ -19,7 +19,7 @@ const Middlep = (props) => {
   const addCommentHandler = (event) => {
     // comment handler from leftp component
     event.preventDefault();
-    console.log();
+    // console.log();
     if (comment === "") {
       return;
     }
@@ -32,7 +32,7 @@ const Middlep = (props) => {
     dispatch(
       sendPostData({ ...postdata, comments: newComments }, postdata.postId)
     ).then((res) => {
-      console.log("printing response", res);
+      // console.log("printing response", res);
     });
     setComment("");
   };

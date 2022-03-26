@@ -12,7 +12,7 @@ const Rightq = (props) => {
   const profileData = props.profileData;
   const navigate = useNavigate();
   const userDetails = props.profileData;
-  console.log(userDetails);
+  // console.log(userDetails);
 
   return (
     <div>

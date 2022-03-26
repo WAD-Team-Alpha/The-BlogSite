@@ -20,18 +20,18 @@ const Leftq = (props) => {
       //   console.log(savedId[i], postId);
 
       if (savedId[i].id === questionId) {
-        console.log("true");
+        // console.log("true");
         return true;
       }
     }
-    console.log("false");
+    // console.log("false");
     return false;
   };
 
   const dispatch = useDispatch(); // initialising the dispatch to use store easily
 
   const questiondata = useSelector((state) => state.question); // Getting the data from the store
-  console.log(questiondata);
+  // console.log(questiondata);
   const [like, setLike] = useState(questiondata.likes);
   const [bookmark, setBookmark] = useState(questiondata.bookmarks);
   const likedcontent = useSelector((state) => state.profile); // Getting the upvotes of the post from the store
@@ -55,7 +55,7 @@ const Leftq = (props) => {
       dispatch(profileActions.addLikedContent(questiondata.questionId));
 
       // dispatch(sendProfileData(profiledata, authdata.localId));
-      console.log(questiondata);
+      // console.log(questiondata);
       dispatch(
         sendQuestionData(
           { ...questiondata, likes: likes },

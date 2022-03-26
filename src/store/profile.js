@@ -23,7 +23,7 @@ const profileSlice = createSlice({
     // reducers
     update(state, action) {
       // this update function state is used for updating the details of the user
-      console.log(action.payload);
+      // console.log(action.payload);
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.email = action.payload.email;

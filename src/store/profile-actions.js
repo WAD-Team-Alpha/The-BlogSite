@@ -2,11 +2,11 @@ import { profileActions } from "./profile";
 export const sendProfileData = (about, localId) => {
   //sending the profile data to the database
   return async (dispatch) => {
-    console.log("sending");
-    console.log("send data action is triggered");
+    // console.log("sending");
+    // console.log("send data action is triggered");
     const sendRequest = async () => {
       //sending req to the database
-      console.log(about);
+      // console.log(about);
       const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
       const response = await fetch(url, {
         method: "PUT",
@@ -21,10 +21,10 @@ export const sendProfileData = (about, localId) => {
     try {
       await sendRequest();
 
-      console.log("Success");
+      // console.log("Success");
     } catch (error) {
-      console.log(error);
-      console.log("send profile error");
+      // console.log(error);
+      // console.log("send profile error");
     }
   };
 };
@@ -32,7 +32,7 @@ export const sendProfileData = (about, localId) => {
 export const fetchProfileData = (localId) => {
   //fetching the profile data from the database
   return async (dispatch) => {
-    console.log("fetch data action is triggered");
+    // console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
     const fetchData = async () => {
       const response = await fetch(url);
@@ -78,11 +78,11 @@ export const fetchProfileData = (localId) => {
             ? []
             : profileData.likedContent,
       };
-      console.log("testing data : ", data);
+      // console.log("testing data : ", data);
       dispatch(profileActions.update(data)); //updating the data from the database to the store
       return data;
     } catch (error) {
-      console.log("error");
+      // console.log("error");
       return "false";
     }
   };
@@ -91,7 +91,7 @@ export const fetchProfileData = (localId) => {
 export const fetchOtherProfileData = (localId) => {
   //fetching the profile details of the other users
   return async (dispatch) => {
-    console.log("fetch data action is triggered");
+    // console.log("fetch data action is triggered");
     const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
     const fetchData = async () => {
       const response = await fetch(url);
@@ -138,10 +138,10 @@ export const fetchOtherProfileData = (localId) => {
             ? []
             : profileData.likedContent,
       };
-      console.log("testing data : ", data);
+      // console.log("testing data : ", data);
       return data;
     } catch (error) {
-      console.log("error");
+      // console.log("error");
       return "failed";
     }
   };
@@ -149,9 +149,9 @@ export const fetchOtherProfileData = (localId) => {
 
 export const updateRecentActivity = (data, localId) => {
   return async (dispatch) => {
-    console.log("sending ra");
-    console.log(data);
-    console.log("send recent activity action is triggered");
+    // console.log("sending ra");
+    // console.log(data);
+    // console.log("send recent activity action is triggered");
     const sendRequest = async () => {
       const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
       const response = await fetch(url, {
@@ -166,11 +166,11 @@ export const updateRecentActivity = (data, localId) => {
 
     try {
       await sendRequest();
-      console.log(" recent activity Success");
+      // console.log(" recent activity Success");
       return "success";
     } catch (error) {
-      console.log(error);
-      console.log("send recent activity error");
+      // console.log(error);
+      // console.log("send recent activity error");
       return "failure";
     }
   };
@@ -178,10 +178,10 @@ export const updateRecentActivity = (data, localId) => {
 
 export const sendOtherProfileData = (about, userId) => {
   return async (dispatch) => {
-    console.log("sending");
-    console.log("send data action is triggered");
+    // console.log("sending");
+    // console.log("send data action is triggered");
     const sendRequest = async () => {
-      console.log(about);
+      // console.log(about);
       const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${userId}.json`;
       const response = await fetch(url, {
         method: "PUT",
@@ -196,11 +196,11 @@ export const sendOtherProfileData = (about, userId) => {
     try {
       await sendRequest();
 
-      console.log("Success");
+      // console.log("Success");
       return "succes";
     } catch (error) {
-      console.log(error);
-      console.log("send profile error");
+      // console.log(error);
+      // console.log("send profile error");
     }
   };
 };

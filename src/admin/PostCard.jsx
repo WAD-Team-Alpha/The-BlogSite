@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const PostCard = (props) => {
-    console.log(props)
     return (
         <div class="card" style={{ width: "18rem", marginTop: '2em' }}>
             <div class="card-body">
