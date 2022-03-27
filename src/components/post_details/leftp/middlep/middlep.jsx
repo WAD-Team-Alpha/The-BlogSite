@@ -19,7 +19,6 @@ const Middlep = (props) => {
     const addCommentHandler = (event) => {
         // comment handler from leftp component
         event.preventDefault();
-        console.log();
         if (comment === "") {
             return;
         }
@@ -39,9 +38,8 @@ const Middlep = (props) => {
                 postdata.postId
             )
         ).then((res) => {
-            console.log("printing response", res);
+            setComment("");
         });
-        setComment("");
     };
     return (
         <div

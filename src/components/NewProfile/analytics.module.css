@@ -1,73 +1,70 @@
-.pie{
-    background-color:white;
-    margin-top:6em; 
-    margin-right:1em;
+.pie {
+    background-color: white;
+    margin-top: 6em;
+    margin-right: 1em;
     border: 1px solid black;
-     height:230px;
-     width: 330px;
+    height: 230px;
+    width: 330px;
     background-color: gray;
 }
 
-.analytics{
-    background-color:#333333;
+.analytics {
+    background-color: #333333;
     margin-right: 0.3em;
-    height:30px;
+    height: 30px;
     padding-top: 0.2em;
-    width:330px
-    
+    width: 330px;
 }
 
-.anname{
+.anname {
     color: white;
     font-size: medium;
-    padding-left:2em;
-    
+    padding-left: 2em;
 }
 
-.aninfo{
-    background-color:#8ee4af;
-    margin-right:0.3em;
-    height:330px;
+.aninfo {
+    background-color: #8ee4af;
+    margin-right: 0.3em;
+    height: 330px;
     /* padding-top: 1em; */
-    width:330px
+    width: 330px;
 }
 
-.matter{
+.matter {
     font-size: medium;
     margin-left: 2em;
-    
 }
 
-.pieimg{
+.pieimg {
     margin-top: 1em;
-    width:330px;
-    height:200px
+    width: 330px;
+    height: 200px;
 }
 
-.analysistext{
+.analysistext {
     /* margin-left: 3em; */
     position: absolute;
-    top:20%;
+    top: 20%;
     right: 8%;
 }
 
-.likes{
+.likes {
     padding-top: 1em;
     padding-left: 1em;
 }
 
-.views{
+.views {
     padding-top: 1em;
     padding-left: 1em;
 }
 
-.comments{
+.comments {
     padding-top: 1em;
     padding-left: 1em;
 }
 
-.belowimage{
+.belowimage {
     max-width: 100%;
-   height: 205px;
-   padding-top: 1em;
+    height: 205px;
+    padding-top: 1em;
 }

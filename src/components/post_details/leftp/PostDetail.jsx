@@ -1,32 +1,30 @@
-import * as React from 'react';
-import Leftp from './leftp/leftp';
-import Rightp from './rightp/rightp';
-import Middlep from './middlep/middlep';
-import Footer from '../../footer/Footer'
+import * as React from "react";
+import Leftp from "./leftp/leftp";
+import Rightp from "./rightp/rightp";
+import Middlep from "./middlep/middlep";
+import Footer from "../../footer/Footer";
 
 const Postdetails = (props) => {
-    // console.log("this is running");
-
-    return(
+    return (
         <>
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-2">
-                        <Leftp/>
+                        <Leftp />
                     </div>
-                    <div className='col-7'>
-                        <Middlep/>
+                    <div className="col-7">
+                        <Middlep />
                     </div>
                     <div className="col-3">
-                        <Rightp/>
+                        <Rightp />
                     </div>
                 </div>
             </div>
             <div>
-                  <Footer/>
+                <Footer />
             </div>
         </>
-    )
-}
+    );
+};
 
-export default Postdetails
+export default Postdetails;
