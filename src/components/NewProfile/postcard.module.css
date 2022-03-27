@@ -1,4 +1,4 @@
-.cardcontainer{
+.cardcontainer {
     border-left: 1px solid #b1b1b1;
     border-right: 1px solid #b1b1b1;
     border-bottom: 1px solid #b1b1b1;
@@ -9,23 +9,19 @@
     padding-right: 0.5em;
 }
 
-.postscreate{
+.postscreate {
     padding-left: 36em;
     padding-top: 1em;
-    
 }
 
-
-
-.cards{
+.cards {
     padding-left: 2em;
     padding-top: 1.5em;
     overflow-y: scroll;
-    width:350px
+    width: 350px;
 }
 
-.quescreate{
+.quescreate {
     padding-left: 37em;
-    padding-top: 1em ;
+    padding-top: 1em;
 }
-
