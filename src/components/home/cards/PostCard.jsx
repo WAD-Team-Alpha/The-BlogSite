@@ -35,7 +35,7 @@ const PostCard = (props) => {
     }
 
     return (
-        <div className={`card mb-3  mt-3 ${classes.shadow}`}>
+        <div className={`card mb-3 px-3 py-3 mt-3 ${classes.background}`}>
             <div className="row g-0">
                 <div className="col-md-3">
                     <img
@@ -46,12 +46,12 @@ const PostCard = (props) => {
                         alt="..."
                     />
                 </div>
-                <div className="col-md-9">
+                <div className={`col-md-9 ${classes.headingColor}`}>
                     <div className="card-body">
                         <h5 className="card-title fw-bold fs-1 ">
                             {shortitle}
                         </h5>
-                        <p style={{ height: "2.5em" }}>{dec}</p>
+                        <p className={`${classes.contentStyle}`}>{dec}</p>
                     </div>
                     <div className={classes.bottom}>
                         <p className="btn">
