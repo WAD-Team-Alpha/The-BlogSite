@@ -32,7 +32,8 @@ const Account = () => {
         dispatch(authActions.logout());
         navigate("/", { replace: true });
     };
-    const authData = useSelector((state) => state.auth); //accessing the authenticated user's data
+    const authData = useSelector((state) => state.auth);
+    console.log(authData); //accessing the authenticated user's data
     return (
         <React.Fragment>
             <Box
@@ -82,7 +83,7 @@ const Account = () => {
             >
                 <MenuItem sx={{ fontSize: "0.9em" }}>
                     <Link
-                        to={`/profile/${authData.localId}`}
+                        to={`/profile/${authData.token}`}
                         style={{
                             textDecoration: "none",
                             display: "flex",

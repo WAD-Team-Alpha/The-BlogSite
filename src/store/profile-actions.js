@@ -1,4 +1,4 @@
-import { profileActions } from "./profile";
+// import { profileActions } from "./profile";
 export const sendProfileData = (about, localId) => {
     //sending the profile data to the database
     return async (dispatch) => {
@@ -21,13 +21,18 @@ export const sendProfileData = (about, localId) => {
     };
 };
 
-export const fetchProfileData = (localId) => {
+export const fetchProfileData = (token) => {
     //fetching the profile data from the database
     return async (dispatch) => {
-        const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
+        const url = `http://localhost:5000/api/v1/user/get_user`;
+        const defaultOptions = {
+            headers: {
+                'authorization': localStorage.getItem('token'),
+            },
+        };
         const fetchData = async () => {
-            const response = await fetch(url);
-
+            const response = await fetch(url, defaultOptions);
+            console.log(response);
             if (!response.ok) {
                 throw new Error("Could not fetch data!");
             }
@@ -39,56 +44,62 @@ export const fetchProfileData = (localId) => {
 
         try {
             const profileData = await fetchData(); //fetching data of the user profile
-            var data = {
-                firstName: profileData.firstName,
-                lastName: profileData.lastName,
-                email: profileData.email,
-                followersList:
-                    profileData.followersList === undefined
-                        ? []
-                        : profileData.followersList,
-                followingList:
-                    profileData.followingList === undefined
-                        ? []
-                        : profileData.followingList,
-                postIds:
-                    profileData.postIds === undefined
-                        ? []
-                        : profileData.postIds,
-                questionIds:
-                    profileData.questionIds === undefined
-                        ? []
-                        : profileData.questionIds,
-                bio: profileData.bio,
-                genres:
-                    profileData.genres === undefined ? [] : profileData.genres,
-                recentActivity:
-                    profileData.recentActivity === undefined
-                        ? []
-                        : profileData.recentActivity,
-                savedContent:
-                    profileData.savedContent === undefined
-                        ? []
-                        : profileData.savedContent,
-                likedContent:
-                    profileData.likedContent === undefined
-                        ? []
-                        : profileData.likedContent,
-            };
-            dispatch(profileActions.update(data)); //updating the data from the database to the store
-            return data;
+            console.log(profileData);
+            // var data = {
+            //     firstName: profileData.firstName,
+            //     lastName: profileData.lastName,
+            //     email: profileData.email,
+            //     followersList:
+            //         profileData.followersList === undefined
+            //             ? []
+            //             : profileData.followersList,
+            //     followingList:
+            //         profileData.followingList === undefined
+            //             ? []
+            //             : profileData.followingList,
+            //     postIds:
+            //         profileData.postIds === undefined
+            //             ? []
+            //             : profileData.postIds,
+            //     questionIds:
+            //         profileData.questionIds === undefined
+            //             ? []
+            //             : profileData.questionIds,
+            //     bio: profileData.bio,
+            //     genres:
+            //         profileData.genres === undefined ? [] : profileData.genres,
+            //     recentActivity:
+            //         profileData.recentActivity === undefined
+            //             ? []
+            //             : profileData.recentActivity,
+            //     savedContent:
+            //         profileData.savedContent === undefined
+            //             ? []
+            //             : profileData.savedContent,
+            //     likedContent:
+            //         profileData.likedContent === undefined
+            //             ? []
+            //             : profileData.likedContent,
+            // };
+            // dispatch(profileActions.update(data)); //updating the data from the database to the store
+            return profileData;
         } catch (error) {
             return "false";
         }
     };
 };
 
-export const fetchOtherProfileData = (localId) => {
+export const fetchOtherProfileData = (token, id) => {
     //fetching the profile details of the other users
     return async (dispatch) => {
-        const url = `https://blogsite-dc4f2-default-rtdb.firebaseio.com/users/${localId}.json`;
+        const url = `http://localhost:5000/api/v1/user/get_user/${id}`;
+        const defaultOptions = {
+            headers: {
+                'Authorization': localStorage.getItem('token'),
+            },
+        };
         const fetchData = async () => {
-            const response = await fetch(url);
+            const response = await fetch(url, defaultOptions);
 
             if (!response.ok) {
                 throw new Error("Could not fetch data!");
