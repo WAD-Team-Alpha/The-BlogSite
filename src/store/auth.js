@@ -2,8 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialAuthState = {
     isAuthenticated: false,
-    idToken: "",
-    localId: "",
+    token: "",
 };
 
 const authSlice = createSlice({
@@ -12,17 +11,13 @@ const authSlice = createSlice({
     reducers: {
         login(state, action) {
             state.isAuthenticated = true;
-            state.idToken = action.payload.idToken;
-            state.localId = action.payload.localId;
-            localStorage.setItem("idToken", action.payload.idToken);
-            localStorage.setItem("localId", action.payload.localId);
+            state.token = action.payload.data;
+            localStorage.setItem("token", action.payload.data);
         },
         logout(state) {
             state.isAuthenticated = false;
-            state.idToken = "";
-            state.localId = "";
-            localStorage.removeItem("idToken");
-            localStorage.removeItem("localId");
+            state.token = "";
+            localStorage.removeItem("token");
         },
     },
 });
