@@ -10,12 +10,9 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import Logout from "@mui/icons-material/Logout";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 const Account = () => {
     const navigate = useNavigate(); //Navigate hook to navigate the user to profile management
-    const dispatch = useDispatch(); //Dispatch to send redux state updates
     const [anchorEl, setAnchorEl] = React.useState(null); //Setting up the state
     const open = Boolean(anchorEl);
 
@@ -29,11 +26,8 @@ const Account = () => {
 
     // Logout handler
     const logoutHandler = () => {
-        dispatch(authActions.logout());
         navigate("/", { replace: true });
     };
-    const authData = useSelector((state) => state.auth);
-    console.log(authData); //accessing the authenticated user's data
     return (
         <React.Fragment>
             <Box
@@ -83,7 +77,7 @@ const Account = () => {
             >
                 <MenuItem sx={{ fontSize: "0.9em" }}>
                     <Link
-                        to={`/profile/${authData.token}`}
+                        to={`/profile/hello`}
                         style={{
                             textDecoration: "none",
                             display: "flex",

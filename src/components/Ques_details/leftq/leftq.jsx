@@ -3,12 +3,8 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ShareIcon from "@mui/icons-material/Share";
 import CommentIcon from "@mui/icons-material/Comment";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { sendQuestionData } from "../../../store/question-actions";
 import { ThumbUpOffAlt } from "@mui/icons-material";
-import { profileActions } from "../../../store/profile";
-import { questionActions } from "../../../store/question";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
 
 import Copyurl from "../../home/cards/CopyUrl";
@@ -24,20 +20,17 @@ const Leftq = (props) => {
         return false;
     };
 
-    const dispatch = useDispatch(); // initialising the dispatch to use store easily
 
-    const questiondata = useSelector((state) => state.question); // Getting the data from the store
-    const [like, setLike] = useState(questiondata.likes);
-    const [bookmark, setBookmark] = useState(questiondata.bookmarks);
-    const likedcontent = useSelector((state) => state.profile); // Getting the upvotes of the post from the store
-    const likeid = likedcontent.likedContent;
-    const savedId = likedcontent.savedContent;
+    const [like, setLike] = useState(5);
+    const [bookmark, setBookmark] = useState(10);
+    const likeid = "25";
+    const savedId = "24";
 
     const [likestatus, setLikestatus] = useState(
-        likeid.includes(questiondata.questionId)
+        likeid.includes("25")
     );
     const [bookmarkstatus, setBookmarkstatus] = useState(
-        checkId(savedId, questiondata.questionId)
+        checkId(savedId, "24")
     );
 
     const likeHandler = () => {
@@ -47,21 +40,6 @@ const Leftq = (props) => {
             setLikestatus(true);
             setLike((val) => val + 1);
             likes = like + 1;
-            dispatch(profileActions.addLikedContent(questiondata.questionId));
-
-            // dispatch(sendProfileData(profiledata, authdata.localId));
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, likes: likes },
-                    questiondata.questionId
-                )
-            ).then((res) => {
-                if (res === "success") {
-                    dispatch(
-                        questionActions.add({ ...questiondata, likes: likes })
-                    );
-                }
-            });
         }
     };
 
@@ -72,16 +50,6 @@ const Leftq = (props) => {
             setLikestatus(false);
             setLike((val) => val - 1);
             likes = like - 1;
-            dispatch(
-                profileActions.removeLikedContent(questiondata.questionId)
-            );
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, likes: likes },
-                    questiondata.questionId
-                )
-            );
-            // dispatch(sendProfileData(profiledata, authdata.localId));
         }
     };
     const bookmarklikeHandler = () => {
@@ -91,21 +59,6 @@ const Leftq = (props) => {
             setBookmarkstatus(true);
             setBookmark((val) => val + 1);
             bookmarks = bookmark + 1;
-            dispatch(
-                profileActions.addBookmark({
-                    type: "question",
-                    id: questiondata.questionId,
-                })
-            );
-
-            // dispatch(sendProfileData(profiledata, authdata.localId));
-
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, bookmarks: bookmarks },
-                    questiondata.questionId
-                )
-            );
         }
     };
 
@@ -116,28 +69,6 @@ const Leftq = (props) => {
             setBookmarkstatus(false);
             setBookmark((val) => val - 1);
             bookmarks = bookmark - 1;
-            dispatch(
-                profileActions.removeBookmark({
-                    type: "question",
-                    id: questiondata.questionId,
-                })
-            );
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, bookmarks: bookmarks },
-                    questiondata.questionId
-                )
-            ).then((res) => {
-                if (res === "success") {
-                    dispatch(
-                        questionActions.add({
-                            ...questiondata,
-                            bookmarks: bookmarks,
-                        })
-                    );
-                }
-            });
-            // dispatch(sendProfileData(profiledata, authdata.localId));
         }
     };
 
@@ -146,7 +77,7 @@ const Leftq = (props) => {
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
-                {likeid.includes(questiondata.questionId) ? ( //  if else condition to check if the user liked the post earlier
+                {likeid.includes("24") ? ( //  if else condition to check if the user liked the post earlier
                     <button
                         className="btn shadow-none" // Dislike butoon is shown if the above condition is true or not
                         style={{ paddingLeft: "5.5em" }}
@@ -175,7 +106,7 @@ const Leftq = (props) => {
                     <CommentIcon /> Answers
                 </button>
                 <span style={{ paddingLeft: "7em" }}>
-                    {questiondata.comments.length}
+                    5
                 </span>
                 <br />
                 <br />

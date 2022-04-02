@@ -5,11 +5,9 @@ import classes from "./Navigation.module.css";
 import genreData from "../../helpers/genreData.json";
 import Carousel from "./trending/carousel/Carousel";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Navigation = (props) => {
-    const trendData = useSelector((state) => state.trending); //Accessing the trending data from the redux store
     const navigate = useNavigate(); //Navigating hooks
     const [search, setSearch] = useState(); //state is stored here
     const genreHandler = (event) => {
@@ -82,7 +80,7 @@ const Navigation = (props) => {
                 </h2>
                 <div className="">
                     <Carousel
-                        data={trendData.data}
+                        data={{}}
                         theme={"bg-dark"}
                         className={"trendcard"}
                         slidesToShow={4}

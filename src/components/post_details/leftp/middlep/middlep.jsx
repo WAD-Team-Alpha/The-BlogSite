@@ -5,14 +5,7 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import classes from "./middlep.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { postActions } from "../../../../store/post";
-import { sendPostData } from "../../../../store/post-actions";
 const Middlep = (props) => {
-    const dispatch = useDispatch();
-    const postdata = useSelector((state) => state.post);
-    const authdata = useSelector((state) => state.auth);
-    const userData = useSelector((state) => state.profile);
     const [comment, setComment] = useState("");
     const profileData = props.profileData;
 
@@ -22,24 +15,6 @@ const Middlep = (props) => {
         if (comment === "") {
             return;
         }
-        const newComments = [
-            {
-                userId: authdata.localId,
-                name: userData.firstName,
-                text: comment,
-            },
-            ...postdata.comments,
-        ];
-        dispatch(postActions.add({ ...postdata, comments: newComments })); //accessing data from store
-
-        dispatch(
-            sendPostData(
-                { ...postdata, comments: newComments },
-                postdata.postId
-            )
-        ).then((res) => {
-            setComment("");
-        });
     };
     return (
         <div
@@ -55,7 +30,7 @@ const Middlep = (props) => {
             <div>
                 <div style={{ padding: "1em" }}>
                     <img
-                        src={postdata.imageUrl}
+                        src={"alt"}
                         alt="none"
                         width="800px"
                         height="248px"
@@ -77,7 +52,7 @@ const Middlep = (props) => {
                                             profileData.lastName}
                                     </b>
                                     <br />
-                                    Posted on <b>{postdata.publishedDate}</b>
+                                    Posted on <b>{"25th march"}</b>
                                     <br /> <br />
                                 </div>
                                 <div className="col-12">
@@ -89,34 +64,16 @@ const Middlep = (props) => {
                                                 width: "754px",
                                             }}
                                         >
-                                            <b>{postdata.postTitle}</b>
+                                            <b>{"Vatashi ga kita"}</b>
                                         </h3>
                                     </b>
                                     <hr />
                                 </div>
                                 <div>
-                                    <p>{postdata.postSummary}</p>
-                                    {postdata.postData.map((val) => {
-                                        // itterating all the data from the post and showing it
-                                        if (val.type === "text") {
-                                            return (
+                                    <p>{"This is lmao"}</p>
                                                 <p className="mb-2 mt-2">
-                                                    {val.value}
+                                                    "Henlo"
                                                 </p>
-                                            );
-                                        } else {
-                                            return (
-                                                <div className="mb-2 mt-2">
-                                                    <img
-                                                        src={val.value}
-                                                        alt=""
-                                                        width="760px"
-                                                        height="187px"
-                                                    />
-                                                </div>
-                                            );
-                                        }
-                                    })}
                                 </div>
 
                                 <hr />
@@ -161,10 +118,6 @@ const Middlep = (props) => {
 
                                     <br />
                                     <br />
-                                    {postdata.comments.map(
-                                        (
-                                            val //itterating through all the comments and printing them below the post
-                                        ) => (
                                             <div>
                                                 <div className="container-fluid">
                                                     <div className="row">
@@ -184,7 +137,7 @@ const Middlep = (props) => {
                                                                         classes.commentsp
                                                                     }
                                                                 >
-                                                                    {val.text}
+                                                                    "Henloo"
                                                                 </div>
                                                             </Box>
                                                         </div>
@@ -192,8 +145,6 @@ const Middlep = (props) => {
                                                 </div>
                                                 <br />
                                             </div>
-                                        )
-                                    )}
                                 </div>
                             </div>
                         </div>

@@ -1,9 +1,6 @@
-import { useSelector } from "react-redux";
 import QuestionCard from "../home/cards/QuestionCard";
 
 const Questionscard = (props) => {
-    const quesdata = useSelector((state) => state.questions); //fetching question data from the question store
-
     return (
         <div>
             <div
@@ -17,33 +14,17 @@ const Questionscard = (props) => {
                     backgroundColor: "#edf5e1",
                 }}
             >
-                {props.curUser
-                    ? quesdata.map((question) => (
                           <QuestionCard //if the user is current user then render the posts of current user
-                              key={question.questionId}
-                              id={question.questionId}
-                              votes={question.likes}
-                              answers={question.comments}
-                              question={question.question}
-                              details={question.description}
-                              userId={question.userId}
-                              publishedDate={question.publishedDate}
-                              author={question.author}
+                              key={1}
+                              id={1}
+                              votes={5}
+                              answers={["this is answers"]}
+                              question={"This is question"}
+                              details={"This is detidhfc"}
+                              userId={"1"}
+                              publishedDate={"String"}
+                              author={"authon"}
                           />
-                      ))
-                    : props.questionsData.map((question) => (
-                          <QuestionCard // if the user is other user then render the questions of other user in the question section
-                              key={question.questionId}
-                              id={question.questionId}
-                              votes={question.likes}
-                              answers={question.comments}
-                              question={question.question}
-                              details={question.description}
-                              userId={question.userId}
-                              publishedDate={question.publishedDate}
-                              author={question.author}
-                          />
-                      ))}
             </div>
         </div>
     );

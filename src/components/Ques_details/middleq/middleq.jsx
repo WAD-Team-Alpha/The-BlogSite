@@ -3,10 +3,8 @@ import * as React from "react";
 import classes from "./middleq.module.css";
 import Middle from "./Middle";
 import Last from "./Last";
-import { useSelector } from "react-redux";
 
 const Middleq = (props) => {
-    const questiondata = useSelector((state) => state.question); // using selector to get the data from the store
     return (
         <div
             className="container-fluid shadow"
@@ -22,7 +20,7 @@ const Middleq = (props) => {
                 <div className="col">
                     <div className={classes.middleheader}>
                         <h3>
-                            <b>{questiondata.question}</b>
+                            <b>Henlo</b>
                         </h3>
                     </div>
                     <div className="row" style={{ paddingTop: "0.5em" }}>
@@ -31,24 +29,14 @@ const Middleq = (props) => {
                                 <b>Asked on</b>
                                 {"  "}
                                 <b style={{ color: "green" }}>
-                                    {questiondata.publishedDate}
+                                    {"Henlo"}
                                 </b>{" "}
                                 {"  "} by {"  "}{" "}
                                 <b style={{ color: "blue" }}>
-                                    {questiondata.author}
+                                    {"Henlo"}
                                 </b>
                             </div>
                         </div>
-                        {/* <div className="col-3">
-                            <div className={classes.subhead}>
-                                <b>Views</b>  {questiondata.likes}
-                            </div>
-                        </div> */}
-                        {/* <div className="col-6">
-                            <div style={{textAlign:"right"}}>
-                                <button className="btn btn-primary" className={classes.button1}><div>Close thread</div></button>
-                            </div>
-                        </div> */}
                     </div>
                 </div>
             </div>

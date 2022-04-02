@@ -3,14 +3,9 @@ import classes from "./newprofile.module.css";
 import { Tabs, Tab } from "react-bootstrap";
 import Postcard from "./Postcard";
 import Questionscard from "./Questionscard";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchOtherProfileData } from "../../store/profile-actions";
-import { fetchOtherPostsData } from "../../store/post-actions";
-import { fetchOtherQuestionsData } from "../../store/question-actions";
 import LoadingSpinner from "../auth/LoadingSpinner";
 const ProfileTabs = (props) => {
-    const dispatch = useDispatch(); //Intializing the dispatch
     const [tab, setTab] = useState("posts");
     const [submit, setSubmit] = useState(true);
     const [questionsData, setQuestionsData] = useState([]);
@@ -23,25 +18,6 @@ const ProfileTabs = (props) => {
             return;
         }
         setCurUser(false);
-        dispatch(fetchOtherProfileData(props.uid)).then((res) => {
-            if (res !== null) {
-                res.postIds.map((id) => {
-                    return dispatch(fetchOtherPostsData(id)).then((res) => {
-                        //fetching posts data of the other users by their ids
-                        if (res !== "failed") {
-                            setPostsData((state) => [...state, res]);
-                        }
-                    });
-                });
-                res.questionIds.map((id) => {
-                    return dispatch(fetchOtherQuestionsData(id)).then((res) => {
-                        //fetching questions data of the other usersby their user ids
-                        setQuestionsData((state) => [...state, res]);
-                    });
-                });
-            }
-            setSubmit(true);
-        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return submit ? (

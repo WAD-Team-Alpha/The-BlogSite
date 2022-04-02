@@ -3,8 +3,6 @@ import React, { useReducer, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classes from "./Signin.module.css";
 import signupimg from "../../../assets/images/Signup.png";
-import { useDispatch } from "react-redux";
-import { signinAction } from "../../../store/auth-actions";
 import { motion } from "framer-motion";
 
 // Reducer for signin validation
@@ -54,7 +52,6 @@ const Signin = (props) => {
         emailIsCorrect: null,
         passwordIsCorrect: null,
     }); // Creds of the user, stored in state
-    const dispatchAction = useDispatch(); // To dispatch the redux state
     const initState = {
         email: "",
         password: "",
@@ -81,28 +78,7 @@ const Signin = (props) => {
         event.preventDefault();
         if (state.formIsValid) {
             props.onSubmit(true);
-            dispatchAction(signinAction(state.email, state.password)).then(
-                (res) => {
-                    if (res === "success") {
-                        props.onSubmit(false);
-                        // Navigating the user after successful signin
-                        navigate("/home/post", { replace: true });
-                    }
-                    if (res === "INVALID_PASSWORD") {
-                        // Alerting user for invalid password
-                        props.onSubmit(false);
-                        setCreds({ ...creds, passwordIsCorrect: false });
-                    }
-                    if (res === "EMAIL_NOT_FOUND") {
-                        // Alerting use for email not found
-                        props.onSubmit(false);
-                        setCreds({ ...creds, emailIsCorrect: false });
-                    }
-                }
-            );
-        } else {
         }
-        dispatch({ type: "clear" });
     };
 
     return (
