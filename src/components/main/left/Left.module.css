@@ -9,9 +9,10 @@
     border-color: #5cdb95;
 }
 
-.menubutton:hover, .menubutton:focus {
+.menubutton:hover,
+.menubutton:focus {
     background-color: rgba(27, 27, 27, 0.1);
-    border-color: rgba(0, 0, 0, 0.0);
+    border-color: rgba(0, 0, 0, 0);
 }
 
 .content {
@@ -37,7 +38,8 @@
     float: right;
 }
 
-.postbutton:hover, .postbutton:focus {
+.postbutton:hover,
+.postbutton:focus {
     background-color: #04294e;
     color: #46a772;
 }

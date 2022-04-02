@@ -1,4 +1,4 @@
-.person{
+.person {
     border-radius: 6px;
     justify-content: center;
     margin-right: 20px;
@@ -15,17 +15,17 @@
     margin-top: 10px;
     margin-left: 10px;
 }
-.person a{
+.person a {
     margin-left: 15px;
     text-decoration: none;
     color: black;
     margin-top: 15px;
 }
-.bottom{
+.bottom {
     margin-top: 20px;
     margin-left: 25px;
 }
-.fellow{
+.fellow {
     border-right: 16px solid #05386b;
     border-left: 16px solid #05386b;
     border-bottom: 16px solid #05386b;
@@ -35,11 +35,11 @@
     margin-left: 20px;
     border-radius: 6px;
 }
-.head{
+.head {
     padding: 5px;
-    background-color:#05386b ;
+    background-color: #05386b;
 }
-.head p{
+.head p {
     margin-top: 10px;
     color: black;
     background-color: #379683;
@@ -49,28 +49,28 @@
     font-weight: 800;
 }
 .fellow button {
-  margin-top: 30px; 
+    margin-top: 30px;
 }
 
-.more{
+.more {
     margin-left: 500px;
-    margin:20px;
+    margin: 20px;
     margin-right: 20px;
 }
-.view{
+.view {
     margin-top: -15px;
     margin-bottom: 20px;
     margin-left: 80px;
 }
 
-.a{
+.a {
     padding: 6px;
-    background-color:#05386b;
+    background-color: #05386b;
     color: white;
     font-weight: 600;
     text-decoration: none;
-    border-radius: 4px; 
+    border-radius: 4px;
 }
-.order{
+.order {
     margin-bottom: 50px;
 }

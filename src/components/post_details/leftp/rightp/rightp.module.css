@@ -2,7 +2,6 @@
     height: 222px;
     width: 343px;
     background-color: #05386b;
-    /* top: 86px; */
     padding-top: 2em;
     border-radius: 6px;
     margin: auto;
@@ -17,10 +16,6 @@
 .containerLD {
     height: 450px;
     width: 343px;
-    /* background-color: #05386b; */
-    /* top: 86px; */
-    /* margin-top: 2em;
-    padding-top: 1.5em; */
     border-top-left-radius: 0.3em;
     border-top-right-radius: 0.3em;
 }
@@ -29,8 +24,6 @@
     height: 10px;
     width: 343px;
     background-color: #5cdb95;
-    /* top: 86px; */
-    /* padding-top: 2em; */
 }
 
 .containerThird {
@@ -54,7 +47,7 @@
     line-height: 16px;
     letter-spacing: 0em;
     text-align: left;
-    color: #8E8E8E;
+    color: #8e8e8e;
     padding-top: 0.5em;
     cursor: pointer;
 }

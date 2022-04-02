@@ -1,4 +1,4 @@
-.shadow{
+.shadow {
     height: 201px;
 }
 .bottom {
@@ -17,25 +17,25 @@
 .bottom a:hover {
     background-color: rgba(0, 0, 0, 0.19);
 }
-.like{
+.like {
     position: absolute;
-    bottom:0px;
+    bottom: 0px;
     display: flex;
- }
- .like li{
+}
+.like li {
     display: inline-block;
-    margin-right:10px;
+    margin-right: 10px;
     font-size: smaller;
- }
- .like li img{
-     margin-right: 5px;
- }
- .like li p, .like li a{
-     text-decoration: none;
-     color: black;
- }
- .btn{
+}
+.like li img {
+    margin-right: 5px;
+}
+.like li p,
+.like li a {
+    text-decoration: none;
+    color: black;
+}
+.btn {
     border-width: 0px;
     background-color: transparent;
-    
- }
+}

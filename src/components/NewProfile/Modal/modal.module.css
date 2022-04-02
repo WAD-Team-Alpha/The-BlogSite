@@ -1,24 +1,24 @@
-.postmodal{
+.postmodal {
     max-height: 100%;
     max-width: 100%;
 }
 
-.questionmodal{
+.questionmodal {
     max-height: 100%;
     max-width: 100%;
 }
 
-.postimg{
+.postimg {
     max-width: 100%;
     max-height: 100%;
 }
 
-.questimg{
+.questimg {
     max-width: 100%;
     max-height: 100%;
 }
 
-.posttext{
+.posttext {
     position: absolute;
     right: 67%;
     top: 35%;
@@ -27,15 +27,17 @@
     text-decoration: none;
 }
 
-.questext b, .posttext b {
+.questext b,
+.posttext b {
     color: black;
 }
 
-.questext a, .posttext a {
+.questext a,
+.posttext a {
     text-decoration: none;
 }
 
-.questext{
+.questext {
     position: absolute;
     right: 12%;
     top: 35%;

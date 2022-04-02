@@ -5,7 +5,7 @@
     border-color: red;
     border-image-source: url("http://i.stack.imgur.com/wLdVc.png");
     border-image-slice: 2;
-    border-image-repeat: round;  
+    border-image-repeat: round;
     border-image: url("http://i.stack.imgur.com/wLdVc.png") 2 round;
     border-image-source: url("http://i.stack.imgur.com/LKclP.png");
     background-color: #f1f1f1;

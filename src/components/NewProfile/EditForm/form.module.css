@@ -1,15 +1,14 @@
-.formcontainer{
+.formcontainer {
     height: 580px;
-    background-color: #05386B;
+    background-color: #05386b;
     padding-top: 1em;
     border-radius: 0.3em;
-    width:360px;
+    width: 360px;
     margin-top: 3em;
     /* margin-left: 1.3em; */
-   
 }
 
-.formmain{
+.formmain {
     padding-left: 1em;
     padding-top: 0.5em;
     overflow-y: auto;
@@ -17,11 +16,11 @@
     height: 500px;
 }
 
-.update{
+.update {
     color: black;
 }
 
-.customupdatebtn{
+.customupdatebtn {
     /* margin-left: 0.2em; */
     width: 285px;
     height: 40px;
@@ -30,6 +29,6 @@
     border: none;
 }
 
-.customupdatebtn:hover{
-    background-color: #379683 ;
+.customupdatebtn:hover {
+    background-color: #379683;
 }

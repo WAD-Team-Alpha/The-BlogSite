@@ -1,12 +1,12 @@
 .arrow {
-    color: red; 
-    width: 47px; 
-    height: 17.3rem;  
+    color: red;
+    width: 47px;
+    height: 17.3rem;
     background-color: rgba(0, 0, 0, 0.4);
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    z-index: 1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 .left {
@@ -16,13 +16,13 @@
 }
 
 .right {
-    border-top-left-radius: 10px; 
+    border-top-left-radius: 10px;
     border-bottom-left-radius: 10px;
     right: 0;
 }
 
 .arrow:hover {
-    color: black; 
+    color: black;
     background-color: rgba(0, 0, 0, 0.8);
 }
 
