@@ -8,17 +8,9 @@ import Leftp from "../components/post_details/leftp/leftp/leftp";
 import Middlep from "../components/post_details/leftp/middlep/middlep";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { fetchPostData } from "../store/post-actions";
-import {
-    fetchOtherProfileData,
-    fetchProfileData,
-} from "../store/profile-actions";
-import { profileActions } from "../store/profile";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
 
 const PostLayout = () => {
-    const dispatch = useDispatch(); //Dispatch function to update data in the store
     const [nav, setNav] = useState(false); //State for the nav
     const [data, setData] = useState({}); //State for the data
     const [submit, setSubmit] = useState(false); //State for the loading spinner
@@ -71,40 +63,6 @@ const PostLayout = () => {
     // Useeffects are used here for fetching and sending the data for the post data
     useEffect(() => {
         setSubmit(true);
-        dispatch(fetchProfileData(localStorage.getItem("localId"))).then(
-            (result) => {
-                if (result !== "false") {
-                    dispatch(
-                        profileActions.update({
-                            ...result, //Updating the recent activity
-                            recentActivity: updateRecentActivity(
-                                result.recentActivity,
-                                {
-                                    id: params.postID,
-                                    type: "post",
-                                }
-                            ),
-                        })
-                    );
-                }
-            }
-        );
-
-        // Dispatching the actions
-        dispatch(fetchPostData(params.postID)).then((result) => {
-            if (result !== null) {
-                dispatch(fetchOtherProfileData(result.uid)).then((data) => {
-                    //Fetching other profile data for the inspect feature
-                    setData({
-                        ...data,
-                        followercount: data.followersList.length,
-                        followingcount: data.followingList.length,
-                        userId: result.uid,
-                    });
-                    setSubmit(false);
-                });
-            }
-        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

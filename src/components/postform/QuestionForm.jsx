@@ -2,20 +2,10 @@ import React, { useState } from "react";
 import ImageInputBox from "./ImageInputBox/ImageInputBox";
 import TextInputBox from "./TextInputBox/TextInputBox";
 import classes from "./Form.module.css";
-import { sendQuestionData } from "../../store/question-actions";
-import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { useSelector } from "react-redux";
-import { profileActions } from "../../store/profile";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
-import { questionsActions } from "../../store/questions";
 const QuestionForm = () => {
-    const auth = useSelector((state) => state.auth); //Accessing the user's auth details
-    const about = useSelector((state) => state.profile); //Accessing the user's profuile details
-
-    // State management form form validation
-    const dispatch = useDispatch();
     const [question, setQuestion] = useState();
     const [description, setDescription] = useState();
     const [image, setImage] = useState();
@@ -43,47 +33,6 @@ const QuestionForm = () => {
         var today = new Date();
         const publishedDate = today.toLocaleDateString("en-US");
         setSubmit(true);
-        dispatch(
-            //Dispatching the form data
-            sendQuestionData(
-                {
-                    question,
-                    description,
-                    imageUrl: "https://picsum.photos/200",
-                    questionId,
-                    publishedDate,
-                    userId: auth.localId,
-                    comments: [],
-                    likes: 0,
-                    bookmarks: 0,
-                    status: "active",
-                    genre,
-                    author: about.firstName,
-                },
-                questionId
-            )
-        ).then((result) => {
-            const questionIds = [...about.questionIds, questionId];
-            dispatch(
-                profileActions.update({ ...about, questionIds: questionIds })
-            ); //Sending the data to the redux store
-            setSubmit(false);
-            dispatch(
-                questionsActions.addQuestion({
-                    question,
-                    description,
-                    imageUrl: "https://picsum.photos/200",
-                    questionId,
-                    publishedDate,
-                    userId: auth.localId,
-                    comments: [],
-                    likes: 0,
-                    genre,
-                    author: about.firstName,
-                })
-            );
-            navigate(`/profile/${auth.localId}`, { replace: true }); // Navigating to the desired destination
-        });
     };
 
     return submit ? (

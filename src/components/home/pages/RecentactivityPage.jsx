@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import PostCard from "../cards/PostCard";
 import QuestionCard from "../cards/QuestionCard";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
-import { fetchActivity } from "../../../store/activity-actions";
 import { CircularProgress } from "@mui/material";
 
 const RecentActivityPage = () => {
@@ -28,17 +26,8 @@ const RecentActivityPage = () => {
         },
     };
 
-    const profileData = useSelector((state) => state.profile);
     const [status, setStatus] = useState(false);
     const [recents, setRecents] = useState([]);
-    useEffect(() => {
-        setStatus(true);
-        fetchActivity(profileData.recentActivity).then((result) => {
-            setRecents(result);
-            setStatus(false);
-        });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return status ? (
         <div

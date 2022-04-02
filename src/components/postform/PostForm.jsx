@@ -5,17 +5,9 @@ import PostModal from "./PostModal";
 import ImageInputBox from "./ImageInputBox/ImageInputBox";
 import TextInputBox from "./TextInputBox/TextInputBox";
 import { v4 as uuidv4 } from "uuid";
-import { useDispatch, useSelector } from "react-redux";
-import { profileActions } from "../../store/profile";
-import { sendPostData } from "../../store/post-actions";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
-import { postsActions } from "../../store/posts";
 const PostForm = () => {
-    const auth = useSelector((state) => state.auth); //Accessing the user's data from the redux store
-    const about = useSelector((state) => state.profile); //Accessing the user's profile from the redux store
-
-    const dispatch = useDispatch(); //Dispatch to dispatch the actions
 
     // State for the form inputs
     const [inputList, setInputList] = useState([]);
@@ -95,7 +87,7 @@ const PostForm = () => {
     // Form on submit handler
     const onSubmitHandler = (event) => {
         const postId = uuidv4();
-        const uid = auth.localId;
+        const uid = "2";
         var today = new Date();
         const publishedDate = today.toLocaleDateString("en-US");
         event.preventDefault();
@@ -117,20 +109,9 @@ const PostForm = () => {
             postData: finalData,
             comments: [],
             genre: genre,
-            author: about.firstName,
+            author: "Hola",
         };
         setSubmit(true);
-        dispatch(sendPostData(postData, postId)).then((result) => {
-            //Dispatching the required data to the redux store and firebase
-            if (result === "success") {
-                var postIds = [...about.postIds, postId];
-                dispatch(profileActions.update({ ...about, postIds: postIds }));
-                dispatch(postsActions.addPost(postData));
-                setSubmit(false);
-
-                navigate(`/profile/${uid}`, { replace: true });
-            }
-        });
     };
 
     return submit ? (

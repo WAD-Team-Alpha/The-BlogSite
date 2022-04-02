@@ -3,17 +3,14 @@ import classes from "./Right.module.css";
 import banner from "../../../assets/images/undraw_creativity_re_8grt 1.png";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
 
 const Right = () => {
-    const authStatus = useSelector((state) => state.auth); //Acceessing the user's data
     return (
         <motion.div
             initial={{ x: "100vw" }}
             animate={{ x: 0 }}
             transition={{ type: "spring", duration: 2, bounce: 0.4 }}
         >
-            {!authStatus.isAuthenticated && (
                 <div className={"container " + classes.header}>
                     {/* Login button */}
                     <Link
@@ -32,8 +29,6 @@ const Right = () => {
                         Signup
                     </Link>
                 </div>
-            )}{" "}
-            {authStatus.isAuthenticated && (
                 <div className={"container " + classes.header}>
                     <Link
                         to="/home/post"
@@ -42,7 +37,6 @@ const Right = () => {
                         Dashboard
                     </Link>
                 </div>
-            )}
             <div className={"container"}>
                 <img src={banner} alt="banner" className={classes.image} />
             </div>

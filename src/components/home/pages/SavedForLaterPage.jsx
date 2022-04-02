@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import PostCard from "../cards/PostCard";
 import QuestionCard from "../cards/QuestionCard";
 import { motion } from "framer-motion";
-import { useDispatch, useSelector } from "react-redux";
-import { updateRecentActivity } from "../../../store/profile-actions";
-import { fetchActivity } from "../../../store/activity-actions";
 import { CircularProgress, Pagination, Stack } from "@mui/material";
 
 const SavedForLaterPage = () => {
@@ -28,21 +25,8 @@ const SavedForLaterPage = () => {
             },
         },
     };
-
-    const dispatch = useDispatch();
-    const authData = useSelector((state) => state.auth);
-    const profile = useSelector((state) => state.profile);
     const [status, setStatus] = useState(false);
     const [saved, setSaved] = useState([]);
-    useEffect(() => {
-        dispatch(updateRecentActivity(profile, authData.localId));
-        setStatus(true);
-        fetchActivity(profile.savedContent).then((result) => {
-            setSaved(result);
-            setStatus(false);
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const [limit, setLimit] = useState(0);
     const pageinationHandler = (e, value) => {

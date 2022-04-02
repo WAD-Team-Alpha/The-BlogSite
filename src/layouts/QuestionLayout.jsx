@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
 import Header from "../components/header/Header";
 import classes from "./Layout.module.css";
 import Footer from "../components/footer/Footer";
@@ -9,17 +8,10 @@ import Rightq from "../components/Ques_details/rightq/rightq";
 import Middleq from "../components/Ques_details/middleq/middleq";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { fetchQuestionData } from "../store/question-actions";
-import {
-    fetchOtherProfileData,
-    fetchProfileData,
-} from "../store/profile-actions";
-import { profileActions } from "../store/profile";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
 
 const QuestionLayout = () => {
     const [submit, setSubmit] = useState(false);
-    const dispatch = useDispatch();
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
     const navHandler = () => {
@@ -67,41 +59,6 @@ const QuestionLayout = () => {
     // Effets to handle the api requests for the question data
     useEffect(() => {
         setSubmit(true);
-        dispatch(fetchProfileData(localStorage.getItem("localId"))).then(
-            (result) => {
-                //Fetching the profile data
-                if (result !== "false") {
-                    dispatch(
-                        profileActions.update({
-                            //Dispatching the data
-                            ...result,
-                            recentActivity: updateRecentActivity(
-                                result.recentActivity,
-                                {
-                                    id: params.threadID,
-                                    type: "question",
-                                }
-                            ),
-                        })
-                    );
-                }
-            }
-        );
-        dispatch(fetchQuestionData(params.threadID)).then((result) => {
-            //Fetching the others profile data
-            if (result !== null) {
-                //Dispatching it
-                dispatch(fetchOtherProfileData(result.userId)).then((data) => {
-                    setData({
-                        ...data,
-                        followercount: data.followersList.length,
-                        followingcount: data.followingList.length,
-                        userId: result.userId,
-                    });
-                });
-                setSubmit(false);
-            }
-        });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

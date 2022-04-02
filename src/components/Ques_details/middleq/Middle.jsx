@@ -1,17 +1,14 @@
-import { useSelector } from "react-redux";
-
 const Middle = () => {
-    const questiondata = useSelector((state) => state.question); // selecting the data from the store
     return (
         <div>
             <div>
-                <span>{questiondata.description} </span>{" "}
+                <span>{"This is description"} </span>{" "}
                 {/*printing the question description */}
             </div>
             <div style={{ paddingRight: "1em", paddingTop: "1em" }}>
                 <img
-                    src={questiondata.imageUrl}
-                    alt="none"
+                    src={"This is urk"}
+                    alt="This is urk"
                     width="820px"
                     height="248px"
                 />{" "}
