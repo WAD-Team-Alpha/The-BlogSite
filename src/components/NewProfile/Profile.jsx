@@ -228,7 +228,7 @@ const Profile = (props) => {
                                             console.log(gen);
                                             return (
                                                 <Chip
-                                                    id={i}
+                                                    key={i}
                                                     style={{
                                                         marginBottom: "0.5em",
                                                         marginRight: "0.3em",

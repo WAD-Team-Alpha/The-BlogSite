@@ -2,6 +2,7 @@ import classes from "./postcard.module.css";
 import PostCard from "../home/cards/PostCard";
 
 const Postcard = (props) => {
+    console.log(props.postsData);
     if (undefined === null) {
         return (
             <div style={{ paddingLeft: "16em", paddingTop: "3em" }}>
@@ -16,8 +17,8 @@ const Postcard = (props) => {
                     <div className={classes.postcards}>
                         {props.postsData.map((post) => (
                             <PostCard //if we are the user and sending the current post details using props
-                                key={post.id}
-                                id={post.id} //id of the post
+                                key={post._id}
+                                id={post._id} //id of the post
                                 banner={post.banner} //banner of the post
                                 title={post.title} //posts title
                                 description={post.summary} //posts description

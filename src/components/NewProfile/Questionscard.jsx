@@ -16,8 +16,8 @@ const Questionscard = (props) => {
             >
                 {props.questionsData.map((quest) => (
                     <QuestionCard //if the user is current user then render the posts of current user
-                        key={quest.id}
-                        id={quest.id}
+                        key={quest._id}
+                        id={quest._id}
                         votes={quest.up_votes.length}
                         answers={quest.answers.length}
                         question={quest.title}
