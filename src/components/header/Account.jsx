@@ -77,7 +77,7 @@ const Account = () => {
             >
                 <MenuItem sx={{ fontSize: "0.9em" }}>
                     <Link
-                        to={`/profile/hello`}
+                        to={`/profile`}
                         style={{
                             textDecoration: "none",
                             display: "flex",
