@@ -4,6 +4,7 @@ import QuestionCard from "../cards/QuestionCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import { CircularProgress, Pagination, Stack } from "@mui/material";
+import {fetchData} from "../../../requests/Question.request"
 
 const QuestionPage = () => {
     const mainVarient = {
@@ -26,22 +27,21 @@ const QuestionPage = () => {
             },
         },
     };
+    const [statu, setStatus] = useState(false);
     const [data, setTitle] = useState("");
-
     useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch(
-                "https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions.json"
-            );
-            const data = await res.json();
-            setTitle(data);
-        };
-        fetchData();
+         setStatus(true);
+        fetchData().then((result) => {
+            if (result !== "failed") {
+                
+                setTitle(result);
+            }
+        });
     }, []);
-
+    
     var result = [];
-
-    for (var i in data) result.push(data[i]);
+    for (var i in data.data) result = [...result, data.data[i]]
+  
 
     let status = result.length;
 
@@ -50,6 +50,14 @@ const QuestionPage = () => {
         setLimit((value - 1) * 10);
         window.scroll(0, 0);
     };
+
+    function convert(str) {
+        var date = new Date(str),
+          mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+          day = ("0" + date.getDate()).slice(-2);
+        return [date.getFullYear(), mnth, day].join("-");
+      }
+   
 
     return !status ? (
         <div
@@ -74,15 +82,15 @@ const QuestionPage = () => {
             {result.slice(limit, limit + 10).map((query) => {
                 return (
                     <QuestionCard
-                        key={query.questionId}
-                        id={query.questionId}
+                        key={query._id}
+                        id={query._id}
                         votes={query.likes}
                         answers={query.comments}
-                        author={query.author}
-                        question={query.question}
-                        details={query.description}
+                        author={query.author.split(' ')[0]}
+                        question={query.title}
+                        details={query.summary}
                         userId={query.userId}
-                        publishedDate={query.publishedDate}
+                        publishedDate={convert(query.published_date)}
                     />
                 );
             })}
