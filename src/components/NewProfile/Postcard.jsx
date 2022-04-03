@@ -14,17 +14,20 @@ const Postcard = (props) => {
                 <div className={classes.cardcontainer}>
                     <div className={classes.postscreate}></div>
                     <div className={classes.postcards}>
-                        <PostCard //if we are the user and sending the current post details using props
-                            key={5}
-                            id={10} //id of the post
-                            banner={"www.google.com"} //banner of the post
-                            title={"This is title"} //posts title
-                            description={"This is description"} //posts description
-                            likes={10} //posts likes
-                            publishedDate={"This is published date"} //posts published date
-                            userId={"user Id"} //user id of the particular post
-                            author={"Author"} //author of the post
-                        />
+                        {props.postsData.map((post) => (
+                            <PostCard //if we are the user and sending the current post details using props
+                                key={post.id}
+                                id={post.id} //id of the post
+                                banner={post.banner} //banner of the post
+                                title={post.title} //posts title
+                                description={post.summary} //posts description
+                                likes={post.likes.length} //posts likes
+                                publishedDate={post.published_date} //posts published date
+                                userId={post.userId} //user id of the particular post
+                                author={post.author} //author of the post
+                                comments={post.comments.length} //
+                            />
+                        ))}
                     </div>
                 </div>
             </div>

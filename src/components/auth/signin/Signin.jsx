@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./Signin.module.css";
 import signupimg from "../../../assets/images/Signup.png";
 import { motion } from "framer-motion";
-
+import { login } from "../../../requests/auth.requests";
 // Reducer for signin validation
 const signinReducer = (state, action) => {
     // Email Validation
@@ -74,10 +74,15 @@ const Signin = (props) => {
     };
 
     // Handler to submmit the form after validation
-    const formSubmitHandler = (event) => {
+    const formSubmitHandler = async (event) => {
         event.preventDefault();
+        props.onSubmit(true);
         if (state.formIsValid) {
-            props.onSubmit(true);
+            const response = await login(state.email, state.password);
+            console.log(response);
+            if (response.status === true) {
+                navigate("/", { replace: true });
+            }
         }
     };
 

@@ -14,17 +14,19 @@ const Questionscard = (props) => {
                     backgroundColor: "#edf5e1",
                 }}
             >
-                          <QuestionCard //if the user is current user then render the posts of current user
-                              key={1}
-                              id={1}
-                              votes={5}
-                              answers={["this is answers"]}
-                              question={"This is question"}
-                              details={"This is detidhfc"}
-                              userId={"1"}
-                              publishedDate={"String"}
-                              author={"authon"}
-                          />
+                {props.questionsData.map((quest) => (
+                    <QuestionCard //if the user is current user then render the posts of current user
+                        key={quest.id}
+                        id={quest.id}
+                        votes={quest.up_votes.length}
+                        answers={quest.answers.length}
+                        question={quest.title}
+                        details={quest.summary}
+                        userId={quest.userId}
+                        publishedDate={quest.published_date}
+                        author={quest.author}
+                    />
+                ))}
             </div>
         </div>
     );

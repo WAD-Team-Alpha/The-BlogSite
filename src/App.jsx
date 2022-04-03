@@ -1,6 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Routing from "./Routing";
-import { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 function App() {
