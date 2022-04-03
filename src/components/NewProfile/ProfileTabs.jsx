@@ -5,19 +5,40 @@ import Postcard from "./Postcard";
 import Questionscard from "./Questionscard";
 import { useEffect } from "react";
 import LoadingSpinner from "../auth/LoadingSpinner";
+import {
+    getPostsData,getQuestionsData,getOtherPostsData,getOtherQuestionsData
+} from "../../requests/profile.request";
+
 const ProfileTabs = (props) => {
     const [tab, setTab] = useState("posts");
-    const [submit, setSubmit] = useState(true);
+    const [submit, setSubmit] = useState(false);
     const [questionsData, setQuestionsData] = useState([]);
     const [postsData, setPostsData] = useState([]);
     const [curUser, setCurUser] = useState(true);
     useEffect(() => {
-        setSubmit(false);
-        if (props.uid === localStorage.getItem("localId")) {
+        async function fetchCurUserData() {
+            const postData = await getPostsData();
+            const questionData = await getQuestionsData();
+            console.log(postData,questionsData);
+            setPostsData(postData);
+            setQuestionsData(questionData);
             setSubmit(true);
-            return;
         }
-        setCurUser(false);
+        async function fetchOtherUserData(id) {
+            const postData = await getOtherPostsData(id);
+            const questionData = await getOtherQuestionsData(id);
+            console.log(postData,questionsData);
+            setPostsData(postData);
+            setQuestionsData(questionData);
+            setSubmit(true);
+        }
+        if (props.uid === undefined) {
+            fetchCurUserData();
+        } else {
+            fetchOtherUserData(props.uid);
+            setCurUser(false);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return submit ? (

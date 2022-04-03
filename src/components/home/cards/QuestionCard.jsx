@@ -42,11 +42,7 @@ const QuestionCard = (props) => {
                     </div>
 
                     <div className={`row ${classes.answer}`}>
-                        <p className="fw-bold fs-1 ml-6 ">
-                            {props.answers === undefined
-                                ? 0
-                                : props.answers.length}
-                        </p>
+                        <p className="fw-bold fs-1 ml-6 ">{props.answers}</p>
 
                         <p className={`${classes.answerpostion}`}>Answers</p>
                     </div>

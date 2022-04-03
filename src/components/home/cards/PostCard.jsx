@@ -58,10 +58,7 @@ const PostCard = (props) => {
                             <ThumbUpIcon /> Likes {props.likes}{" "}
                         </p>
                         <p className="btn">
-                            <CommentIcon /> Comments{" "}
-                            {props.comments === undefined
-                                ? 0
-                                : props.comments.length}{" "}
+                            <CommentIcon /> {props.comments}
                         </p>
                         <Link
                             className="btn"

@@ -6,23 +6,48 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import Editform from "./EditForm/Editform";
 import { useEffect } from "react";
-// import Members from "./Members/Members";
+import Members from "./Members/Members";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../auth/LoadingSpinner";
-
+import {
+    getMyUserData,
+    getOtherUserData,
+} from "../../requests/profile.request";
+console.log("this is runinng");
 const Profile = (props) => {
-    const [submit, setSubmit] = useState(false);
+    const [submit, setSubmit] = useState(true);
     const [addform, setAddform] = useState(false);
     const [memtab, setmemTab] = useState(false);
-
     const [curUser, setCurUser] = useState(true); //setting current user to true
-    
+    const [userData, setUserData] = useState();
     useEffect(() => {
-        setSubmit(true);
-        setCurUser(false);
+        async function fetchCurUserData() {
+            const data = await getMyUserData();
+            console.log(data);
+            setUserData(data);
+            setSubmit(false);
+        }
+        async function fetchOtherUserData() {
+            const data = await getOtherUserData(props.uid);
+            console.log(data);
+            setUserData(data);
+            setSubmit(false);
+        }
+        if (props.uid === undefined) {
+            fetchCurUserData();
+        } else {
+            fetchOtherUserData();
+            setCurUser(false);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    return submit ? <LoadingSpinner /> : (
+    const editHandler = (firstname, lastname, bio, genres) => {
+        // update data 
+    }
+    return submit ? (
+        <LoadingSpinner />
+    ) : (
         <div className={classes.maincontainer}>
             <div className={classes.containerMd}>
                 {!addform && !memtab && (
@@ -95,42 +120,42 @@ const Profile = (props) => {
                                             }}
                                         >
                                             <b>
-                                                Firstname{" "}
-                                                lastname
+                                                {userData.firstname}{" "}
+                                                {userData.lastname}
                                             </b>
                                         </div>
 
-                                            <div className="row justify-content-center">
-                                                <div className="col-7">
-                                                    <Link
-                                                        underline="none"
-                                                        // onClick={linkHandler}
+                                        <div className="row justify-content-center">
+                                            <div className="col-7">
+                                                <Link
+                                                    underline="none"
+                                                    // onClick={linkHandler}
+                                                >
+                                                    <span
+                                                        className={
+                                                            classes.mainfollowers
+                                                        }
                                                     >
-                                                        <span
-                                                            className={
-                                                                classes.mainfollowers
-                                                            }
-                                                        >
-                                                            <b>Followers</b>
-                                                        </span>
-                                                    </Link>
-                                                </div>
-                                                <div className="col-5">
-                                                    <Link
-                                                        underline="none"
-                                                        // onClick={linkHandler}
-                                                    >
-                                                        {" "}
-                                                        <span
-                                                            className={
-                                                                classes.mainfollowing
-                                                            }
-                                                        >
-                                                            <b>Following</b>
-                                                        </span>
-                                                    </Link>
-                                                </div>
+                                                        <b>Followers</b>
+                                                    </span>
+                                                </Link>
                                             </div>
+                                            <div className="col-5">
+                                                <Link
+                                                    underline="none"
+                                                    // onClick={linkHandler}
+                                                >
+                                                    {" "}
+                                                    <span
+                                                        className={
+                                                            classes.mainfollowing
+                                                        }
+                                                    >
+                                                        <b>Following</b>
+                                                    </span>
+                                                </Link>
+                                            </div>
+                                        </div>
                                         <div className="row justify-content-end">
                                             <div className="col">
                                                 <span
@@ -139,7 +164,10 @@ const Profile = (props) => {
                                                     }
                                                 >
                                                     <b>
-                                                        0
+                                                        {
+                                                            userData.followers
+                                                                .length
+                                                        }
                                                     </b>
                                                 </span>
                                             </div>
@@ -150,7 +178,10 @@ const Profile = (props) => {
                                                     }
                                                 >
                                                     <b>
-                                                        5
+                                                        {
+                                                            userData.following
+                                                                .length
+                                                        }
                                                     </b>
                                                 </span>
                                             </div>
@@ -184,33 +215,34 @@ const Profile = (props) => {
                                         Interested Geners
                                     </h5>
                                 </span>
-                                
-                                    <div
-                                        className="col"
-                                        style={{
-                                            marginLeft: "1.2em",
-                                            height: "60px",
-                                        }}
-                                    >
-                                        <div>
-                                            
-                                                          <Chip
-                                                              style={{
-                                                                  marginBottom:
-                                                                      "0.5em",
-                                                                  marginRight:
-                                                                      "0.3em",
-                                                                  backgroundColor:
-                                                                      "#8ee4af",
-                                                                  color: "#05386b",
-                                                                  fontWeight:
-                                                                      "600",
-                                                              }}
-                                                              label={"gen"}
-                                                          />
-                                        </div>
+
+                                <div
+                                    className="col"
+                                    style={{
+                                        marginLeft: "1.2em",
+                                        height: "60px",
+                                    }}
+                                >
+                                    <div>
+                                        {userData.genres.map((gen, i) => {
+                                            console.log(gen);
+                                            return (
+                                                <Chip
+                                                    id={i}
+                                                    style={{
+                                                        marginBottom: "0.5em",
+                                                        marginRight: "0.3em",
+                                                        backgroundColor:
+                                                            "#8ee4af",
+                                                        color: "#05386b",
+                                                        fontWeight: "600",
+                                                    }}
+                                                    label={gen}
+                                                />
+                                            );
+                                        })}
                                     </div>
-                                
+                                </div>
                             </div>
                             <div className="row" style={{ height: "70px" }}>
                                 <span className={classes.email}>
@@ -226,16 +258,16 @@ const Profile = (props) => {
                                         Email
                                     </h5>
                                 </span>
-                                    <div
-                                        className="col"
-                                        style={{
-                                            fontSize: "0.9em",
-                                            marginLeft: "1.2em",
-                                        }}
-                                        //current user email else other users email
-                                    >
-                                        This is email
-                                    </div>
+                                <div
+                                    className="col"
+                                    style={{
+                                        fontSize: "0.9em",
+                                        marginLeft: "1.2em",
+                                    }}
+                                    //current user email else other users email
+                                >
+                                    {userData.email}
+                                </div>
                                 <br />
                             </div>
 
@@ -253,19 +285,19 @@ const Profile = (props) => {
                                         Bio
                                     </h5>
                                 </span>
-                               
-                                    <div
-                                        className="row"
-                                        style={{
-                                            fontSize: "0.9em",
-                                            marginLeft: "1.2em",
-                                            overflowY: "scroll",
-                                            overflowX: "hidden",
-                                            width: "280px",
-                                        }}
-                                    >
-                                        This is bio
-                                    </div>
+
+                                <div
+                                    className="row"
+                                    style={{
+                                        fontSize: "0.9em",
+                                        marginLeft: "1.2em",
+                                        overflowY: "scroll",
+                                        overflowX: "hidden",
+                                        width: "280px",
+                                    }}
+                                >
+                                    {userData.bio}
+                                </div>
 
                                 <br />
                             </div>
@@ -282,9 +314,7 @@ const Profile = (props) => {
                                                 }
                                                 // onClick={followbuttonHandler}
                                             >
-                                                <b>
-                                                    Follow
-                                                </b>
+                                                <b>Follow</b>
                                             </button>
                                         </div>
                                     </div>
@@ -293,22 +323,22 @@ const Profile = (props) => {
                         </Box>
                     </Container>
                 )}
-                {/* {addform &&
+                {addform &&
                     curUser && ( //giving access to the edit form only to the current user
                         <Editform
                             setAddform={setAddform}
                             editHandler={editHandler}
-                            userDetails={userDetails}
+                            userDetails={userData}
                         />
                     )}
                 {!curUser && <div style={{ height: "1em" }}></div>}
                 {memtab && ( //for followers and following tab
                     <Members
-                        userInfo={otherProfileData}
+                        userInfo={userData}
                         curUser={curUser}
                         setmemTab={setmemTab}
                     />
-                )} */}
+                )}
                 <br />
             </div>
         </div>
