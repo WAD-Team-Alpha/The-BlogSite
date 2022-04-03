@@ -109,7 +109,7 @@ export const getQuestionsData = async () => {
 export const getOtherPostsData = async (id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/post/get_posts_by_id/${id}`,
+            `http://localhost:5000/api/v1/post/get_posts_by_userId/${id}`,
         );
         if (response.data.status) {
             // console.log(response.data);
@@ -131,7 +131,7 @@ export const getOtherPostsData = async (id) => {
 export const getOtherQuestionsData = async (id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/question/get_questions_by_id/${id}`,
+            `http://localhost:5000/api/v1/question/get_questions_by_userId/${id}`,
         );
         if (response.data.status) {
             // console.log(response.data);
