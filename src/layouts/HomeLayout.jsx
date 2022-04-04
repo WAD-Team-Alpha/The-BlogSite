@@ -13,6 +13,7 @@ const HomeLayout = () => {
         nav ? setNav(false) : setNav(true);
     };
     return <div className={"container-fluid " + classes.content}>
+        <Header/>
     <div className="row">
         <div
             className={
