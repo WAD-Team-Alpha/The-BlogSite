@@ -1,12 +1,20 @@
 import { Avatar, Link } from "@mui/material";
-
+import { unFollowUser } from "../../../requests/profile.request";
 const Following = (props) => {
-    const unfollowHandler = (index) => {};
+    const unfollowHandler = async (index) => {
+        const response = await unFollowUser(index);
+        if (response) {
+            const myArray = props.userInfo.following.filter(
+                (obj) => obj.id !== index
+            );
+            props.setUserData((prev) => ({ ...prev, following: myArray }));
+        }
+    };
 
     return (
         <div>
             <div className="container-fluid">
-                <h4 style={{ paddingBottom: "0.5em" }}>Following: {5} </h4>
+                <h4 style={{ paddingBottom: "0.5em" }}>Following: {props.userInfo.following.length} </h4>
                 {props.userInfo.following.map((item) => (
                     <div className="row" style={{ paddingBottom: "0.5em" }}>
                         <div className="col-2">
@@ -14,13 +22,13 @@ const Following = (props) => {
                         </div>
                         <div className="col-6" style={{ paddingTop: "0.3em" }}>
                             <Link underline="none" color="black" href="#">
-                                {item}
+                                {item.firstname}
                             </Link>
                         </div>
                         <div className="col-4" style={{}}>
                             <button
                                 className="btn btn-danger"
-                                onClick={() => unfollowHandler(item)} //unfollowing the user by using their ids
+                                onClick={() => unfollowHandler(item.id)} //unfollowing the user by using their ids
                             >
                                 Unfollow
                             </button>
