@@ -10,21 +10,21 @@ const QuestionCard = (props) => {
         navigate(`/forum-threads/${props.id}`);
     };
 
-    const str = props.details;
+    const str = props.description;
     const len = str.length;
 
     let dec;
     let result = str.substring(0, 270);
     if (len < 270) {
-        dec = <p className="card-text">{props.details}</p>;
+        dec = <p className="card-text">{props.description}</p>;
     } else {
         dec = <p className="card-text">{result}....</p>;
     }
-    const titles = props.question.length;
-    let resultitle = props.question.substring(0, 50);
+    const titles = props.title.length;
+    let resultitle = props.title.substring(0, 50);
     let shortitle;
     if (titles < 50) {
-        shortitle = props.question;
+        shortitle = props.title;
     } else {
         shortitle = (
             <h5 className="card-title fw-bold fs-4">{resultitle}...</h5>
