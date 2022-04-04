@@ -180,3 +180,63 @@ export const getOtherQuestionsData = async (id) => {
         };
     }
 };
+export const removeFollower = async (id) => {
+    try {
+        const response = await axios.post(
+            `http://localhost:5000/api/v1/user/unfollow_user`,
+            {
+                follow_userId: id,
+            },
+            {
+                headers: {
+                    Authorization: `${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        if (response.data.status) {
+            // console.log(response.data);
+            return response.data.status;
+        } else {
+            return {
+                status: false,
+                message: response.data.errors,
+            };
+        }
+    } catch (error) {
+        console.log(error);
+        return {
+            status: false,
+            message: "Server error occured in client side",
+        };
+    }
+};
+export const followUser = async (id) => {
+    try {
+        const response = await axios.post(
+            `http://localhost:5000/api/v1/user/follow_user`,
+            {
+                follow_userId: id,
+            },
+            {
+                headers: {
+                    Authorization: `${localStorage.getItem("token")}`,
+                },
+            }
+        );
+        if (response.data.status) {
+            // console.log(response.data);
+            return response.data.status;
+        } else {
+            return {
+                status: false,
+                message: response.data.errors,
+            };
+        }
+    } catch (error) {
+        console.log(error);
+        return {
+            status: false,
+            message: "Server error occured in client side",
+        };
+    }
+};

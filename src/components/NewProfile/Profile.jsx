@@ -350,6 +350,7 @@ const Profile = (props) => {
                 {memtab && ( //for followers and following tab
                     <Members
                         userInfo={userData}
+                        setUserData={setUserData}
                         curUser={curUser}
                         setmemTab={setmemTab}
                     />
