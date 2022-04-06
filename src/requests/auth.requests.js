@@ -11,6 +11,7 @@ export const register = async (firstname, lastname, email, password) => {
         })
         if(response.data.status) {
             localStorage.setItem("token", response.data.data)
+            localStorage.setItem("authStatus", true)
             return {
                 status: true,
                 message: "Registered user successfully"

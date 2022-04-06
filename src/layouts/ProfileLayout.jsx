@@ -46,6 +46,7 @@ const Layout = (props) => {
         className="container-fluid"
     >
     <div className="row">
+        <Header/>
         <div className="col-md-3">
             <Profile uid={params.uid} />
         </div>
