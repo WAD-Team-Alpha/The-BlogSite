@@ -11,6 +11,7 @@ const Right = () => {
             animate={{ x: 0 }}
             transition={{ type: "spring", duration: 2, bounce: 0.4 }}
         >
+            {localStorage.getItem('authStatus') === "false"?
                 <div className={"container " + classes.header}>
                     {/* Login button */}
                     <Link
@@ -29,6 +30,7 @@ const Right = () => {
                         Signup
                     </Link>
                 </div>
+                :
                 <div className={"container " + classes.header}>
                     <Link
                         to="/home/post"
@@ -37,6 +39,7 @@ const Right = () => {
                         Dashboard
                     </Link>
                 </div>
+        }
             <div className={"container"}>
                 <img src={banner} alt="banner" className={classes.image} />
             </div>
