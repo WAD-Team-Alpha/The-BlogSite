@@ -29,6 +29,7 @@ const Members = (props) => {
                 <div style={{ overflowY: "scroll" }}>
                     <Memberstab
                         curUser={props.curUser}
+                        setUserData={props.setUserData}
                         userInfo={props.userInfo}
                     />
                 </div>
