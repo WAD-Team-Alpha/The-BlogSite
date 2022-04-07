@@ -29,16 +29,19 @@ const Header = (props) => {
                 </Link>
             </div>
             <div className={classes.seperator}></div>
+            {localStorage.getItem('authStatus') === 'true' ? 
                 <>
                     <ModalButton />
                     <Account />
                 </>
+                :
                 <Link
                     to="/auth?code=signin&main=true"
                     className={"btn shadow-none "}
                 >
                     Login
                 </Link>
+            }
         </div>
     );
 };
