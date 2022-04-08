@@ -8,9 +8,8 @@ import { motion } from "framer-motion";
 const Editform = (props) => {
     //props are form
 
-    const [firstName, setFirstName] = useState(props.userDetails.firstName); //useState for firstname of the user
-    const [lastName, setLastName] = useState(props.userDetails.lastName); //useState for lastname of the user
-    const [email, setEmail] = useState(props.userDetails.email); //useState for email of the user
+    const [firstName, setFirstName] = useState(props.userDetails.firstname); //useState for firstname of the user
+    const [lastName, setLastName] = useState(props.userDetails.lastname); //useState for email of the user
     const [bio, setBio] = useState(props.userDetails.bio); //useState for bio of the user
     const [genre, setGenre] = useState(props.userDetails.genres); //useState for genres of the user
 
@@ -22,7 +21,6 @@ const Editform = (props) => {
             // sending the changed data of the user using the props
             firstName,
             lastName,
-            email,
             bio,
             genre
         );
@@ -71,7 +69,7 @@ const Editform = (props) => {
                                     className="form-control"
                                     id="userfname"
                                     placeholder="Enter your first name"
-                                    defaultValue={props.userDetails.firstName}
+                                    defaultValue={props.userDetails.firstname}
                                     onChange={(e) =>
                                         setFirstName(e.target.value)
                                     } //Changing the value of the firstname by the user entered value
@@ -87,27 +85,10 @@ const Editform = (props) => {
                                     className="form-control"
                                     id="userlname"
                                     placeholder="Enter your Last name"
-                                    defaultValue={props.userDetails.lastName}
+                                    defaultValue={props.userDetails.lastname}
                                     onChange={(e) =>
                                         setLastName(e.target.value)
                                     } //Changing the value of lastname by the user entered value
-                                />
-                            </div>
-                        </div>
-                        <br />
-                        <div className="form-group-row">
-                            <div className="col-11">
-                                <label for="useremail">Email</label>
-                                <input
-                                    type="email"
-                                    className="form-control"
-                                    id="useremail"
-                                    placeholder="Enter your email"
-                                    defaultValue={props.userDetails.email}
-                                    onChange={(e) => setEmail(e.target.value)} //Changing the value of email by the user entered value
-                                    onKeyPress={(e) => {
-                                        e.key === "Enter" && e.preventDefault();
-                                    }}
                                 />
                             </div>
                         </div>

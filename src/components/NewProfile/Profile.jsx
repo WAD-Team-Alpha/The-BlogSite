@@ -12,6 +12,7 @@ import LoadingSpinner from "../auth/LoadingSpinner";
 import {
     getMyUserData,
     getOtherUserData,
+    updateUserData,
 } from "../../requests/profile.request";
 console.log("this is runinng");
 const Profile = (props) => {
@@ -42,9 +43,21 @@ const Profile = (props) => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const editHandler = (firstname, lastname, bio, genres) => {
-        // update data 
-    }
+    const editHandler = async (firstname, lastname, bio, genres) => {
+        const result = await updateUserData(firstname, lastname, bio, genres);
+        if (result.status) {
+            setUserData((prev) => ({
+                ...prev,
+                firstname,
+                lastname,
+                bio,
+                genres,
+            }));
+        }
+    };
+    const linkHandler = () => {
+        setmemTab(true);
+    };
     return submit ? (
         <LoadingSpinner />
     ) : (
@@ -83,7 +96,9 @@ const Profile = (props) => {
                                                 <Link
                                                     underline="none"
                                                     color="black"
-                                                    // onClick={formHandler}
+                                                    onClick={() =>
+                                                        setAddform(true)
+                                                    }
                                                 >
                                                     <i className="bi bi-pencil-fill"></i>
                                                 </Link>
@@ -129,7 +144,7 @@ const Profile = (props) => {
                                             <div className="col-7">
                                                 <Link
                                                     underline="none"
-                                                    // onClick={linkHandler}
+                                                    onClick={linkHandler}
                                                 >
                                                     <span
                                                         className={
@@ -143,7 +158,7 @@ const Profile = (props) => {
                                             <div className="col-5">
                                                 <Link
                                                     underline="none"
-                                                    // onClick={linkHandler}
+                                                    onClick={linkHandler}
                                                 >
                                                     {" "}
                                                     <span
@@ -335,6 +350,7 @@ const Profile = (props) => {
                 {memtab && ( //for followers and following tab
                     <Members
                         userInfo={userData}
+                        setUserData={setUserData}
                         curUser={curUser}
                         setmemTab={setmemTab}
                     />

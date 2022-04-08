@@ -26,6 +26,8 @@ const Account = () => {
 
     // Logout handler
     const logoutHandler = () => {
+        localStorage.removeItem('token');
+        localStorage.setItem('authStatus', false);
         navigate("/", { replace: true });
     };
     return (
