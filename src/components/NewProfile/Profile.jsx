@@ -14,8 +14,8 @@ import {
     getOtherUserData,
     updateUserData,
 } from "../../requests/profile.request";
-console.log("this is runinng");
 const Profile = (props) => {
+    console.log("this is runinng");
     const [submit, setSubmit] = useState(true);
     const [addform, setAddform] = useState(false);
     const [memtab, setmemTab] = useState(false);

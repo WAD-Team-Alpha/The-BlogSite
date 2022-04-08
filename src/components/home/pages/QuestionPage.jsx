@@ -119,7 +119,7 @@ const QuestionPage = () => {
         return (
           <QuestionCard
             key={question._id}
-            id={question.userId}
+            id={question._id}
             banner={question.author}
             author={question.author.split(" ")[0]}
             title={question.title}

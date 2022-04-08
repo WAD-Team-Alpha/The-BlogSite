@@ -5,6 +5,7 @@ import Middle from "./Middle";
 import Last from "./Last";
 
 const Middleq = (props) => {
+    console.log(props)
     return (
         <div
             className="container-fluid shadow"
@@ -20,7 +21,7 @@ const Middleq = (props) => {
                 <div className="col">
                     <div className={classes.middleheader}>
                         <h3>
-                            <b>Henlo</b>
+                            <b>{props.data.title}</b>
                         </h3>
                     </div>
                     <div className="row" style={{ paddingTop: "0.5em" }}>
@@ -29,11 +30,11 @@ const Middleq = (props) => {
                                 <b>Asked on</b>
                                 {"  "}
                                 <b style={{ color: "green" }}>
-                                    {"Henlo"}
+                                {props.data.published_date}
                                 </b>{" "}
                                 {"  "} by {"  "}{" "}
                                 <b style={{ color: "blue" }}>
-                                    {"Henlo"}
+                                {props.data.author}
                                 </b>
                             </div>
                         </div>
@@ -45,7 +46,7 @@ const Middleq = (props) => {
                 <div className="col">
                     {" "}
                     {/*Till above is the question details like asked on and posted by*/}
-                    <Middle />{" "}
+                    <Middle dec = {props.data.summary} img = {props.data.screenshot} />{" "}
                     {/*Here we are importing the question and question description  part*/}
                 </div>
             </div>
@@ -53,7 +54,7 @@ const Middleq = (props) => {
             <div className="row">
                 <div className="col">
                     <Last
-                        profileData={props.profileData}
+                        data={props.data}
                         theRef={props.theRef}
                     />{" "}
                     {/*Here we are importing the comments for the posted question printing component*/}

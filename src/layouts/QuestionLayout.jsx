@@ -9,9 +9,9 @@ import Middleq from "../components/Ques_details/middleq/middleq";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
-
+import { getQuestionData } from "../requests/questionDetail.request";
 const QuestionLayout = () => {
-    const [submit, setSubmit] = useState(false);
+    const [submit, setSubmit] = useState(true);
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
     const navHandler = () => {
@@ -59,7 +59,15 @@ const QuestionLayout = () => {
     // Effets to handle the api requests for the question data
     useEffect(() => {
         setSubmit(true);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        async function fetchQuestionData() {
+            console.log(params.threadID);
+            const data1 = await getQuestionData(params.threadID);
+            console.log(data1);
+            setData(data1);
+        }
+        fetchQuestionData().then(
+            setSubmit(false)
+        );
     }, []);
 
     const myRef = useRef(null);
@@ -98,7 +106,7 @@ const QuestionLayout = () => {
                             >
                                 <Middleq
                                     questionID={params.threadID}
-                                    profileData={data}
+                                    data={data}
                                     theRef={myRef}
                                 />
                             </div>
@@ -109,7 +117,7 @@ const QuestionLayout = () => {
                             >
                                 <Rightq
                                     questionID={params.threadID}
-                                    profileData={data}
+                                    data={data}
                                 />
                             </div>
                         </div>

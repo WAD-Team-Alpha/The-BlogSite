@@ -5,6 +5,7 @@ import DoneSharpIcon from "@mui/icons-material/DoneSharp";
 import { useState } from "react";
 
 const CommentsSection = (props) => {
+    console.log(props);
     //this component is separated from last.jsx so that each comment can be changed individually
     const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
     const [correctionicon, setCorrectionIcon] = useState(<TimerIcon />);
@@ -34,11 +35,11 @@ const CommentsSection = (props) => {
                 </div>
                 <div className="col-6" style={{ paddingLeft: "1.5em" }}>
                     <div className={classes.answersection}>
-                        <b>{props.comment.name}</b>
+                        <b>{props.comment.author}</b>
                     </div>
                     <div className={classes.answertime}>
                         {" "}
-                        Answerd on {props.comment.publishedDate}{" "}
+                        Answerd on {props.comment.commented_date}{" "}
                     </div>
                 </div>
                 <div
