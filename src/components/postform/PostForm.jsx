@@ -7,6 +7,8 @@ import TextInputBox from "./TextInputBox/TextInputBox";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
+import axios from 'axios'
+
 const PostForm = () => {
 
     // State for the form inputs
@@ -18,6 +20,7 @@ const PostForm = () => {
     const [genre, setGenre] = useState("");
     const navigate = useNavigate();
     const formRef = useRef();
+    const [errors, setErrors] = useState("")
 
     // Effect for the scroll
     useEffect(() => {
@@ -52,12 +55,14 @@ const PostForm = () => {
     // Input handler for custom inputs
 
     const addInputHandler = (type) => {
+        const seq_no = inputList.length + 1
         setInputList((value) => [
             ...value,
             {
                 id: uuidv4(),
                 type: type,
                 value: "",
+                seq_no: seq_no, 
             },
         ]);
         updateScroll();
@@ -70,7 +75,14 @@ const PostForm = () => {
             values.findIndex((value) => value.id === id),
             1
         );
+        for(let i in values) {
+            values[i] = {
+                ...values[i],
+                seq_no: parseInt(i) + 1
+            }
+        }
         setInputList(values);
+        console.log(values)
     };
 
     // Input on change handler
@@ -83,35 +95,72 @@ const PostForm = () => {
         });
         setInputList(newInputFields);
     };
-
+    
     // Form on submit handler
     const onSubmitHandler = (event) => {
+        setSubmit(true);
         const postId = uuidv4();
         const uid = "2";
         var today = new Date();
         const publishedDate = today.toLocaleDateString("en-US");
         event.preventDefault();
         const finalData = inputList.map((input) => {
-            if (input.type === "image") {
-                input.value = "https://picsum.photos/200";
-            }
             return input;
         });
         const postData = {
-            postId: postId,
-            likes: 0,
             uid: uid,
-            publishedDate: publishedDate,
-            bookmarks: 0,
-            postTitle: title,
-            imageUrl: "https://picsum.photos/200",
-            postSummary: summary,
-            postData: finalData,
-            comments: [],
+            title,
+            banner,
+            summary,
+            cells: finalData,
             genre: genre,
-            author: "Hola",
         };
-        setSubmit(true);
+        const cellImages = []
+        let k = 0
+        for(let i in finalData) {
+            if(finalData[i].type === "image") {
+                cellImages.push(finalData[i].value)
+                finalData[i].value = k
+                k = k + 1
+            }
+        }
+        postData.cells = finalData;
+        console.log(postData)
+        let form = new FormData()
+        for(let i in postData) {
+            console.log(i)
+            if(i === 'cells') {
+                form.append(i, JSON.stringify(postData[i]))
+            } else {
+                form.append(i, postData[i])
+            }
+        }
+        for(let i in cellImages) {
+            console.log(i)
+            form.append(`cellImage_${i}`, cellImages[i])
+        }
+        const submitPost = async (postData) => {
+            const response = await axios.post("http://localhost:5000/api/v1/post/create_post", postData, {
+                headers: {
+                    'Content-Type': "multipart/form-data",
+                    Authorization: localStorage.getItem('token'),
+                    'folder': 'posts'
+                }
+            });
+            return response;
+        }
+        submitPost(form).then((response) => {
+            if(response.data.status) {
+                navigate("/profile", {replace: true, state: {
+                    notification: true,
+                    message: response.data.message
+                }})
+                setSubmit(false)
+            } else {
+                setErrors(response.data.message)
+                setSubmit(false)
+            }
+        })
     };
 
     return submit ? (
