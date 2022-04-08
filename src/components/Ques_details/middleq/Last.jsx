@@ -3,36 +3,58 @@ import { Avatar } from "@mui/material";
 import classes from "./last.module.css";
 //import TimerIcon from "@mui/icons-material/Timer";
 import { TextField, Button } from "@mui/material";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //import DoneSharpIcon from '@mui/icons-material/DoneSharp';
 import CommentsSection from "./commentsSection";
-
+import { getAnswersData, postAnswer } from "../../../requests/questionDetail.request";
+import LoadingSpinner from "../../auth/LoadingSpinner";
 const Last = (props) => {
+    console.log(props)
     const [comment, setComment] = useState("");
-    const profileData = props.profileData;
-    const addCommentHandler = (event) => {
+    // const data = props.data;
+    const [comments, setComments] = useState();
+    const [submit, setSubmit] = useState(true);
+    const addCommentHandler = async (event) => {
         // function to handle comments
-
+        setSubmit(true);
         event.preventDefault();
         setComment("");
         if (comment === "") {
             return;
         }
-        var today = new Date();
-        const publishedDate = today.toLocaleDateString("en-US");
-    };
+        const result = await postAnswer(props.data._id, comment)
+        const data = await getAnswersData(props.data._id);
+        setComments(data);
+        setSubmit(false);
 
-    return (
+    };
+    useEffect(() => {
+        setSubmit(false);
+        async function fetchAnsewrsData(id) {
+            const data = await getAnswersData(id);
+            console.log(data);
+            setComments(data);
+            setSubmit(false);
+        }
+        fetchAnsewrsData(props.data._id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    return submit ? (
+        <LoadingSpinner />
+    ) : (
         <div className={classes.answers}>
             <span style={{ fontSize: "30px" }}>
                 <b ref={props.theRef}>Answers</b>
             </span>
             <div>
-                        <CommentsSection
-                            profileData={profileData}
-                            commentsdata={[{}]}
-                            comment={comment}
-                        />
+                {comments.map((comment)=><CommentsSection
+                    data={comment}
+                    key={comment._id}
+                />)}
+                {/* <CommentsSection
+                    data={data}
+                /> */}
                 <div>
                     <br />
                     <form onSubmit={addCommentHandler}>

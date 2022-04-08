@@ -66,7 +66,7 @@ export const getOtherUserData = async (uid) => {
             }
         );
         if (response.data.status) {
-            // console.log(response.data);
+            console.log(response.data);
             return response.data.data;
         } else {
             return {

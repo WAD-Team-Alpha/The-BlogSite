@@ -1,17 +1,17 @@
-const Middle = () => {
+const Middle = (props) => {
     return (
         <div>
             <div>
-                <span>{"This is description"} </span>{" "}
+                <span>{props.dec} </span>{" "}
                 {/*printing the question description */}
             </div>
             <div style={{ paddingRight: "1em", paddingTop: "1em" }}>
                 <img
-                    src={"This is urk"}
-                    alt="This is urk"
+                    src={props.img}
+                    alt="alt"
                     width="820px"
                     height="248px"
-                />{" "}
+                />
                 {/*printing the question immage if any */}
             </div>
         </div>
