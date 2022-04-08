@@ -7,12 +7,11 @@ import { useState, useEffect } from "react";
 //import DoneSharpIcon from '@mui/icons-material/DoneSharp';
 import CommentsSection from "./commentsSection";
 import { getAnswersData, postAnswer } from "../../../requests/questionDetail.request";
-import LoadingSpinner from "../../auth/LoadingSpinner";
 const Last = (props) => {
     console.log(props)
     const [comment, setComment] = useState("");
     // const data = props.data;
-    const [comments, setComments] = useState();
+    const [comments, setComments] = useState(props.comments);
     const [submit, setSubmit] = useState(true);
     const addCommentHandler = async (event) => {
         // function to handle comments
@@ -25,24 +24,11 @@ const Last = (props) => {
         const result = await postAnswer(props.data._id, comment)
         const data = await getAnswersData(props.data._id);
         setComments(data);
-        setSubmit(false);
 
     };
-    useEffect(() => {
-        setSubmit(false);
-        async function fetchAnsewrsData(id) {
-            const data = await getAnswersData(id);
-            console.log(data);
-            setComments(data);
-            setSubmit(false);
-        }
-        fetchAnsewrsData(props.data._id);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    
 
-    return submit ? (
-        <LoadingSpinner />
-    ) : (
+    return (
         <div className={classes.answers}>
             <span style={{ fontSize: "30px" }}>
                 <b ref={props.theRef}>Answers</b>

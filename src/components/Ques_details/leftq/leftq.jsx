@@ -10,47 +10,28 @@ import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
 import Copyurl from "../../home/cards/CopyUrl";
 
 const Leftq = (props) => {
-    const checkId = (savedId, questionId) => {
-        // function to check if the user has liked(or bookmarked) the particular post earlier or not
-        for (var i = 0; i < savedId.length; i++) {
-            if (savedId[i].id === questionId) {
-                return true;
-            }
-        }
-        return false;
-    };
+    const [like, setLike] = useState(props.data.up_votes.length);
+    const [bookmark, setBookmark] = useState(props.data.bookmarks.length);
 
-
-    const [like, setLike] = useState(5);
-    const [bookmark, setBookmark] = useState(10);
-    const likeid = "25";
-    const savedId = "24";
-
-    const [likestatus, setLikestatus] = useState(
-        likeid.includes("25")
-    );
-    const [bookmarkstatus, setBookmarkstatus] = useState(
-        checkId(savedId, "24")
-    );
+    const [likestatus, setLikestatus] = useState(false);
+    const [bookmarkstatus, setBookmarkstatus] = useState(false);
 
     const likeHandler = () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
         if (!likestatus) {
-            var likes = like;
+            setLike((prev)=>(prev+1));
             setLikestatus(true);
-            setLike((val) => val + 1);
-            likes = like + 1;
         }
+        
     };
 
     const dislikeHandler = () => {
         // dislike handler to decrement number of likes in database and ui on clicking like button again when already liked
         if (likestatus) {
-            var likes = like;
+            setLike((prev)=>(prev-1));
             setLikestatus(false);
-            setLike((val) => val - 1);
-            likes = like - 1;
         }
+        
     };
     const bookmarklikeHandler = () => {
         // state management for bookmark button
@@ -77,7 +58,7 @@ const Leftq = (props) => {
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
-                {likeid.includes("24") ? ( //  if else condition to check if the user liked the post earlier
+                {likestatus ? ( //  if else condition to check if the user liked the post earlier
                     <button
                         className="btn shadow-none" // Dislike butoon is shown if the above condition is true or not
                         style={{ paddingLeft: "5.5em" }}
@@ -106,7 +87,7 @@ const Leftq = (props) => {
                     <CommentIcon /> Answers
                 </button>
                 <span style={{ paddingLeft: "7em" }}>
-                    5
+                    {props.data.answers.length}
                 </span>
                 <br />
                 <br />

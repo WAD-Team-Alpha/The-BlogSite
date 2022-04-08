@@ -55,6 +55,7 @@ const Middleq = (props) => {
                 <div className="col">
                     <Last
                         data={props.data}
+                        comments={props.comments}
                         theRef={props.theRef}
                     />{" "}
                     {/*Here we are importing the comments for the posted question printing component*/}
