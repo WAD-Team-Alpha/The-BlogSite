@@ -100,6 +100,7 @@ const QuestionLayout = () => {
                                 }
                             >
                                 <Leftq
+                                    data={data}
                                     questionID={params.threadID}
                                     handler={executeScroll}
                                 />
@@ -112,6 +113,7 @@ const QuestionLayout = () => {
                                 <Middleq
                                     questionID={params.threadID}
                                     data={data}
+                                    comments={comments}
                                     theRef={myRef}
                                 />
                             </div>
