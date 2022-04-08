@@ -9,11 +9,13 @@ import Middleq from "../components/Ques_details/middleq/middleq";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
-import { getQuestionData } from "../requests/questionDetail.request";
+import { getQuestionData,getAnswersData } from "../requests/questionDetail.request";
 const QuestionLayout = () => {
     const [submit, setSubmit] = useState(true);
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
+    const [comments, setComments] = useState();
+
     const navHandler = () => {
         nav ? setNav(false) : setNav(true);
     };
@@ -62,12 +64,15 @@ const QuestionLayout = () => {
         async function fetchQuestionData() {
             console.log(params.threadID);
             const data1 = await getQuestionData(params.threadID);
+            const data = await getAnswersData(params.threadID);
+            console.log(data);
+            setComments(data);
             console.log(data1);
             setData(data1);
-        }
-        fetchQuestionData().then(
             setSubmit(false)
-        );
+        }
+        fetchQuestionData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const myRef = useRef(null);
