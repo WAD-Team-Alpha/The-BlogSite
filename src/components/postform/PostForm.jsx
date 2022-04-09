@@ -151,12 +151,14 @@ const PostForm = () => {
         }
         submitPost(form).then((response) => {
             if(response.data.status) {
+                console.log(response)
                 navigate("/profile", {replace: true, state: {
                     notification: true,
                     message: response.data.message
                 }})
                 setSubmit(false)
             } else {
+                console.log(response)
                 setErrors(response.data.message)
                 setSubmit(false)
             }

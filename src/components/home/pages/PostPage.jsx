@@ -88,7 +88,7 @@ const PostPage = () => {
         return (
           <PostCard
             key={post._id}
-            id={post.userId}
+            id={post._id}
             banner={post.author}
             author={post.author.split(" ")[0]}
             title={post.title}
