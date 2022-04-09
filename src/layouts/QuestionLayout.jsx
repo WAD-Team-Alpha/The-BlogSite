@@ -67,7 +67,9 @@ const QuestionLayout = () => {
             const response = await axios.post("http://localhost:5000/api/v1/activity/add_to_recents", {
                 contentType: "question",
                 contentId: params.threadID
-            })
+            }, {headers: {
+                Authorization: localStorage.getItem("token")
+            }})
             return response
         }
         setSubmit(true);
@@ -84,7 +86,9 @@ const QuestionLayout = () => {
             setSubmit(false)
         }
         fetchQuestionData();
-        addToRecents().then((response) => {console.log(response)})
+        addToRecents().then((response) => {
+            console.log(response)
+        })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
