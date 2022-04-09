@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 const Left = (props) => {
-    const path = "/auth?code=signin&main=true"; // Conditional form path
+    const path = localStorage.getItem("authStatus") === "true" ? "/forms/post" :  "/auth?code=signin&main=true"; // Conditional form path
     return (
         <motion.div
             initial={{ x: "-100vw" }}

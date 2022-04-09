@@ -21,7 +21,7 @@ const Postcard = (props) => {
                                 id={post._id} //id of the post
                                 banner={post.banner} //banner of the post
                                 title={post.title} //posts title
-                                description={post.summary} //posts description
+                                summary={post.summary} //posts description
                                 likes={post.likes.length} //posts likes
                                 publishedDate={post.published_date} //posts published date
                                 userId={post.userId} //user id of the particular post
