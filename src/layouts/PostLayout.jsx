@@ -89,7 +89,7 @@ const PostLayout = () => {
             const data = await getCommentsData(params.postID);
             const userData = await getMyUserData();
             setUserId(userData._id);
-            setUserId(userData.firstname);
+            setUserName(userData.firstname);
             console.log(data);
             setComments(data);
             console.log(data1);
