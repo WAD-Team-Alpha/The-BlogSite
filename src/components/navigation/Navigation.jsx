@@ -1,11 +1,13 @@
 import { Category, Close, Search, TrendingUp } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GenreCard from "./genrecards/GenreCard";
 import classes from "./Navigation.module.css";
 import genreData from "../../helpers/genreData.json";
 import Carousel from "./trending/carousel/Carousel";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import axios from 'axios'
+import { CircularProgress } from "@mui/material";
 
 const Navigation = (props) => {
     const navigate = useNavigate(); //Navigating hooks
@@ -14,6 +16,32 @@ const Navigation = (props) => {
         //Genre handler
         setSearch(event.target.value);
     };
+
+    const [data, setData] = useState({})
+    const [loading, setLoading] = useState(true)
+    const [errors, setErrors] = useState("")
+
+    useEffect(() => {
+        console.log("Hey there")
+        setLoading(true)
+        const getPosts = async () => {
+            const response = await axios.get(
+                `http://localhost:5000/api/v1/post/get_all_posts?page=${1}&limit=${7}`
+            );
+            return response
+        }
+        getPosts().then((response) => {
+            console.log(response)
+            if(response.data.status) {
+                setData(response.data.data.posts)
+                setLoading(false)
+            } else {
+                setErrors(response.data.message)
+                setLoading(false)
+            }
+        })
+    }, [])
+
     return (
         <motion.nav
             initial={{ x: "-100vw", opacity: 0 }}
@@ -79,12 +107,13 @@ const Navigation = (props) => {
                     <TrendingUp fontSize="1.5em" /> Trending
                 </h2>
                 <div className="">
-                    <Carousel
-                        data={{}}
+                    {loading && <CircularProgress />}
+                    {!loading && <Carousel
+                        data={data}
                         theme={"bg-dark"}
                         className={"trendcard"}
                         slidesToShow={4}
-                    />
+                    />}
                 </div>
             </div>
         </motion.nav>
