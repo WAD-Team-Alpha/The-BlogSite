@@ -5,16 +5,23 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import classes from "./middlep.module.css";
+import {
+    postComment,
+    getCommentsData,
+} from "../../../../requests/postDetail.request";
 const Middlep = (props) => {
     const [comment, setComment] = useState("");
-    const profileData = props.profileData;
-
-    const addCommentHandler = (event) => {
+    const [comments, setComments] = useState(props.comments);
+    const addCommentHandler = async (event) => {
         // comment handler from leftp component
         event.preventDefault();
         if (comment === "") {
             return;
         }
+        const result = await postComment(props.data._id, comment);
+        const data = await getCommentsData(props.data._id);
+        setComment("");
+        setComments(data);
     };
     return (
         <div
@@ -29,12 +36,7 @@ const Middlep = (props) => {
         >
             <div>
                 <div style={{ padding: "1em" }}>
-                    <img
-                        src={"alt"}
-                        alt="none"
-                        width="800px"
-                        height="248px"
-                    />
+                    <img src={"alt"} alt="none" width="800px" height="248px" />
                 </div>
                 <div>
                     <div>
@@ -46,13 +48,9 @@ const Middlep = (props) => {
                                     </div>
                                 </div>
                                 <div className="col-3">
-                                    <b>
-                                        {profileData.firstName +
-                                            " " +
-                                            profileData.lastName}
-                                    </b>
+                                    <b>{props.data.author}</b>
                                     <br />
-                                    Posted on <b>{"25th march"}</b>
+                                    Posted on <b>{props.data.published_date}</b>
                                     <br /> <br />
                                 </div>
                                 <div className="col-12">
@@ -64,16 +62,15 @@ const Middlep = (props) => {
                                                 width: "754px",
                                             }}
                                         >
-                                            <b>{"Vatashi ga kita"}</b>
+                                            <b>{props.data.title}</b>
                                         </h3>
                                     </b>
                                     <hr />
                                 </div>
                                 <div>
-                                    <p>{"This is lmao"}</p>
-                                                <p className="mb-2 mt-2">
-                                                    "Henlo"
-                                                </p>
+                                    <p className="mb-2 mt-2">
+                                        {props.data.summary}
+                                    </p>
                                 </div>
 
                                 <hr />
@@ -100,7 +97,7 @@ const Middlep = (props) => {
                                                         }
                                                         helperText=" "
                                                         id="description_posts"
-                                                        label={`Comment publicly as ${profileData.firstName}`}
+                                                        label={`Comment publicly as ${props.userName}`}
                                                         multiline
                                                         rows={3}
                                                         size="small"
@@ -118,33 +115,36 @@ const Middlep = (props) => {
 
                                     <br />
                                     <br />
-                                            <div>
-                                                <div className="container-fluid">
-                                                    <div className="row">
-                                                        <div className="col-1">
-                                                            <Avatar />
-                                                        </div>
-                                                        <div className="col-11">
-                                                            <Box
-                                                                height="71px"
-                                                                width="715px"
-                                                                style={{
-                                                                    border: "2px solid #c4c4c4",
-                                                                }}
+                                    <div>
+                                        {comments.map((comment) => (
+                                            <div className="container-fluid">
+                                                <div className="row">
+                                                    <div className="col-1">
+                                                        <Avatar />
+                                                    </div>
+                                                    <div className="col-11">
+                                                        <Box
+                                                            height="71px"
+                                                            width="715px"
+                                                            style={{
+                                                                border: "2px solid #c4c4c4",
+                                                            }}
+                                                        >
+                                                            <div
+                                                                className={
+                                                                    classes.commentsp
+                                                                }
                                                             >
-                                                                <div
-                                                                    className={
-                                                                        classes.commentsp
-                                                                    }
-                                                                >
-                                                                    "Henloo"
-                                                                </div>
-                                                            </Box>
-                                                        </div>
+                                                                {comment.text}
+                                                            </div>
+                                                        </Box>
                                                     </div>
                                                 </div>
-                                                <br />
                                             </div>
+                                        ))}
+
+                                        <br />
+                                    </div>
                                 </div>
                             </div>
                         </div>

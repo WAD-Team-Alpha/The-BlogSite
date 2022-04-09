@@ -43,23 +43,23 @@ const QuestionLayout = () => {
             },
         },
     };
-    const updateRecentActivity = (data, value) => {
-        //Function to update the recent activity
-        var temp;
-        if (data.filter((obj) => obj.id === value.id) !== []) {
-            temp = data.filter((obj) => obj.id !== value.id);
-            temp = [value].concat(temp);
-            return temp;
-        }
-        if (data.length === 10) {
-            temp = data.pop();
-            temp = [value].concat(data);
-            return temp;
-        } else {
-            temp = [value].concat(data);
-            return temp;
-        }
-    };
+    // const updateRecentActivity = (data, value) => {
+    //     //Function to update the recent activity
+    //     var temp;
+    //     if (data.filter((obj) => obj.id === value.id) !== []) {
+    //         temp = data.filter((obj) => obj.id !== value.id);
+    //         temp = [value].concat(temp);
+    //         return temp;
+    //     }
+    //     if (data.length === 10) {
+    //         temp = data.pop();
+    //         temp = [value].concat(data);
+    //         return temp;
+    //     } else {
+    //         temp = [value].concat(data);
+    //         return temp;
+    //     }
+    // };
 
     // Effets to handle the api requests for the question data
     useEffect(() => {

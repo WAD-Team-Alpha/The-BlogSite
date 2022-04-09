@@ -9,31 +9,35 @@ import Middlep from "../components/post_details/leftp/middlep/middlep";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
-
+import { getPostData,getCommentsData } from "../requests/postDetail.request";
+import { getMyUserData } from "../requests/profile.request";
+import axios from "axios";
 const PostLayout = () => {
     const [nav, setNav] = useState(false); //State for the nav
-    const [data, setData] = useState({}); //State for the data
-    const [submit, setSubmit] = useState(false); //State for the loading spinner
-
-    const updateRecentActivity = (data, value) => {
-        //Updating recent activity locally
-        var temp;
-        var filtered = data.filter((obj) => obj.id === value.id);
-        if (filtered.length !== 0) {
-            temp = data.filter((obj) => obj.id !== value.id);
-            temp = [value].concat(temp);
-            return temp;
-        }
-        if (data.length >= 10) {
-            var limited = [...data];
-            limited.pop();
-            temp = [value].concat(limited);
-            return temp;
-        } else {
-            temp = [value].concat(data);
-            return temp;
-        }
-    };
+    const [submit, setSubmit] = useState(true); //State for the loading spinner
+    const [data, setData] = useState({});
+    const [comments, setComments] = useState();
+    const [userId, setUserId] = useState("")
+    const [userName, setUserName] = useState("")
+    // const updateRecentActivity = (data, value) => {
+    //     //Updating recent activity locally
+    //     var temp;
+    //     var filtered = data.filter((obj) => obj.id === value.id);
+    //     if (filtered.length !== 0) {
+    //         temp = data.filter((obj) => obj.id !== value.id);
+    //         temp = [value].concat(temp);
+    //         return temp;
+    //     }
+    //     if (data.length >= 10) {
+    //         var limited = [...data];
+    //         limited.pop();
+    //         temp = [value].concat(limited);
+    //         return temp;
+    //     } else {
+    //         temp = [value].concat(data);
+    //         return temp;
+    //     }
+    // };
 
     const navHandler = () => {
         // Setting the nav handler
@@ -62,8 +66,31 @@ const PostLayout = () => {
     };
     // Useeffects are used here for fetching and sending the data for the post data
     useEffect(() => {
+        console.log("use effetct is running");
+        const addToRecents = async () => {
+            const response = await axios.post("http://localhost:5000/api/v1/activity/add_to_recents", {
+                contentType: "post",
+                contentId: params.postID
+            })
+            return response
+        }
         setSubmit(true);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        async function fetchPostData() {
+            console.log(params.threadID);
+            const data1 = await getPostData(params.postID);
+            const data = await getCommentsData(params.postID);
+            const userData = await getMyUserData();
+            setUserId(userData._id)
+            setUserId(userData.firstname)
+            console.log(data);
+            setComments(data);
+            console.log(data1);
+            setData(data1);
+            setSubmit(false)
+        }
+        fetchPostData();
+        addToRecents().then((response) => {console.log(response)})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const myRef = useRef(null);
@@ -91,7 +118,8 @@ const PostLayout = () => {
                             >
                                 <Leftp
                                     postID={params.postID}
-                                    profileData={data}
+                                    data={data}
+                                    userId={userId}
                                     handler={executeScroll}
                                 />
                             </div>
@@ -102,7 +130,9 @@ const PostLayout = () => {
                             >
                                 <Middlep
                                     postID={params.postID}
-                                    profileData={data}
+                                    userName={userName}
+                                    data={data}
+                                    comments={comments}
                                     theRef={myRef}
                                 />
                             </div>
@@ -113,7 +143,7 @@ const PostLayout = () => {
                             >
                                 <Rightp
                                     postID={params.postID}
-                                    profileData={data}
+                                    data={data}
                                 />
                             </div>
                         </div>

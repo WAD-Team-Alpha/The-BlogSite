@@ -7,50 +7,49 @@ import { useState } from "react";
 import ThumbUpOffAlt from "@mui/icons-material/ThumbUpOffAlt";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
 import Copyurl from "../../../home/cards/CopyUrl";
-
+import { likePost } from "../../../../requests/postDetail.request";
 const Leftp = (props) => {
+    console.log(props);
+    const [like, setLike] = useState((props.data.likes.length));
+    const [bookmark, setBookmark] = useState(props.data.bookmarks.length);
 
-    const [like, setLike] = useState(10);
-    const [bookmark, setBookmark] = useState(12);
-    const likeid = 5
-
-    const checkId = (savedId, postId) => {
-        // function to check if the user has liked(or bookmarked) the particular post earlier or not
-        for (var i = 0; i < savedId.length; i++) {
-            if (savedId[i].id === postId) {
-                return true;
-            }
-        }
-        return false;
-    };
+    // const checkId = (savedId, postId) => {
+    //     // function to check if the user has liked(or bookmarked) the particular post earlier or not
+    //     for (var i = 0; i < savedId.length; i++) {
+    //         if (savedId[i].id === postId) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // };
 
     const savedId = 10;
 
     const [likestatus, setLikestatus] = useState(
-        likeid.includes(0)
+        props.data.likes.includes(props.userId)
     );
     const [bookmarkstatus, setBookmarkstatus] = useState(
-        checkId(savedId, 25)
+        false
     );
 
-    const likeHandler = () => {
+    const likeHandler = async () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
         if (!likestatus) {
-            var likes = like;
+            setLike((prev)=>(prev+1));
             setLikestatus(true);
-            setLike((val) => val + 1);
-            likes = like + 1;
+            await likePost(props.questionID)
         }
+        
     };
 
-    const dislikeHandler = () => {
+    const dislikeHandler = async() => {
         // dislike handler to decrement number of likes in database and ui on clicking like button again when already liked
         if (likestatus) {
-            var likes = like;
+            setLike((prev)=>(prev-1));
             setLikestatus(false);
-            setLike((val) => val - 1);
-            likes = like - 1;
+            await likePost(props.questionID)
         }
+        
     };
 
     const bookmarklikeHandler = () => {
@@ -77,7 +76,7 @@ const Leftp = (props) => {
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
-                {likeid.includes(25) ? ( //  if else condition to check if the user liked the post earlier
+                {likestatus ? ( //  if else condition to check if the user liked the post earlier
                     <button
                         className="btn shadow-none" // Dislike butoon is shown if the above condition is true or not
                         style={{ paddingLeft: "5.5em" }}
@@ -105,7 +104,7 @@ const Leftp = (props) => {
                     <CommentIcon /> Comment
                 </button>
                 <span style={{ paddingLeft: "7em" }}>
-                    {10}
+                    {props.data.comments.length}
                 </span>
                 <br />
                 <br />
