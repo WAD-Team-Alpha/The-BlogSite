@@ -40,18 +40,25 @@ const SavedForLaterPage = () => {
   };
 
   useEffect(() => {
+    setStatus(true);
     const getSavedData = async () => {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/activity/get_saved_content?page=${page}&limit=${limit}`
+        `http://localhost:5000/api/v1/activity/get_saved_content?page=${page}&limit=${limit}`,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
       );
       return response;
     };
     getSavedData().then((response) => {
-      if (response.data.status) {
+      if (!response.data.status) {
         setStatus(false);
       } else {
-        setPages(response.data.numberOfPages);
-        setSaved(response.data.saved);
+        console.log(response.data.data.saved);
+        setPages(response.data.data.numberOfPages);
+        setSaved(response.data.data.saved);
         setStatus(false);
       }
     });
@@ -75,31 +82,38 @@ const SavedForLaterPage = () => {
       animate="visible"
       exit="exit"
     >
-      {saved.slice(limit, limit + 10).map((saved, index) => {
-        return saved.type === "post" ? (
+      {saved.map((content, index) => {
+        const dateObject = new Date(content.published_date);
+        const date =
+          dateObject.getDate() +
+          "/" +
+          dateObject.getMonth() +
+          "/" +
+          dateObject.getFullYear();
+        return content.type === "post" ? (
           <PostCard
-            id={saved.data.postId}
-            userId={saved.data.uid}
+            id={content._Id}
+            userId={content.userId}
             key={index}
-            banner={saved.data.imageUrl}
-            title={saved.data.postTitle}
-            description={saved.data.postSummary}
-            likes={saved.data.likes}
-            author={saved.data.author}
-            comments={saved.data.comments}
-            publishedDate={saved.data.publishedDate}
+            banner={content.banner}
+            title={content.title}
+            summary={content.summary}
+            likes={content.likes.length}
+            author={content.author}
+            comments={content.comments.length}
+            publishedDate={date}
           />
         ) : (
           <QuestionCard
-            key={saved.data.questionId}
-            id={saved.data.questionId}
-            answers={saved.data.comments}
-            question={saved.data.question}
-            details={saved.data.description}
-            author={saved.data.author}
-            votes={saved.data.likes}
-            userId={saved.data.userId}
-            publishedDate={saved.data.publishedDate}
+            key={index}
+            id={content._id}
+            answers={content.answers.length}
+            title={content.title}
+            summary={content.summary}
+            author={content.author}
+            votes={content.up_votes.length}
+            userId={content.userId}
+            publishedDate={date}
           />
         );
       })}
