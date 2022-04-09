@@ -37,7 +37,7 @@ const Header = (props) => {
                 :
                 <Link
                     to="/auth?code=signin&main=true"
-                    className={"btn shadow-none "}
+                    className={"btn btn-primary shadow-none"}
                 >
                     Login
                 </Link>

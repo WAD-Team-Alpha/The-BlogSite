@@ -93,7 +93,7 @@ const PostPage = () => {
             banner={post.author}
             author={post.author.split(" ")[0]}
             title={post.title}
-            description={post.summary}
+            summary={post.summary}
             likes={post.likes?.length || 0}
             publishedDate={`${date}/${month}/${year}`}
             comments={post.comments?.length}

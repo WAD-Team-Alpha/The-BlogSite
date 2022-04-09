@@ -123,7 +123,7 @@ const QuestionPage = () => {
             banner={question.author}
             author={question.author.split(" ")[0]}
             title={question.title}
-            description={question.summary}
+            summary={question.summary}
             votes={question.up_votes?.length || 0}
             publishedDate={`${date}/${month}/${year}`}
             answers={question.answers?.length}

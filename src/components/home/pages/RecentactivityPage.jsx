@@ -47,6 +47,7 @@ const RecentActivityPage = () => {
     getRecents().then((response) => {
       if (response.data.status) {
         setRecents(response.data.data);
+        console.log(response.data.data)
         setStatus(false);
       } else {
         setErrors(response.data.message);
@@ -81,31 +82,33 @@ const RecentActivityPage = () => {
             No Recent activity so far
           </div>}
       {recents.map((recent, index) => {
+        const dateObject = new Date(recent.content.published_date)
+        const date = dateObject.getDate() +  "/" + dateObject.getMonth() + "/" + dateObject.getFullYear()
         return recent !== null && recent.data !== null ? (
           recent.type === "post" ? (
             <PostCard
-              id={recent.data.postId}
+              id={recent.content._id}
               key={index}
-              banner={recent.data.imageUrl}
-              title={recent.data.postTitle}
-              description={recent.data.postSummary}
-              likes={recent.data.likes}
-              author={recent.data.author}
-              publishedDate={recent.data.publishedDate}
-              userId={recent.data.uid}
-              comments={recent.data.comments}
+              banner={recent.content.banner}
+              title={recent.content.title}
+              summary={recent.content.summary}
+              likes={recent.content.likes.length}
+              author={recent.content.author}
+              publishedDate={date}
+              userId={recent.content.userId}
+              comments={recent.content.comments.length}
             />
           ) : (
             <QuestionCard
-              key={recent.data.questionId}
-              id={recent.data.questionId}
-              votes={recent.data.bookmarks}
-              answers={recent.data.comments}
-              question={recent.data.question}
-              details={recent.data.description}
-              author={recent.data.author}
-              userId={recent.data.userId}
-              publishedDate={recent.data.publishedDate}
+              key={recent.content._id}
+              id={recent.content._id}
+              votes={recent.content.up_votes.length}
+              answers={recent.content.answers.length}
+              title={recent.content.title}
+              summary={recent.content.summary}
+              author={recent.content.author}
+              userId={recent.content.userId}
+              publishedDate={date}
             />
           )
         ) : (
