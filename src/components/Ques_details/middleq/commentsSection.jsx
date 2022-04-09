@@ -35,11 +35,11 @@ const CommentsSection = (props) => {
                 </div>
                 <div className="col-6" style={{ paddingLeft: "1.5em" }}>
                     <div className={classes.answersection}>
-                        <b>{props.comment.author}</b>
+                        <b>{props.data.author}</b>
                     </div>
                     <div className={classes.answertime}>
                         {" "}
-                        Answerd on {props.comment.commented_date}{" "}
+                        Answerd on {props.data.commented_date}{" "}
                     </div>
                 </div>
                 <div
@@ -59,7 +59,7 @@ const CommentsSection = (props) => {
                     className="col"
                     style={{ paddingLeft: "2em", paddingTop: "1em" }}
                 >
-                    <span> {props.comment.text}</span>
+                    <span> {props.data.text}</span>
                 </div>
             </div>
             <div className="row">
