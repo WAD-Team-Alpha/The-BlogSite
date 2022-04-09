@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
 import { getQuestionData,getAnswersData } from "../requests/questionDetail.request";
 import { getMyUserData } from "../requests/profile.request";
+import axios from "axios";
 const QuestionLayout = () => {
     const [submit, setSubmit] = useState(true);
     const [nav, setNav] = useState(false);
@@ -62,6 +63,13 @@ const QuestionLayout = () => {
 
     // Effets to handle the api requests for the question data
     useEffect(() => {
+        const addToRecents = async () => {
+            const response = await axios.post("http://localhost:5000/api/v1/activity/add_to_recents", {
+                contentType: "question",
+                contentId: params.threadID
+            })
+            return response
+        }
         setSubmit(true);
         async function fetchQuestionData() {
             console.log(params.threadID);
@@ -76,6 +84,7 @@ const QuestionLayout = () => {
             setSubmit(false)
         }
         fetchQuestionData();
+        addToRecents().then((response) => {console.log(response)})
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
