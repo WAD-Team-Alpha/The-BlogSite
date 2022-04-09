@@ -9,7 +9,7 @@ import Middlep from "../components/post_details/leftp/middlep/middlep";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
-import { getPostData,getCommentsData } from "../requests/postDetail.request";
+import { getPostData, getCommentsData } from "../requests/postDetail.request";
 import { getMyUserData } from "../requests/profile.request";
 import axios from "axios";
 const PostLayout = () => {
@@ -17,8 +17,8 @@ const PostLayout = () => {
     const [submit, setSubmit] = useState(true); //State for the loading spinner
     const [data, setData] = useState({});
     const [comments, setComments] = useState();
-    const [userId, setUserId] = useState("")
-    const [userName, setUserName] = useState("")
+    const [userId, setUserId] = useState("");
+    const [userName, setUserName] = useState("");
     // const updateRecentActivity = (data, value) => {
     //     //Updating recent activity locally
     //     var temp;
@@ -68,29 +68,39 @@ const PostLayout = () => {
     useEffect(() => {
         console.log("use effetct is running");
         const addToRecents = async () => {
-            const response = await axios.post("http://localhost:5000/api/v1/activity/add_to_recents", {
-                contentType: "post",
-                contentId: params.postID
-            })
-            return response
-        }
+            const response = await axios.post(
+                "http://localhost:5000/api/v1/activity/add_to_recents",
+                {
+                    contentType: "post",
+                    contentId: params.postID,
+                },
+                {
+                    headers: {
+                        Authorization: `${localStorage.getItem("token")}`,
+                    },
+                }
+            );
+            return response;
+        };
         setSubmit(true);
         async function fetchPostData() {
-            console.log(params.threadID);
+            console.log(params.postID);
             const data1 = await getPostData(params.postID);
             const data = await getCommentsData(params.postID);
             const userData = await getMyUserData();
-            setUserId(userData._id)
-            setUserId(userData.firstname)
+            setUserId(userData._id);
+            setUserId(userData.firstname);
             console.log(data);
             setComments(data);
             console.log(data1);
             setData(data1);
-            setSubmit(false)
+            setSubmit(false);
         }
         fetchPostData();
-        addToRecents().then((response) => {console.log(response)})
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        addToRecents().then((response) => {
+            console.log(response);
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const myRef = useRef(null);
@@ -141,10 +151,7 @@ const PostLayout = () => {
                                     "col-md-3 shadow-lg " + classes.rightpane
                                 }
                             >
-                                <Rightp
-                                    postID={params.postID}
-                                    data={data}
-                                />
+                                <Rightp postID={params.postID} data={data} />
                             </div>
                         </div>
                     </div>

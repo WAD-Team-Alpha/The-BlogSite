@@ -13,14 +13,18 @@ import {
     getMyUserData,
     getOtherUserData,
     updateUserData,
+    followUser,
+    unFollowUser,
 } from "../../requests/profile.request";
 const Profile = (props) => {
+    const [userId, setUserId] = useState("")
     console.log("this is runinng");
     const [submit, setSubmit] = useState(true);
     const [addform, setAddform] = useState(false);
     const [memtab, setmemTab] = useState(false);
     const [curUser, setCurUser] = useState(true); //setting current user to true
     const [userData, setUserData] = useState();
+    const [followStatus, setFollowStatus] = useState(false)
     useEffect(() => {
         async function fetchCurUserData() {
             const data = await getMyUserData();
@@ -30,9 +34,15 @@ const Profile = (props) => {
         }
         async function fetchOtherUserData() {
             const data = await getOtherUserData(props.uid);
+            const data1 = await getMyUserData();
             console.log(data);
             setUserData(data);
+            setUserId(data1._id)
+            if (data.followers.includes(data1._id)) {
+                setFollowStatus(true)
+            }
             setSubmit(false);
+            
         }
         if (props.uid === undefined) {
             fetchCurUserData();
@@ -58,6 +68,14 @@ const Profile = (props) => {
     const linkHandler = () => {
         setmemTab(true);
     };
+    const followHandler = async() =>{
+        if (followStatus) {
+            await unFollowUser(userData._id)
+            setFollowStatus(false)
+        }
+        await unFollowUser(userData._id)
+        setFollowStatus(true)
+    }
     return submit ? (
         <LoadingSpinner />
     ) : (
@@ -327,9 +345,9 @@ const Profile = (props) => {
                                                 className={
                                                     classes.customfollowbtn
                                                 }
-                                                // onClick={followbuttonHandler}
+                                                onClick={followHandler}
                                             >
-                                                <b>Follow</b>
+                                                <b>{followStatus ? "Following" : "Follow"}</b>
                                             </button>
                                         </div>
                                     </div>
