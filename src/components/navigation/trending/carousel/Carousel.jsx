@@ -51,26 +51,27 @@ const Carousel = (props) => {
         dots: false,
         initialSlide: 0,
     };
+    console.log(props.data)
     return (
         <Slider {...settings}>
             {props.data.map((value) => {
                 return props.className === "trendcard" ? (
                     <Card
-                        key={value.postId}
+                        key={value._id}
                         className={props.className}
-                        id={value.postId}
-                        link={value.imageUrl}
-                        title={value.postTitle}
-                        content={value.postSummary}
+                        id={value._id}
+                        link={value.banner}
+                        title={value.title}
+                        content={value.summary}
                         theme={props.theme}
                     />
                 ) : (
                     <Card
-                        key={value}
+                        key={value._id}
                         className={props.className}
-                        link={value.link}
+                        link={value.banner}
                         title={value.title}
-                        content={value.content}
+                        content={value.summary}
                         theme={props.theme}
                     />
                 );
