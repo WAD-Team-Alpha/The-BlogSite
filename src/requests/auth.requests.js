@@ -60,7 +60,7 @@ export const login = async (email, password) => {
         };
     }
 };
-export const loginStatus = async () => {
+export const getUserId = async () => {
     try {
         const response = await axios.post(
             `http://localhost:5000/api/v1/user/get_user`,
@@ -71,14 +71,13 @@ export const loginStatus = async () => {
             }
         );
         if (response.data.status) {
-            localStorage.setItem("authStatus", true);
+            localStorage.setItem("userId", response.data.data._id);
             return {
                 status: true,
                 message: "Logged user successfully",
+                data : response.data.data._id
             };
         } else {
-            localStorage.setItem("authStatus", false);
-            localStorage.removeItem('token');
             return {
                 status: false,
                 message: response.data.errors,

@@ -10,11 +10,13 @@ import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
 import { getQuestionData,getAnswersData } from "../requests/questionDetail.request";
+import { getMyUserData } from "../requests/profile.request";
 const QuestionLayout = () => {
     const [submit, setSubmit] = useState(true);
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
     const [comments, setComments] = useState();
+    const [userId, setUserId] = useState("")
 
     const navHandler = () => {
         nav ? setNav(false) : setNav(true);
@@ -65,6 +67,8 @@ const QuestionLayout = () => {
             console.log(params.threadID);
             const data1 = await getQuestionData(params.threadID);
             const data = await getAnswersData(params.threadID);
+            const userData = await getMyUserData();
+            setUserId(userData._id)
             console.log(data);
             setComments(data);
             console.log(data1);
@@ -100,6 +104,7 @@ const QuestionLayout = () => {
                                 }
                             >
                                 <Leftq
+                                    userId={userId}
                                     data={data}
                                     questionID={params.threadID}
                                     handler={executeScroll}

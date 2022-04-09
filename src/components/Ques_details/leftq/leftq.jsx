@@ -6,30 +6,32 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useState } from "react";
 import { ThumbUpOffAlt } from "@mui/icons-material";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
-
+import { upVoteQuestion,downVoteQuestion } from "../../../requests/questionDetail.request";
 import Copyurl from "../../home/cards/CopyUrl";
 
 const Leftq = (props) => {
     const [like, setLike] = useState(props.data.up_votes.length);
     const [bookmark, setBookmark] = useState(props.data.bookmarks.length);
-
-    const [likestatus, setLikestatus] = useState(false);
+    
+    const [likestatus, setLikestatus] = useState(props.data.up_votes.includes(props.userId));
     const [bookmarkstatus, setBookmarkstatus] = useState(false);
 
-    const likeHandler = () => {
+    const likeHandler = async () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
         if (!likestatus) {
             setLike((prev)=>(prev+1));
             setLikestatus(true);
+            await upVoteQuestion(props.questionID)
         }
         
     };
 
-    const dislikeHandler = () => {
+    const dislikeHandler = async() => {
         // dislike handler to decrement number of likes in database and ui on clicking like button again when already liked
         if (likestatus) {
             setLike((prev)=>(prev-1));
             setLikestatus(false);
+            await downVoteQuestion(props.questionID)
         }
         
     };
