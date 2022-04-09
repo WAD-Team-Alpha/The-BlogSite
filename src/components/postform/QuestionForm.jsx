@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ImageInputBox from "./ImageInputBox/ImageInputBox";
 import TextInputBox from "./TextInputBox/TextInputBox";
 import classes from "./Form.module.css";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
 import axios from "axios";

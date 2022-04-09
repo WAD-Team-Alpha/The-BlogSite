@@ -5,7 +5,6 @@ import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
-import { fetchData } from "../../../requests/post_detail.request";
 import axios from "axios";
 
 const PostPage = () => {
