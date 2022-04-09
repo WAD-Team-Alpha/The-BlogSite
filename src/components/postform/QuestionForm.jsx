@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import ImageInputBox from "./ImageInputBox/ImageInputBox";
 import TextInputBox from "./TextInputBox/TextInputBox";
 import classes from "./Form.module.css";
-import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
-import axios from "axios"
+import axios from "axios";
 
 const QuestionForm = () => {
   const [question, setQuestion] = useState();
@@ -14,7 +13,7 @@ const QuestionForm = () => {
   const [submit, setSubmit] = useState(false);
   const [genre, setGenre] = useState("");
   const navigate = useNavigate();
-  const [errors, setErrors] = useState("")
+  const [errors, setErrors] = useState("");
 
   // Form input handlers
   const imageHandler = (value) => {
@@ -34,7 +33,18 @@ const QuestionForm = () => {
     event.preventDefault();
     setSubmit(true);
     const createQuestion = async (form) => {
-        const response = await axios.post
+      const response = await axios.post(
+        "http://localhost:5000/api/v1/question/create_question",
+        form,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: localStorage.getItem("token"),
+            folder: "questions",
+          },
+        }
+      );
+      return response;
     };
     console.log(image);
     const questionData = {
@@ -53,10 +63,10 @@ const QuestionForm = () => {
           replace: true,
           state: { notification: true, message: response.data.message },
         });
-        setSubmit(false)
+        setSubmit(false);
       } else {
-        setErrors(response.data.message)
-        setSubmit(false)
+        setErrors(response.data.message);
+        setSubmit(false);
       }
     });
   };

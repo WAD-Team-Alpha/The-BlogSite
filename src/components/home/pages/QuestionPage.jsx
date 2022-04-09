@@ -4,7 +4,6 @@ import QuestionCard from "../cards/QuestionCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import { CircularProgress, Pagination, Stack } from "@mui/material";
-import {fetchData} from "../../../requests/Question.request"
 import axios from "axios";
 
 const QuestionPage = () => {
