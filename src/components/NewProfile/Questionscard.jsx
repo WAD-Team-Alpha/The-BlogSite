@@ -21,7 +21,7 @@ const Questionscard = (props) => {
                         votes={quest.up_votes.length}
                         answers={quest.answers.length}
                         title={quest.title}
-                        description={quest.summary}
+                        summary={quest.summary}
                         userId={quest.userId}
                         publishedDate={quest.published_date}
                         author={quest.author}

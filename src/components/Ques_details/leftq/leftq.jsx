@@ -6,7 +6,7 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useState } from "react";
 import { ThumbUpOffAlt } from "@mui/icons-material";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
-import { upVoteQuestion,downVoteQuestion } from "../../../requests/questionDetail.request";
+import { upVoteQuestion,downVoteQuestion, addQuestionBookmark, removeQuestionBookmark } from "../../../requests/questionDetail.request";
 import Copyurl from "../../home/cards/CopyUrl";
 
 const Leftq = (props) => {
@@ -14,7 +14,7 @@ const Leftq = (props) => {
     const [bookmark, setBookmark] = useState(props.data.bookmarks.length);
     
     const [likestatus, setLikestatus] = useState(props.data.up_votes.includes(props.userId));
-    const [bookmarkstatus, setBookmarkstatus] = useState(false);
+    const [bookmarkstatus, setBookmarkstatus] = useState(props.data.bookmarks.includes(props.userId));
 
     const likeHandler = async () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
@@ -35,23 +35,25 @@ const Leftq = (props) => {
         }
         
     };
-    const bookmarklikeHandler = () => {
+    const bookmarklikeHandler = async () => {
         // state management for bookmark button
         if (!bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(true);
             setBookmark((val) => val + 1);
             bookmarks = bookmark + 1;
+            await addQuestionBookmark(props.questionID)
         }
     };
 
-    const bookmarkdislikeHandler = () => {
+    const bookmarkdislikeHandler = async () => {
         // state management for un bookmarking
         if (bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(false);
             setBookmark((val) => val - 1);
             bookmarks = bookmark - 1;
+            await removeQuestionBookmark(props.questionID)
         }
     };
 
