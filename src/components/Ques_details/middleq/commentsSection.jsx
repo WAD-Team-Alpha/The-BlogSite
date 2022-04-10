@@ -10,6 +10,11 @@ const CommentsSection = (props) => {
     const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
     const [correctionicon, setCorrectionIcon] = useState(<TimerIcon />);
 
+    const answeredDate = new Date(props.data.answered_date)
+    const date = answeredDate.getUTCDate()
+    const month = answeredDate.getUTCMonth() + 1
+    const year = answeredDate.getUTCFullYear()
+
     const correctionHandler = (props) => {
         // correction handler to mark the answer as correct
         if (correctionstatus === "Mark as correct") {
@@ -39,7 +44,7 @@ const CommentsSection = (props) => {
                     </div>
                     <div className={classes.answertime}>
                         {" "}
-                        Answerd on {props.data.commented_date}{" "}
+                        Answerd on {`${date}/${month}/${year}`}{" "}
                     </div>
                 </div>
                 <div

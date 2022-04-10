@@ -42,6 +42,8 @@ const QuestionCard = ({
         );
     }
 
+    
+
     return (
         <div className={`card  mb-3 mt-3 ${classes.shadow}`}>
             <div className="row g-0">

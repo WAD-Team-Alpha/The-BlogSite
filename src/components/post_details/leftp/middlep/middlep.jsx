@@ -23,6 +23,14 @@ const Middlep = (props) => {
         setComment("");
         setComments(data);
     };
+     console.log(props.data);
+
+    const publishedDate = new Date(props.data.published_date)
+    const date = publishedDate.getUTCDate()
+    const month = publishedDate.getUTCMonth() + 1
+    const year = publishedDate.getUTCFullYear()
+    
+
     return (
         <div
             style={{
@@ -50,7 +58,7 @@ const Middlep = (props) => {
                                 <div className="col-3">
                                     <b>{props.data.author}</b>
                                     <br />
-                                    Posted on <b>{props.data.published_date}</b>
+                                    Posted on <b>{`${date}/${month}/${year}`}</b>
                                     <br /> <br />
                                 </div>
                                 <div className="col-12">
@@ -71,6 +79,27 @@ const Middlep = (props) => {
                                     <p className="mb-2 mt-2">
                                         {props.data.summary}
                                     </p>
+                                    {props.data.cells.map((val) => {
+                                        // itterating all the data from the post and showing it
+                                        if (val.type === "text") {
+                                            return (
+                                                <p className="mb-2 mt-2">
+                                                    {val.value}
+                                                </p>
+                                            );
+                                        } else {
+                                            return (
+                                                <div className="mb-2 mt-2">
+                                                    <img
+                                                        src={val.value}
+                                                        alt=""
+                                                        width="760px"
+                                                        height="187px"
+                                                    />
+                                                </div>
+                                            );
+                                        }
+                                    })}
                                 </div>
 
                                 <hr />
