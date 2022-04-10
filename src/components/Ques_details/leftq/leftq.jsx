@@ -6,8 +6,9 @@ import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useState } from "react";
 import { ThumbUpOffAlt } from "@mui/icons-material";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
-import { upVoteQuestion,downVoteQuestion, addQuestionBookmark, removeQuestionBookmark } from "../../../requests/questionDetail.request";
+import { upVoteQuestion, downVoteQuestion } from "../../../requests/questionDetail.request";
 import Copyurl from "../../home/cards/CopyUrl";
+import { addBookmark, removeBookmark } from "../../../requests/activity.request";
 
 const Leftq = (props) => {
     const [like, setLike] = useState(props.data.up_votes.length);
@@ -42,7 +43,7 @@ const Leftq = (props) => {
             setBookmarkstatus(true);
             setBookmark((val) => val + 1);
             bookmarks = bookmark + 1;
-            await addQuestionBookmark(props.questionID)
+            await addBookmark('question', props.questionID)
         }
     };
 
@@ -53,7 +54,7 @@ const Leftq = (props) => {
             setBookmarkstatus(false);
             setBookmark((val) => val - 1);
             bookmarks = bookmark - 1;
-            await removeQuestionBookmark(props.questionID)
+            await removeBookmark('question', props.questionID)
         }
     };
 

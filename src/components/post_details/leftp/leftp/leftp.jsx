@@ -8,6 +8,7 @@ import ThumbUpOffAlt from "@mui/icons-material/ThumbUpOffAlt";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
 import Copyurl from "../../../home/cards/CopyUrl";
 import { likePost } from "../../../../requests/postDetail.request";
+import { addBookmark, removeBookmark } from "../../../../requests/activity.request";
 const Leftp = (props) => {
     console.log(props);
     const [like, setLike] = useState((props.data.likes.length));
@@ -28,9 +29,8 @@ const Leftp = (props) => {
     const [likestatus, setLikestatus] = useState(
         props.data.likes.includes(props.userId)
     );
-    const [bookmarkstatus, setBookmarkstatus] = useState(
-        false
-    );
+    const [bookmarkstatus, setBookmarkstatus] = useState(props.data.bookmarks.includes(props.userId));
+    console.log(props.data.bookmarks, props.userId)
 
     const likeHandler = async () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
@@ -52,23 +52,25 @@ const Leftp = (props) => {
         
     };
 
-    const bookmarklikeHandler = () => {
+    const bookmarklikeHandler = async () => {
         // state management for bookmark button
         if (!bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(true);
             setBookmark((val) => val + 1);
             bookmarks = bookmark + 1;
+            await addBookmark('post', props.postID)
         }
     };
 
-    const bookmarkdislikeHandler = () => {
+    const bookmarkdislikeHandler = async () => {
         // state management for un bookmarking
         if (bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(false);
             setBookmark((val) => val - 1);
             bookmarks = bookmark - 1;
+            await removeBookmark('post', props.postID)
         }
     };
     const [modalShow, setModalShow] = React.useState(false);
