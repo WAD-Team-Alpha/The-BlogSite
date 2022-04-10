@@ -6,6 +6,10 @@ import Last from "./Last";
 
 const Middleq = (props) => {
     console.log(props)
+    const publishedDate = new Date(props.data.published_date)
+    const date = publishedDate.getUTCDate()
+    const month = publishedDate.getUTCMonth() + 1
+    const year = publishedDate.getUTCFullYear()
     return (
         <div
             className="container-fluid shadow"
@@ -30,7 +34,7 @@ const Middleq = (props) => {
                                 <b>Asked on</b>
                                 {"  "}
                                 <b style={{ color: "green" }}>
-                                {props.data.published_date}
+                                {`${date}/${month}/${year}`}
                                 </b>{" "}
                                 {"  "} by {"  "}{" "}
                                 <b style={{ color: "blue" }}>

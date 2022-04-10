@@ -46,6 +46,11 @@ const PostCard = ({
         );
     }
 
+    const published_date = new Date(publishedDate)
+    const date = published_date.getUTCDate()
+    const month = published_date.getUTCMonth() + 1
+    const year = published_date.getUTCFullYear()
+
     return (
         <div className={`card mb-3 px-3 py-3 mt-3 ${classes.background}`}>
             <div className="row g-0">
@@ -86,7 +91,7 @@ const PostCard = ({
                             <span style={{ color: "blue", fontWeight: "600" }}>
                                 {author}
                             </span>{" "}
-                            on {publishedDate}
+                            on {`${date}/${month}/${year}`}
                         </p>
                     </div>
                 </div>
