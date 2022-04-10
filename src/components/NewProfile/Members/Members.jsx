@@ -28,6 +28,10 @@ const Members = (props) => {
                 </div>
                 <div style={{ overflowY: "scroll" }}>
                     <Memberstab
+                        followersCount={props.followersCount}
+                        setFollowersCount={props.setFollowersCount}
+                        followingCount={props.followingCount}
+                        setFollowingCount={props.setFollowingCount}
                         curUser={props.curUser}
                         setUserData={props.setUserData}
                         userInfo={props.userInfo}
