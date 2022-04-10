@@ -1,6 +1,7 @@
 import QuestionCard from "../home/cards/QuestionCard";
 
 const Questionscard = (props) => {
+    console.log(props);
     return (
         <div>
             <div
@@ -14,8 +15,16 @@ const Questionscard = (props) => {
                     backgroundColor: "#edf5e1",
                 }}
             >
-                {props.questionsData.map((quest) => (
-                    <QuestionCard //if the user is current user then render the posts of current user
+
+                {props.questionsData.map((quest)=>
+                {
+                    const publishedDate = new Date(quest.published_date)
+                    const date = publishedDate.getUTCDate()
+                    const month = publishedDate.getUTCMonth() + 1
+                    const year = publishedDate.getUTCFullYear()
+
+                    return(
+                        <QuestionCard //if the user is current user then render the posts of current user
                         key={quest._id}
                         id={quest._id}
                         votes={quest.up_votes.length}
@@ -23,10 +32,11 @@ const Questionscard = (props) => {
                         title={quest.title}
                         summary={quest.summary}
                         userId={quest.userId}
-                        publishedDate={quest.published_date}
+                        publishedDate={`${date}/${month}/${year}`}
                         author={quest.author}
                     />
-                ))}
+                    )
+                })}
             </div>
         </div>
     );

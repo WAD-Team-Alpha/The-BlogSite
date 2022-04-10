@@ -42,10 +42,7 @@ const QuestionCard = ({
         );
     }
 
-    const published_date = new Date(publishedDate)
-    const date = published_date.getUTCDate()
-    const month = published_date.getUTCMonth() + 1
-    const year = published_date.getUTCFullYear()
+    
 
     return (
         <div className={`card  mb-3 mt-3 ${classes.shadow}`}>
@@ -87,7 +84,7 @@ const QuestionCard = ({
                                 >
                                     {author}
                                 </span>{" "}
-                                on {`${date}/${month}/${year}`}
+                                on {publishedDate}
                             </p>
                         </div>
                     </div>
