@@ -17,19 +17,27 @@ import {
     unFollowUser,
 } from "../../requests/profile.request";
 const Profile = (props) => {
-    const [userId, setUserId] = useState("")
+    const [userId, setUserId] = useState("");
     console.log("this is runinng");
     const [submit, setSubmit] = useState(true);
     const [addform, setAddform] = useState(false);
     const [memtab, setmemTab] = useState(false);
     const [curUser, setCurUser] = useState(true); //setting current user to true
     const [userData, setUserData] = useState();
-    const [followStatus, setFollowStatus] = useState(false)
+    const [followStatus, setFollowStatus] = useState(false);
+    const [followersCount, setFollowersCount] = useState(
+        0
+    );
+    const [followingCount, setFollowingCount] = useState(
+        0
+    );
     useEffect(() => {
         async function fetchCurUserData() {
             const data = await getMyUserData();
             console.log(data);
             setUserData(data);
+            setFollowersCount(data.followers.length)
+            setFollowingCount(data.following.length)
             setSubmit(false);
         }
         async function fetchOtherUserData() {
@@ -37,12 +45,23 @@ const Profile = (props) => {
             const data1 = await getMyUserData();
             console.log(data);
             setUserData(data);
-            setUserId(data1._id)
-            if (data.followers.includes(data1._id)) {
-                setFollowStatus(true)
+            setUserId(data1._id);
+            const findId = (list, id) =>{
+                for (let i = 0; i < list.length; i++) {
+                    const element = list[i];
+                    if (element._id === id) {
+                        return true;
+                    }
+                }
+                
             }
+            console.log(findId(data.followers, data1._id));
+            if (findId(data.followers, data1._id)) {
+                setFollowStatus(true);
+            }
+            setFollowersCount(data.followers.length)
+            setFollowingCount(data.following.length)
             setSubmit(false);
-            
         }
         if (props.uid === undefined) {
             fetchCurUserData();
@@ -66,16 +85,22 @@ const Profile = (props) => {
         }
     };
     const linkHandler = () => {
-        setmemTab(true);
+        if (curUser) {
+            setmemTab(true);
+        } 
     };
-    const followHandler = async() =>{
+    const followHandler = async () => {
         if (followStatus) {
-            await unFollowUser(userData._id)
-            setFollowStatus(false)
+            await unFollowUser(userData._id);
+            setFollowersCount((prev) => prev - 1);
+            setFollowStatus(false);
+        }else{
+            await followUser(userData._id);
+            setFollowersCount((prev) => prev + 1);
+            setFollowStatus(true);
         }
-        await unFollowUser(userData._id)
-        setFollowStatus(true)
-    }
+        
+    };
     return submit ? (
         <LoadingSpinner />
     ) : (
@@ -196,12 +221,7 @@ const Profile = (props) => {
                                                         classes.followercount
                                                     }
                                                 >
-                                                    <b>
-                                                        {
-                                                            userData.followers
-                                                                .length
-                                                        }
-                                                    </b>
+                                                    <b>{followersCount}</b>
                                                 </span>
                                             </div>
                                             <div className="col">
@@ -210,12 +230,7 @@ const Profile = (props) => {
                                                         classes.followingcount
                                                     }
                                                 >
-                                                    <b>
-                                                        {
-                                                            userData.following
-                                                                .length
-                                                        }
-                                                    </b>
+                                                    <b>{followingCount}</b>
                                                 </span>
                                             </div>
                                         </div>
@@ -334,7 +349,7 @@ const Profile = (props) => {
 
                                 <br />
                             </div>
-                            {!curUser && (
+                            {!curUser && userData._id !== userId && (
                                 <div
                                     className="row"
                                     style={{ marginTop: "1em", height: "60px" }}
@@ -347,7 +362,11 @@ const Profile = (props) => {
                                                 }
                                                 onClick={followHandler}
                                             >
-                                                <b>{followStatus ? "Following" : "Follow"}</b>
+                                                <b>
+                                                    {followStatus
+                                                        ? "Following"
+                                                        : "Follow"}
+                                                </b>
                                             </button>
                                         </div>
                                     </div>
@@ -365,8 +384,12 @@ const Profile = (props) => {
                         />
                     )}
                 {!curUser && <div style={{ height: "1em" }}></div>}
-                {memtab && ( //for followers and following tab
+                {memtab && curUser && ( //for followers and following tab
                     <Members
+                        followersCount={followersCount}
+                        setFollowersCount={setFollowersCount}
+                        followingCount={followingCount}
+                        setFollowingCount={setFollowingCount}
                         userInfo={userData}
                         setUserData={setUserData}
                         curUser={curUser}

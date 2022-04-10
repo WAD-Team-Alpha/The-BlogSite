@@ -8,13 +8,16 @@ const Followers = (props) => {
                 (obj) => obj.id !== index
             );
             props.setUserData((prev) => ({ ...prev, followers: myArray }));
+            props.setFollowersCount((prev) => prev - 1);
         }
     };
 
     return (
         <div>
             <div className="container-fluid">
-                <h4 style={{ paddingBottom: "0.5em" }}>Followers: {props.userInfo.followers.length} </h4>
+                <h4 style={{ paddingBottom: "0.5em" }}>
+                    Followers: {props.userInfo.followers.length}{" "}
+                </h4>
                 {props.userInfo.followers.map((item) => (
                     <div className="row" style={{ paddingBottom: "0.5em" }}>
                         <div className="col-2">

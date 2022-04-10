@@ -8,6 +8,7 @@ const Following = (props) => {
                 (obj) => obj.id !== index
             );
             props.setUserData((prev) => ({ ...prev, following: myArray }));
+            props.setFollowingCount((prev)=>(prev-1))
         }
     };
 
