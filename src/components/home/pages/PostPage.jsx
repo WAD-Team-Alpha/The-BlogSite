@@ -85,11 +85,12 @@ const PostPage = () => {
         const date = publishedDate.getUTCDate()
         const month = publishedDate.getUTCMonth() + 1
         const year = publishedDate.getUTCFullYear()
+        console.log(post.banner)
         return (
           <PostCard
             key={post._id}
             id={post._id}
-            banner={post.author}
+            banner={post.banner}
             author={post.author.split(" ")[0]}
             title={post.title}
             summary={post.summary}
