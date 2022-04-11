@@ -34,7 +34,7 @@ const SavedForLaterPage = () => {
 
   const [limit, setLimit] = useState(10);
   const pageinationHandler = (e, value) => {
-    setLimit((value - 1) * 10);
+    setLimit(10)
     setPage(value);
     window.scroll(0, 0);
   };
@@ -42,6 +42,7 @@ const SavedForLaterPage = () => {
   useEffect(() => {
     setStatus(true);
     const getSavedData = async () => {
+      console.log(page, limit)
       const response = await axios.get(
         `http://localhost:5000/api/v1/activity/get_saved_content?page=${page}&limit=${limit}`,
         {
@@ -56,13 +57,13 @@ const SavedForLaterPage = () => {
       if (!response.data.status) {
         setStatus(false);
       } else {
-        console.log(response.data.data.saved);
+        console.log(response.data.data.numberOfPages);
         setPages(response.data.data.numberOfPages);
         setSaved(response.data.data.saved);
         setStatus(false);
       }
     });
-  }, []);
+  }, [page]);
 
   return status ? (
     <div

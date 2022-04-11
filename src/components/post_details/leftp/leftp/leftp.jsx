@@ -35,9 +35,10 @@ const Leftp = (props) => {
     const likeHandler = async () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
         if (!likestatus) {
+            console.log("I am executed")
             setLike((prev)=>(prev+1));
             setLikestatus(true);
-            await likePost(props.questionID)
+            await likePost(props.postID)
         }
         
     };
@@ -47,7 +48,7 @@ const Leftp = (props) => {
         if (likestatus) {
             setLike((prev)=>(prev-1));
             setLikestatus(false);
-            await likePost(props.questionID)
+            await likePost(props.postID)
         }
         
     };

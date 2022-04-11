@@ -53,7 +53,7 @@ const QuestionPage = () => {
 
     // const [limit, setLimit] = useState(0);
     const pageinationHandler = (e, value) => {
-        setLimit((value - 1) * 10);
+        setLimit(10);
         setPage(value);
         window.scroll(0, 0);
     };
@@ -87,7 +87,7 @@ const QuestionPage = () => {
             setStatus(false);
           }
         });
-      }, []);
+      }, [page]);
     
 
     return status ? (

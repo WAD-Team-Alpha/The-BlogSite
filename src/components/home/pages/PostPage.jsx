@@ -34,7 +34,7 @@ const PostPage = () => {
   const [pages, setPages] = useState(0);
   const [posts, setPosts] = useState([]);
   const pageinationHandler = (e, value) => {
-    setLimit((value - 1) * 10);
+    setLimit(10);
     setPage(value);
     window.scroll(0, 0);
   };
@@ -60,7 +60,7 @@ const PostPage = () => {
         setStatus(false);
       }
     });
-  }, []);
+  }, [page]);
 
   return status ? (
     <div
