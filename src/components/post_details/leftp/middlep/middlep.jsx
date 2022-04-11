@@ -44,7 +44,7 @@ const Middlep = (props) => {
         >
             <div>
                 <div style={{ padding: "1em" }}>
-                    <img src={"alt"} alt="none" width="800px" height="248px" />
+                    <img src={props.data.banner} alt="none" width="800px" height="248px" />
                 </div>
                 <div>
                     <div>
