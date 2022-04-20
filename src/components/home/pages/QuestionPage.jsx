@@ -4,6 +4,7 @@ import QuestionCard from "../cards/QuestionCard";
 import { useState } from "react";
 import { useEffect } from "react";
 import { CircularProgress, Pagination, Stack } from "@mui/material";
+import axios from "axios";
 
 const QuestionPage = () => {
     const mainVarient = {
@@ -26,32 +27,70 @@ const QuestionPage = () => {
             },
         },
     };
+
+    const [limit, setLimit] = useState(10);
+    const [status, setStatus] = useState(false);
+    const [page, setPage] = useState(1);
+    const [pages, setPages] = useState(0);
+    const [questions, setQuestions] = useState([]);
     const [data, setTitle] = useState("");
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await fetch(
-                "https://blogsite-dc4f2-default-rtdb.firebaseio.com/questions.json"
-            );
-            const data = await res.json();
-            setTitle(data);
-        };
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //      setStatus(true);
+    //     fetchData().then((result) => {
+    //         if (result !== "failed") {
+                
+    //             setTitle(result);
+    //         }
+    //     });
+    // }, []);
+    
+    // var result = [];
+    // for (var i in data.data) result = [...result, data.data[i]]
+  
 
-    var result = [];
+    // let status = result.length;
 
-    for (var i in data) result.push(data[i]);
-
-    let status = result.length;
-
-    const [limit, setLimit] = useState(0);
+    // const [limit, setLimit] = useState(0);
     const pageinationHandler = (e, value) => {
-        setLimit((value - 1) * 10);
+        setLimit(10);
+        setPage(value);
         window.scroll(0, 0);
     };
 
-    return !status ? (
+    // function convert(str) {
+    //     var date = new Date(str),
+    //       mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+    //       day = ("0" + date.getDate()).slice(-2);
+    //     return [date.getFullYear(), mnth, day].join("-");
+    //   }
+   
+    useEffect(() => {
+        setStatus(true);
+        const getQuestions = async () => {
+          const response = await axios.get(
+            `${process.env.REACT_APP_API_BASE_URL}/question/get_all_questions?page=${page}&limit=${limit}`
+          );
+          console.log(response.data);
+          if (response.data.status) {
+            return response.data;
+          } else {
+            return "Error occured";
+          }
+        };
+        getQuestions().then((response) => {
+          if (typeof response === "string") {
+            setStatus(false);
+          } else {
+            setPages(response.data.numberOfPages);
+            setQuestions(response.data.questions);
+            setStatus(false);
+          }
+        });
+      }, [page]);
+    
+
+    return status ? (
         <div
             style={{
                 display: "flex",
@@ -71,21 +110,26 @@ const QuestionPage = () => {
             animate="visible"
             exit="exit"
         >
-            {result.slice(limit, limit + 10).map((query) => {
-                return (
-                    <QuestionCard
-                        key={query.questionId}
-                        id={query.questionId}
-                        votes={query.likes}
-                        answers={query.comments}
-                        author={query.author}
-                        question={query.question}
-                        details={query.description}
-                        userId={query.userId}
-                        publishedDate={query.publishedDate}
-                    />
-                );
-            })}
+           {questions.map((question) => {
+        const publishedDate = new Date(question.published_date);
+        const date = publishedDate.getUTCDate()
+        const month = publishedDate.getUTCMonth() + 1
+        const year = publishedDate.getUTCFullYear()
+        return (
+          <QuestionCard
+            key={question._id}
+            id={question._id}
+            banner={question.author}
+            author={question.author.split(" ")[0]}
+            title={question.title}
+            summary={question.summary}
+            votes={question.up_votes?.length || 0}
+            publishedDate={`${date}/${month}/${year}`}
+            answers={question.answers?.length}
+            userId={question.userId}
+          />
+        );
+      })}
             <Stack spacing={2}>
                 <Pagination
                     sx={{
@@ -95,7 +139,8 @@ const QuestionPage = () => {
                         color: "white",
                         borderRadius: "0.5em",
                     }}
-                    count={Math.ceil(result.length / 10)}
+                    page={page}
+                    count={pages}
                     variant="outlined"
                     shape="rounded"
                     onChange={pageinationHandler}

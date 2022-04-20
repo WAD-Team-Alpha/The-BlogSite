@@ -3,13 +3,9 @@ import classes from "./Left.module.css";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
 
 const Left = (props) => {
-    const authStatus = useSelector((state) => state.auth); //Acceessing the user's data
-    const path = authStatus.isAuthenticated
-        ? "forms/post"
-        : "/auth?code=signin&main=true"; // Conditional form path
+    const path = localStorage.getItem("authStatus") === "true" ? "/forms/post" :  "/auth?code=signin&main=true"; // Conditional form path
     return (
         <motion.div
             initial={{ x: "-100vw" }}

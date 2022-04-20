@@ -4,125 +4,74 @@ import ShareIcon from "@mui/icons-material/Share";
 import CommentIcon from "@mui/icons-material/Comment";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { sendPostData } from "../../../../store/post-actions";
 import ThumbUpOffAlt from "@mui/icons-material/ThumbUpOffAlt";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
-import { profileActions } from "../../../../store/profile";
-import { postActions } from "../../../../store/post";
 import Copyurl from "../../../home/cards/CopyUrl";
-
+import { likePost } from "../../../../requests/postDetail.request";
+import { addBookmark, removeBookmark } from "../../../../requests/activity.request";
 const Leftp = (props) => {
-    const postdata = useSelector((state) => state.post);
-    const dispatch = useDispatch(); // initialising the dispatch to use store easily
+    console.log(props);
+    const [like, setLike] = useState((props.data.likes.length));
+    const [bookmark, setBookmark] = useState(props.data.bookmarks.length);
 
-    const [like, setLike] = useState(postdata.likes);
-    const [bookmark, setBookmark] = useState(postdata.bookmarks);
-    const likedcontent = useSelector((state) => state.profile); // Getting the likes of the post from the store
-    const likeid =
-        likedcontent.likedContent === undefined
-            ? []
-            : likedcontent.likedContent;
+    // const checkId = (savedId, postId) => {
+    //     // function to check if the user has liked(or bookmarked) the particular post earlier or not
+    //     for (var i = 0; i < savedId.length; i++) {
+    //         if (savedId[i].id === postId) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // };
 
-    const checkId = (savedId, postId) => {
-        // function to check if the user has liked(or bookmarked) the particular post earlier or not
-        for (var i = 0; i < savedId.length; i++) {
-            if (savedId[i].id === postId) {
-                return true;
-            }
-        }
-        return false;
-    };
-
-    const savedId = likedcontent.savedContent;
+    const savedId = 10;
 
     const [likestatus, setLikestatus] = useState(
-        likeid.includes(postdata.postId)
+        props.data.likes.includes(props.userId)
     );
-    const [bookmarkstatus, setBookmarkstatus] = useState(
-        checkId(savedId, postdata.postId)
-    );
+    const [bookmarkstatus, setBookmarkstatus] = useState(props.data.bookmarks.includes(props.userId));
+    console.log(props.data.bookmarks, props.userId)
 
-    const likeHandler = () => {
+    const likeHandler = async () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
         if (!likestatus) {
-            var likes = like;
+            console.log("I am executed")
+            setLike((prev)=>(prev+1));
             setLikestatus(true);
-            setLike((val) => val + 1);
-            likes = like + 1;
-            dispatch(profileActions.addLikedContent(postdata.postId));
-            dispatch(
-                sendPostData({ ...postdata, likes: likes }, postdata.postId)
-            ).then((res) => {
-                if (res === "success") {
-                    dispatch(postActions.add({ ...postdata, likes: likes }));
-                }
-            });
+            await likePost(props.postID)
         }
+        
     };
 
-    const dislikeHandler = () => {
+    const dislikeHandler = async() => {
         // dislike handler to decrement number of likes in database and ui on clicking like button again when already liked
         if (likestatus) {
-            var likes = like;
+            setLike((prev)=>(prev-1));
             setLikestatus(false);
-            setLike((val) => val - 1);
-            likes = like - 1;
-            dispatch(profileActions.removeLikedContent(postdata.postId));
-            dispatch(
-                sendPostData({ ...postdata, likes: likes }, postdata.postId)
-            );
-            // dispatch(sendProfileData(profiledata, authdata.localId));
+            await likePost(props.postID)
         }
+        
     };
 
-    const bookmarklikeHandler = () => {
+    const bookmarklikeHandler = async () => {
         // state management for bookmark button
         if (!bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(true);
             setBookmark((val) => val + 1);
             bookmarks = bookmark + 1;
-            dispatch(
-                profileActions.addBookmark({
-                    type: "post",
-                    id: postdata.postId,
-                })
-            );
-            dispatch(
-                sendPostData(
-                    { ...postdata, bookmarks: bookmarks },
-                    postdata.postId
-                )
-            );
+            await addBookmark('post', props.postID)
         }
     };
 
-    const bookmarkdislikeHandler = () => {
+    const bookmarkdislikeHandler = async () => {
         // state management for un bookmarking
         if (bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(false);
             setBookmark((val) => val - 1);
             bookmarks = bookmark - 1;
-            dispatch(
-                profileActions.removeBookmark({
-                    type: "post",
-                    id: postdata.postId,
-                })
-            );
-            dispatch(
-                sendPostData(
-                    { ...postdata, bookmarks: bookmarks },
-                    postdata.postId
-                )
-            ).then((res) => {
-                if (res === "success") {
-                    dispatch(
-                        postActions.add({ ...postdata, bookmarks: bookmarks })
-                    );
-                }
-            });
+            await removeBookmark('post', props.postID)
         }
     };
     const [modalShow, setModalShow] = React.useState(false);
@@ -130,7 +79,7 @@ const Leftp = (props) => {
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
-                {likeid.includes(postdata.postId) ? ( //  if else condition to check if the user liked the post earlier
+                {likestatus ? ( //  if else condition to check if the user liked the post earlier
                     <button
                         className="btn shadow-none" // Dislike butoon is shown if the above condition is true or not
                         style={{ paddingLeft: "5.5em" }}
@@ -158,7 +107,7 @@ const Leftp = (props) => {
                     <CommentIcon /> Comment
                 </button>
                 <span style={{ paddingLeft: "7em" }}>
-                    {postdata.comments.length}
+                    {props.data.comments.length}
                 </span>
                 <br />
                 <br />

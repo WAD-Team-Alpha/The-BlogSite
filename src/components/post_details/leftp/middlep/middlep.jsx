@@ -5,42 +5,32 @@ import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/material";
 import classes from "./middlep.module.css";
-import { useSelector, useDispatch } from "react-redux";
-import { postActions } from "../../../../store/post";
-import { sendPostData } from "../../../../store/post-actions";
+import {
+    postComment,
+    getCommentsData,
+} from "../../../../requests/postDetail.request";
 const Middlep = (props) => {
-    const dispatch = useDispatch();
-    const postdata = useSelector((state) => state.post);
-    const authdata = useSelector((state) => state.auth);
-    const userData = useSelector((state) => state.profile);
     const [comment, setComment] = useState("");
-    const profileData = props.profileData;
-
-    const addCommentHandler = (event) => {
+    const [comments, setComments] = useState(props.comments);
+    const addCommentHandler = async (event) => {
         // comment handler from leftp component
         event.preventDefault();
         if (comment === "") {
             return;
         }
-        const newComments = [
-            {
-                userId: authdata.localId,
-                name: userData.firstName,
-                text: comment,
-            },
-            ...postdata.comments,
-        ];
-        dispatch(postActions.add({ ...postdata, comments: newComments })); //accessing data from store
-
-        dispatch(
-            sendPostData(
-                { ...postdata, comments: newComments },
-                postdata.postId
-            )
-        ).then((res) => {
-            setComment("");
-        });
+        const result = await postComment(props.data._id, comment);
+        const data = await getCommentsData(props.data._id);
+        setComment("");
+        setComments(data);
     };
+     console.log(props.data);
+
+    const publishedDate = new Date(props.data.published_date)
+    const date = publishedDate.getUTCDate()
+    const month = publishedDate.getUTCMonth() + 1
+    const year = publishedDate.getUTCFullYear()
+    
+
     return (
         <div
             style={{
@@ -54,12 +44,7 @@ const Middlep = (props) => {
         >
             <div>
                 <div style={{ padding: "1em" }}>
-                    <img
-                        src={postdata.imageUrl}
-                        alt="none"
-                        width="800px"
-                        height="248px"
-                    />
+                    <img src={props.data.banner} alt="none" width="800px" height="248px" />
                 </div>
                 <div>
                     <div>
@@ -71,13 +56,9 @@ const Middlep = (props) => {
                                     </div>
                                 </div>
                                 <div className="col-3">
-                                    <b>
-                                        {profileData.firstName +
-                                            " " +
-                                            profileData.lastName}
-                                    </b>
+                                    <b>{props.data.author}</b>
                                     <br />
-                                    Posted on <b>{postdata.publishedDate}</b>
+                                    Posted on <b>{`${date}/${month}/${year}`}</b>
                                     <br /> <br />
                                 </div>
                                 <div className="col-12">
@@ -89,14 +70,16 @@ const Middlep = (props) => {
                                                 width: "754px",
                                             }}
                                         >
-                                            <b>{postdata.postTitle}</b>
+                                            <b>{props.data.title}</b>
                                         </h3>
                                     </b>
                                     <hr />
                                 </div>
                                 <div>
-                                    <p>{postdata.postSummary}</p>
-                                    {postdata.postData.map((val) => {
+                                    <p className="mb-2 mt-2">
+                                        {props.data.summary}
+                                    </p>
+                                    {props.data.cells.map((val) => {
                                         // itterating all the data from the post and showing it
                                         if (val.type === "text") {
                                             return (
@@ -143,7 +126,7 @@ const Middlep = (props) => {
                                                         }
                                                         helperText=" "
                                                         id="description_posts"
-                                                        label={`Comment publicly as ${profileData.firstName}`}
+                                                        label={`Comment publicly as ${props.userName}`}
                                                         multiline
                                                         rows={3}
                                                         size="small"
@@ -161,39 +144,36 @@ const Middlep = (props) => {
 
                                     <br />
                                     <br />
-                                    {postdata.comments.map(
-                                        (
-                                            val //itterating through all the comments and printing them below the post
-                                        ) => (
-                                            <div>
-                                                <div className="container-fluid">
-                                                    <div className="row">
-                                                        <div className="col-1">
-                                                            <Avatar />
-                                                        </div>
-                                                        <div className="col-11">
-                                                            <Box
-                                                                height="71px"
-                                                                width="715px"
-                                                                style={{
-                                                                    border: "2px solid #c4c4c4",
-                                                                }}
+                                    <div>
+                                        {comments.map((comment) => (
+                                            <div className="container-fluid">
+                                                <div className="row">
+                                                    <div className="col-1">
+                                                        <Avatar />
+                                                    </div>
+                                                    <div className="col-11">
+                                                        <Box
+                                                            height="71px"
+                                                            width="715px"
+                                                            style={{
+                                                                border: "2px solid #c4c4c4",
+                                                            }}
+                                                        >
+                                                            <div
+                                                                className={
+                                                                    classes.commentsp
+                                                                }
                                                             >
-                                                                <div
-                                                                    className={
-                                                                        classes.commentsp
-                                                                    }
-                                                                >
-                                                                    {val.text}
-                                                                </div>
-                                                            </Box>
-                                                        </div>
+                                                                {comment.text}
+                                                            </div>
+                                                        </Box>
                                                     </div>
                                                 </div>
-                                                <br />
                                             </div>
-                                        )
-                                    )}
+                                        ))}
+
+                                        <br />
+                                    </div>
                                 </div>
                             </div>
                         </div>

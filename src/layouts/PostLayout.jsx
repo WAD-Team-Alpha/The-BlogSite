@@ -8,40 +8,36 @@ import Leftp from "../components/post_details/leftp/leftp/leftp";
 import Middlep from "../components/post_details/leftp/middlep/middlep";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
-import { fetchPostData } from "../store/post-actions";
-import {
-    fetchOtherProfileData,
-    fetchProfileData,
-} from "../store/profile-actions";
-import { profileActions } from "../store/profile";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
-
+import { getPostData, getCommentsData } from "../requests/postDetail.request";
+import { getMyUserData } from "../requests/profile.request";
+import axios from "axios";
 const PostLayout = () => {
-    const dispatch = useDispatch(); //Dispatch function to update data in the store
     const [nav, setNav] = useState(false); //State for the nav
-    const [data, setData] = useState({}); //State for the data
-    const [submit, setSubmit] = useState(false); //State for the loading spinner
-
-    const updateRecentActivity = (data, value) => {
-        //Updating recent activity locally
-        var temp;
-        var filtered = data.filter((obj) => obj.id === value.id);
-        if (filtered.length !== 0) {
-            temp = data.filter((obj) => obj.id !== value.id);
-            temp = [value].concat(temp);
-            return temp;
-        }
-        if (data.length >= 10) {
-            var limited = [...data];
-            limited.pop();
-            temp = [value].concat(limited);
-            return temp;
-        } else {
-            temp = [value].concat(data);
-            return temp;
-        }
-    };
+    const [submit, setSubmit] = useState(true); //State for the loading spinner
+    const [data, setData] = useState({});
+    const [comments, setComments] = useState();
+    const [userId, setUserId] = useState("");
+    const [userName, setUserName] = useState("");
+    // const updateRecentActivity = (data, value) => {
+    //     //Updating recent activity locally
+    //     var temp;
+    //     var filtered = data.filter((obj) => obj.id === value.id);
+    //     if (filtered.length !== 0) {
+    //         temp = data.filter((obj) => obj.id !== value.id);
+    //         temp = [value].concat(temp);
+    //         return temp;
+    //     }
+    //     if (data.length >= 10) {
+    //         var limited = [...data];
+    //         limited.pop();
+    //         temp = [value].concat(limited);
+    //         return temp;
+    //     } else {
+    //         temp = [value].concat(data);
+    //         return temp;
+    //     }
+    // };
 
     const navHandler = () => {
         // Setting the nav handler
@@ -70,40 +66,39 @@ const PostLayout = () => {
     };
     // Useeffects are used here for fetching and sending the data for the post data
     useEffect(() => {
-        setSubmit(true);
-        dispatch(fetchProfileData(localStorage.getItem("localId"))).then(
-            (result) => {
-                if (result !== "false") {
-                    dispatch(
-                        profileActions.update({
-                            ...result, //Updating the recent activity
-                            recentActivity: updateRecentActivity(
-                                result.recentActivity,
-                                {
-                                    id: params.postID,
-                                    type: "post",
-                                }
-                            ),
-                        })
-                    );
+        console.log("use effetct is running");
+        const addToRecents = async () => {
+            const response = await axios.post(
+                `${process.env.REACT_APP_API_BASE_URL}/activity/add_to_recents`,
+                {
+                    contentType: "post",
+                    contentId: params.postID,
+                },
+                {
+                    headers: {
+                        Authorization: `${localStorage.getItem("token")}`,
+                    },
                 }
-            }
-        );
-
-        // Dispatching the actions
-        dispatch(fetchPostData(params.postID)).then((result) => {
-            if (result !== null) {
-                dispatch(fetchOtherProfileData(result.uid)).then((data) => {
-                    //Fetching other profile data for the inspect feature
-                    setData({
-                        ...data,
-                        followercount: data.followersList.length,
-                        followingcount: data.followingList.length,
-                        userId: result.uid,
-                    });
-                    setSubmit(false);
-                });
-            }
+            );
+            return response;
+        };
+        setSubmit(true);
+        async function fetchPostData() {
+            console.log(params.postID);
+            const data1 = await getPostData(params.postID);
+            const data = await getCommentsData(params.postID);
+            const userData = await getMyUserData();
+            setUserId(userData._id);
+            setUserName(userData.firstname);
+            console.log(data);
+            setComments(data);
+            console.log(data1);
+            setData(data1);
+            setSubmit(false);
+        }
+        fetchPostData();
+        addToRecents().then((response) => {
+            console.log(response);
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -133,7 +128,8 @@ const PostLayout = () => {
                             >
                                 <Leftp
                                     postID={params.postID}
-                                    profileData={data}
+                                    data={data}
+                                    userId={userId}
                                     handler={executeScroll}
                                 />
                             </div>
@@ -144,7 +140,9 @@ const PostLayout = () => {
                             >
                                 <Middlep
                                     postID={params.postID}
-                                    profileData={data}
+                                    userName={userName}
+                                    data={data}
+                                    comments={comments}
                                     theRef={myRef}
                                 />
                             </div>
@@ -153,10 +151,7 @@ const PostLayout = () => {
                                     "col-md-3 shadow-lg " + classes.rightpane
                                 }
                             >
-                                <Rightp
-                                    postID={params.postID}
-                                    profileData={data}
-                                />
+                                <Rightp postID={params.postID} data={data} />
                             </div>
                         </div>
                     </div>

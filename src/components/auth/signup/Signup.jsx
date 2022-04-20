@@ -3,10 +3,9 @@ import React, { useState } from "react";
 import classes from "./Signup.module.css";
 import signinimg from "../../../assets/images/Signin.png";
 import { useReducer } from "react";
-import { signupAction } from "../../../store/auth-actions";
-import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { register } from "../../../requests/auth.requests";
 
 // Reducer for signup validation
 const signupReducer = (state, action) => {
@@ -107,7 +106,6 @@ const signupReducer = (state, action) => {
 
 const Signup = (props) => {
     const navigate = useNavigate(); //Navigation hook for navigating user
-    const dispatchAction = useDispatch(); //Dispatch hook for sending redux state updates
     const [isEmailExists, setIsEmailExists] = useState(false); //Initial states
     const initState = {
         firstname: "",
@@ -141,28 +139,20 @@ const Signup = (props) => {
         dispatch({ type: "CONFIRM_PASSWORD", payload: event.target.value });
 
     // Form submit handler
-    const formSubmitHandler = (event) => {
+    const formSubmitHandler = async (event) => {
         event.preventDefault();
+        props.onSubmit(true);
         if (state.formIsValid) {
-            props.onSubmit(true);
-            dispatchAction(
-                signupAction(
-                    state.email,
-                    state.password,
-                    state.firstname,
-                    state.lastname
-                )
-            ).then((res) => {
-                if (res === "success") {
-                    props.onSubmit(false);
-                    navigate("/home/post", { replace: true });
-                }
-                if (res === "EMAIL_EXISTS") {
-                    props.onSubmit(false);
-                    setIsEmailExists(true);
-                }
-            });
-            dispatch({ type: "clear" });
+            const response = await register(
+                state.firstname,
+                state.lastname,
+                state.email,
+                state.password
+            );
+            console.log(response);
+            if (response.status === true) {
+                navigate("/", { replace: true });
+            }
         } else {
         }
     };

@@ -5,176 +5,102 @@ import { Link } from "@mui/material";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { useState } from "react";
 import Editform from "./EditForm/Editform";
-import { useDispatch, useSelector } from "react-redux";
-import { profileActions } from "../../store/profile";
 import { useEffect } from "react";
 import Members from "./Members/Members";
 import { motion } from "framer-motion";
-import { sendOtherProfileData } from "../../store/profile-actions";
-import { fetchOtherProfileData } from "../../store/profile-actions";
 import LoadingSpinner from "../auth/LoadingSpinner";
+import {
+    getMyUserData,
+    getOtherUserData,
+    updateUserData,
+    followUser,
+    unFollowUser,
+} from "../../requests/profile.request";
 const Profile = (props) => {
-    const [submit, setSubmit] = useState(false);
-    const [otherProfileData, setOtherProfileData] = useState({}); //setting usestate for other users profile
-    const authStatus = useSelector((state) => state.auth);
-    const userInfo = useSelector((state) => state.profile);
+    const [userId, setUserId] = useState("");
+    console.log("this is runinng");
+    const [submit, setSubmit] = useState(true);
     const [addform, setAddform] = useState(false);
     const [memtab, setmemTab] = useState(false);
-    const dispatch = useDispatch();
-    const isFollowing = (list, id) => {
-        // checking the id of the users who are following
-        for (var i = 0; i < list.length; i++) {
-            if (list[i].id === id) {
-                return true;
-            }
-        }
-        return false;
-    };
-    const [followStatus, setfollowStatus] = useState(
-        isFollowing(userInfo.followingList, props.uid)
-    );
     const [curUser, setCurUser] = useState(true); //setting current user to true
-
-    const userDetails = {
-        //current or logined user userDetails
-        firstName: userInfo.firstName,
-        lastName: userInfo.lastName,
-        email: userInfo.email,
-        bio: userInfo.bio,
-        genres: userInfo.genres,
-        followingList: userInfo.followingList,
-        followersList: userInfo.followersList,
-        postIds: userInfo.postIds,
-        questionIds: userInfo.questionIds,
-    };
-
-    const followCount = userDetails.followersList.length; //followcount of the current user
-
-    const followingCount = userDetails.followingList.length; //following count of the current
-
-    const editHandler = (firstName, lastName, email, bio, genres) => {
-        //editHandler for updating the user details using edit form
-        dispatch(
-            //sending updated user details to the store
-            profileActions.update({
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                bio: bio,
-                genres: genres,
-                followersList: userDetails.followersList,
-                followingList: userDetails.followingList,
-                postIds: userDetails.postIds,
-                questionIds: userDetails.questionIds,
-            })
-        );
-    };
-
-    const formHandler = (e) => {
-        //form that appears when clicking the edit icon
-        setAddform((state) => !state);
-    };
-
-    const linkHandler = (e) => {
-        // for followers and following tab
-        setmemTab((state) => !state);
-    };
-
-    const followbuttonHandler = () => {
-        if (followStatus === false) {
-            setfollowStatus(true);
-
-            dispatch(fetchOtherProfileData(props.uid)).then((res) => {
-                //fetching the followed user id
-                const newData = {
-                    ...userInfo,
-                    followingList: [
-                        ...userInfo.followingList,
-                        { id: props.uid, name: res.firstName },
-                    ],
-                };
-                dispatch(
-                    sendOtherProfileData(
-                        //sending the id of us to the followed user
-                        {
-                            ...res,
-                            followersList: [
-                                ...res.followersList,
-                                {
-                                    id: authStatus.localId,
-                                    name: userInfo.firstName,
-                                },
-                            ],
-                        },
-                        props.uid
-                    )
-                ).then((result) => {
-                    if (result === "succes") {
-                        dispatch(profileActions.update(newData)); //updating the store
-                        var len = otherProfileData.followerCount + 1; //increasing the followers count
-                        setOtherProfileData((res) => {
-                            //updating the count in the other users profile
-                            return { ...res, followerCount: len };
-                        });
-                    }
-                });
-            });
-        } else {
-            //else condition is for unfollowing
-            setfollowStatus(false);
-            const newList = userInfo.followingList.filter(
-                //filtering the user id
-                (id) => id.id !== props.uid
-            );
-            const newData = {
-                //updating the user data
-                ...userInfo,
-                followingList: newList,
-            };
-            dispatch(fetchOtherProfileData(props.uid)).then((res) => {
-                dispatch(
-                    sendOtherProfileData(
-                        //updating the other users data
-                        {
-                            ...res,
-                            followersList: res.followersList.filter(
-                                (id) => id.id !== authStatus.localId
-                            ),
-                        },
-                        props.uid
-                    )
-                ).then((result) => {
-                    if (result === "succes") {
-                        dispatch(profileActions.update(newData)); //updating the data in the store
-                        var len = otherProfileData.followerCount - 1;
-                        setOtherProfileData((res) => {
-                            return { ...res, followerCount: len };
-                        });
-                    }
-                });
-            });
-        }
-    };
+    const [userData, setUserData] = useState();
+    const [followStatus, setFollowStatus] = useState(false);
+    const [followersCount, setFollowersCount] = useState(
+        0
+    );
+    const [followingCount, setFollowingCount] = useState(
+        0
+    );
     useEffect(() => {
-        setSubmit(true);
-        if (props.uid === authStatus.localId) {
+        async function fetchCurUserData() {
+            const data = await getMyUserData();
+            console.log(data);
+            setUserData(data);
+            setFollowersCount(data.followers.length)
+            setFollowingCount(data.following.length)
             setSubmit(false);
-            return;
         }
-        setCurUser(false);
-        dispatch(fetchOtherProfileData(props.uid)).then((res) => {
-            //getting the details of the other users
-            const data = {
-                ...res,
-                followerCount: res.followersList.length, //getting followers count of the other users
-                followingCount: res.followingList.length, //getting following count of the other users
-            };
-
-            setOtherProfileData(data); //setting the above obtained data into the otherProfileData variable using useState
+        async function fetchOtherUserData() {
+            const data = await getOtherUserData(props.uid);
+            const data1 = await getMyUserData();
+            console.log(data);
+            setUserData(data);
+            setUserId(data1._id);
+            const findId = (list, id) =>{
+                for (let i = 0; i < list.length; i++) {
+                    const element = list[i];
+                    if (element._id === id) {
+                        return true;
+                    }
+                }
+                
+            }
+            console.log(findId(data.followers, data1._id));
+            if (findId(data.followers, data1._id)) {
+                setFollowStatus(true);
+            }
+            setFollowersCount(data.followers.length)
+            setFollowingCount(data.following.length)
             setSubmit(false);
-        });
+        }
+        if (props.uid === undefined) {
+            fetchCurUserData();
+        } else {
+            fetchOtherUserData();
+            setCurUser(false);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    const editHandler = async (firstname, lastname, bio, genres) => {
+        const result = await updateUserData(firstname, lastname, bio, genres);
+        if (result.status) {
+            setUserData((prev) => ({
+                ...prev,
+                firstname,
+                lastname,
+                bio,
+                genres,
+            }));
+        }
+    };
+    const linkHandler = () => {
+        if (curUser) {
+            setmemTab(true);
+        } 
+    };
+    const followHandler = async () => {
+        if (followStatus) {
+            await unFollowUser(userData._id);
+            setFollowersCount((prev) => prev - 1);
+            setFollowStatus(false);
+        }else{
+            await followUser(userData._id);
+            setFollowersCount((prev) => prev + 1);
+            setFollowStatus(true);
+        }
+        
+    };
     return submit ? (
         <LoadingSpinner />
     ) : (
@@ -213,7 +139,9 @@ const Profile = (props) => {
                                                 <Link
                                                     underline="none"
                                                     color="black"
-                                                    onClick={formHandler}
+                                                    onClick={() =>
+                                                        setAddform(true)
+                                                    }
                                                 >
                                                     <i className="bi bi-pencil-fill"></i>
                                                 </Link>
@@ -250,74 +178,42 @@ const Profile = (props) => {
                                             }}
                                         >
                                             <b>
-                                                {curUser //details of the current user
-                                                    ? userDetails.firstName
-                                                    : otherProfileData.firstName}{" "}
-                                                {curUser //details of the other user
-                                                    ? userDetails.lastName
-                                                    : otherProfileData.lastName}
+                                                {userData.firstname}{" "}
+                                                {userData.lastname}
                                             </b>
                                         </div>
 
-                                        {curUser ? (
-                                            <div className="row justify-content-center">
-                                                <div className="col-7">
-                                                    <Link
-                                                        underline="none"
-                                                        onClick={linkHandler}
+                                        <div className="row justify-content-center">
+                                            <div className="col-7">
+                                                <Link
+                                                    underline="none"
+                                                    onClick={linkHandler}
+                                                >
+                                                    <span
+                                                        className={
+                                                            classes.mainfollowers
+                                                        }
                                                     >
-                                                        <span
-                                                            className={
-                                                                classes.mainfollowers
-                                                            }
-                                                        >
-                                                            <b>Followers</b>
-                                                        </span>
-                                                    </Link>
-                                                </div>
-                                                <div className="col-5">
-                                                    <Link
-                                                        underline="none"
-                                                        onClick={linkHandler}
+                                                        <b>Followers</b>
+                                                    </span>
+                                                </Link>
+                                            </div>
+                                            <div className="col-5">
+                                                <Link
+                                                    underline="none"
+                                                    onClick={linkHandler}
+                                                >
+                                                    {" "}
+                                                    <span
+                                                        className={
+                                                            classes.mainfollowing
+                                                        }
                                                     >
-                                                        {" "}
-                                                        <span
-                                                            className={
-                                                                classes.mainfollowing
-                                                            }
-                                                        >
-                                                            <b>Following</b>
-                                                        </span>
-                                                    </Link>
-                                                </div>
+                                                        <b>Following</b>
+                                                    </span>
+                                                </Link>
                                             </div>
-                                        ) : (
-                                            <div className="row justify-content-center">
-                                                <div className="col-7">
-                                                    <Link underline="none">
-                                                        <span
-                                                            className={
-                                                                classes.mainfollowers
-                                                            }
-                                                        >
-                                                            <b>Followers</b>
-                                                        </span>
-                                                    </Link>
-                                                </div>
-                                                <div className="col-5">
-                                                    <Link underline="none">
-                                                        {" "}
-                                                        <span
-                                                            className={
-                                                                classes.mainfollowing
-                                                            }
-                                                        >
-                                                            <b>Following</b>
-                                                        </span>
-                                                    </Link>
-                                                </div>
-                                            </div>
-                                        )}
+                                        </div>
                                         <div className="row justify-content-end">
                                             <div className="col">
                                                 <span
@@ -325,11 +221,7 @@ const Profile = (props) => {
                                                         classes.followercount
                                                     }
                                                 >
-                                                    <b>
-                                                        {curUser
-                                                            ? followCount //followers count of the current user : else followerscount of the other user
-                                                            : otherProfileData.followerCount}
-                                                    </b>
+                                                    <b>{followersCount}</b>
                                                 </span>
                                             </div>
                                             <div className="col">
@@ -338,11 +230,7 @@ const Profile = (props) => {
                                                         classes.followingcount
                                                     }
                                                 >
-                                                    <b>
-                                                        {curUser
-                                                            ? followingCount //following count of the current user : else followingcount of the other user
-                                                            : otherProfileData.followingCount}
-                                                    </b>
+                                                    <b>{followingCount}</b>
                                                 </span>
                                             </div>
                                         </div>
@@ -375,58 +263,34 @@ const Profile = (props) => {
                                         Interested Geners
                                     </h5>
                                 </span>
-                                {userDetails.genres.length !== 0 && (
-                                    <div
-                                        className="col"
-                                        style={{
-                                            marginLeft: "1.2em",
-                                            height: "60px",
-                                        }}
-                                    >
-                                        <div>
-                                            {curUser //genres of the current user
-                                                ? userDetails.genres.map(
-                                                      (gen) => (
-                                                          <Chip
-                                                              style={{
-                                                                  marginBottom:
-                                                                      "0.5em",
-                                                                  marginRight:
-                                                                      "0.3em",
-                                                                  backgroundColor:
-                                                                      "#8ee4af",
-                                                                  color: "#05386b",
-                                                                  fontWeight:
-                                                                      "600",
-                                                              }}
-                                                              label={gen}
-                                                          />
-                                                      )
-                                                  )
-                                                : otherProfileData.genres.map(
-                                                      (gen) => {
-                                                          //genres of the other users
-                                                          return (
-                                                              <Chip
-                                                                  style={{
-                                                                      marginBottom:
-                                                                          "0.5em",
-                                                                      marginRight:
-                                                                          "0.3em",
-                                                                      backgroundColor:
-                                                                          "#8ee4af",
-                                                                      color: "#05386b",
-                                                                      fontWeight:
-                                                                          "600",
-                                                                  }}
-                                                                  label={gen}
-                                                              />
-                                                          );
-                                                      }
-                                                  )}
-                                        </div>
+
+                                <div
+                                    className="col"
+                                    style={{
+                                        marginLeft: "1.2em",
+                                        height: "60px",
+                                    }}
+                                >
+                                    <div>
+                                        {userData.genres.map((gen, i) => {
+                                            console.log(gen);
+                                            return (
+                                                <Chip
+                                                    key={i}
+                                                    style={{
+                                                        marginBottom: "0.5em",
+                                                        marginRight: "0.3em",
+                                                        backgroundColor:
+                                                            "#8ee4af",
+                                                        color: "#05386b",
+                                                        fontWeight: "600",
+                                                    }}
+                                                    label={gen}
+                                                />
+                                            );
+                                        })}
                                     </div>
-                                )}
+                                </div>
                             </div>
                             <div className="row" style={{ height: "70px" }}>
                                 <span className={classes.email}>
@@ -442,20 +306,16 @@ const Profile = (props) => {
                                         Email
                                     </h5>
                                 </span>
-                                {userDetails.email !== "" && (
-                                    <div
-                                        className="col"
-                                        style={{
-                                            fontSize: "0.9em",
-                                            marginLeft: "1.2em",
-                                        }}
-                                        //current user email else other users email
-                                    >
-                                        {curUser
-                                            ? userDetails.email
-                                            : otherProfileData.email}
-                                    </div>
-                                )}
+                                <div
+                                    className="col"
+                                    style={{
+                                        fontSize: "0.9em",
+                                        marginLeft: "1.2em",
+                                    }}
+                                    //current user email else other users email
+                                >
+                                    {userData.email}
+                                </div>
                                 <br />
                             </div>
 
@@ -473,26 +333,23 @@ const Profile = (props) => {
                                         Bio
                                     </h5>
                                 </span>
-                                {userDetails.bio !== "" && (
-                                    <div
-                                        className="row"
-                                        style={{
-                                            fontSize: "0.9em",
-                                            marginLeft: "1.2em",
-                                            overflowY: "scroll",
-                                            overflowX: "hidden",
-                                            width: "280px",
-                                        }}
-                                    >
-                                        {curUser
-                                            ? userDetails.bio
-                                            : otherProfileData.bio}
-                                    </div>
-                                )}
+
+                                <div
+                                    className="row"
+                                    style={{
+                                        fontSize: "0.9em",
+                                        marginLeft: "1.2em",
+                                        overflowY: "scroll",
+                                        overflowX: "hidden",
+                                        width: "280px",
+                                    }}
+                                >
+                                    {userData.bio}
+                                </div>
 
                                 <br />
                             </div>
-                            {!curUser && (
+                            {!curUser && userData._id !== userId && (
                                 <div
                                     className="row"
                                     style={{ marginTop: "1em", height: "60px" }}
@@ -503,7 +360,7 @@ const Profile = (props) => {
                                                 className={
                                                     classes.customfollowbtn
                                                 }
-                                                onClick={followbuttonHandler}
+                                                onClick={followHandler}
                                             >
                                                 <b>
                                                     {followStatus
@@ -523,13 +380,18 @@ const Profile = (props) => {
                         <Editform
                             setAddform={setAddform}
                             editHandler={editHandler}
-                            userDetails={userDetails}
+                            userDetails={userData}
                         />
                     )}
                 {!curUser && <div style={{ height: "1em" }}></div>}
-                {memtab && ( //for followers and following tab
+                {memtab && curUser && ( //for followers and following tab
                     <Members
-                        userInfo={otherProfileData}
+                        followersCount={followersCount}
+                        setFollowersCount={setFollowersCount}
+                        followingCount={followingCount}
+                        setFollowingCount={setFollowingCount}
+                        userInfo={userData}
+                        setUserData={setUserData}
                         curUser={curUser}
                         setmemTab={setmemTab}
                     />

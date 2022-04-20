@@ -1,15 +1,11 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import PostCard from './PostCard'
 import QuestionCard from './QuestionCard'
 
 const UserDetailed = () => {
     const params = useParams()
-    const users = useSelector(state => state.admin.users)
-    const posts = useSelector(state => state.admin.posts)
-    const questions = useSelector(state => state.admin.questions)
-    const user = users[params.id]
+    const user = "25"
     return (
         <div className='container'>
             <h1>{user.firstName}{" "}{user.lastName}</h1> <br />
@@ -20,7 +16,7 @@ const UserDetailed = () => {
             <div className="row">
                 <h1>Posts</h1>
                 {user.postIds.map((item, index) => {
-                    var post = posts.filter(obj => obj.postId === item)
+                    var post = [{}]
                     return <div className="col-md-3">
                         <PostCard
                             key={item}
@@ -36,7 +32,7 @@ const UserDetailed = () => {
             <div className="row">
                 <h1>Questions</h1>
                 {user.questionIds.map((item, index) => {
-                    var question = questions.filter(obj => obj.questionId === item)
+                    var question = [{}]
                     return <div className="col-md-3">
                         <QuestionCard
                             key={item}

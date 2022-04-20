@@ -3,45 +3,42 @@ import classes from "./newprofile.module.css";
 import { Tabs, Tab } from "react-bootstrap";
 import Postcard from "./Postcard";
 import Questionscard from "./Questionscard";
-import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { fetchOtherProfileData } from "../../store/profile-actions";
-import { fetchOtherPostsData } from "../../store/post-actions";
-import { fetchOtherQuestionsData } from "../../store/question-actions";
 import LoadingSpinner from "../auth/LoadingSpinner";
+import {
+    getPostsData,getQuestionsData,getOtherPostsData,getOtherQuestionsData
+} from "../../requests/profile.request";
+
 const ProfileTabs = (props) => {
-    const dispatch = useDispatch(); //Intializing the dispatch
     const [tab, setTab] = useState("posts");
-    const [submit, setSubmit] = useState(true);
+    const [submit, setSubmit] = useState(false);
     const [questionsData, setQuestionsData] = useState([]);
     const [postsData, setPostsData] = useState([]);
     const [curUser, setCurUser] = useState(true);
     useEffect(() => {
-        setSubmit(false);
-        if (props.uid === localStorage.getItem("localId")) {
+        async function fetchCurUserData() {
+            const postData = await getPostsData();
+            const questionData = await getQuestionsData();
+            console.log(postData,questionsData);
+            setPostsData(postData);
+            setQuestionsData(questionData);
             setSubmit(true);
-            return;
         }
-        setCurUser(false);
-        dispatch(fetchOtherProfileData(props.uid)).then((res) => {
-            if (res !== null) {
-                res.postIds.map((id) => {
-                    return dispatch(fetchOtherPostsData(id)).then((res) => {
-                        //fetching posts data of the other users by their ids
-                        if (res !== "failed") {
-                            setPostsData((state) => [...state, res]);
-                        }
-                    });
-                });
-                res.questionIds.map((id) => {
-                    return dispatch(fetchOtherQuestionsData(id)).then((res) => {
-                        //fetching questions data of the other usersby their user ids
-                        setQuestionsData((state) => [...state, res]);
-                    });
-                });
-            }
+        async function fetchOtherUserData(id) {
+            const postData = await getOtherPostsData(id);
+            const questionData = await getOtherQuestionsData(id);
+            console.log(postData,questionsData);
+            setPostsData(postData);
+            setQuestionsData(questionData);
             setSubmit(true);
-        });
+        }
+        if (props.uid === undefined) {
+            fetchCurUserData();
+        } else {
+            fetchOtherUserData(props.uid);
+            setCurUser(false);
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return submit ? (

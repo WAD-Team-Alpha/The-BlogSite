@@ -1,62 +1,37 @@
 import { Avatar, Link } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { profileActions } from "../../../store/profile";
-import { fetchOtherProfileData } from "../../../store/profile-actions";
-import { sendOtherProfileData } from "../../../store/profile-actions";
+import { removeFollower } from "../../../requests/profile.request";
 const Followers = (props) => {
-    const followInfo = useSelector((state) => state.profile); //fetching the user data from the store
-    const authStatus = useSelector((state) => state.auth); //fetching the user authentication from the store
-    const followerslist = followInfo.followersList; //Taking followerslist from the followinfo
-    const dispatch = useDispatch(); //Intializing dispatch
-    const removeHandler = (index) => {
-        const newList = followInfo.followersList.filter(
-            (id) => id.id !== index
-        );
-
-        dispatch(fetchOtherProfileData(index)).then((res) => {
-            dispatch(
-                sendOtherProfileData(
-                    {
-                        ...res,
-                        followingList: res.followingList.filter(
-                            (id) => id.id !== authStatus.localId
-                        ),
-                    },
-                    index
-                )
-            ).then((result) => {
-                if (result === "succes") {
-                    dispatch(
-                        profileActions.update({
-                            ...followInfo,
-                            followersList: newList,
-                        })
-                    );
-                }
-            });
-        });
+    const removeHandler = async (index) => {
+        const response = await removeFollower(index);
+        if (response) {
+            const myArray = props.userInfo.followers.filter(
+                (obj) => obj.id !== index
+            );
+            props.setUserData((prev) => ({ ...prev, followers: myArray }));
+            props.setFollowersCount((prev) => prev - 1);
+        }
     };
 
     return (
         <div>
             <div className="container-fluid">
                 <h4 style={{ paddingBottom: "0.5em" }}>
-                    Followers: {followerslist.length}{" "}
+                    Followers: {props.userInfo.followers.length}{" "}
                 </h4>
-                {followerslist.map((user) => (
+                {props.userInfo.followers.map((item) => (
                     <div className="row" style={{ paddingBottom: "0.5em" }}>
                         <div className="col-2">
                             <Avatar src="/broken-image.jpg" />
                         </div>
                         <div className="col-6" style={{ paddingTop: "0.3em" }}>
                             <Link underline="none" color="black" href="#">
-                                {user.name}
+                                {item.firstname}
                             </Link>
                         </div>
                         <div className="col-4" style={{}}>
                             <button
                                 className="btn btn-danger"
-                                onClick={() => removeHandler(user.id)} //removing user by using their ids
+                                onClick={() => removeHandler(item.id)} //removing user by using their ids
                             >
                                 Remove
                             </button>

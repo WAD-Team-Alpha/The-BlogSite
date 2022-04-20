@@ -5,11 +5,9 @@ import classes from "./Header.module.css";
 import logo from "../../assets/images/logo.jpg";
 import Account from "./Account";
 import ModalButton from "../NewProfile/Modal/ModalButton";
-import { useSelector } from "react-redux";
 
 const Header = (props) => {
     const navigate = useNavigate(); //Header of the website, used to navigate between main page and for navigation
-    const authStatus = useSelector((state) => state.auth);
     return (
         <div className={"container-fluid " + classes.appbar}>
             <div className={"container " + classes.content}>
@@ -31,20 +29,19 @@ const Header = (props) => {
                 </Link>
             </div>
             <div className={classes.seperator}></div>
-            {authStatus.isAuthenticated && (
+            {localStorage.getItem('authStatus') === 'true' ? 
                 <>
                     <ModalButton />
                     <Account />
                 </>
-            )}
-            {!authStatus.isAuthenticated && (
+                :
                 <Link
                     to="/auth?code=signin&main=true"
-                    className={"btn shadow-none "}
+                    className={"btn btn-primary shadow-none"}
                 >
                     Login
                 </Link>
-            )}
+            }
         </div>
     );
 };

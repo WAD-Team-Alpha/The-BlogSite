@@ -1,10 +1,10 @@
 import classes from "./postcard.module.css";
-import { useSelector } from "react-redux";
 import PostCard from "../home/cards/PostCard";
 
 const Postcard = (props) => {
-    const postsdata = useSelector((state) => state.posts); //fetching the details of the particular user
-    if (postsdata === null) {
+    console.log(props.postsData);
+    // console.log(props.postsData.published_date);
+    if (undefined === null) {
         return (
             <div style={{ paddingLeft: "16em", paddingTop: "3em" }}>
                 <b>Create your own post</b>
@@ -16,41 +16,31 @@ const Postcard = (props) => {
                 <div className={classes.cardcontainer}>
                     <div className={classes.postscreate}></div>
                     <div className={classes.postcards}>
-                        {props.curUser
-                            ? postsdata.map(
-                                  (
-                                      postdata //Checking if the user is ourselves or others to render the posts section in profile page
-                                  ) => (
-                                      <PostCard //if we are the user and sending the current post details using props
-                                          key={postdata.postId}
-                                          id={postdata.postId} //id of the post
-                                          banner={postdata.imageUrl} //banner of the post
-                                          title={postdata.postTitle} //posts title
-                                          description={postdata.postSummary} //posts description
-                                          likes={postdata.likes} //posts likes
-                                          publishedDate={postdata.publishedDate} //posts published date
-                                          userId={postdata.uid} //user id of the particular post
-                                          author={postdata.author} //author of the post
-                                      />
-                                  )
-                              )
-                            : props.postsData.map(
-                                  (
-                                      postdata //other users posts data
-                                  ) => (
-                                      <PostCard
-                                          key={postdata.postId}
-                                          id={postdata.postId} //id of the post
-                                          banner={postdata.imageUrl} //banner of the post
-                                          title={postdata.postTitle} //posts title
-                                          description={postdata.postSummary} //posts description
-                                          likes={postdata.likes} //likes of the posts
-                                          publishedDate={postdata.publishedDate} //published date of the post
-                                          userId={postdata.uid} //user id of the post
-                                          author={postdata.author} //author of the post
-                                      />
-                                  )
-                              )}
+                        {props.postsData.map((post)=>
+                        {
+                            const publishedDate = new Date(post.published_date)
+                            const date = publishedDate.getUTCDate()
+                            const month = publishedDate.getUTCMonth() + 1
+                            const year = publishedDate.getUTCFullYear()
+                        
+
+                        return(
+                            <PostCard //if we are the user and sending the current post details using props
+                            key={post._id}
+                            id={post._id} //id of the post
+                            banner={post.banner} //banner of the post
+                            title={post.title} //posts title
+                            summary={post.summary} //posts description
+                            likes={post.likes.length} //posts likes
+                            publishedDate={`${date}/${month}/${year}`} //posts published date
+                            userId={post.userId} //user id of the particular post
+                            author={post.author} //author of the post
+                            comments={post.comments.length} //
+                        />
+                        )
+                        
+                         })}
+                       
                     </div>
                 </div>
             </div>

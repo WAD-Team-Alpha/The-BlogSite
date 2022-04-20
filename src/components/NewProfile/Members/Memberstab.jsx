@@ -16,6 +16,9 @@ const Memberstab = (props) => {
             <Tab eventKey="followers" title="Followers">
                 <div style={{ overflowY: "scroll", height: "420px" }}>
                     <Followers
+                        followersCount={props.followersCount}
+                        setFollowersCount={props.setFollowersCount}
+                        setUserData={props.setUserData}
                         curUser={props.curUser}
                         userInfo={props.userInfo}
                     />
@@ -24,8 +27,11 @@ const Memberstab = (props) => {
             <Tab eventKey="following" title="Following">
                 <div style={{ overflowY: "scroll", height: "420px" }}>
                     <Following
+                        followingCount={props.followingCount}
+                        setFollowingCount={props.setFollowingCount}
                         curUser={props.curUser}
                         userInfo={props.userInfo}
+                        setUserData={props.setUserData}
                     />
                 </div>
             </Tab>

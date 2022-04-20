@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useDispatch } from "react-redux";
 import Header from "../components/header/Header";
 import classes from "./Layout.module.css";
 import Footer from "../components/footer/Footer";
@@ -9,19 +8,17 @@ import Rightq from "../components/Ques_details/rightq/rightq";
 import Middleq from "../components/Ques_details/middleq/middleq";
 import { useParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { fetchQuestionData } from "../store/question-actions";
-import {
-    fetchOtherProfileData,
-    fetchProfileData,
-} from "../store/profile-actions";
-import { profileActions } from "../store/profile";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
-
+import { getQuestionData,getAnswersData } from "../requests/questionDetail.request";
+import { getMyUserData } from "../requests/profile.request";
+import axios from "axios";
 const QuestionLayout = () => {
-    const [submit, setSubmit] = useState(false);
-    const dispatch = useDispatch();
+    const [submit, setSubmit] = useState(true);
     const [nav, setNav] = useState(false);
     const [data, setData] = useState({});
+    const [comments, setComments] = useState();
+    const [userId, setUserId] = useState("")
+
     const navHandler = () => {
         nav ? setNav(false) : setNav(true);
     };
@@ -46,63 +43,53 @@ const QuestionLayout = () => {
             },
         },
     };
-    const updateRecentActivity = (data, value) => {
-        //Function to update the recent activity
-        var temp;
-        if (data.filter((obj) => obj.id === value.id) !== []) {
-            temp = data.filter((obj) => obj.id !== value.id);
-            temp = [value].concat(temp);
-            return temp;
-        }
-        if (data.length === 10) {
-            temp = data.pop();
-            temp = [value].concat(data);
-            return temp;
-        } else {
-            temp = [value].concat(data);
-            return temp;
-        }
-    };
+    // const updateRecentActivity = (data, value) => {
+    //     //Function to update the recent activity
+    //     var temp;
+    //     if (data.filter((obj) => obj.id === value.id) !== []) {
+    //         temp = data.filter((obj) => obj.id !== value.id);
+    //         temp = [value].concat(temp);
+    //         return temp;
+    //     }
+    //     if (data.length === 10) {
+    //         temp = data.pop();
+    //         temp = [value].concat(data);
+    //         return temp;
+    //     } else {
+    //         temp = [value].concat(data);
+    //         return temp;
+    //     }
+    // };
 
     // Effets to handle the api requests for the question data
     useEffect(() => {
+        const addToRecents = async () => {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/activity/add_to_recents`, {
+                contentType: "question",
+                contentId: params.threadID
+            }, {headers: {
+                Authorization: localStorage.getItem("token")
+            }})
+            return response
+        }
         setSubmit(true);
-        dispatch(fetchProfileData(localStorage.getItem("localId"))).then(
-            (result) => {
-                //Fetching the profile data
-                if (result !== "false") {
-                    dispatch(
-                        profileActions.update({
-                            //Dispatching the data
-                            ...result,
-                            recentActivity: updateRecentActivity(
-                                result.recentActivity,
-                                {
-                                    id: params.threadID,
-                                    type: "question",
-                                }
-                            ),
-                        })
-                    );
-                }
-            }
-        );
-        dispatch(fetchQuestionData(params.threadID)).then((result) => {
-            //Fetching the others profile data
-            if (result !== null) {
-                //Dispatching it
-                dispatch(fetchOtherProfileData(result.userId)).then((data) => {
-                    setData({
-                        ...data,
-                        followercount: data.followersList.length,
-                        followingcount: data.followingList.length,
-                        userId: result.userId,
-                    });
-                });
-                setSubmit(false);
-            }
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        async function fetchQuestionData() {
+            console.log(params.threadID);
+            const data1 = await getQuestionData(params.threadID);
+            const data = await getAnswersData(params.threadID);
+            const userData = await getMyUserData();
+            setUserId(userData._id)
+            console.log(data);
+            setComments(data);
+            console.log(data1);
+            setData(data1);
+            setSubmit(false)
+        }
+        fetchQuestionData();
+        addToRecents().then((response) => {
+            console.log(response)
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const myRef = useRef(null);
@@ -130,6 +117,8 @@ const QuestionLayout = () => {
                                 }
                             >
                                 <Leftq
+                                    userId={userId}
+                                    data={data}
                                     questionID={params.threadID}
                                     handler={executeScroll}
                                 />
@@ -141,7 +130,8 @@ const QuestionLayout = () => {
                             >
                                 <Middleq
                                     questionID={params.threadID}
-                                    profileData={data}
+                                    data={data}
+                                    comments={comments}
                                     theRef={myRef}
                                 />
                             </div>
@@ -152,7 +142,7 @@ const QuestionLayout = () => {
                             >
                                 <Rightq
                                     questionID={params.threadID}
-                                    profileData={data}
+                                    data={data}
                                 />
                             </div>
                         </div>

@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
 import Header from "../components/header/Header";
 import Navigation from "../components/navigation/Navigation";
@@ -13,7 +12,6 @@ const Layout = (props) => {
         //Nav handler
         nav ? setNav(false) : setNav(true);
     };
-    const authStatus = useSelector((state) => state.auth);
     const params = useParams();
 
     // This is the uid extracted from the url via routing
@@ -40,32 +38,23 @@ const Layout = (props) => {
         },
     };
 
-    return authStatus.isAuthenticated ? (
-        <>
-            {!nav && <Header nav={navHandler} />}
-            {nav && <Navigation nav={navHandler} />}
-            {!nav && (
-                <motion.div
-                    variants={mainVarient}
-                    initial="hidden"
-                    animate="visible"
-                    exit="exit"
-                    className="container-fluid"
-                >
-                    <div className="row">
-                        <div className="col-md-3">
-                            <Profile uid={params.uid} />
-                        </div>
-                        <div className="col-md-9">
-                            <Outlet />
-                        </div>
-                    </div>
-                </motion.div>
-            )}
-        </>
-    ) : (
-        <RestrictedAccess />
-    );
+    return <motion.div
+        variants={mainVarient}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
+        className="container-fluid"
+    >
+    <div className="row">
+        <Header/>
+        <div className="col-md-3">
+            <Profile uid={params.uid} />
+        </div>
+        <div className="col-md-9">
+            <Outlet />
+        </div>
+    </div>
+</motion.div>
 };
 
 export default Layout;

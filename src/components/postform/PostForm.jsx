@@ -5,17 +5,11 @@ import PostModal from "./PostModal";
 import ImageInputBox from "./ImageInputBox/ImageInputBox";
 import TextInputBox from "./TextInputBox/TextInputBox";
 import { v4 as uuidv4 } from "uuid";
-import { useDispatch, useSelector } from "react-redux";
-import { profileActions } from "../../store/profile";
-import { sendPostData } from "../../store/post-actions";
 import { useNavigate } from "react-router-dom";
 import LoadingSpinner from "../auth/LoadingSpinner";
-import { postsActions } from "../../store/posts";
-const PostForm = () => {
-    const auth = useSelector((state) => state.auth); //Accessing the user's data from the redux store
-    const about = useSelector((state) => state.profile); //Accessing the user's profile from the redux store
+import axios from 'axios'
 
-    const dispatch = useDispatch(); //Dispatch to dispatch the actions
+const PostForm = () => {
 
     // State for the form inputs
     const [inputList, setInputList] = useState([]);
@@ -26,6 +20,7 @@ const PostForm = () => {
     const [genre, setGenre] = useState("");
     const navigate = useNavigate();
     const formRef = useRef();
+    const [errors, setErrors] = useState("")
 
     // Effect for the scroll
     useEffect(() => {
@@ -60,12 +55,14 @@ const PostForm = () => {
     // Input handler for custom inputs
 
     const addInputHandler = (type) => {
+        const seq_no = inputList.length + 1
         setInputList((value) => [
             ...value,
             {
                 id: uuidv4(),
                 type: type,
                 value: "",
+                seq_no: seq_no, 
             },
         ]);
         updateScroll();
@@ -78,7 +75,14 @@ const PostForm = () => {
             values.findIndex((value) => value.id === id),
             1
         );
+        for(let i in values) {
+            values[i] = {
+                ...values[i],
+                seq_no: parseInt(i) + 1
+            }
+        }
         setInputList(values);
+        console.log(values)
     };
 
     // Input on change handler
@@ -91,46 +95,74 @@ const PostForm = () => {
         });
         setInputList(newInputFields);
     };
-
+    
     // Form on submit handler
     const onSubmitHandler = (event) => {
+        setSubmit(true);
         const postId = uuidv4();
-        const uid = auth.localId;
+        const uid = "2";
         var today = new Date();
         const publishedDate = today.toLocaleDateString("en-US");
         event.preventDefault();
         const finalData = inputList.map((input) => {
-            if (input.type === "image") {
-                input.value = "https://picsum.photos/200";
-            }
             return input;
         });
         const postData = {
-            postId: postId,
-            likes: 0,
             uid: uid,
-            publishedDate: publishedDate,
-            bookmarks: 0,
-            postTitle: title,
-            imageUrl: "https://picsum.photos/200",
-            postSummary: summary,
-            postData: finalData,
-            comments: [],
+            title,
+            banner,
+            summary,
+            cells: finalData,
             genre: genre,
-            author: about.firstName,
         };
-        setSubmit(true);
-        dispatch(sendPostData(postData, postId)).then((result) => {
-            //Dispatching the required data to the redux store and firebase
-            if (result === "success") {
-                var postIds = [...about.postIds, postId];
-                dispatch(profileActions.update({ ...about, postIds: postIds }));
-                dispatch(postsActions.addPost(postData));
-                setSubmit(false);
-
-                navigate(`/profile/${uid}`, { replace: true });
+        const cellImages = []
+        let k = 0
+        for(let i in finalData) {
+            if(finalData[i].type === "image") {
+                cellImages.push(finalData[i].value)
+                finalData[i].value = k
+                k = k + 1
             }
-        });
+        }
+        postData.cells = finalData;
+        console.log(postData)
+        let form = new FormData()
+        for(let i in postData) {
+            console.log(i)
+            if(i === 'cells') {
+                form.append(i, JSON.stringify(postData[i]))
+            } else {
+                form.append(i, postData[i])
+            }
+        }
+        for(let i in cellImages) {
+            console.log(i)
+            form.append(`cellImage_${i}`, cellImages[i])
+        }
+        const submitPost = async (postData) => {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/post/create_post`, postData, {
+                headers: {
+                    'Content-Type': "multipart/form-data",
+                    Authorization: localStorage.getItem('token'),
+                    'folder': 'posts'
+                }
+            });
+            return response;
+        }
+        submitPost(form).then((response) => {
+            if(response.data.status) {
+                console.log(response)
+                navigate("/profile", {replace: true, state: {
+                    notification: true,
+                    message: response.data.message
+                }})
+                setSubmit(false)
+            } else {
+                console.log(response)
+                setErrors(response.data.message)
+                setSubmit(false)
+            }
+        })
     };
 
     return submit ? (

@@ -3,141 +3,58 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ShareIcon from "@mui/icons-material/Share";
 import CommentIcon from "@mui/icons-material/Comment";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import { sendQuestionData } from "../../../store/question-actions";
 import { ThumbUpOffAlt } from "@mui/icons-material";
-import { profileActions } from "../../../store/profile";
-import { questionActions } from "../../../store/question";
 import BookmarkAdded from "@mui/icons-material/BookmarkAdded";
-
+import { upVoteQuestion, downVoteQuestion } from "../../../requests/questionDetail.request";
 import Copyurl from "../../home/cards/CopyUrl";
+import { addBookmark, removeBookmark } from "../../../requests/activity.request";
 
 const Leftq = (props) => {
-    const checkId = (savedId, questionId) => {
-        // function to check if the user has liked(or bookmarked) the particular post earlier or not
-        for (var i = 0; i < savedId.length; i++) {
-            if (savedId[i].id === questionId) {
-                return true;
-            }
-        }
-        return false;
-    };
+    const [like, setLike] = useState(props.data.up_votes.length);
+    const [bookmark, setBookmark] = useState(props.data.bookmarks.length);
+    
+    const [likestatus, setLikestatus] = useState(props.data.up_votes.includes(props.userId));
+    const [bookmarkstatus, setBookmarkstatus] = useState(props.data.bookmarks.includes(props.userId));
 
-    const dispatch = useDispatch(); // initialising the dispatch to use store easily
-
-    const questiondata = useSelector((state) => state.question); // Getting the data from the store
-    const [like, setLike] = useState(questiondata.likes);
-    const [bookmark, setBookmark] = useState(questiondata.bookmarks);
-    const likedcontent = useSelector((state) => state.profile); // Getting the upvotes of the post from the store
-    const likeid = likedcontent.likedContent;
-    const savedId = likedcontent.savedContent;
-
-    const [likestatus, setLikestatus] = useState(
-        likeid.includes(questiondata.questionId)
-    );
-    const [bookmarkstatus, setBookmarkstatus] = useState(
-        checkId(savedId, questiondata.questionId)
-    );
-
-    const likeHandler = () => {
+    const likeHandler = async () => {
         // like handler to increment number of likes in database and ui on clicking like buttons
         if (!likestatus) {
-            var likes = like;
+            setLike((prev)=>(prev+1));
             setLikestatus(true);
-            setLike((val) => val + 1);
-            likes = like + 1;
-            dispatch(profileActions.addLikedContent(questiondata.questionId));
-
-            // dispatch(sendProfileData(profiledata, authdata.localId));
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, likes: likes },
-                    questiondata.questionId
-                )
-            ).then((res) => {
-                if (res === "success") {
-                    dispatch(
-                        questionActions.add({ ...questiondata, likes: likes })
-                    );
-                }
-            });
+            await upVoteQuestion(props.questionID)
         }
+        
     };
 
-    const dislikeHandler = () => {
+    const dislikeHandler = async() => {
         // dislike handler to decrement number of likes in database and ui on clicking like button again when already liked
         if (likestatus) {
-            var likes = like;
+            setLike((prev)=>(prev-1));
             setLikestatus(false);
-            setLike((val) => val - 1);
-            likes = like - 1;
-            dispatch(
-                profileActions.removeLikedContent(questiondata.questionId)
-            );
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, likes: likes },
-                    questiondata.questionId
-                )
-            );
-            // dispatch(sendProfileData(profiledata, authdata.localId));
+            await downVoteQuestion(props.questionID)
         }
+        
     };
-    const bookmarklikeHandler = () => {
+    const bookmarklikeHandler = async () => {
         // state management for bookmark button
         if (!bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(true);
             setBookmark((val) => val + 1);
             bookmarks = bookmark + 1;
-            dispatch(
-                profileActions.addBookmark({
-                    type: "question",
-                    id: questiondata.questionId,
-                })
-            );
-
-            // dispatch(sendProfileData(profiledata, authdata.localId));
-
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, bookmarks: bookmarks },
-                    questiondata.questionId
-                )
-            );
+            await addBookmark('question', props.questionID)
         }
     };
 
-    const bookmarkdislikeHandler = () => {
+    const bookmarkdislikeHandler = async () => {
         // state management for un bookmarking
         if (bookmarkstatus) {
             var bookmarks = bookmark;
             setBookmarkstatus(false);
             setBookmark((val) => val - 1);
             bookmarks = bookmark - 1;
-            dispatch(
-                profileActions.removeBookmark({
-                    type: "question",
-                    id: questiondata.questionId,
-                })
-            );
-            dispatch(
-                sendQuestionData(
-                    { ...questiondata, bookmarks: bookmarks },
-                    questiondata.questionId
-                )
-            ).then((res) => {
-                if (res === "success") {
-                    dispatch(
-                        questionActions.add({
-                            ...questiondata,
-                            bookmarks: bookmarks,
-                        })
-                    );
-                }
-            });
-            // dispatch(sendProfileData(profiledata, authdata.localId));
+            await removeBookmark('question', props.questionID)
         }
     };
 
@@ -146,7 +63,7 @@ const Leftq = (props) => {
     return (
         <>
             <div style={{ paddingTop: "3em" }}>
-                {likeid.includes(questiondata.questionId) ? ( //  if else condition to check if the user liked the post earlier
+                {likestatus ? ( //  if else condition to check if the user liked the post earlier
                     <button
                         className="btn shadow-none" // Dislike butoon is shown if the above condition is true or not
                         style={{ paddingLeft: "5.5em" }}
@@ -175,7 +92,7 @@ const Leftq = (props) => {
                     <CommentIcon /> Answers
                 </button>
                 <span style={{ paddingLeft: "7em" }}>
-                    {questiondata.comments.length}
+                    {props.data.answers.length}
                 </span>
                 <br />
                 <br />

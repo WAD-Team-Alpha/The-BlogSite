@@ -1,10 +1,26 @@
 import { Delete } from "@mui/icons-material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./ImageInputBox.module.css";
 
 const ImageInputBox = (props) => {
     // Custom input box for image
     const [preview, setPreview] = useState(""); //State for the previw of the image
+    const [file, setFile] = useState("")
+    const [image, setImage] = useState();
+    useEffect(() => {
+        if (image) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+                console.log("This is the command", file)
+                props.isAdded ? props.onChange(props.id, file) : props.onChange(file)
+            }
+            reader.readAsDataURL(image)
+        } else {
+            setPreview(null)
+        }
+    }, [image])
+
     return (
         <div className="d-flex align-items-center mb-3">
             <div
@@ -29,7 +45,17 @@ const ImageInputBox = (props) => {
                         id="bannerImage"
                         accept="images/*"
                         onChange={(event) => {
-                            setPreview("https://picsum.photos/200");
+                            console.log(event.target.files[0])
+                            setPreview(event.target.files[0]);
+                            const file = event.target.files[0];
+                            if (file && file.type.substring(0, 5) === "image") {
+                                setFile(file)
+                                setImage(file)
+                            } else {
+                                setImage(null)
+                                setFile(null)
+                            }
+                            props.onChange(props.id, event.target.files[0])
                         }}
                     />
                     Drop image

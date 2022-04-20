@@ -5,9 +5,15 @@ import DoneSharpIcon from "@mui/icons-material/DoneSharp";
 import { useState } from "react";
 
 const CommentsSection = (props) => {
+    console.log(props);
     //this component is separated from last.jsx so that each comment can be changed individually
     const [correctionstatus, setcorrectionstatus] = useState("Mark as correct");
     const [correctionicon, setCorrectionIcon] = useState(<TimerIcon />);
+
+    const answeredDate = new Date(props.data.answered_date)
+    const date = answeredDate.getUTCDate()
+    const month = answeredDate.getUTCMonth() + 1
+    const year = answeredDate.getUTCFullYear()
 
     const correctionHandler = (props) => {
         // correction handler to mark the answer as correct
@@ -34,11 +40,11 @@ const CommentsSection = (props) => {
                 </div>
                 <div className="col-6" style={{ paddingLeft: "1.5em" }}>
                     <div className={classes.answersection}>
-                        <b>{props.comment.name}</b>
+                        <b>{props.data.author}</b>
                     </div>
                     <div className={classes.answertime}>
                         {" "}
-                        Answerd on {props.comment.publishedDate}{" "}
+                        Answerd on {`${date}/${month}/${year}`}{" "}
                     </div>
                 </div>
                 <div
@@ -58,7 +64,7 @@ const CommentsSection = (props) => {
                     className="col"
                     style={{ paddingLeft: "2em", paddingTop: "1em" }}
                 >
-                    <span> {props.comment.text}</span>
+                    <span> {props.data.text}</span>
                 </div>
             </div>
             <div className="row">

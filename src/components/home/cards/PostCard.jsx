@@ -4,30 +4,42 @@ import { useNavigate } from "react-router-dom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CommentIcon from "@mui/icons-material/Comment";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import PropTypes from 'prop-types'
 
-const PostCard = (props) => {
+const PostCard = ({
+    key,
+    id,
+    likes,
+    comments,
+    banner,
+    title,
+    summary,
+    author,
+    userId,
+    publishedDate
+}) => {
     const navigate = useNavigate();
     const getDataHandler = (event) => {
         event.preventDefault();
-        navigate(`/posts/${props.id}`);
+        navigate(`/posts/${id}`);
     };
 
     // If description length is more than 150 reduse the size of Description Full lenght show in post detail page
-    const str = props.description;
+    const str = summary;
     const len = str.length;
 
     let dec;
     let result = str.substring(0, 150); // take substring from Description string
     if (len < 150) {
-        dec = <p className="card-text">{props.description}</p>;
+        dec = <p className="card-text">{summary}</p>;
     } else {
         dec = <p className="card-text">{result}....</p>;
     }
-    const titles = props.title.length;
-    let resultitle = props.title.substring(0, 20);
+    const titles = title.length;
+    let resultitle = title.substring(0, 20);
     let shortitle;
     if (titles < 25) {
-        shortitle = props.title;
+        shortitle = title;
     } else {
         shortitle = (
             <h5 className="card-title fw-bold fs-1 ">{resultitle}....</h5>
@@ -35,39 +47,36 @@ const PostCard = (props) => {
     }
 
     return (
-        <div className={`card mb-3  mt-3 ${classes.shadow}`}>
+        <div className={`card mb-3 px-3 py-3 mt-3 ${classes.background}`}>
             <div className="row g-0">
                 <div className="col-md-3">
                     <img
-                        src={props.banner}
+                        src={banner}
                         className="img-fluid rounded-start"
                         height="200px"
                         width="200px"
                         alt="..."
                     />
                 </div>
-                <div className="col-md-9">
+                <div className={`col-md-9 ${classes.headingColor}`}>
                     <div className="card-body">
                         <h5 className="card-title fw-bold fs-1 ">
                             {shortitle}
                         </h5>
-                        <p style={{ height: "2.5em" }}>{dec}</p>
+                        <p className={`${classes.contentStyle}`}>{dec}</p>
                     </div>
                     <div className={classes.bottom}>
                         <p className="btn">
-                            <ThumbUpIcon /> Likes {props.likes}{" "}
+                            <ThumbUpIcon /> Likes {likes}{" "}
                         </p>
                         <p className="btn">
-                            <CommentIcon /> Comments{" "}
-                            {props.comments === undefined
-                                ? 0
-                                : props.comments.length}{" "}
+                            <CommentIcon /> {comments}
                         </p>
                         <Link
                             className="btn"
                             style={{ height: "2.5em" }}
                             onClick={getDataHandler}
-                            to={`/posts/${props.id}`}
+                            to={`/posts/${id}`}
                         >
                             {" "}
                             <RemoveRedEyeIcon /> View post
@@ -75,9 +84,9 @@ const PostCard = (props) => {
                         <p className="btn">
                             Posted by{" "}
                             <span style={{ color: "blue", fontWeight: "600" }}>
-                                {props.author}
+                                {author}
                             </span>{" "}
-                            on {props.publishedDate}
+                            on {publishedDate}
                         </p>
                     </div>
                 </div>
@@ -85,5 +94,18 @@ const PostCard = (props) => {
         </div>
     );
 };
+
+PostCard.propTypes = {
+    key: PropTypes.string,
+    id: PropTypes.string,
+    likes: PropTypes.number,
+    comments: PropTypes.number,
+    banner: PropTypes.string,
+    title: PropTypes.string,
+    summary: PropTypes.string,
+    author: PropTypes.string,
+    userId: PropTypes.string,
+    publishedDate: PropTypes.string
+}
 
 export default PostCard;

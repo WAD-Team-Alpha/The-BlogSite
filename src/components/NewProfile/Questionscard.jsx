@@ -1,9 +1,7 @@
-import { useSelector } from "react-redux";
 import QuestionCard from "../home/cards/QuestionCard";
 
 const Questionscard = (props) => {
-    const quesdata = useSelector((state) => state.questions); //fetching question data from the question store
-
+    console.log(props);
     return (
         <div>
             <div
@@ -17,33 +15,28 @@ const Questionscard = (props) => {
                     backgroundColor: "#edf5e1",
                 }}
             >
-                {props.curUser
-                    ? quesdata.map((question) => (
-                          <QuestionCard //if the user is current user then render the posts of current user
-                              key={question.questionId}
-                              id={question.questionId}
-                              votes={question.likes}
-                              answers={question.comments}
-                              question={question.question}
-                              details={question.description}
-                              userId={question.userId}
-                              publishedDate={question.publishedDate}
-                              author={question.author}
-                          />
-                      ))
-                    : props.questionsData.map((question) => (
-                          <QuestionCard // if the user is other user then render the questions of other user in the question section
-                              key={question.questionId}
-                              id={question.questionId}
-                              votes={question.likes}
-                              answers={question.comments}
-                              question={question.question}
-                              details={question.description}
-                              userId={question.userId}
-                              publishedDate={question.publishedDate}
-                              author={question.author}
-                          />
-                      ))}
+
+                {props.questionsData.map((quest)=>
+                {
+                    const publishedDate = new Date(quest.published_date)
+                    const date = publishedDate.getUTCDate()
+                    const month = publishedDate.getUTCMonth() + 1
+                    const year = publishedDate.getUTCFullYear()
+
+                    return(
+                        <QuestionCard //if the user is current user then render the posts of current user
+                        key={quest._id}
+                        id={quest._id}
+                        votes={quest.up_votes.length}
+                        answers={quest.answers.length}
+                        title={quest.title}
+                        summary={quest.summary}
+                        userId={quest.userId}
+                        publishedDate={`${date}/${month}/${year}`}
+                        author={quest.author}
+                    />
+                    )
+                })}
             </div>
         </div>
     );
