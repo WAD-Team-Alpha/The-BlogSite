@@ -64,7 +64,7 @@ const QuestionLayout = () => {
     // Effets to handle the api requests for the question data
     useEffect(() => {
         const addToRecents = async () => {
-            const response = await axios.post("http://localhost:5000/api/v1/activity/add_to_recents", {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/activity/add_to_recents`, {
                 contentType: "question",
                 contentId: params.threadID
             }, {headers: {

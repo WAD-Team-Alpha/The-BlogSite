@@ -44,7 +44,7 @@ const SavedForLaterPage = () => {
     const getSavedData = async () => {
       console.log(page, limit)
       const response = await axios.get(
-        `http://localhost:5000/api/v1/activity/get_saved_content?page=${page}&limit=${limit}`,
+        `${process.env.REACT_APP_API_BASE_URL}/activity/get_saved_content?page=${page}&limit=${limit}`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),

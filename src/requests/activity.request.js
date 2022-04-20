@@ -4,7 +4,7 @@ export const addBookmark = async (type, id) => {
     try {
         console.log(type, id);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/activity/add_to_saved`,
+            `${process.env.REACT_APP_API_BASE_URL}/activity/add_to_saved`,
             {
                 contentType: type,
                 contentId: id,
@@ -38,7 +38,7 @@ export const removeBookmark = async (type, id) => {
     try {
         console.log(type, id);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/activity/remove_from_saved`,
+            `${process.env.REACT_APP_API_BASE_URL}/activity/remove_from_saved`,
             {
                 contentType: type,
                 contentId: id,

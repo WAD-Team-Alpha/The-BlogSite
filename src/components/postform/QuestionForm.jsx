@@ -34,7 +34,7 @@ const QuestionForm = () => {
     setSubmit(true);
     const createQuestion = async (form) => {
       const response = await axios.post(
-        "http://localhost:5000/api/v1/question/create_question",
+        `${process.env.REACT_APP_API_BASE_URL}/question/create_question`,
         form,
         {
           headers: {

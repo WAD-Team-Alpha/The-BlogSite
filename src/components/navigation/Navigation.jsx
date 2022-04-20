@@ -26,7 +26,7 @@ const Navigation = (props) => {
         setLoading(true)
         const getPosts = async () => {
             const response = await axios.get(
-                `http://localhost:5000/api/v1/post/get_all_posts?page=${1}&limit=${7}`
+                `${process.env.REACT_APP_API_BASE_URL}/post/get_all_posts?page=${1}&limit=${7}`
             );
             return response
         }

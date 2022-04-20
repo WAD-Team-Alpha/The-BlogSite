@@ -35,7 +35,7 @@ const RecentActivityPage = () => {
     setStatus(true);
     const getRecents = async () => {
       const response = await axios.get(
-        "http://localhost:5000/api/v1/activity/get_recent_activity",
+        `${process.env.REACT_APP_API_BASE_URL}/activity/get_recent_activity`,
         {
           headers: {
             Authorization: localStorage.getItem("token"),

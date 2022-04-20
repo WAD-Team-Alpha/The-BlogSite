@@ -43,7 +43,7 @@ const PostPage = () => {
     setStatus(true);
     const getPosts = async () => {
       const response = await axios.get(
-        `http://localhost:5000/api/v1/post/get_all_posts?page=${page}&limit=${limit}`
+        `${process.env.REACT_APP_API_BASE_URL}/post/get_all_posts?page=${page}&limit=${limit}`
       );
       if (response.data.status) {
         return response.data;

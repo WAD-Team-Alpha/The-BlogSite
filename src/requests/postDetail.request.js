@@ -3,7 +3,7 @@ export const getPostData = async (id) => {
     try {
         console.log(id);
         const response = await axios.get(
-            `http://localhost:5000/api/v1/post/get_post/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/post/get_post/${id}`
         );
         if (response.data.status) {
             console.log(response.data);
@@ -26,7 +26,7 @@ export const getCommentsData = async (id) => {
     try {
         console.log(id);
         const response = await axios.get(
-            `http://localhost:5000/api/v1/comment/get_comments/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/comment/get_comments/${id}`
         );
         if (response.data.status) {
             console.log(response.data);
@@ -49,7 +49,7 @@ export const postComment = async (id,answer) => {
     try {
         console.log(id);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/comment/add_comment`,
+            `${process.env.REACT_APP_API_BASE_URL}/comment/add_comment`,
             {
                 postId: id,
                 text: answer,
@@ -81,7 +81,7 @@ export const likePost = async (id) => {
     try {
         console.log(id);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/post/like_post`,
+            `${process.env.REACT_APP_API_BASE_URL}/post/like_post`,
             {
                 postId: id,
             },

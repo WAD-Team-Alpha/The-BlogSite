@@ -140,7 +140,7 @@ const PostForm = () => {
             form.append(`cellImage_${i}`, cellImages[i])
         }
         const submitPost = async (postData) => {
-            const response = await axios.post("http://localhost:5000/api/v1/post/create_post", postData, {
+            const response = await axios.post(`${process.env.REACT_APP_API_BASE_URL}/post/create_post`, postData, {
                 headers: {
                     'Content-Type': "multipart/form-data",
                     Authorization: localStorage.getItem('token'),

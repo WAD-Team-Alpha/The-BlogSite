@@ -4,7 +4,7 @@ export const updateUserData = async (firstname, lastname, bio, genres) => {
     console.log(localStorage.getItem("token"));
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/user/update_user`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/update_user`,
             {
                 firstname: firstname,
                 lastname: lastname,
@@ -34,7 +34,7 @@ export const getMyUserData = async () => {
     console.log(localStorage.getItem("token"));
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/user/get_user`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/get_user`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -58,7 +58,7 @@ export const getMyUserData = async () => {
 export const getOtherUserData = async (uid) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/user/get_user/${uid}`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/get_user/${uid}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -85,7 +85,7 @@ export const getOtherUserData = async (uid) => {
 export const getPostsData = async () => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/post/get_posts`,
+            `${process.env.REACT_APP_API_BASE_URL}/post/get_posts`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -112,7 +112,7 @@ export const getPostsData = async () => {
 export const getQuestionsData = async () => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/question/get_questions`,
+            `${process.env.REACT_APP_API_BASE_URL}/question/get_questions`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -139,7 +139,7 @@ export const getQuestionsData = async () => {
 export const getOtherPostsData = async (id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/post/get_posts_by_userId/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/post/get_posts_by_userId/${id}`
         );
         if (response.data.status) {
             // console.log(response.data);
@@ -161,7 +161,7 @@ export const getOtherPostsData = async (id) => {
 export const getOtherQuestionsData = async (id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/question/get_questions_by_userId/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/question/get_questions_by_userId/${id}`
         );
         if (response.data.status) {
             // console.log(response.data);
@@ -183,7 +183,7 @@ export const getOtherQuestionsData = async (id) => {
 export const unFollowUser = async (id) => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/user/unfollow_user`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/unfollow_user`,
             {
                 follow_userId: id,
             },
@@ -213,7 +213,7 @@ export const unFollowUser = async (id) => {
 export const followUser = async (id) => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/user/follow_user`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/follow_user`,
             {
                 follow_userId: id,
             },
@@ -243,7 +243,7 @@ export const followUser = async (id) => {
 export const removeFollower = async (id) => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/user/remove_follower`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/remove_follower`,
             {
                 follow_userId: id,
             },

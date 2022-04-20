@@ -69,7 +69,7 @@ const PostLayout = () => {
         console.log("use effetct is running");
         const addToRecents = async () => {
             const response = await axios.post(
-                "http://localhost:5000/api/v1/activity/add_to_recents",
+                `${process.env.REACT_APP_API_BASE_URL}/activity/add_to_recents`,
                 {
                     contentType: "post",
                     contentId: params.postID,

@@ -3,7 +3,7 @@ import axios from "axios";
 export const register = async (firstname, lastname, email, password) => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/auth/register`,
+            `${process.env.REACT_APP_API_BASE_URL}/auth/register`,
             {
                 firstname,
                 lastname,
@@ -34,7 +34,7 @@ export const register = async (firstname, lastname, email, password) => {
 export const login = async (email, password) => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/auth/login`,
+            `${process.env.REACT_APP_API_BASE_URL}/auth/login`,
             {
                 email,
                 password,
@@ -63,7 +63,7 @@ export const login = async (email, password) => {
 export const getUserId = async () => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/user/get_user`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/get_user`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,

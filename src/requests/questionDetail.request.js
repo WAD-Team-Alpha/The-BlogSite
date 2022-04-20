@@ -3,7 +3,7 @@ export const getQuestionData = async (id) => {
     try {
         console.log(id);
         const response = await axios.get(
-            `http://localhost:5000/api/v1/question/get_question/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/question/get_question/${id}`
         );
         if (response.data.status) {
             console.log(response.data);
@@ -26,7 +26,7 @@ export const getAnswersData = async (id) => {
     try {
         console.log(id);
         const response = await axios.get(
-            `http://localhost:5000/api/v1/answer/get_answers/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/answer/get_answers/${id}`
         );
         if (response.data.status) {
             console.log(response.data);
@@ -49,7 +49,7 @@ export const postAnswer = async (id,answer) => {
     try {
         console.log(id);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/answer/add_answer`,
+            `${process.env.REACT_APP_API_BASE_URL}/answer/add_answer`,
             {
                 questionId: id,
                 text: answer,
@@ -81,7 +81,7 @@ export const upVoteQuestion = async (id) => {
     try {
         console.log(id);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/question/up_vote_question`,
+            `${process.env.REACT_APP_API_BASE_URL}/question/up_vote_question`,
             {
                 questionId: id,
             },
@@ -112,7 +112,7 @@ export const downVoteQuestion = async (id) => {
     try {
         console.log(id);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/question/down_vote_question`,
+            `${process.env.REACT_APP_API_BASE_URL}/question/down_vote_question`,
             {
                 questionId: id,
             },
