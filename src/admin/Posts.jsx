@@ -10,13 +10,13 @@ const Posts = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const handleChange = async (e,value) => {
-      setLoading(true)
-      const data1 = await getPostsData(value);
-      console.log(data1);
-      setData(data1);
-      setLoading(false);
-  };
+    const handleChange = async (e, value) => {
+        setLoading(true);
+        const data1 = await getPostsData(value);
+        console.log(data1);
+        setData(data1);
+        setLoading(false);
+    };
     useEffect(() => {
         async function fetchData() {
             const data1 = await getPostsData();
@@ -32,39 +32,51 @@ const Posts = () => {
         <div className={classes.posts}>
             <h1 style={{ marginTop: "0.5em", marginLeft: "13em" }}>Posts</h1>
             <div className="row">
-                {data.map((post) => (
-                    <div
-                        key={post._id}
-                        class="card w-25"
-                        style={{
-                            backgroundColor: "#8EE4AF",
-                            marginRight: "3em",
-                            marginBottom: "1em",
-                        }}
-                    >
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <b>{post.title}</b>
-                            </h5>
-                            <p class="card-text">
-                                <p>
-                                    <b>Genre </b> : {post.genre} <br />
-                                </p>
-                                <p>
-                                    {" "}
-                                    <b>Summary </b> :{" "}
-                                    {post.summary.slice(0, 80)} ...{" "}
-                                </p>
-                            </p>
-                            <button class="btn btn-primary" onClick={()=>navigate("/admin/posts/id")}>
-                              View Post
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                {data.map((post) => {
+                    if (post.is_active) {
+                        return (
+                            <div
+                                key={post._id}
+                                class="card w-25"
+                                style={{
+                                    backgroundColor: "#8EE4AF",
+                                    marginRight: "3em",
+                                    marginBottom: "1em",
+                                }}
+                            >
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <b>{post.title}</b>
+                                    </h5>
+                                    <p class="card-text">
+                                        <p>
+                                            <b>Genre </b> : {post.genre} <br />
+                                        </p>
+                                        <p>
+                                            {" "}
+                                            <b>Summary </b> :{" "}
+                                            {post.summary.slice(0, 80)} ...{" "}
+                                        </p>
+                                    </p>
+                                    <button
+                                        class="btn btn-primary"
+                                        onClick={() => navigate(post._id)}
+                                    >
+                                        View Post
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    }
+                })}
             </div>
             <div className={classes.pagination}>
-                <Pagination onChange={handleChange} count={data.count === undefined ? 1 : data.count} variant="outlined" color="primary" />
+                <Pagination
+                    onChange={handleChange}
+                    count={data.count === undefined ? 1 : data.count}
+                    variant="outlined"
+                    color="primary"
+                />
             </div>
         </div>
     );

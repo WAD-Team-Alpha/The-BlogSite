@@ -8,8 +8,8 @@ const Users = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const handleChange = async (e,value) => {
-        setLoading(true)
+    const handleChange = async (e, value) => {
+        setLoading(true);
         const data1 = await getUsersData(value);
         console.log(data1);
         setData(data1);
@@ -33,35 +33,45 @@ const Users = () => {
         <div className={classes.users}>
             <h1 style={{ marginTop: "0.5em", marginLeft: "13em" }}>Users</h1>
             <div className="row">
-                {data.map((user) => (
-                    <div
-                        key={user._id}
-                        class="card w-25"
-                        style={{
-                            backgroundColor: "#8EE4AF",
-                            marginRight: "3em",
-                            marginBottom: "1em",
-                        }}
-                    >
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <b>{`${user.firstname} ${user.lastname}`}</b>
-                            </h5>
-                            <p class="card-text">
-                                <b>Genres </b> :{" "}
-                                {user.genres.map((g) => `${g}, `)}
-                                <br />
-                                <p>
-                                    <b>Bio </b> : {user.bio.slice(0, 100)}{" "}
-                                    {user.bio.length !== 0
-                                        ? "..."
-                                        : "Not Updated"}{" "}
-                                </p>
-                            </p>
-                            <button class="btn btn-primary" onClick={()=>navigate("/admin/users/id")}>View Profile</button>
-                        </div>
-                    </div>
-                ))}
+                {data.map((user) => {
+                    if (user.is_active) {
+                        return (
+                            <div
+                                key={user._id}
+                                class="card w-25"
+                                style={{
+                                    backgroundColor: "#8EE4AF",
+                                    marginRight: "3em",
+                                    marginBottom: "1em",
+                                }}
+                            >
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <b>{`${user.firstname} ${user.lastname}`}</b>
+                                    </h5>
+                                    <p class="card-text">
+                                        <b>Genres </b> :{" "}
+                                        {user.genres.map((g) => `${g}, `)}
+                                        <br />
+                                        <p>
+                                            <b>Bio </b> :{" "}
+                                            {user.bio.slice(0, 100)}{" "}
+                                            {user.bio.length !== 0
+                                                ? "..."
+                                                : "Not Updated"}{" "}
+                                        </p>
+                                    </p>
+                                    <button
+                                        class="btn btn-primary"
+                                        onClick={() => navigate(`${user._id}`)}
+                                    >
+                                        View Profile
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    }
+                })}
             </div>
             <div className={classes.pagination}>
                 <Pagination
