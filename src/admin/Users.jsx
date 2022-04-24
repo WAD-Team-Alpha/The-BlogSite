@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classes from "./css/users.module.css";
 import { Pagination } from "@mui/material";
 import LoadingSpinner from "../components/auth/LoadingSpinner";
@@ -7,6 +7,7 @@ import { getUsersData } from "../requests/admin.requests";
 const Users = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const navigate = useNavigate();
     const handleChange = async (e,value) => {
         setLoading(true)
         const data1 = await getUsersData(value);
@@ -57,9 +58,7 @@ const Users = () => {
                                         : "Not Updated"}{" "}
                                 </p>
                             </p>
-                            <a href="#" class="btn btn-primary">
-                                View Profile
-                            </a>
+                            <button class="btn btn-primary" onClick={()=>navigate("/admin/users/id")}>View Profile</button>
                         </div>
                     </div>
                 ))}
