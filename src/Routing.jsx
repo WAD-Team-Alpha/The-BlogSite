@@ -22,7 +22,7 @@ import Admin from "./admin/Admin";
 import Users from "./admin/Users";
 import Posts from "./admin/Posts";
 import Questions from "./admin/Questions";
-import UserDetailed from "./admin/UserDetailed";
+// import UserDetailed from "./admin/UserDetailed";
 import SignUp from "./admin/SignUp";
 import UserDetails from "./admin/Details/UserDetails";
 import PostDetails from "./admin/Details/PostDetails";
@@ -70,7 +70,9 @@ const Routing = () => {
           <Route path="users" element={<Users />} />
           <Route path="posts" element={<Posts />} />
           <Route path="questions" element={<Questions />} />
-          <Route path="users/:id" element={<UserDetailed />} />
+          <Route path="users/:id" element={<UserDetails/>} />
+          <Route path="posts/:id" element={<PostDetails/>}></Route>
+          <Route path="questions/:id" element={<QuestionDetails/>}></Route>
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

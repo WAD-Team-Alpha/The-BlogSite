@@ -12,7 +12,7 @@ const Questions = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
     const navigate = useNavigate();
-    const handleChange = async (e,value) => {
+    const handleChange = async (e, value) => {
         setLoading(true);
         const data1 = await getQuestionsData(value);
         console.log(data1);
@@ -36,42 +36,50 @@ const Questions = () => {
                 Questions
             </h1>
             <div className="row">
-                {data.map((question) => (
-                    <div
-                        key={question._id}
-                        class="card w-25"
-                        style={{
-                            backgroundColor: "#8EE4AF",
-                            marginRight: "3em",
-                            marginBottom: "1em",
-                        }}
-                    >
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <b>{question.title}</b>
-                            </h5>
-                            <p class="card-text">
-                                <p>
-                                    <b>Genre </b> : {question.genre} <br />
-                                </p>
-                                <p>
-                                    {" "}
-                                    <b>Summary </b> :{" "}
-                                    {question.summary.slice(0, 80)} ...{" "}
-                                </p>
-                            </p>
-                            {/* <Link
-                                to={`/admin/questions/id`}
-                                className={classes.link}
+                {data.map((question) => {
+                    if (question.is_active) {
+                        return (
+                            <div
+                                key={question._id}
+                                class="card w-25"
+                                style={{
+                                    backgroundColor: "#8EE4AF",
+                                    marginRight: "3em",
+                                    marginBottom: "1em",
+                                }}
                             >
-                                <b>View Question</b>
-                            </Link> */}
-                            <button class="btn btn-primary" onClick={()=>navigate("/admin/questions/id")} >
-                              View Question
-                            </button>
-                        </div>
-                    </div>
-                ))}
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <b>{question.title}</b>
+                                    </h5>
+                                    <p class="card-text">
+                                        <p>
+                                            <b>Genre </b> : {question.genre}{" "}
+                                            <br />
+                                        </p>
+                                        <p>
+                                            {" "}
+                                            <b>Summary </b> :{" "}
+                                            {question.summary.slice(0, 80)} ...{" "}
+                                        </p>
+                                    </p>
+                                    {/* <Link
+                                        to={`/admin/questions/id`}
+                                        className={classes.link}
+                                    >
+                                        <b>View Question</b>
+                                    </Link> */}
+                                    <button
+                                        class="btn btn-primary"
+                                        onClick={() => navigate(question._id)}
+                                    >
+                                        View Question
+                                    </button>
+                                </div>
+                            </div>
+                        );
+                    }
+                })}
             </div>
             <div className={classes.pagination}>
                 <Pagination
