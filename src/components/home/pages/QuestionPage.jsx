@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { CircularProgress, Pagination, Stack } from "@mui/material";
 import axios from "axios";
 
-const QuestionPage = () => {
+const QuestionPage = (props) => {
     const mainVarient = {
         hidden: {
             opacity: 0,
@@ -64,7 +64,10 @@ const QuestionPage = () => {
     //       day = ("0" + date.getDate()).slice(-2);
     //     return [date.getFullYear(), mnth, day].join("-");
     //   }
-   
+    useEffect(() => {
+      // props.setFilterOptions(["Published Date", "Votes", "Answers"])
+      localStorage.setItem("page", "question");
+  }, [])
     useEffect(() => {
         setStatus(true);
         const getQuestions = async () => {
