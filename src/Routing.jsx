@@ -23,6 +23,7 @@ import Users from "./admin/Users";
 import Posts from "./admin/Posts";
 import Questions from "./admin/Questions";
 import UserDetailed from "./admin/UserDetailed";
+import SignUp from "./admin/SignUp";
 
 const Routing = () => {
   const location = useLocation();
@@ -55,6 +56,7 @@ const Routing = () => {
           <Route path="/profile" element={<ProfileMiddle />} />
           <Route path="/profile/:uid" element={<ProfileMiddle />} />
         </Route>
+        <Route path="/admin/signup" element={<SignUp/>}></Route>
         <Route path="/admin/*" element={<Admin />}>
           <Route path="users" element={<Users />} />
           <Route path="posts" element={<Posts />} />
