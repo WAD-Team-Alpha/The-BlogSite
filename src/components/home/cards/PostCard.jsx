@@ -18,6 +18,7 @@ const PostCard = ({
     userId,
     publishedDate
 }) => {
+    console.log(summary)
     const navigate = useNavigate();
     const getDataHandler = (event) => {
         event.preventDefault();

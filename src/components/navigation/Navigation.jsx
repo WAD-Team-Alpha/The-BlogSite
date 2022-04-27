@@ -72,10 +72,7 @@ const Navigation = (props) => {
                                 onClick={(event) => {
                                     event.preventDefault();
                                     navigate(
-                                        `/searchresults?query=${search
-                                            .split(" ")
-                                            .join("-")
-                                            .toLowerCase()}`
+                                        `/searchresults`,{state: { query: search }}
                                     ); //Navigating to the search results page
                                 }}
                             >
