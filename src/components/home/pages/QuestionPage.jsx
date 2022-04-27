@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { CircularProgress, Pagination, Stack } from "@mui/material";
 import axios from "axios";
-
+import { useSelector } from "react-redux";
 const QuestionPage = (props) => {
     const mainVarient = {
         hidden: {
@@ -27,7 +27,7 @@ const QuestionPage = (props) => {
             },
         },
     };
-
+    const filters = useSelector((state) => state.filters);
     const [limit, setLimit] = useState(10);
     const [status, setStatus] = useState(false);
     const [page, setPage] = useState(1);
@@ -39,15 +39,14 @@ const QuestionPage = (props) => {
     //      setStatus(true);
     //     fetchData().then((result) => {
     //         if (result !== "failed") {
-                
+
     //             setTitle(result);
     //         }
     //     });
     // }, []);
-    
+
     // var result = [];
     // for (var i in data.data) result = [...result, data.data[i]]
-  
 
     // let status = result.length;
 
@@ -65,33 +64,39 @@ const QuestionPage = (props) => {
     //     return [date.getFullYear(), mnth, day].join("-");
     //   }
     useEffect(() => {
-      // props.setFilterOptions(["Published Date", "Votes", "Answers"])
-      localStorage.setItem("page", "question");
-  }, [])
+        // props.setFilterOptions(["Published Date", "Votes", "Answers"])
+        localStorage.setItem("page", "question");
+    }, []);
     useEffect(() => {
         setStatus(true);
         const getQuestions = async () => {
-          const response = await axios.get(
-            `${process.env.REACT_APP_API_BASE_URL}/question/get_all_questions?page=${page}&limit=${limit}`
-          );
-          console.log(response.data);
-          if (response.data.status) {
-            return response.data;
-          } else {
-            return "Error occured";
-          }
+            let filter = "published_date";
+            if (filters.filter === "2") {
+                filter = "num_votes";
+            }
+            if (filters.filter === "3") {
+                filter = "num_answers";
+            }
+            const response = await axios.get(
+                `http://localhost:5000/api/v1/question/get_all_questions?page=${page}&limit=${limit}&filter=${filter}&order=${filters.order}`
+            );
+            console.log(response.data);
+            if (response.data.status) {
+                return response.data;
+            } else {
+                return "Error occured";
+            }
         };
         getQuestions().then((response) => {
-          if (typeof response === "string") {
-            setStatus(false);
-          } else {
-            setPages(response.data.numberOfPages);
-            setQuestions(response.data.questions);
-            setStatus(false);
-          }
+            if (typeof response === "string") {
+                setStatus(false);
+            } else {
+                setPages(response.data.numberOfPages);
+                setQuestions(response.data.questions);
+                setStatus(false);
+            }
         });
-      }, [page]);
-    
+    }, [page, filters, limit]);
 
     return status ? (
         <div
@@ -113,26 +118,26 @@ const QuestionPage = (props) => {
             animate="visible"
             exit="exit"
         >
-           {questions.map((question) => {
-        const publishedDate = new Date(question.published_date);
-        const date = publishedDate.getUTCDate()
-        const month = publishedDate.getUTCMonth() + 1
-        const year = publishedDate.getUTCFullYear()
-        return (
-          <QuestionCard
-            key={question._id}
-            id={question._id}
-            banner={question.author}
-            author={question.author.split(" ")[0]}
-            title={question.title}
-            summary={question.summary}
-            votes={question.up_votes?.length || 0}
-            publishedDate={`${date}/${month}/${year}`}
-            answers={question.answers?.length}
-            userId={question.userId}
-          />
-        );
-      })}
+            {questions.map((question) => {
+                const publishedDate = new Date(question.published_date);
+                const date = publishedDate.getUTCDate();
+                const month = publishedDate.getUTCMonth() + 1;
+                const year = publishedDate.getUTCFullYear();
+                return (
+                    <QuestionCard
+                        key={question._id}
+                        id={question._id}
+                        banner={question.author}
+                        author={question.author.split(" ")[0]}
+                        title={question.title}
+                        summary={question.summary}
+                        votes={question.up_votes?.length || 0}
+                        publishedDate={`${date}/${month}/${year}`}
+                        answers={question.answers?.length}
+                        userId={question.userId}
+                    />
+                );
+            })}
             <Stack spacing={2}>
                 <Pagination
                     sx={{

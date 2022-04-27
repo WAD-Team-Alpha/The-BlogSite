@@ -60,7 +60,7 @@ const Routing = () => {
           <Route path="/profile" element={<ProfileMiddle />} />
           <Route path="/profile/:uid" element={<ProfileMiddle />} />
         </Route>
-        <Route path="/admin/signup" element={<SignUp/>}></Route>
+        <Route path="/admin/signin" element={<SignUp/>}></Route>
         <Route path="/admin/users/id" element={<UserDetails/>}></Route>
         <Route path="/admin/posts/id" element={<PostDetails/>}></Route>
         <Route path="/admin/questions/id" element={<QuestionDetails/>}></Route>
