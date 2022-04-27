@@ -1,0 +1,16 @@
+.form{
+   margin-top: 5em;
+   margin-left: 23em;
+   padding-top: 1em;
+   width: 50%;
+   padding-left: 3em;
+   padding-right: 3em;
+   border: 1px solid black;
+   border-radius: 3em;
+   background-color: #5cdb95;
+}
+
+.labels{
+   font-size: large;
+   color: black;
+}

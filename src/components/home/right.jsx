@@ -1,86 +1,94 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import classes from "./right.module.css";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import FilterAltIcon from "@mui/icons-material/FilterAlt";
+import SortIcon from '@mui/icons-material/Sort';
+import { useLocation } from 'react-router-dom'
 // post and Question filter page
-const Right = () => {
+const Right = (props) => {
+    const [filterOptions, setFilterOptions] = useState(["Likes", "Comments"])
+    const [filterValue, setFilterValue] = useState(localStorage.getItem("filter"));
+    const [sortValue, setSortValue] = useState(localStorage.getItem("sort"))
+    const location = useLocation();
+    // console.log(props);
+    useEffect(() => {
+        
+        console.log(location.pathname);
+        const page = location.pathname.split('/');
+        console.log(page);
+        if (page[2] === "question") {
+            setFilterOptions(["Votes", "Answers"])
+        }else{
+            setFilterOptions(["Likes", "Comments"])
+        }
+    }, [])
+    
     return (
         <div>
             <div className={`${classes.fix}`}>
                 <div className={`row ${classes.order}`}>
-                    <div className="col-md-6">
-                        <h6 className="mt-4 fw-bold fs-5">Sort By</h6>
-                        <div className="form-check mt-3">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="flexCheckDefault"
+                    <div className="col-md-12">
+                        <FormControl>
+                            <FormLabel id="demo-controlled-radio-buttons-group">
+                                <FilterAltIcon />
+                                Filter
+                            </FormLabel>
+                            <RadioGroup
+                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                name="controlled-radio-buttons-group"
+                                value={filterValue}
+                                onChange={(e) => {
+                                    setFilterValue(e.target.value);
+                                }}
                             >
-                                block
-                            </label>
-                        </div>
-                        <div className="form-check mt-3">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="flexCheckDefault"
-                            >
-                                checkbox
-                            </label>
-                        </div>
-                        <div className="form-check mt-3">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="flexCheckDefault"
-                            >
-                                html
-                            </label>
-                        </div>
+                                <FormControlLabel
+                                    value="1"
+                                    control={<Radio />}
+                                    label="Published Date"
+                                />
+                                <FormControlLabel
+                                    value="2"
+                                    control={<Radio />}
+                                    label={filterOptions[0]}
+                                />
+                                <FormControlLabel
+                                    value="3"
+                                    control={<Radio />}
+                                    label={filterOptions[1]}
+                                />
+                            </RadioGroup>
+                        </FormControl>
                     </div>
-                    <div className="col-md-6">
-                        <h6 className="mt-4 fw-bold fs-5">Order By</h6>
-                        <div className="form-check mt-3">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="flexCheckDefault"
+                    <div className={`col-md-12 ${classes.space}`}>
+                        <FormControl>
+                            <FormLabel id="demo-controlled-radio-buttons-group">
+                                <SortIcon />
+                                Sort
+                            </FormLabel>
+                            <RadioGroup
+                                aria-labelledby="demo-controlled-radio-buttons-group"
+                                name="controlled-radio-buttons-group"
+                                value={sortValue}
+                                onChange={(e) => {
+                                    setSortValue(e.target.value);
+                                }}
                             >
-                                checkbox
-                            </label>
-                        </div>
-                        <div className="form-check mt-3">
-                            <input
-                                className="form-check-input"
-                                type="checkbox"
-                                value=""
-                                id="flexCheckDefault"
-                            />
-                            <label
-                                className="form-check-label"
-                                for="flexCheckDefault"
-                            >
-                                html
-                            </label>
-                        </div>
+                                <FormControlLabel
+                                    value="1"
+                                    control={<Radio />}
+                                    label="Latest"
+                                />
+                                <FormControlLabel
+                                    value="2"
+                                    control={<Radio />}
+                                    label="Oldest"
+                                />
+                            </RadioGroup>
+                        </FormControl>
                     </div>
                 </div>
                 <hr

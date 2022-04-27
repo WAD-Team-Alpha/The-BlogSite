@@ -18,6 +18,16 @@ import { AnimatePresence } from "framer-motion";
 import ProfileMiddle from "./components/NewProfile/ProfileMiddle";
 import SearchResultsLayout from "./layouts/SearchResultsLayout";
 import Results from "./components/search/Results";
+import Admin from "./admin/Admin";
+import Users from "./admin/Users";
+import Posts from "./admin/Posts";
+import Questions from "./admin/Questions";
+// import UserDetailed from "./admin/UserDetailed";
+import SignUp from "./admin/SignUp";
+import UserDetails from "./admin/Details/UserDetails";
+import PostDetails from "./admin/Details/PostDetails";
+import QuestionDetails from "./admin/Details/QuestionDetails";
+
 
 const Routing = () => {
   const location = useLocation();
@@ -49,6 +59,20 @@ const Routing = () => {
         <Route element={<ProfileLayout />}>
           <Route path="/profile" element={<ProfileMiddle />} />
           <Route path="/profile/:uid" element={<ProfileMiddle />} />
+        </Route>
+        <Route path="/admin/signup" element={<SignUp/>}></Route>
+        <Route path="/admin/users/id" element={<UserDetails/>}></Route>
+        <Route path="/admin/posts/id" element={<PostDetails/>}></Route>
+        <Route path="/admin/questions/id" element={<QuestionDetails/>}></Route>
+
+
+        <Route path="/admin/*" element={<Admin />}>
+          <Route path="users" element={<Users />} />
+          <Route path="posts" element={<Posts />} />
+          <Route path="questions" element={<Questions />} />
+          <Route path="users/:id" element={<UserDetails/>} />
+          <Route path="posts/:id" element={<PostDetails/>}></Route>
+          <Route path="questions/:id" element={<QuestionDetails/>}></Route>
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>

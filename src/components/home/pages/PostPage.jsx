@@ -7,7 +7,8 @@ import { useState, useEffect } from "react";
 import { CircularProgress } from "@mui/material";
 import axios from "axios";
 
-const PostPage = () => {
+const PostPage = (props) => {
+  console.log(props);
   const mainVarient = {
     hidden: {
       opacity: 0,
@@ -38,7 +39,12 @@ const PostPage = () => {
     setPage(value);
     window.scroll(0, 0);
   };
-  const [data, setTitle] = useState("");
+
+  useEffect(() => {
+      // props.setFilterOptions(["Published Date", "Likes", "Comments"])
+      localStorage.setItem("page", "post");
+  }, [])
+  
   useEffect(() => {
     setStatus(true);
     const getPosts = async () => {

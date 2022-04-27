@@ -9,32 +9,28 @@ import RestrictedAccess from "./RestrictedAccess";
 const HomeLayout = () => {
     // Home layout
     const [nav, setNav] = useState(false); //Navigation state
+    // const [filterOptions, setFilterOptions] = useState(["Published Date", "Likes", "Comments"])
+    // const [filterValue, setFilterValue] = useState("1");
+    // const [sortValue, setSortValue] = useState("1");
     const navHandler = () => {
         nav ? setNav(false) : setNav(true);
     };
-    return <div className={"container-fluid " + classes.content}>
-       
-    <div className="row">
-    <Header/>
-        <div
-            className={
-                "col-md-2 shadow-lg " + classes.leftpane
-            }
-        >
-            <Left />
+    return (
+        <div className={"container-fluid " + classes.content}>
+            <div className="row">
+                <Header />
+                <div className={"col-md-2 shadow-lg " + classes.leftpane}>
+                    <Left />
+                </div>
+                <div className={"col-md-7 " + classes.middlepane}>
+                    {<Outlet />}
+                </div>
+                <div className={"col-md-3 shadow-lg " + classes.rightpane}>
+                    <Right />
+                </div>
+            </div>
         </div>
-        <div className={"col-md-7 " + classes.middlepane}>
-            {<Outlet />}
-        </div>
-        <div
-            className={
-                "col-md-3 shadow-lg " + classes.rightpane
-            }
-        >
-            <Right />
-        </div>
-    </div>
-</div>
+    );
 };
 
 export default HomeLayout;
