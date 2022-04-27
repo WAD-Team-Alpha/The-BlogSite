@@ -22,9 +22,9 @@ const Right = (props) => {
     useEffect(() => {
         //need update
         console.log(location.pathname);
-        const page = location.pathname.split('/');
+        const page = location.pathname;
         console.log(page);
-        if (page[2] === "question") {
+        if (page.includes("question")) {
             setFilterOptions(["Votes", "Answers"])
         }else{
             setFilterOptions(["Likes", "Comments"])
