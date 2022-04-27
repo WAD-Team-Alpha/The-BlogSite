@@ -78,7 +78,7 @@ const QuestionPage = (props) => {
                 filter = "num_answers";
             }
             const response = await axios.get(
-                `http://localhost:5000/api/v1/question/get_all_questions?page=${page}&limit=${limit}&filter=${filter}&order=${filters.order}`
+                `${process.env.REACT_APP_API_BASE_URL}/question/get_all_questions?page=${page}&limit=${limit}&filter=${filter}&order=${filters.order}`
             );
             console.log(response.data);
             if (response.data.status) {

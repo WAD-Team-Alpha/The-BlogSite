@@ -4,7 +4,7 @@ export const getUsersData = async (page) => {
     console.log(localStorage.getItem("token"));
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/admin/user/get_all_users/?page=${page}&limit=${3}`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/user/get_all_users/?page=${page}&limit=${3}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -28,7 +28,7 @@ export const getUserData = async (id) => {
     console.log(localStorage.getItem("token"));
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/user/get_user/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL}/user/get_user/${id}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -52,7 +52,7 @@ export const getPostsData = async (page) => {
     console.log(localStorage.getItem("token"));
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/admin/post/get_posts/?page=${page}&limit=${3}`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/post/get_posts/?page=${page}&limit=${3}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -76,7 +76,7 @@ export const getQuestionsData = async (page) => {
     console.log(localStorage.getItem("token"));
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/admin/question/get_questions/?page=${page}&limit=${3}`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/question/get_questions/?page=${page}&limit=${3}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -99,7 +99,7 @@ export const getQuestionsData = async (page) => {
 export const getPostData = async (id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/post/get_post/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/post/get_post/${id}`
         );
         if (response.data.status) {
             console.log(response.data);
@@ -117,7 +117,7 @@ export const getPostData = async (id) => {
 export const getQuestionData = async (id) => {
     try {
         const response = await axios.get(
-            `http://localhost:5000/api/v1/question/get_question/${id}`
+            `${process.env.REACT_APP_API_BASE_URL}/question/get_question/${id}`
         );
         if (response.data.status) {
             console.log(response.data);
@@ -135,7 +135,7 @@ export const getQuestionData = async (id) => {
 export const deleteUserData = async (id) => {
     try {
         const response = await axios.delete(
-            `http://localhost:5000/api/v1/admin/user/delete_user/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/user/delete_user/${id}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -159,7 +159,7 @@ export const deletePostData = async (id) => {
     console.log(localStorage.getItem("token"));
     try {
         const response = await axios.delete(
-            `http://localhost:5000/api/v1/admin/post/delete_post/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/post/delete_post/${id}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -182,7 +182,7 @@ export const deletePostData = async (id) => {
 export const deleteQuestionData = async (id) => {
     try {
         const response = await axios.delete(
-            `http://localhost:5000/api/v1/admin/question/delete_question/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/question/delete_question/${id}`,
             {
                 headers: {
                     Authorization: `${localStorage.getItem("token")}`,
@@ -206,7 +206,7 @@ export const deleteQuestionData = async (id) => {
 export const register = async (firstname, lastname, email, password) => {
     try {
         const response = await axios.post(
-            `http://localhost:5000/api/v1/admin/auth/register`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/auth/register`,
             {
                 firstname,
                 lastname,
@@ -238,7 +238,7 @@ export const login = async (email, password) => {
     try {
         console.log(email, password);
         const response = await axios.post(
-            `http://localhost:5000/api/v1/admin/auth/login`,
+            `${process.env.REACT_APP_API_BASE_URL}/admin/auth/login`,
             {
                 email,
                 password,
