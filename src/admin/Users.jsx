@@ -7,19 +7,22 @@ import { getUsersData } from "../requests/admin.requests";
 const Users = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
     const handleChange = async (e, value) => {
         setLoading(true);
         const data1 = await getUsersData(value);
         console.log(data1);
         setData(data1);
+        setPage(value);
         setLoading(false);
     };
     useEffect(() => {
         async function fetchData() {
             const data1 = await getUsersData(1);
-            console.log(data1);
-            setData(data1);
+        console.log(data1);
+        setData(data1);
+        setPage(1);
             setLoading(false);
         }
         fetchData();
@@ -33,50 +36,49 @@ const Users = () => {
         <div className={classes.users}>
             <h1 style={{ marginTop: "0.5em", marginLeft: "13em" }}>Users</h1>
             <div className="row">
-                {data.map((user) => {
-                    if (user.is_active) {
-                        return (
-                            <div
-                                key={user._id}
-                                class="card w-25"
-                                style={{
-                                    backgroundColor: "#8EE4AF",
-                                    marginRight: "3em",
-                                    marginBottom: "1em",
-                                }}
-                            >
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <b>{`${user.firstname} ${user.lastname}`}</b>
-                                    </h5>
-                                    <p class="card-text">
-                                        <b>Genres </b> :{" "}
-                                        {user.genres.map((g) => `${g}, `)}
-                                        <br />
-                                        <p>
-                                            <b>Bio </b> :{" "}
-                                            {user.bio.slice(0, 100)}{" "}
-                                            {user.bio.length !== 0
-                                                ? "..."
-                                                : "Not Updated"}{" "}
-                                        </p>
+                {data.users.map((user) => {
+                    return (
+                        <div
+                            key={user._id}
+                            class="card w-25"
+                            style={{
+                                backgroundColor: "#8EE4AF",
+                                marginRight: "3em",
+                                marginBottom: "1em",
+                            }}
+                        >
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <b>{`${user.firstname} ${user.lastname}`}</b>
+                                </h5>
+                                <p class="card-text">
+                                    <b>Genres </b> :{" "}
+                                    {user.genres.map((g) => `${g}, `)}
+                                    <br />
+                                    <p>
+                                        <b>Bio </b> : {user.bio.slice(0, 100)}{" "}
+                                        {user.bio.length !== 0
+                                            ? "..."
+                                            : "Not Updated"}{" "}
                                     </p>
-                                    <button
-                                        class="btn btn-primary"
-                                        onClick={() => navigate(`${user._id}`)}
-                                    >
-                                        View Profile
-                                    </button>
-                                </div>
+                                </p>
+                                <p><b>Status </b>: {user.is_active ? "True" : "False"}</p>
+                                <button
+                                    class="btn btn-primary"
+                                    onClick={() => navigate(`${user._id}`)}
+                                >
+                                    View Profile
+                                </button>
                             </div>
-                        );
-                    }
+                        </div>
+                    );
                 })}
             </div>
             <div className={classes.pagination}>
                 <Pagination
+                    page={page}
                     onChange={handleChange}
-                    count={data.count === undefined ? 1 : data.count}
+                    count={data.numOfPages}
                     variant="outlined"
                     color="primary"
                 />

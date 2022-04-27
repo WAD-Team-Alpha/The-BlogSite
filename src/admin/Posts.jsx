@@ -9,12 +9,17 @@ const Posts = () => {
     // const summary = "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
+    function checkActive(data) {
+        return data.is_active === true;
+    }
     const handleChange = async (e, value) => {
         setLoading(true);
         const data1 = await getPostsData(value);
         console.log(data1);
         setData(data1);
+        setPage(value);
         setLoading(false);
     };
     useEffect(() => {
@@ -22,6 +27,7 @@ const Posts = () => {
             const data1 = await getPostsData();
             console.log(data1);
             setData(data1);
+            setPage(1);
             setLoading(false);
         }
         fetchData();
@@ -32,8 +38,7 @@ const Posts = () => {
         <div className={classes.posts}>
             <h1 style={{ marginTop: "0.5em", marginLeft: "13em" }}>Posts</h1>
             <div className="row">
-                {data.map((post) => {
-                    if (post.is_active) {
+                {data.posts.map((post) => {
                         return (
                             <div
                                 key={post._id}
@@ -57,6 +62,7 @@ const Posts = () => {
                                             <b>Summary </b> :{" "}
                                             {post.summary.slice(0, 80)} ...{" "}
                                         </p>
+                                        <p><b>Status </b>: {post.is_active ? "True" : "False"}</p>
                                     </p>
                                     <button
                                         class="btn btn-primary"
@@ -67,13 +73,14 @@ const Posts = () => {
                                 </div>
                             </div>
                         );
-                    }
+                    
                 })}
             </div>
             <div className={classes.pagination}>
                 <Pagination
+                page={page}
                     onChange={handleChange}
-                    count={data.count === undefined ? 1 : data.count}
+                    count={data.numOfPages}
                     variant="outlined"
                     color="primary"
                 />

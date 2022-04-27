@@ -8,15 +8,19 @@ import FormLabel from "@mui/material/FormLabel";
 import FilterAltIcon from "@mui/icons-material/FilterAlt";
 import SortIcon from '@mui/icons-material/Sort';
 import { useLocation } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+import { filterActions } from "../../store/filters";
 // post and Question filter page
 const Right = (props) => {
+    const filters = useSelector((state) => state.filters);
     const [filterOptions, setFilterOptions] = useState(["Likes", "Comments"])
-    const [filterValue, setFilterValue] = useState(localStorage.getItem("filter"));
-    const [sortValue, setSortValue] = useState(localStorage.getItem("sort"))
+    const [filterValue, setFilterValue] = useState(filters.filter);
+    const [sortValue, setSortValue] = useState(filters.order)
     const location = useLocation();
+    const dispatch = useDispatch();
     // console.log(props);
     useEffect(() => {
-        
+        //need update
         console.log(location.pathname);
         const page = location.pathname.split('/');
         console.log(page);
@@ -42,6 +46,7 @@ const Right = (props) => {
                                 name="controlled-radio-buttons-group"
                                 value={filterValue}
                                 onChange={(e) => {
+                                    dispatch(filterActions.updateFilter(e.target.value))
                                     setFilterValue(e.target.value);
                                 }}
                             >
@@ -74,16 +79,17 @@ const Right = (props) => {
                                 name="controlled-radio-buttons-group"
                                 value={sortValue}
                                 onChange={(e) => {
+                                    dispatch(filterActions.updateOrder(e.target.value))
                                     setSortValue(e.target.value);
                                 }}
                             >
                                 <FormControlLabel
-                                    value="1"
+                                    value="-1"
                                     control={<Radio />}
                                     label="Latest"
                                 />
                                 <FormControlLabel
-                                    value="2"
+                                    value="1"
                                     control={<Radio />}
                                     label="Oldest"
                                 />

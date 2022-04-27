@@ -11,12 +11,14 @@ const Questions = () => {
     //   "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.";
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState([]);
+    const [page, setPage] = useState(1);
     const navigate = useNavigate();
     const handleChange = async (e, value) => {
         setLoading(true);
         const data1 = await getQuestionsData(value);
         console.log(data1);
         setData(data1);
+        setPage(value);
         setLoading(false);
     };
     useEffect(() => {
@@ -24,6 +26,7 @@ const Questions = () => {
             const data1 = await getQuestionsData();
             console.log(data1);
             setData(data1);
+            setPage(1);
             setLoading(false);
         }
         fetchData();
@@ -36,8 +39,7 @@ const Questions = () => {
                 Questions
             </h1>
             <div className="row">
-                {data.map((question) => {
-                    if (question.is_active) {
+                {data.questions.map((question) => {
                         return (
                             <div
                                 key={question._id}
@@ -69,6 +71,7 @@ const Questions = () => {
                                     >
                                         <b>View Question</b>
                                     </Link> */}
+                                    <p><b>Status </b>: {question.is_active ? "True" : "False"}</p>
                                     <button
                                         class="btn btn-primary"
                                         onClick={() => navigate(question._id)}
@@ -78,13 +81,14 @@ const Questions = () => {
                                 </div>
                             </div>
                         );
-                    }
+                    
                 })}
             </div>
             <div className={classes.pagination}>
                 <Pagination
+                page={page}
                     onChange={handleChange}
-                    count={data.count === undefined ? 1 : data.count}
+                    count={data.numOfPages}
                     variant="outlined"
                     color="primary"
                 />
